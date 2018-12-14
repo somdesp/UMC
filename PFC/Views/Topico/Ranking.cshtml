@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Ranking Usuarios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row" ng-controller="hankCtrl">
+    <div class="sub-title">
+        <div class="panel-heading"><h2>Rank de Usuarios</h2></div>
+    </div>
+    <table class="table table-bordered ">
+        <thead style="background-color:#1abc9c;">
+        <tr>
+            <th>Id_Usuario</th>
+            <th>Nome</th>
+            <th>Pontos</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="usu in hankeamento">
+            <td>{{usu.avaliacao.idUsuario}}</td>
+            <td>{{usu.nome}}</td>
+            <td>{{usu.avaliacao.pontos}}</td>
+
+
+        </tr>
+        </tbody>
+    </table>
+
+</div>

@@ -1,0 +1,29 @@
+﻿<div class="col-md-12 content-page" ng-controller="topicoCtrl">
+    <div class="col-md-12 blog-post">
+
+        <div >
+            <div class="post-title">
+                <h1> {{TopicosSelc.Titulo}}</h1>
+            </div>
+
+
+            <div class="post-info">
+                <span>{{topico.DataCria}} /por <a href="#" target="_blank">{{TopicosSelc.usuario.Nome}}</a></span>
+            </div>
+
+            <p>
+                {{TopicosSelc.Descricao}}
+            </p>
+
+            <div class="subscribe-form margin-top-20">
+                <textarea id="txtArea" ng-modal="areaResposta" rows="10" cols="70" class="text-input">  {{areaResposta}} </textarea>
+                <button class="submit-btn" type="submit">Enviar</button>
+            </div>
+
+            
+
+        </div>
+    </div>
+</div>
+
+

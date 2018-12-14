@@ -1,0 +1,55 @@
+﻿@model PFC.Model.Topico
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+@using (Html.BeginForm("AdicionarResposta", "Topico", FormMethod.Post,
+    new { @class = "form-horizontal", role = "form" }))
+{
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="row">
+
+        <div class="sub-title">
+            <h2>Criar Topico</h2>
+            <a href="../Home/contact.html"><i class="icon-envelope"></i></a>
+        </div>
+        <div class="col-md-12 content-page">
+
+            <div class="form-group">
+                <label class="control-label col-md-2">
+                    Tema
+                </label>
+                <div class="col-md-4">
+                    @Html.DropDownListFor(model => model.Tema.Id, new SelectList(Enumerable.Empty<SelectList>()), "Selecione", new { @id = "cmbTema" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            
+            <div class="form-group">
+                @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control" , @cols = "20", @rows = "2" } })
+                    @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control"} })
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+<script src="~/Scripts/Controle/ListEntidades.js"></script>

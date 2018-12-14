@@ -1,0 +1,132 @@
+﻿<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<link href="~/Content/css/fontawesome-all.css" rel="stylesheet" />
+
+@if (@User.Identity.IsAuthenticated)
+{
+    <div id="float-banner" class="float-banner">
+        <div class="col-md-6">
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target=".NovoTopico">  Não achou? Faça Uma Pergunta</button>
+        </div>
+    </div>
+}
+
+    <div class="row" ng-controller="topicoCtrl">
+
+        <div class="sub-title">
+            <h2>Topicos Abertos</h2>
+            <a href="contact.html"><i class="icon-envelope"></i></a>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <form name="FormPesquisa">
+                    <label class="button">Pesquisar:</label>
+                    <input type="text" class="form-control text-sm-center" ng-model="pesquisa" placeholder="digite sua pesquisa" style="border-radius:30px; border-color:rgb(26, 188, 156)" ng-keyup="pesquisar(pesquisa)" />
+                </form>
+            </div>
+            <div class="col-md-4">
+
+            </div>
+            <div class="col-md-4">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 content-page">
+
+                <div ng-repeat="topico in Topicos">
+
+
+                    <div class="col-md-12 blog-post">
+
+                        <div class='post-title'>
+                            <button type="button" ng-click="abrirTopico(topico)">
+                                <h1>{{topico.Titulo}}</h1>
+                            </button>
+                        </div>
+                        <div class='post-info'>
+                            <span>{{topico.DataCria}}/ Por <a href='#' target='_blank'>{{topico.usuario.Nome}}</a></span>
+                        </div>
+                        <p>{{topico.Descricao}}</p><input type='hidden' name='id' value="{{topico.Id}}">
+                        <br />
+                        <a ng-click="abrirTopico(topico)" class="button2 button-style2 button-anim2 fa fa-long-arrow-right"><span>Leia Mais...</span></a>
+                        <br />
+                        <br />
+                    </div>
+                </div>
+                <div class="col-md-12 text-center">
+                    <a href="javascript:void(0)" id="load-more-post" class="load-more-button">Load</a>
+                    <div id="post-end-message"></div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-4">
+
+                </div>
+            </div>
+
+
+            @* Modal Criar de Topico*@
+            <div class="modal fade NovoTopico" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="text-info">Nova Pergunta</h3>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal" name="AdiconarTopicoForm">
+                                <div>
+                                    <input class="form-control" readonly="readonly" ng-model="id" name="Id" type="hidden" />
+                                </div>
+                                <div class="form-group">
+                                    <select ng-model="cmbTema"
+                                            ng-options="c.Id as c.Nome for c in Tema">
+                                        <option value="" selected="selected" disabled="disabled"> {{Id || 'Tema'}} </option>
+                                    </select>
+                                    <span ng-class="error" ng-show="AdiconarTopicoForm.cmbTema.$error.required">Tema é obrigatório</span>
+                                </div>
+                                <h5 class="text-info">Titulo</h5>
+                                <div class="form-group">
+                                    <input class="form-control" ng-model="titulo" name="Nome" placeholder="Nome" />
+                                </div>
+                                <h5 class="text-info">Descrição</h5>
+                                <div class="form-group">
+                                    <textarea class="form-control" ng-model="descricao" name="Descricao"></textarea>
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary"
+                                    data-dismiss="modal" ng-click="novoTopico()">
+                                Criar
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            @* Fim Modal Criar de Topico*@
+
+        </div>
+    </div>
+<!-- Subscribe Form Start -->
+<div class="col-md-8 col-md-offset-2">
+    <form id="mc-form" method="post" action="http://uipasta.us14.list-manage.com/subscribe/post?u=854825d502cdc101233c08a21&amp;id=86e84d44b7">
+
+        <div class="subscribe-form margin-top-20">
+            <input id="mc-email" type="email" placeholder="Email Address" class="text-input">
+            <button class="submit-btn" type="submit">Submit</button>
+        </div>
+        <p>Subscribe to my weekly newsletter</p>
+        <label for="mc-email" class="mc-label"></label>
+    </form>
+
+</div>
+<!-- Subscribe Form End -->
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Content/js/bootstrap.bundle.js"></script>

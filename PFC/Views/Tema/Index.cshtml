@@ -1,0 +1,92 @@
+﻿<div class="row" ng-controller="temaCtrl">
+    <div class="sub-title">
+        <div class="panel-heading"><h2>Lista dos Temas</h2></div>
+    </div>
+    <table class="table table-bordered">
+        <thead style="background-color:#1abc9c;">
+            <tr>
+                <th>Temas</th>
+                <th>Açoes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="tema in Tema">
+                <td>{{tema.Nome}}</td>
+                <td style="width: 200px">
+                    <button type="button" data-target="#AtualizarTema" class="btn btn-info" data-toggle="modal" ng-click="atualizarTemaID(tema)">Editar</button>
+                    <button type="button" class="btn btn-danger" ng-click="excluirTema(tema)">Excluir</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="col-md-6">
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target=".AdicionarTema" ng-click="resetDados()">Novo Tema</button>
+    </div>
+
+    @* Modal Criar de Tema*@
+    <div class="modal fade AdicionarTema" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-info">Novo Tema</h3>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" name="AtualizarTemaForm">
+                        <div>
+                            <input class="form-control" readonly="readonly" ng-model="id" name="Id" type="hidden" />
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" ng-model="nome" name="Nome" placeholder="Nome" />
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary"
+                            data-dismiss="modal" ng-click="cadastrarTema()">
+                        Criar
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    @* Fim Modal Criar de Tema*@
+
+    @* Modal Atualização de Tema*@
+    <div class="modal fade" id="AtualizarTema" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="text-info">Atualizar Tema</h3>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" name="AtualizarTemaForm">
+                        <div>
+                            <input class="form-control" readonly="readonly" ng-model="id" name="Id" type="hidden" />
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" ng-model="nome" name="Nome" placeholder="Nome" />
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal"
+                            ng-click="atualizarTema()">Atualizar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    @* Fim Modal Atualização de Tema*@
+
+    
+</div>
+
+
+
+

@@ -1,0 +1,84 @@
+﻿@{
+    ViewBag.Title = "Editar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="modal-header">
+    <h3 class="text-info">Atualizar Usuario</h3>
+</div>
+<div ng-controller="usuarioSelecionadoCtrl">
+
+    <div class="modal-body">
+        <form class="form-horizontal" name="AdiconarUsuarioForm">
+            <div>
+                <input class="form-control" readonly="readonly" name="Id" type="hidden" />
+            </div>
+            <div class="form-group">
+                <label for="Nome">Nome</label>
+                <input class="form-control" type="text" ng-model="nome" id="Nome" name="Nome" placeholder="Nome" required />
+                <span ng-class="error" ng-show="AdiconarUsuarioForm.Nome.$error.required">Nome é obrigatório</span>
+            </div>
+            <div class="form-group">
+                <label for="Email">Email</label>
+                <input class="form-control" type="email" ng-model="email" id="Email" name="Email" placeholder="Email" required />
+                <span ng-class="error" ng-show="AdiconarUsuarioForm.Email.$error.required">Email é obrigatório</span>
+                <span ng-class="error" ng-show="AdiconarUsuarioForm.Email.$error.email"> Formato do e-mail é inválido</span>
+            </div>
+            <!-- <div class="form-group">
+                <label for="Login">Login</label>
+                <input class="form-control" type="text" ng-model="login" id="Login" name="Login" placeholder="Login" required />
+                <span ng-class="error" ng-show="AdiconarUsuarioForm.Login.$error.required">Login é obrigatório</span>
+            </div>
+            <div class="form-group">
+                <label for="Senha">Senha</label>
+                <input class="form-control" type="password" ng-model="senha" id="Senha" name="Senha" placeholder="Senha" required />
+                <span ng-class="error" ng-show="AdiconarUsuarioForm.Senha.$error.required">Senha é obrigatório</span>
+            </div>-->
+            <div class="form-group">
+                <label for="DataNasci">Data de Nascimento</label>
+                <input class="form-control" type="date" ng-model="dataNasci" id="DataNasci" name="DataNasci" placeholder="DataNasci" required />
+                <span ng-class="error" ng-show="AdiconarUsuarioForm.DataNasci.$error.required">DataNasci é obrigatório</span>
+            </div>
+            <div class="form-group">
+                <label for="Genero">Genero</label>
+                <select ng-model="cmbGenero" id="Genero"
+                        ng-options="c.Id as c.Sexo for c in Genero">
+                    <option value="" selected="selected" disabled="disabled"> {{Id || 'Sexo'}} </option>
+                </select>
+                <span ng-class="error" ng-show="AdiconarUsuarioForm.cmbGenero.$error.required">Genero é obrigatório</span>
+            </div>
+
+            <div class="form-group">
+                <label for="RGM">RGM</label>
+                <input class="form-control" type="text" ng-model="rgm" id="RGM" name="RGM" placeholder="RGM" required />
+                <span ng-class="error" ng-show="AdiconarUsuarioForm.RGM.$error.required">RGM é obrigatório</span>
+            </div>
+
+            <div class="form-group">
+                <label for="Curso">Curso</label>
+                <select ng-model="cmbCurso" id="Curso"
+                        ng-change="carregarSemestre(cmbCurso)"
+                        ng-options="c.Id as c['curso' + Lang] for c in Curso">
+                    <option value="" selected="selected" disabled="disabled"> {{Id || 'Curso'}} </option>
+                </select>
+                <span ng-class="error" ng-show="AdiconarUsuarioForm.cmbCurso.$error.required">Curso é obrigatório</span>
+            </div>
+
+            <div class="form-group">
+                <label for="Semestre">Semestre</label>
+                <select ng-model="selSemestre" id="Semestre"
+                        ng-options="s.Id as s.semestre for s in Semestre">
+                    >
+                    <option value="" selected="selected" disabled="disabled">{{Id || 'Semestre'}}</option>
+                </select>
+                <span ng-class="error" ng-show="AdiconarUsuarioForm.cmbSemestre.$error.required">Semestre é obrigatório</span>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="btnSalvar"
+                data-dismiss="modal" ng-click="atualizarUsuario()">
+            Atualizar Usuario
+        </button>
+    </div>
+</div>

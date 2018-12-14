@@ -1,0 +1,108 @@
+﻿
+<div class="col-md-12 content-page" ng-controller="topicoSelecionadoCtrl">
+    <div class="col-md-12 blog-post">
+        <script>
+            var Topico = { Id:@ViewBag.TopicoId}
+
+            localStorage.setItem('IdTopico', JSON.stringify(Topico.Id));
+
+        </script>
+
+        
+
+        <div class="well well-sm" style="background-color: #d7ffef">
+            <div class="post-title">
+                <h1>{{TopicosSelc.Titulo}}</h1> 
+            </div>
+            <div class="media">
+                <div class="media-left">
+                    <img src="~/Upload/{{TopicosSelc.usuario.UploadArquivo.Caminho}}" class="media-object" style="width: 60px">
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading"><a href="#" target="_blank"> {{TopicosSelc.usuario.Nome}} </a><small>{{TopicosSelc.DataCria}}</small></h4>
+
+                    <p>{{TopicosSelc.Descricao}}</p>
+                    <div ng-if="(TopicosSelc.usuario.Id!==usuario.Id)">
+                        <div ng-if="(usuID>0)">
+
+                            <div ng-controller="avaliacao.controller">
+
+                                <span class="badge label-danger label-danger animate-show-hide" ng-show="verificarmedia">{{contarDesLike}}</span>
+                                <button ng-model="TopicosSelc.avaliacao.pontos" ng-click="valorpegoDeslike(TopicosSelc,usuario)"><i class="far fa-thumbs-down padrao-curti color-6" ng-class="{'fas':TopicosSelc.avaliacao.pontos===-1}"></i></button>
+
+                                <button ng-model="TopicosSelc.avaliacao.pontos" ng-click="valorpegoLike(TopicosSelc,usuario)"><i class="far fa-thumbs-up  padrao-curti color-6" ng-class="{'fas':TopicosSelc.avaliacao.pontos===1}"></i></button>
+                                <span class="badge label-success label-success animate-show-hide" ng-show="verificarmedia">{{contarLike}}</span>
+
+                                <input type="hidden" ng-model="TopicosSelc.id" value="@ViewBag.TopicoId"/>
+                                <input type="hidden" ng-model="idAvaliacaoLike" value="{{idAvaliacaoLike}}"/>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div ng-repeat="topico in TopicosSelc.Resposta">
+
+            <div class="well well-sm">
+                <div class="media">
+                    <div class="media-body">
+                        <h4 class="media-heading "><a href="#" target="_blank">{{topico.usuario.Nome}} </a><small> {{topico.DataCria}}</small></h4>
+                        <p>{{topico.Descricao}}</p>
+
+                    </div>
+
+                    <div class="media-right">
+                        <img src="~/Upload/{{topico.usuario.UploadArquivo.Caminho}}" class="media-object" style="width:60px">
+                    </div>
+                    <div ng-if="(topico.usuario.Id!== usuario.Id)">
+                        <div ng-if="(usuID>0)">
+
+                            <div ng-controller="avaliacao.controller">
+
+                                <div uib-tooltip="{{dicas}}" tooltip-placement="bottom-left">
+
+                                    <jk-rating-stars max-rating="5" style="user-select: none;" rating="ctrl.rating" ng-init="ctrl.rating = topico.avaliacao.mediaPontos" read-only="(ctrl.rating>0)" ng-class="{'classebloqueio': ctrl.readOnly }" ng-click="valorClick(ctrl.rating,topico,usuario,TopicosSelc)">
+
+                                    </jk-rating-stars>
+
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+
+                                            <input type="hidden" ng-init="nota=topico.avaliacao.pontos" />
+                                            <span class="color-6 animate-if" ng-if="nota>0">Sua Nota é {{nota}}.</span>
+                                            <input type="hidden" ng-model="idAvaliacao" value="{{idAvaliacao}}" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="subscribe-form margin-top-20">
+            <div ng-if="(TopicosSelc.Status.Id !=2)">
+                <form name="resposta">
+                    <div class="form-group">
+                        <label for="comment">Resposta:</label>
+                        <textarea class="form-control" ng-model="areaResposta" rows="10" cols="60" id="areaResposta" required/></textarea>
+                    </div>
+                    <button class="submit-btn" type="submit" ng-click="novoPost(areaResposta)" ng-disabled="resposta.$invalid">
+                        <h1>Enviar</h1>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

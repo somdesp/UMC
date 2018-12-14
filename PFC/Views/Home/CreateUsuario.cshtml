@@ -1,0 +1,139 @@
+﻿@model PFC.Model.Usuario
+
+@Html.Raw(TempData["erroCadastro"])
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<link href="~/Scripts/Controle/jquery.plupload.queue.css" rel="stylesheet" />
+
+@using (Html.BeginForm("AdicionarUsuario", "Home", FormMethod.Post,
+                new { @class = "form-horizontal", role = "form" }))
+{
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    
+    <div class="form-group">
+        <label class="control-label col-md-2">
+            Nome
+        </label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">
+            Email
+        </label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label class="control-label col-md-2">
+            Login
+        </label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">
+            Senha
+        </label>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
+        </div>
+
+    </div>
+
+
+    <div class="form-group">
+        <label class="control-label col-md-2">
+            Arquivo
+        </label>
+        <div class="col-md-6">
+            <input type="file" accept="image/*" class="form-control" id="UploadImg" />
+        </div>
+        <div class="col-md-4">
+            <img id="imgPreview" height="100" width="100" />
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label class="control-label col-md-2">
+            Data Nascimento
+        </label>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.DataNasci, new { htmlAttributes = new { @class = "form-control", @id = "DataNasci" } })
+            @Html.ValidationMessageFor(model => model.DataNasci, "", new { @class = "text-danger" })
+        </div>
+
+    </div>
+
+
+    <div class="form-group">
+        <label class="control-label col-md-2">
+            Sexo
+        </label>
+        <div class="col-md-4">
+            @Html.DropDownListFor(model => model.Sexo.Id, (SelectList)ViewBag.Genero, "Selecione", new { @id = "cmbGenero" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">
+            RGM
+        </label>
+        <div class="col-md-6">
+            @Html.EditorFor(model => model.RGM, new { htmlAttributes = new { @class = "form-control", @type = "number", @pattern = "" } })
+            @Html.ValidationMessageFor(model => model.RGM, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">
+            Curso
+        </label>
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.Curso.Id, (SelectList)ViewBag.Curso, new { @id = "cmbCurso" })
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">
+            Semestre
+        </label>
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.Semestre.Id, new SelectList(Enumerable.Empty<SelectList>()), new { @id = "cmbSemestre" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">
+            Tipo Acessos
+        </label>
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.Auth.Id, (SelectList)ViewBag.Autorização)
+
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <button id="send" type="submit" class="btn btn-success">Cadastrar</button>
+        <button type="button" class="btn btn-primary" id="btnUpdate" style="display: none;" onclick="Update();">Update</button>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
