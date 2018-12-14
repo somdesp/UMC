@@ -6,4 +6,5 @@
         templateUrl: 'Views/Topico.html',
         controller: 'topicoSelecionadoCtrl' // nome do seu controlador
     });
-})
+
+});
