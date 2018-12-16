@@ -19,7 +19,7 @@ namespace PFC.DAO
             using (contexto = new Contexto())
             {
 
-                string strQuery = String.Format("insert into Avaliacao (Id_Topico,Id_Usuario,Data_Avaliacao,Pontos) Values({0},{1},(Select GETDATE()),{2}) select Pontos,(select avg(Pontos) from Avaliacao where Id_Topico = {0}) as media from Avaliacao where Id_Topico = {0} and Id_Usuario = {1} ", avaliar.idTopico, avaliar.idUsuario, pontosUsuario);
+                string strQuery = String.Format("insert into Avaliacao (Id_Topico,Id_Usuario,Data_Avaliacao,Pontos,id_Usuario_DonoTopico) Values({0},{1},(Select GETDATE()),{2},(Select Id_Usuario from Topico where Id = {0})) select Pontos,(select avg(Pontos) from Avaliacao where Id_Topico = {0}) as media from Avaliacao where Id_Topico = {0} and Id_Usuario = {1} ", avaliar.idTopico, avaliar.idUsuario, pontosUsuario);
 
 
                 SqlDataReader reader;

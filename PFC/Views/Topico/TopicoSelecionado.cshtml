@@ -98,8 +98,8 @@
                         <label for="comment">Resposta:</label>
                         <textarea class="form-control" ng-model="areaResposta" rows="10" cols="60" id="areaResposta" required/></textarea>
                     </div>
-                    <button class="submit-btn" type="submit" ng-click="novoPost(areaResposta)" ng-disabled="resposta.$invalid">
-                        <h1>Enviar</h1>
+                    <button class="btn btn-primary comentariobotao" type="button" ng-click="novoPost(areaResposta)" ng-disabled="resposta.$invalid">
+                        <i class="fas fa-comment fa-2x"></i>
                     </button>
                 </form>
             </div>
