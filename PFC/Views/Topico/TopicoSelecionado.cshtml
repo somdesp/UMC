@@ -95,10 +95,10 @@
             <div ng-if="(TopicosSelc.Status.Id !=2)">
                 <form name="resposta">
                     <div class="form-group">
-                        <label for="comment">Resposta:</label>
-                        <textarea class="form-control" ng-model="areaResposta" rows="10" cols="60" id="areaResposta" required/></textarea>
+                        
+                        <textarea class="form-control"  ng-model="areaResposta" rows="10" cols="60" id="areaResposta" required/></textarea>
                     </div>
-                    <button class="btn btn-primary comentariobotao" type="button" ng-click="novoPost(areaResposta)" ng-disabled="resposta.$invalid">
+                    <button class="btn btn-primary comentariobotao"  type="button" ng-click="novoPost(areaResposta)" ng-disabled="resposta.$invalid">
                         <i class="fas fa-comment fa-2x"></i>
                     </button>
                 </form>
