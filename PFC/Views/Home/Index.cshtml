@@ -34,30 +34,27 @@
         <div class="row">
             <div class="col-md-12 content-page">
 
-                <div ng-repeat="topico in Topicos">
-
-
-                    <div class="col-md-12 blog-post">
-
-                        <div class='post-title'>
-                            <button type="button" ng-click="abrirTopico(topico)">
-                                <h1>{{topico.Titulo}}</h1>
-                            </button>
-                        </div>
-                        <div class='post-info'>
-                            <span>{{topico.DataCria}}/ Por <a href='#' target='_blank'>{{topico.usuario.Nome}}</a></span>
-                        </div>
-                        <p>{{topico.Descricao}}</p><input type='hidden' name='id' value="{{topico.Id}}">
-                        <br />
-                        <a ng-click="abrirTopico(topico)" class="button2 button-style2 button-anim2 fa fa-long-arrow-right"><span>Leia Mais...</span></a>
-                        <br />
-                        <br />
+                <div class="col-md-12 blog-post"  ng-repeat="topico in Topicos">
+                    <div class='post-title'>
+                        <a href="http://localhost:52005/Topico/TopicoSelecionado?topicoId={{topico.Id}}"><h1>{{topico.Titulo}}</h1></a>
+                        @*<button type="button" ng-click="abrirTopico(topico)">
+                            <h1>{{topico.Titulo}}</h1>
+                        </button>*@
                     </div>
+                    <div class='post-info'>
+                        <span>{{topico.DataCria}}/ Por <a href='#' target='_blank'>{{topico.usuario.Nome}}</a></span>
+                    </div>
+                    <p>{{topico.Descricao}}</p><input type='hidden' name='id' value="{{topico.Id}}">
+                    <br />
+                    <a ng-click="abrirTopico(topico)" class="button2 button-style2 button-anim2 fa fa-long-arrow-right"><span>Leia Mais...</span></a>
+                    <br />
+                    <br />
                 </div>
-                <div class="col-md-12 text-center">
-                    <a href="javascript:void(0)" id="load-more-post" class="load-more-button">Load</a>
-                    <div id="post-end-message"></div>
-                </div>
+            </div>
+
+            <div class="col-md-12 text-center">
+                <a href="javascript:void(0)" id="load-more-post" class="load-more-button">Load</a>
+                <div id="post-end-message"></div>
             </div>
 
 
