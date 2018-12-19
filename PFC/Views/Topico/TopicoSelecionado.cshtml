@@ -93,13 +93,14 @@
 
         <div class="subscribe-form margin-top-20">
             <div ng-if="(TopicosSelc.Status.Id !=2)">
-                <div ng-controller="FileUploadController">
+                <form class="form-horizontal">
                     <div class="form-group">
-                        <label for="myFileField">Select a file: </label>
-                        <input type="file" demo-file-model="myFile"  class="form-control" id ="myFileField"/>
+                        <label for="attachment" class="col-md-2 control-label">Arquivos</label>
+                        <div class="col-md-10">
+                            <input type="file" name="attachment" class="form-control" data-ak-file-model="tutorial.attachment" />
+                        </div>
                     </div>
-                    <button ng-click="uploadFile()" class = "btn btn-primary">Upload File</button>
-                </div>
+                </form>
 
                 <form name="resposta">
                     <div class="form-group">
@@ -113,4 +114,7 @@
             </div>
         </div>
     </div>
+
+
+
 </div>

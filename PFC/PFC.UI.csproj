@@ -362,7 +362,6 @@
     <Content Include="Content\images\pic\desktop.ini" />
     <Content Include="Content\images\portfolio\desktop.ini" />
     <Content Include="Content\images\testimonial\desktop.ini" />
-    <Content Include="Content\js\syntax\desktop.ini" />
     <Content Include="Content\css\bootstrap-grid.css.map" />
     <Content Include="Content\css\bootstrap-grid.min.css.map" />
     <Content Include="Content\css\bootstrap-reboot.css.map" />
