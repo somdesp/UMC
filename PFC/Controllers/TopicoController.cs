@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Helpers;
+using System.Web.Hosting;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using PFC.Business.Business;
@@ -226,6 +227,13 @@ namespace PFC.Controllers
         }
 
         #endregion
+
+
+        #region Upload Arquivos
+
+
+        #endregion
+
 
     }
 

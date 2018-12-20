@@ -8,23 +8,37 @@
 @Html.Raw(TempData["erroLogin"])
 @Html.Raw(TempData["RetornoTema"])
 
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
 <head>
 
     <title>MeHelp - Solução para sua duvida</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="/Content/images/icons/Icone Me Help.ico">
-    <link rel="apple-touch-icon" sizes="144x144" type="image/x-icon" href="images/favicon/apple-touch-icon.png">
     <!-- All CSS Plugins -->
     @Styles.Render("~/bundles/css")
-
+   @* <link rel="stylesheet" href="~/Content/css/jquery-ui-demo.css">*@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,300,500,600,700">
-
+    <meta name="description" content="File Upload widget with multiple file selection, drag&amp;drop support, progress bars, validation and preview images, audio and video for jQuery. Supports cross-domain, chunked and resumable file uploads and client-side image resizing. Works with any server-side platform (PHP, Python, Ruby on Rails, Java, Node.js, Go etc.) that supports standard HTML form file uploads.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- jQuery UI styles -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/dark-hive/jquery-ui.css" integrity="sha384-ufZtQaOYGuy/CibAC5jmelOpBu3H78Js7HrXSLo4LGccHUrGGHXt+uaTcDbio3kI" crossorigin="anonymous">
+    <!-- Generic page styles -->
+    <link rel="stylesheet" href="~/Content/css/style.css">
+    <!-- Demo styles -->
+    <link rel="stylesheet" href="~/Content/css/jquery-ui-demo.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="~/Content/css/util.css">
+   @* <link rel="stylesheet" type="text/css" href="~/Content/css/util.css">*@
     <link rel="stylesheet" type="text/css" href="~/Content/css/main.css">
     <link href="~/Content/css/jk-rating-stars.css" rel="stylesheet" />
+    <!-- blueimp Gallery styles -->
+    <link rel="stylesheet" href="https://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+    <link rel="stylesheet" href="~/Content/css/jquery.fileupload.css">
+    <link rel="stylesheet" href="~/Content/css/jquery.fileupload-ui.css">
+    <!-- CSS adjustments for browsers with JavaScript disabled -->
+    <noscript><link rel="stylesheet" href="~/Content/css/jquery.fileupload-noscript.css"></noscript>
+    <noscript><link rel="stylesheet" href="~/Content/css/jquery.fileupload-ui-noscript.css"></noscript>
 
     <!--===============================================================================================-->
     <!-- Google Web Fonts  -->
@@ -256,46 +270,55 @@
                 </div>
             </div>
 
-            <script src="~/Scripts/angular.min.js"></script>
 
         </div>
         @* Fim Modal cadastro de usuario*@
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
 
 
         <!-- Back to Top Start -->
         <a href="#" class="scroll-to-top"><i class="fa fa-long-arrow-up"></i></a>
         <!-- Back to Top End -->
         <!-- All Javascript Plugins  -->
-        @Scripts.Render("~/bundles/angular")
         @Scripts.Render("~/bundles/js")
         @RenderSection("scripts", required: false)
 
         <script src="~/signalr/hubs"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-route.js"></script>
-    <!-- blueimp Gallery script -->
-    <script src="https://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
-    <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
-    <script src="~/Content/js/jquery.iframe-transport.js"></script>
-    <!-- The basic File Upload plugin -->
-    <script src="~/Content/js/jquery.fileupload.js"></script>
-    <!-- The File Upload processing plugin -->
-    <script src="~/Content/js/jquery.fileupload-process.js"></script>
-    <!-- The File Upload image preview & resize plugin -->
-    <script src="~/Content/js/jquery.fileupload-image.js"></script>
-    <!-- The File Upload audio preview plugin -->
-    <script src="~/Content/js/jquery.fileupload-audio.js"></script>
-    <!-- The File Upload video preview plugin -->
-    <script src="~/Content/js/jquery.fileupload-video.js"></script>
-    <!-- The File Upload validation plugin -->
-    <script src="~/Content/js/jquery.fileupload-validate.js"></script>
-    <!-- The File Upload Angular JS module -->
-    <script src="~/Content/js/jquery.fileupload-angular.js"></script>
-    <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
-    <script src="~/Content/js/vendor/jquery.ui.widget.js"></script>
-    <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
-    <script src="https://blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
-    <!-- The Canvas to Blob plugin is included for image resizing functionality -->
-    <script src="https://blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f" crossorigin="anonymous"></script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha384-Dziy8F2VlJQLMShA6FHWNul/veM9bCkRUaLqr199K94ntO5QUrLJBEbYegdSkkqX" crossorigin="anonymous"></script>
+        <!-- The Templates plugin is included to render the upload/download listings -->
+        <script src="https://blueimp.github.io/JavaScript-Templates/js/tmpl.min.js"></script>
+        <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+        <script src="https://blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
+        <!-- The Canvas to Blob plugin is included for image resizing functionality -->
+        <script src="https://blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
+        <!-- blueimp Gallery script -->
+        <script src="https://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+        <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+        <script src="~/Content/js/jquery.iframe-transport.js"></script>
+        <!-- The basic File Upload plugin -->
+        <script src="~/Content/js/jquery.fileupload.js"></script>
+        <!-- The File Upload processing plugin -->
+        <script src="~/Content/js/jquery.fileupload-process.js"></script>
+        <!-- The File Upload image preview & resize plugin -->
+        <script src="~/Content/js/jquery.fileupload-image.js"></script>
+        <!-- The File Upload audio preview plugin -->
+        <script src="~/Content/js/jquery.fileupload-audio.js"></script>
+        <!-- The File Upload video preview plugin -->
+        <script src="~/Content/js/jquery.fileupload-video.js"></script>
+        <!-- The File Upload validation plugin -->
+        <script src="~/Content/js/jquery.fileupload-validate.js"></script>
+        <!-- The File Upload Angular JS module -->
+        <script src="~/Content/js/jquery.fileupload-angular.js"></script>
+        <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+        <script src="~/Content/js/vendor/jquery.ui.widget.js"></script>
+        <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+        <script src="https://blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
+        <!-- The Canvas to Blob plugin is included for image resizing functionality -->
+        <script src="https://blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
+        <script src="~/Content/js/main.js"></script>
     </div>
 
 </body>
