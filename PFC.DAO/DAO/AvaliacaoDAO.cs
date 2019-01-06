@@ -177,7 +177,7 @@ namespace PFC.DAO
             using (contexto = new Contexto())
             {
 
-                string strQuery = String.Format("update Avaliacao set Pontos = {2} where Id_Topico = {0} and Id_Usuario = {1} select Pontos,(select avg(Pontos) from Avaliacao where Id_Topico = {0}) as media from Avaliacao where Id_Topico = {0} and Id_Usuario = {1} ", avaliar.idTopico, avaliar.idUsuario, pontosUsuario);
+                string strQuery = String.Format("update Avaliacao set Pontos = {2},Data_Avaliacao = (select GETDATE()) where Id_Topico = {0} and Id_Usuario = {1} select Pontos,(select avg(Pontos) from Avaliacao where Id_Topico = {0}) as media from Avaliacao where Id_Topico = {0} and Id_Usuario = {1} ", avaliar.idTopico, avaliar.idUsuario, pontosUsuario);
 
 
                 SqlDataReader reader;

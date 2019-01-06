@@ -8,11 +8,11 @@
 
         </script>
 
-        
+
 
         <div class="well well-sm" style="background-color: #d7ffef">
             <div class="post-title">
-                <h1>{{TopicosSelc.Titulo}}</h1> 
+                <h1>{{TopicosSelc.Titulo}}</h1>
             </div>
             <div class="media">
                 <div class="media-left">
@@ -33,8 +33,8 @@
                                 <button ng-model="TopicosSelc.avaliacao.pontos" ng-click="valorpegoLike(TopicosSelc,usuario)"><i class="far fa-thumbs-up  padrao-curti color-6" ng-class="{'fas':TopicosSelc.avaliacao.pontos===1}"></i></button>
                                 <span class="badge label-success label-success animate-show-hide" ng-show="verificarmedia">{{contarLike}}</span>
 
-                                <input type="hidden" ng-model="TopicosSelc.id" value="@ViewBag.TopicoId"/>
-                                <input type="hidden" ng-model="idAvaliacaoLike" value="{{idAvaliacaoLike}}"/>
+                                <input type="hidden" ng-model="TopicosSelc.id" value="@ViewBag.TopicoId" />
+                                <input type="hidden" ng-model="idAvaliacaoLike" value="{{idAvaliacaoLike}}" />
                             </div>
                         </div>
 
@@ -93,12 +93,20 @@
 
         <div class="subscribe-form margin-top-20">
             <div ng-if="(TopicosSelc.Status.Id !=2)">
+                <!--<div ng-controller="FileUploadController">
+                    <div class="form-group">
+                        <label for="myFileField">Select a file: </label>
+                        <input type="file" demo-file-model="myFile"  class="form-control" id ="myFileField"/>
+                    </div>
+                    <button ng-click="uploadFile()" class = "btn btn-primary">Upload File</button>
+                </div>-->
+
                 <form name="resposta">
                     <div class="form-group">
-                        
-                        <textarea class="form-control"  ng-model="areaResposta" rows="9" cols="60" id="areaResposta" required/></textarea>
+                        <label for="comment">Resposta:</label>
+                        <textarea class="form-control" ng-model="areaResposta" rows="10" cols="60" id="areaResposta" required /></textarea>
                     </div>
-                    <button class="btn btn-primary comentariobotao"  type="button" ng-click="novoPost(areaResposta)" ng-disabled="resposta.$invalid">
+                    <button class="btn btn-primary comentariobotao" type="button" ng-click="novoPost(areaResposta)" ng-disabled="resposta.$invalid">
                         <i class="fas fa-comment fa-2x"></i>
                     </button>
                 </form>
