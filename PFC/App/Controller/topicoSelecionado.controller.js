@@ -1,11 +1,16 @@
-﻿MeHelp.controller('topicoSelecionadoCtrl', function ($scope, topicoService) {
+﻿MeHelp.controller('topicoSelecionadoCtrl', function ($scope, topicoService, entityService) {
 
     var topico = localStorage.getItem("topico");
     visualizarTopico(localStorage.getItem('IdTopico'));
     $scope.usuario = JSON.parse(localStorage.getItem('model'));
     carregarIdUsuario();
 
-
+    $scope.saveTutorial = function (tutorial) {
+        entityService.saveTutorial(tutorial)
+            .then(function (data) {
+                console.log(data);
+            });
+    };
 
 
     //Listar Topicos
@@ -106,19 +111,6 @@
             });
         return DadosTopico;
     };
-
-    $scope.uploadFile = function () {
-        var file = $scope.myFile;
-        var uploadUrl = "../server/service.php", //Url of webservice/api/server
-            promise = fileUploadService.uploadFileToUrl(file, uploadUrl);
-
-        promise.then(function (response) {
-            $scope.serverResponse = response;
-        }, function () {
-            $scope.serverResponse = 'An error has occurred';
-        })
-    };
-
 
 
     //Listar Temas

@@ -8,7 +8,7 @@ namespace PFC.DAO
     {
         private Contexto contexto;
 
-        public bool CadastroImagem(Anexos arquivo)
+        public bool AnexoArquivos(Anexos arquivo)
         {
            
             var strQuery = "";
@@ -50,6 +50,8 @@ namespace PFC.DAO
 
         }
         #endregion
+
+
 
     }
 }

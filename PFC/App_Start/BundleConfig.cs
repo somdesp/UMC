@@ -30,7 +30,6 @@ namespace PFC
                 "~/Scripts/ui-bootstrap-tpls-2.5.0.min.js",
                "~/Scripts/angular-flash.js",
                 "~/App/Module.js",
-                "~/App/Config.js",
                 "~/App/Service.js",
                 "~/App/Services/hank.service.js",
                 "~/App/Services/avalicacao.service.js",
@@ -51,7 +50,8 @@ namespace PFC
                "~/App/Factories.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
-                ));
+                "~/Scripts/angular.min.js"
+            ));
 
         }
     }

@@ -1,9 +1,12 @@
 ﻿
 using System;
+using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using PFC.Business;
+using PFC.Model;
 
 
 namespace PFC.Controllers
@@ -45,6 +48,28 @@ namespace PFC.Controllers
         public ActionResult Error()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult SaveTutorial(Anexos arquivo)
+        {
+            ArquivoBLL arquivoBll = new ArquivoBLL();
+            // Extrai apenas o nome do arquivo
+            arquivo.Caminho = Path.GetFileName(arquivo.ArquivoBase.FileName);
+            // Armazena o arquivo dentro da pasta ~/Arquivo
+            var path = Path.Combine(Server.MapPath("~/Upload"), arquivo.Caminho);
+
+            if (arquivoBll.AnexoArquivos(arquivo) == true)
+            {
+                arquivo.ArquivoBase.SaveAs(path);
+                return Json("Ok", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("Arquivo nao salvo", JsonRequestBehavior.AllowGet);
+
+            }
+
         }
 
         [AcceptVerbs(HttpVerbs.Post)]

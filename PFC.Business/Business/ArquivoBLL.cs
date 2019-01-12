@@ -12,10 +12,6 @@ namespace PFC.Business
     {
         ArquivoDAO arquivoDao = new ArquivoDAO();
 
-        public bool CadastroImagem(Anexos arquivo)
-        {
-            return arquivoDao.CadastroImagem(arquivo);
-        }
 
         #region Carregar Imagem
 
@@ -24,6 +20,12 @@ namespace PFC.Business
             return arquivoDao.CarregarArquivo(arquivo);
         }
 
+        #endregion
+        #region Anexo de arquivos
+        public bool AnexoArquivos(Anexos arquivo)
+        {
+            return arquivoDao.AnexoArquivos(arquivo);
+        }
         #endregion
     }
 }

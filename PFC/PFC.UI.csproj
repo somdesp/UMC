@@ -209,7 +209,6 @@
   <ItemGroup>
     <Content Include="App\Config.js" />
     <Content Include="App\Controller\chat.controller.js" />
-    <Content Include="App\Controller\FileUploadController.js" />
     <Content Include="App\Controller\hank.controller.js" />
     <Content Include="App\Controller\login.controller.js" />
     <Content Include="App\Controller\topico.controller.js" />
@@ -217,9 +216,11 @@
     <Content Include="App\Controller\usuario.controller.js" />
     <Content Include="App\Directive.js" />
     <Content Include="App\Factories.js" />
+    <Content Include="App\fileUploader.js" />
     <Content Include="App\Module.js" />
     <Content Include="App\Service.js" />
     <Content Include="App\Services\avalicacao.service.js" />
+    <Content Include="App\Services\entity.js" />
     <Content Include="App\Services\hank.service.js" />
     <Content Include="App\Services\login.service.js" />
     <Content Include="App\Services\topico.service.js" />
@@ -321,6 +322,7 @@
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-flash.js" />
     <Content Include="Scripts\angular-mocks.js" />
+    <Content Include="Scripts\angular-router.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.min.js" />
