@@ -25,7 +25,7 @@ namespace PFC.Business.Business
         #region Adicionar Usuario
         public bool AdicionarUsuario(Usuario usuario)
         {
-            arquivoDao.CadastroImagem(usuario.UploadArquivo);
+            arquivoDao.AnexoArquivos(usuario.UploadArquivo);
             return daoUsuario.AdicionarUsuario(usuario);
 
         }

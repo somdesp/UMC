@@ -2,6 +2,6 @@
 
 (function () {
     'use strict'
-    MeHelp = angular.module('MeHelp', ['ngRoute','ngAnimate', 'ui.bootstrap', 'flash', 'jkAngularRatingStars']);
-    
+    MeHelp = angular.module('MeHelp', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'flash', 'jkAngularRatingStars','akFileUploader']);
+
 })();

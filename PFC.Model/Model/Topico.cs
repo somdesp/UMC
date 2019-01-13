@@ -15,6 +15,8 @@ namespace PFC.Model
         public Usuario usuario { get; set; } = new Usuario();
         public Tema Tema { get; set; } = new Tema();
         public virtual List<Topico> Resposta { get; set; }
+        public virtual Anexos Anexos { get; set; } = new Anexos();
+
         public Topico TopicoFilho { get; set; }
         public int IdTopicoPai { get; set; }
         public StatusTopico Status { get; set; }   = new StatusTopico();
