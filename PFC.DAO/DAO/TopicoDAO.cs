@@ -114,18 +114,27 @@ namespace PFC.DAO
         #endregion
 
         #region Adicionar Posts (Respostas)
-        public bool AdicionarPosts(Topico post)
+        public int AdicionarPosts(Topico post)
         {
+            int retorno = 0;
+            SqlDataReader reader;
             var strQuery = "";
             strQuery += "INSERT INTO Topico(Titulo,Descricao,Id_Tema,Id_Usuario ,IdTopicoPai,DataCriacao) ";
-            strQuery += string.Format("VALUES('{0}','{1}','{2}','{3}','{4}','{5}')",
+            strQuery += string.Format("VALUES('{0}','{1}','{2}','{3}','{4}','{5}'); SELECT SCOPE_IDENTITY()AS retorno;",
                 post.Titulo,post.TopicoFilho.Descricao,post.Tema.Id, post.TopicoFilho.usuario.Id, post.Id,DateTime.Now);
 
             using (contexto = new Contexto())
             {
-                return contexto.ExecutarInsert(strQuery);
+                reader = contexto.ExecutaComandoComRetorno(strQuery);
+
+                while (reader.Read())
+                {
+                    retorno = Convert.ToInt32(reader["retorno"].ToString());
+
+                }
             }
 
+            return retorno;
         }
         #endregion
 

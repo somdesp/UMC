@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace PFC.Model
 {
@@ -10,5 +11,7 @@ namespace PFC.Model
     {
         public int Id { get; set; }
         public string Caminho { get; set; }
+        public HttpPostedFileBase ArquivoBase { get; set; }
+        public int id_topico { get; set; }        
     }
 }

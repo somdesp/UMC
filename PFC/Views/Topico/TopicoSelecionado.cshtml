@@ -52,7 +52,7 @@
                     <div class="media-body">
                         <h4 class="media-heading "><a href="#" target="_blank">{{topico.usuario.Nome}} </a><small> {{topico.DataCria}}</small></h4>
                         <p>{{topico.Descricao}}</p>
-
+                        <a href="~/Upload/{{topico.Anexos.Caminho}}">{{topico.Anexos.Caminho}}</a>
                     </div>
 
                     <div class="media-right">
@@ -93,24 +93,29 @@
 
         <div class="subscribe-form margin-top-20">
             <div ng-if="(TopicosSelc.Status.Id !=2)">
-                <!--<div ng-controller="FileUploadController">
-                    <div class="form-group">
-                        <label for="myFileField">Select a file: </label>
-                        <input type="file" demo-file-model="myFile"  class="form-control" id ="myFileField"/>
-                    </div>
-                    <button ng-click="uploadFile()" class = "btn btn-primary">Upload File</button>
-                </div>-->
 
-                <form name="resposta">
+                <form class="form-horizontal" name="resposta">
+
+                    <div class="row fileupload-buttonbar">
+                        <div class="form-group">
+                            <label for="arquvios" class="col-md-2 control-label">Anexos</label>
+                            <div class="col-md-10">
+                                <input type="file" name="arquvios" class="form-control" data-ak-file-model="areaResposta.Anexos.ArquivoBase" />
+                            </div>
+                        </div>
+                    </div>
+ 
                     <div class="form-group">
                         <label for="comment">Resposta:</label>
-                        <textarea class="form-control" ng-model="areaResposta" rows="10" cols="60" id="areaResposta" required /></textarea>
+                        <textarea class="form-control" ng-model="areaResposta.Descricao" rows="10" cols="60" id="areaResposta" required></textarea>
                     </div>
-                    <button class="btn btn-primary comentariobotao" type="button" ng-click="novoPost(areaResposta)" ng-disabled="resposta.$invalid">
-                        <i class="fas fa-comment fa-2x"></i>
+                    <button class="submit-btn" type="submit" ng-click="novoPost(areaResposta)" ng-disabled="resposta.$invalid">
+                        <h1>Enviar</h1>
                     </button>
                 </form>
+
             </div>
         </div>
     </div>
 </div>
+
