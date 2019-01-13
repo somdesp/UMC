@@ -2,8 +2,8 @@
 (function () {
     angular.module("MeHelp")
            .factory("entityService", ["akFileUploaderService", function (akFileUploaderService) {
-               var saveTutorial = function (tutorial) {
-                   return akFileUploaderService.saveModel(tutorial, "/home/saveTutorial");
+               var saveTutorial = function (Topico) {
+                   return akFileUploaderService.saveModel(Topico, "/topico/AnexoArquivos");
                };
                return {
                    saveTutorial: saveTutorial

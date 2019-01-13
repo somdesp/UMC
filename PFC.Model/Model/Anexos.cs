@@ -12,5 +12,6 @@ namespace PFC.Model
         public int Id { get; set; }
         public string Caminho { get; set; }
         public HttpPostedFileBase ArquivoBase { get; set; }
+        public int id_topico { get; set; }        
     }
 }

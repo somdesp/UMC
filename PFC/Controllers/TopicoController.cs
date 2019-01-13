@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Web.Helpers;
 using System.Web.Hosting;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using PFC.Business;
 using PFC.Business.Business;
 using PFC.DAO;
 using PFC.Model;
@@ -64,7 +66,7 @@ namespace PFC.Controllers
             topico.usuario.Id = User.Identity.GetUserId<int>();
             if (ModelState.IsValid)
             {
-                
+
                 topicoBll.AdicionarTopico(topico);
                 retorno = true;
             }
@@ -134,10 +136,39 @@ namespace PFC.Controllers
 
             post.TopicoFilho.usuario.Id = User.Identity.GetUserId<int>();
 
-            bool retorno = topicoBll.AdicionarPosts(post);
+            int retorno = topicoBll.AdicionarPosts(post);
 
             return Json(retorno);
         }
+        #endregion
+
+        #region Adicionar Anexos
+        [HttpPost]
+        public ActionResult AnexoArquivos(Anexos anexos)
+        {
+            bool retorno = false;
+            ArquivoBLL arquivoBll = new ArquivoBLL();
+            // Extrai apenas o nome do arquivo
+
+            anexos.Caminho = Path.GetFileName(anexos.ArquivoBase.FileName);
+            // Armazena o arquivo dentro da pasta ~/Arquivo
+            var path = Path.Combine(Server.MapPath("~/Upload"), anexos.Caminho);
+            anexos.ArquivoBase.SaveAs(path);
+
+            if (arquivoBll.AnexoArquivos(anexos) == true)
+            {
+                return Json("Ok", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("Arquivo nao salvo", JsonRequestBehavior.AllowGet);
+
+            }
+
+        }
+
+
+
         #endregion
 
 
@@ -189,7 +220,7 @@ namespace PFC.Controllers
         }
 
         #region FeCharTopico
-       
+
         [HttpPost]
         public JsonResult FecharTopico(Topico topico)
         {
@@ -198,7 +229,7 @@ namespace PFC.Controllers
             {
                 if (topicoBll.FechaTopico(topico) == true)
                 {
-                  //  topicoBll.EnviarEmail(topico);
+                    //  topicoBll.EnviarEmail(topico);
                     return Json(true, JsonRequestBehavior.AllowGet);
                 };
             }

@@ -27,5 +27,14 @@ namespace PFC.Business
             return arquivoDao.AnexoArquivos(arquivo);
         }
         #endregion
+
+        #region Carregar Arq TOpico
+
+        public Anexos RecuperarArqTopico(Anexos arquivo)
+        {
+            return arquivoDao.CarregarArquivoTopico(arquivo);
+        }
+
+        #endregion
     }
 }

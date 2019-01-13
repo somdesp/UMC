@@ -5,8 +5,8 @@
     $scope.usuario = JSON.parse(localStorage.getItem('model'));
     carregarIdUsuario();
 
-    $scope.saveTutorial = function (tutorial) {
-        entityService.saveTutorial(tutorial)
+    $scope.salvarAnexos = function (Topico) {
+        entityService.saveTutorial(Topico)
             .then(function (data) {
                 console.log(data);
             });
@@ -58,24 +58,35 @@
 
 
     //Novo Post
-    $scope.novoPost = function (areaResposta) {
+    $scope.novoPost = function (Topico2) {
 
         var Topico = {
-            Descricao: areaResposta,
-            TopicoFilho: { Descricao: areaResposta }
+            Descricao: Topico2.Descricao,
+            TopicoFilho: { Descricao: Topico2.Descricao },
+            Anexos: Topico2.Anexos
         };
+
+
 
 
         var adicionaDadosPost = topicoService.novoPost(Topico);
 
         adicionaDadosPost.then(function (d) {
-            if (d.data === true) {
-              //  alert("Resposta Enviada");
+            if (d.data !== 0) {
+                //  alert("Resposta Enviada");
+                var Anexos = {
+                    ID_Topico: d.data,
+                    ArquivoBase: Topico2.Anexos.ArquivoBase
+                };
+                entityService.saveTutorial(Anexos)
+                    .then(function (data) {
+                        console.log(data);
+                    });
                 resetDados();
                 location.reload();
-                $scope.areaResposta = '';               
+                $scope.areaResposta = '';
                 visualizarTopico(localStorage.getItem('IdTopico'));
-              
+
             } else {
                 alert("Resposta nao Enviada");
             }
@@ -149,8 +160,8 @@
     };
 
 
-    function resetDados () {
+    function resetDados() {
         $scope.areaResposta = {};
     }
-
 });
+

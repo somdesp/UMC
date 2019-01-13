@@ -12,9 +12,9 @@ namespace PFC.DAO
         {
            
             var strQuery = "";
-            strQuery += "INSERT INTO Arquivos (Arquivo) ";
-            strQuery += string.Format("VALUES('{0}')",
-                arquivo.Caminho);
+            strQuery += "INSERT INTO Arquivos (Arquivo,ID_Topico) ";
+            strQuery += string.Format("VALUES('{0}','{1}')",
+                arquivo.Caminho,arquivo.id_topico);
 
             using (contexto = new Contexto())
             {
@@ -32,6 +32,35 @@ namespace PFC.DAO
             {
 
                 string strQuery = string.Format("SELECT * FROM Arquivos WHERE Id = '{0}' ", arquivo.Id);
+                reader = contexto.ExecutaComandoComRetorno(strQuery);
+
+                while (reader.Read())
+                {
+                    Anexos temObjeto = new Anexos()
+                    {
+                        Caminho = reader["Arquivo"].ToString(),
+                        Id = Convert.ToInt32(reader["Id"].ToString())
+                    };
+                    arquivo = (temObjeto);
+                }
+
+            }
+            reader.Close();
+            return arquivo;
+
+        }
+        #endregion
+
+        #region Carregar Arq Topico
+        public Anexos CarregarArquivoTopico(Anexos arquivo)
+        {
+
+            SqlDataReader reader;
+
+            using (contexto = new Contexto())
+            {
+
+                string strQuery = string.Format("SELECT * FROM Arquivos WHERE Id_Topico = '{0}' ", arquivo.id_topico);
                 reader = contexto.ExecutaComandoComRetorno(strQuery);
 
                 while (reader.Read())

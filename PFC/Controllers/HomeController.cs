@@ -50,27 +50,7 @@ namespace PFC.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult SaveTutorial(Anexos arquivo)
-        {
-            ArquivoBLL arquivoBll = new ArquivoBLL();
-            // Extrai apenas o nome do arquivo
-            arquivo.Caminho = Path.GetFileName(arquivo.ArquivoBase.FileName);
-            // Armazena o arquivo dentro da pasta ~/Arquivo
-            var path = Path.Combine(Server.MapPath("~/Upload"), arquivo.Caminho);
-
-            if (arquivoBll.AnexoArquivos(arquivo) == true)
-            {
-                arquivo.ArquivoBase.SaveAs(path);
-                return Json("Ok", JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                return Json("Arquivo nao salvo", JsonRequestBehavior.AllowGet);
-
-            }
-
-        }
+      
 
         [AcceptVerbs(HttpVerbs.Post)]
         public JsonResult UploadImage()

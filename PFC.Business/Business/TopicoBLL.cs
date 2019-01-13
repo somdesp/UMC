@@ -19,6 +19,7 @@ namespace PFC.Business.Business
         TemaDAO daoTema = new TemaDAO();
         UsuarioBLL bllUsuario = new UsuarioBLL();
         AvaliacaoBLL avaliacaobll = new AvaliacaoBLL();
+        ArquivoBLL arquivoBll = new ArquivoBLL();
 
         #region Listar Topicos Filhos
         public List<Topico> ListarTopicoFilho(Topico topico)
@@ -29,6 +30,8 @@ namespace PFC.Business.Business
 
             for (int i = 0; i < listTopicos.Count(); i++)
             {
+                listTopicos[i].Anexos.id_topico = listTopicos[i].Id;
+                listTopicos[i].Anexos = arquivoBll.RecuperarArqTopico(listTopicos[i].Anexos);
                 listTopicos[i].usuario = bllUsuario.ConsultaUsuarioInt(listTopicos[i].usuario);
                 listTopicos[i].Tema = daoTema.ListarTemaTopico(listTopicos[i].Tema.Id);
                 listTopicos[i].avaliacao.idTopico = listTopicos[i].Id;
@@ -91,7 +94,7 @@ namespace PFC.Business.Business
         #endregion
 
         #region Adicona Resposta
-        public bool AdicionarPosts(Topico post)
+        public int AdicionarPosts(Topico post)
         {
             daoTopico.UpdateDataTopico(post);
             return daoTopico.AdicionarPosts(post);

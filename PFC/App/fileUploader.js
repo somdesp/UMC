@@ -19,10 +19,6 @@
                            data: getModelAsFormData(data),
                            transformRequest: angular.identity,
                            headers: { 'Content-Type': undefined }
-                       }).success(function (result) {
-                           deferred.resolve(result);
-                       }).error(function (result, status) {
-                           deferred.reject(status);
                        });
                        return deferred.promise;
                    };
