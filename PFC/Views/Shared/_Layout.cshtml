@@ -31,6 +31,14 @@
     @* <link rel="stylesheet" type="text/css" href="~/Content/css/util.css">*@
     <link rel="stylesheet" type="text/css" href="~/Content/css/main.css">
     <link href="~/Content/css/jk-rating-stars.css" rel="stylesheet" />
+    <!-- blueimp Gallery styles -->
+    <link rel="stylesheet" href="https://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+    <link rel="stylesheet" href="~/Content/css/jquery.fileupload.css">
+    <link rel="stylesheet" href="~/Content/css/jquery.fileupload-ui.css">
+    <!-- CSS adjustments for browsers with JavaScript disabled -->
+    <noscript><link rel="stylesheet" href="~/Content/css/jquery.fileupload-noscript.css"></noscript>
+    <noscript><link rel="stylesheet" href="~/Content/css/jquery.fileupload-ui-noscript.css"></noscript>
 
     <!--===============================================================================================-->
     <!-- Google Web Fonts  -->
@@ -279,32 +287,10 @@
         @Scripts.Render("~/bundles/js")
         <script src="~/App/Services/entity.js"></script>
         @RenderSection("scripts", required: false)
-        <script src="~/Scripts/angular-animate.js"></script>
-        <script src="~/Scripts/ui-bootstrap-tpls-2.5.0.min.js"></script>
-
-        <script src="~/Scripts/angular-flash.js"></script>
-        <script src="~/App/Module.js"></script>
-        <script src="~/App/Service.js"></script>
-        <script src="~/App/Services/hank.service.js"></script>
-        <script src="~/App/Services/avalicacao.service.js"></script>
-        <script src="~/App/Services/login.service.js"></script>
-        <script src="~/App/Services/topico.service.js"></script>
-        <script src="~/Scripts/jk-rating-stars.js"></script>
-        <script src="~/App/Controller/avaliacao.controller.js"></script>
-        <script src="~/App/Directive.js"></script>
-        <script src="~/App/Controller/FileUploadController.js"></script>
-        <script src="~/App/Controller/usuario.controller.js"></script>
-        <script src="~/App/Controller/topico.controller.js"></script>
-        <script src="~/App/Controller/topicoSelecionado.controller.js"></script>
-        <script src="~/App/Controller/usuarioSelecionado.controller.js"></script>
-        <script src="~/App/Controller/tema.controller.js"></script>
-        <script src="~/App/Controller/login.controller.js"></script>
-        <script src="~/App/Controller/chat.controller.js"></script>
-        <script src="~/App/Controller/hank.controller.js"></script>
-        <script src="~/Scripts/jquery.signalR-2.3.0.min.js"></script>
-        <script src="~/App/Factories.js"></script>
         <script src="~/signalr/hubs"></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-route.js"></script>
+
+
+
 
     </div>
 
