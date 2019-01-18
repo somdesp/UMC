@@ -10,7 +10,7 @@
     </div>
 }
 
-    <div class="row" ng-controller="topicoCtrl">
+    <div class="row" ng-controller="topicoCtrl as travel">
 
         <div class="sub-title">
             <h2>Topicos Abertos</h2>
@@ -34,7 +34,7 @@
         <div class="row">
             <div class="col-md-12 content-page">
 
-                <div class="col-md-12 blog-post"  ng-repeat="topico in Topicos">
+                <div class="col-md-12 blog-post"  ng-repeat="topico in travel.cruise| limitTo:travel.limit">
                     <div class='post-title'>
                         <a href="http://localhost:52005/Topico/TopicoSelecionado?topicoId={{topico.Id}}"><h1>{{topico.Titulo}}</h1></a>
                         @*<button type="button" ng-click="abrirTopico(topico)">
@@ -53,7 +53,8 @@
             </div>
 
             <div class="col-md-12 text-center">
-                <a href="javascript:void(0)" id="load-more-post" class="load-more-button">Load</a>
+                
+                <button ng-click="load()" id="load-more-post" class="load-more-button">Load</button>
                 <div id="post-end-message"></div>
             </div>
 

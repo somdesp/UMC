@@ -1,9 +1,13 @@
 ﻿// Controle Topico
 MeHelp.controller('topicoCtrl', function ($scope, topicoService) {
-
+    var vm = this;
+    
     carregarTopicos();
+    
+    vm.limit = 3;
+    
     carregarTemas();
-
+    
 
     //Listar Topicos
     function carregarTopicos() {
@@ -15,8 +19,8 @@ MeHelp.controller('topicoCtrl', function ($scope, topicoService) {
                 d.data[i].DataCria = converteDataHora(d.data[i].DataCria);
             }
 
-            $scope.Topicos = d.data;
-
+            
+            vm.cruise = d.data;
         },
             function () {
                 console.log("Erro ao carregar a lista de Topicos");
@@ -48,6 +52,13 @@ MeHelp.controller('topicoCtrl', function ($scope, topicoService) {
             });
     };
 
+
+    $scope.load = function () {
+        
+        var increment = vm.limit + 3;
+        vm.limit = increment > vm.cruise.lenght ? vm.cruise.lenght : increment;
+
+    };
 
 
     //Visualizar Topico
