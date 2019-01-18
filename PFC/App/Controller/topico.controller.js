@@ -54,9 +54,17 @@ MeHelp.controller('topicoCtrl', function ($scope, topicoService) {
 
 
     $scope.load = function () {
+
+        if (vm.limit >= vm.cruise.length) {
+            $scope.semdados = true;
+        }
+        else {
+            $scope.semdados = false;
+            var increment = vm.limit + 3;
+            vm.limit = increment > vm.cruise.length ? vm.cruise.length : increment;
+        }
         
-        var increment = vm.limit + 3;
-        vm.limit = increment > vm.cruise.lenght ? vm.cruise.lenght : increment;
+
 
     };
 
