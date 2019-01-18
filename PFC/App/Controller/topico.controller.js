@@ -1,7 +1,7 @@
 ﻿// Controle Topico
 MeHelp.controller('topicoCtrl', function ($scope, topicoService) {
     var vm = this;
-    
+    $scope.semdados = false;
     carregarTopicos();
     
     vm.limit = 3;
@@ -59,7 +59,7 @@ MeHelp.controller('topicoCtrl', function ($scope, topicoService) {
             $scope.semdados = true;
         }
         else {
-            $scope.semdados = false;
+            
             var increment = vm.limit + 3;
             vm.limit = increment > vm.cruise.length ? vm.cruise.length : increment;
         }

@@ -54,12 +54,14 @@
 
             <div class="col-md-12 text-center">
 
-                <button ng-click="load()"  class="load-more-button">Load</button>
-
-                <div ng-model="semdados">
-                    <div ng-if="(semdados)" id="post-end-message">
-                                        </div>
-                </div>
+                <button ng-click="load()"  class="load-more-button">
+                <span ng-show="(!semdados)">Load</span>
+                <span ng-show="(semdados)">End</span>
+                </button>
+                
+                   
+                   
+                
             </div>
 
 
