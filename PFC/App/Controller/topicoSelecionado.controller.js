@@ -74,14 +74,17 @@
         adicionaDadosPost.then(function (d) {
             if (d.data !== 0) {
                 //  alert("Resposta Enviada");
-                var Anexos = {
-                    ID_Topico: d.data,
-                    ArquivoBase: Topico2.Anexos.ArquivoBase
-                };
-                entityService.saveTutorial(Anexos)
-                    .then(function (data) {
-                        console.log(data);
-                    });
+                //VALIDA SE EXISTE ARQUIVO 
+                if (Topico2.Anexos !== undefined) {
+                    var Anexos = {
+                        ID_Topico: d.data,
+                        ArquivoBase: Topico2.Anexos.ArquivoBase
+                    };
+                    entityService.saveTutorial(Anexos)
+                        .then(function (data) {
+                            console.log(data);
+                        });
+                }
                 resetDados();
                 location.reload();
                 $scope.areaResposta = '';
