@@ -1975,6 +1975,7 @@ button.btn.btn-primary.comentariobotao {
     padding: 15px;
     
     border-radius: 30px;
+   
     
     
 
@@ -1985,7 +1986,8 @@ textarea#areaResposta.form-control {
     border-color: #ccd0ce;
     box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
     opacity: 0.9;
-    resize: none;
+    min-height:100px;
+    resize: vertical;
 }
 
 textarea#areaResposta.form-control:focus {
