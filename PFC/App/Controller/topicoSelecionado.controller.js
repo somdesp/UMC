@@ -3,6 +3,7 @@
     var topico = localStorage.getItem("topico");
     visualizarTopico(localStorage.getItem('IdTopico'));
     $scope.usuario = JSON.parse(localStorage.getItem('model'));
+    var cont = 0;
     carregarIdUsuario();
 
     $scope.salvarAnexos = function (Topico) {
@@ -32,6 +33,21 @@
                 console.log("Erro ao carregar a lista de Topicos");
             });
     }
+
+    $scope.topicodeTexto = function (topico) {
+        cont++;
+        if ($scope.itemSelecionado === topico) {
+          
+            $scope.itemSelecionado = null;
+
+        }
+        else {
+            $scope.itemSelecionado = topico;
+        }
+             
+               
+    };
+
 
     function carregarIdUsuario() {
 
