@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<!-- saved from url=(0074)https://www.survio.com/modelo-de-pesquisa/feedback-do-leitor-de-publicacao -->
+<html class="single-block js svg" lang="pt"><script async="" src="./Feedback do Leitor de Publicação_files/analytics.js.download"></script><script>(function main() {
+    // Create enabled event
+    function fireEnabledEvent() {
+        // If gli exists, then we are already present and shouldn't do anything
+        if (!window.gli) {
+            setTimeout(function () {
+                var enabledEvent = document.createEvent("Event");
+                enabledEvent.initEvent("WebGLEnabledEvent", true, true);
+                document.dispatchEvent(enabledEvent);
+            }, 0);
+        } else {
+            //console.log("WebGL Inspector already embedded on the page - disabling extension");
+        }
+    };
+
+    // Grab the path root from the extension
+    document.addEventListener("WebGLInspectorReadyEvent", function (e) {
+        var pathElement = document.getElementById("__webglpathroot");
+        if (window["gliloader"]) {
+            gliloader.pathRoot = pathElement.innerText;
+        } else {
+            // TODO: more?
+            window.gliCssUrl = pathElement.innerText + "gli.all.css";
+        }
+    }, false);
+
+    // Rewrite getContext to snoop for webgl
+    var originalGetContext = HTMLCanvasElement.prototype.getContext;
+    if (!HTMLCanvasElement.prototype.getContextRaw) {
+        HTMLCanvasElement.prototype.getContextRaw = originalGetContext;
+    }
+    HTMLCanvasElement.prototype.getContext = function () {
+        var ignoreCanvas = this.internalInspectorSurface;
+        if (ignoreCanvas) {
+            return originalGetContext.apply(this, arguments);
+        }
+
+        var result = originalGetContext.apply(this, arguments);
+        if (result == null) {
+            return null;
+        }
+
+        var contextNames = ["moz-webgl", "webkit-3d", "experimental-webgl", "webgl", "3d"];
+        var requestingWebGL = contextNames.indexOf(arguments[0]) != -1;
+        if (requestingWebGL) {
+            // Page is requesting a WebGL context!
+            fireEnabledEvent(this);
+
+            // If we are injected, inspect this context
+            if (window.gli) {
+                if (gli.host.inspectContext) {
+                    // TODO: pull options from extension
+                    result = gli.host.inspectContext(this, result);
+                    // NOTE: execute in a timeout so that if the dom is not yet
+                    // loaded this won't error out.
+                    window.setTimeout(function() {
+                        var hostUI = new gli.host.HostUI(result);
+                        result.hostUI = hostUI; // just so we can access it later for debugging
+                    }, 0);
+                }
+            }
+        }
+
+        return result;
+    };
+})();</script><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta http-equiv="content-language" content="pt"><meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"><meta name="google" content="notranslate"><meta property="og:title" content="Feedback do Leitor de Publicação"><meta property="og:site_name" content="Feedback do Leitor de Publicação"><meta property="og:url" content="https://www.survio.com/modelo-de-pesquisa/feedback-do-leitor-de-publicacao"><meta property="og:image" content="//prod-8f86.kxcdn.com/s1//20170515/survey2014/img/facebook.png"><link rel="apple-touch-icon" sizes="180x180" href="https://prod-8f86.kxcdn.com/s1//20170515/survey2014/img/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="https://prod-8f86.kxcdn.com/s1//20170515/survey2014/img/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="https://prod-8f86.kxcdn.com/s1//20170515/survey2014/img/favicon-16x16.png"><link rel="manifest" href="https://prod-8f86.kxcdn.com/s1//20170515/survey2014/img/site.webmanifest"><link rel="mask-icon" href="https://prod-8f86.kxcdn.com/s1//20170515/survey2014/img/safari-pinned-tab.svg" color="#3598fd"><meta name="msapplication-TileColor" content="#ffffff"><meta name="theme-color" content="#ffffff"><link rel="stylesheet" type="text/css" href="./Feedback do Leitor de Publicação_files/jquery.smallipop.min.css"><link rel="stylesheet" type="text/css" href="./Feedback do Leitor de Publicação_files/animate.min.css"><link rel="stylesheet" type="text/css" href="./Feedback do Leitor de Publicação_files/base.css"><link href="./Feedback do Leitor de Publicação_files/css" rel="stylesheet" type="text/css"><link rel="stylesheet" type="text/css" href="./Feedback do Leitor de Publicação_files/preset-1.css"><link rel="stylesheet" type="text/css" href="./Feedback do Leitor de Publicação_files/css(1)" media="all">
+<!--[if lt IE 9]> <script src="//prod-8f86.kxcdn.com/s1//20170515/survey2014/js/ie/html5shiv.js"></script> <script src="//prod-8f86.kxcdn.com/s1//20170515/survey2014/js/ie/respond.min.js"></script> <!-- Respond.js proxy on external server --><link href="https://prod-8f86.kxcdn.com/s1//20170515/survey2014/js/respond-proxy.html" id="respond-proxy" rel="respond-proxy"><link href="https://www.survio.com/survey/respond.proxy.gif" id="respond-redirect" rel="respond-redirect">
+ <script src="./Feedback do Leitor de Publicação_files/respond.proxy.js.download"></script> <!--[endif]----> <script src="./Feedback do Leitor de Publicação_files/jquery-1.9.1.min.js.download"></script> <script type="text/javascript" src="./Feedback do Leitor de Publicação_files/modernizr.custom.29258.js.download"></script> <script src="./Feedback do Leitor de Publicação_files/jquery.smallipop.min.js.download"></script> <title>Feedback do Leitor de Publicação</title><script src="chrome-extension://mooikfkahbdckldjjndioackbalphokd/assets/prompt.js"></script></head><body class="use-template-body"><div id="use-template"><div class="in">
+<span class="logo"><img src="./Feedback do Leitor de Publicação_files/logo-ut.svg" alt="Survio"></span>
+<a class="desktop active flaticon-computer203"></a>
+<a class="mobile flaticon-telephone116"></a><div class="click"><p class="info">Iniciar a coleta de <span>respostas valiosas hoje.</span> <i class="flaticon-questions1"></i></p></div>
+<a class="button register" data-t="260" data-r="https://www.survio.com/br/modelos-de-pesquisa">Criar essa pesquisa</a>
+<span class="arrow"></span></div> <script type="text/javascript">$(document).ready(function(){var keys={37:1,38:1,39:1,40:1};function preventDefault(e){e=e||window.event;if(e.preventDefault)
+e.preventDefault();e.returnValue=false;}
+function preventDefaultForScrollKeys(e){if(keys[e.keyCode]){preventDefault(e);return false;}}
+function disableScroll(){if(window.addEventListener)
+window.addEventListener('DOMMouseScroll',preventDefault,false);window.onwheel=preventDefault;window.onmousewheel=document.onmousewheel=preventDefault;window.ontouchmove=preventDefault;document.onkeydown=preventDefaultForScrollKeys;}
+function enableScroll(){if(window.removeEventListener)
+window.removeEventListener('DOMMouseScroll',preventDefault,false);window.onmousewheel=document.onmousewheel=null;window.onwheel=null;window.ontouchmove=null;document.onkeydown=null;}
+$('#use-template .info i').click(function(){$(this).parent().parent().find('.bubble').toggle();});$('#use-template .desktop').click(function(){$('html, body').animate({scrollTop:0},'slow');enableScroll();$('#use-template .bubble').hide();$('#use-template .mobile').removeClass('active');$(this).addClass('active');$('#use-preview').hide();});$('#use-template .mobile').click(function(){$('html, body').animate({scrollTop:0},0);disableScroll();$('#use-template .bubble').hide();$('#use-template .desktop').removeClass('active');$(this).addClass('active');$('#use-preview').show();});$('#use-preview .close,#use-preview').click(function(){$('#use-preview').hide();$('#use-template .mobile').removeClass('active');$('#use-template .desktop').addClass('active');enableScroll();});$(document).keyup(function(e){if(e.keyCode==27){$('#use-preview').hide();$('#use-template .mobile').removeClass('active');$('#use-template .desktop').addClass('active');enableScroll();}});});</script> </div><div id="use-preview">
+<a class="close flaticon-cross97"></a><div class="device">
+<iframe src="./Feedback do Leitor de Publicação_files/feedback-do-leitor-de-publicacao.html" width="295" height="745"></iframe></div></div><header class="title"><div class="col-title"><h1>Feedback do Leitor de Publicação</h1></div>
+</header><form action="https://www.survio.com/modelo-de-pesquisa/feedback-do-leitor-de-publicacao" method="post" accept-charset="utf-8">
+<section class="intro first"><p>Prezado Sr. / Sra., obrigado pela seu visita. Completar este breve questionário vai nos ajudar a obter os melhores resultados.</p>
+</section>
+<section class="last"><fieldset class="required"><h2><div class="title-part">
+<span class="number">1</span>
+Por favor, expresse a sua impressão geral da nossa publicação.<div class="require smallipop-initialized smallipop1" title=""><span class="smallipop-hint">
+Resposta exigida
+</span></div></div></h2><div class="special-padding-row"><div class="row"><div class="col-xs-12 col-sm-12 col-md-12 col-pad-0 col-radius-3 original-stars" data-stars="ot1463728" data-start="0">
+<span class="star-rating-control"><div class="rating-cancel"><a title="Cancel Rating"></a></div><div role="text" aria-label="1" class="star-rating rater-0 star star-rating-applied star-rating-live star-rating-on"><a title="1">1</a></div><div role="text" aria-label="2" class="star-rating rater-0 star star-rating-applied star-rating-live star-rating-on"><a title="2">2</a></div><div role="text" aria-label="3" class="star-rating rater-0 star star-rating-applied star-rating-live star-rating-on"><a title="3">3</a></div><div role="text" aria-label="4" class="star-rating rater-0 star star-rating-applied star-rating-live star-rating-on"><a title="4">4</a></div><div role="text" aria-label="5" class="star-rating rater-0 star star-rating-applied star-rating-live star-rating-on"><a title="5">5</a></div></span><input name="ot[1463728]" type="radio" value="1" class="star star-rating-applied" style="display: none;">
+<input name="ot[1463728]" type="radio" value="2" class="star star-rating-applied" style="display: none;">
+<input name="ot[1463728]" type="radio" value="3" class="star star-rating-applied" style="display: none;">
+<input name="ot[1463728]" type="radio" value="4" class="star star-rating-applied" style="display: none;">
+<input name="ot[1463728]" type="radio" value="5" class="star star-rating-applied" style="display: none;"></div></div><div class="row row-rating"><div class="rating-value rating-active rating-active-5 rating-hover" data-stars="ot1463728" style="left: 65%;"><div class="rating-value-in">5/5</div></div></div></div></fieldset><fieldset class="required"><h2><div class="title-part">
+<span class="number">2</span>
+Como você se classificaria como um leitor da "nome da publicação"?<div class="require smallipop-initialized smallipop2" title=""><span class="smallipop-hint">
+Resposta exigida
+</span></div></div></h2><div class="special-padding-row"><div class="label-cont">
+<label class="input-group input-group-radio row">
+<input type="radio" class="hidden-inputs" name="ot[111973]" value="461476">
+<span class="input-group-addon"></span>
+<span class="input-group-title">100% - Li de capa a capa</span>
+</label>
+<label class="input-group input-group-radio row">
+<input type="radio" class="hidden-inputs" name="ot[111973]" value="461475">
+<span class="input-group-addon"></span>
+<span class="input-group-title">80% - Li a maioria dos artigos</span>
+</label>
+<label class="input-group input-group-radio row">
+<input type="radio" class="hidden-inputs" name="ot[111973]" value="461477">
+<span class="input-group-addon"></span>
+<span class="input-group-title">40% - Li somente alguns artigos de cada edição</span>
+</label>
+<label class="input-group input-group-radio row">
+<input type="radio" class="hidden-inputs" name="ot[111973]" value="461478">
+<span class="input-group-addon"></span>
+<span class="input-group-title">0% - Não li nenhum artigo</span>
+</label></div></div></fieldset><fieldset class="required"><h2><div class="title-part">
+<span class="number">3</span>
+Com que frequência você lê as seguintes categorias / seções da nossa publicação?<div class="require smallipop-initialized smallipop3" title=""><span class="smallipop-hint">
+Resposta exigida
+</span></div></div></h2><div class="special-padding-row"><div class="matrix-values"><div class="input-group input-group-matrix input-group-matrix-title row"><div class="col-sm-4 col-md-4 col-pad-0"></div><div class="col-sm-8 col-md-8"><div class="title-groups" style="width: 25%;">
+<span class="input-group-title-main data-title-1">Sempre</span></div><div class="title-groups" style="width: 25%;">
+<span class="input-group-title-main data-title-2">Frequentemente</span></div><div class="title-groups" style="width: 25%;">
+<span class="input-group-title-main data-title-3">Ocasionalmente</span></div><div class="title-groups" style="width: 25%;">
+<span class="input-group-title-main data-title-4">Nunca</span></div></div></div><div class="input-group input-group-matrix  row"><div class="col-sm-4 col-md-4 col-pad-0 col-xs-pad-0"><div class="title data-row-1">Notícias locais</div></div><div class="col-sm-8 col-md-8 col-xs-pad-0"><div class="label-container">
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90027" name="ot[111975][90031]" data-title="1" data-row="1">
+<span class="input-group-addon addon-matrix" data-title="1" data-row="1"></span>
+<span class="input-group-title">Sempre</span>
+</label>
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90028" name="ot[111975][90031]" data-title="2" data-row="1">
+<span class="input-group-addon addon-matrix" data-title="2" data-row="1"></span>
+<span class="input-group-title">Frequentemente</span>
+</label>
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90029" name="ot[111975][90031]" data-title="3" data-row="1">
+<span class="input-group-addon addon-matrix" data-title="3" data-row="1"></span>
+<span class="input-group-title">Ocasionalmente</span>
+</label>
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90030" name="ot[111975][90031]" data-title="4" data-row="1">
+<span class="input-group-addon addon-matrix" data-title="4" data-row="1"></span>
+<span class="input-group-title">Nunca</span>
+</label></div></div></div><div class="input-group input-group-matrix  row"><div class="col-sm-4 col-md-4 col-pad-0 col-xs-pad-0"><div class="title data-row-2">Notícias nacionais</div></div><div class="col-sm-8 col-md-8 col-xs-pad-0"><div class="label-container">
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90027" name="ot[111975][90032]" data-title="1" data-row="2">
+<span class="input-group-addon addon-matrix" data-title="1" data-row="2"></span>
+<span class="input-group-title">Sempre</span>
+</label>
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90028" name="ot[111975][90032]" data-title="2" data-row="2">
+<span class="input-group-addon addon-matrix" data-title="2" data-row="2"></span>
+<span class="input-group-title">Frequentemente</span>
+</label>
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90029" name="ot[111975][90032]" data-title="3" data-row="2">
+<span class="input-group-addon addon-matrix" data-title="3" data-row="2"></span>
+<span class="input-group-title">Ocasionalmente</span>
+</label>
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90030" name="ot[111975][90032]" data-title="4" data-row="2">
+<span class="input-group-addon addon-matrix" data-title="4" data-row="2"></span>
+<span class="input-group-title">Nunca</span>
+</label></div></div></div><div class="input-group input-group-matrix  row"><div class="col-sm-4 col-md-4 col-pad-0 col-xs-pad-0"><div class="title data-row-3">Os principais artigos, da primeira página</div></div><div class="col-sm-8 col-md-8 col-xs-pad-0"><div class="label-container">
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90027" name="ot[111975][90023]" data-title="1" data-row="3">
+<span class="input-group-addon addon-matrix" data-title="1" data-row="3"></span>
+<span class="input-group-title">Sempre</span>
+</label>
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90028" name="ot[111975][90023]" data-title="2" data-row="3">
+<span class="input-group-addon addon-matrix" data-title="2" data-row="3"></span>
+<span class="input-group-title">Frequentemente</span>
+</label>
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90029" name="ot[111975][90023]" data-title="3" data-row="3">
+<span class="input-group-addon addon-matrix" data-title="3" data-row="3"></span>
+<span class="input-group-title">Ocasionalmente</span>
+</label>
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90030" name="ot[111975][90023]" data-title="4" data-row="3">
+<span class="input-group-addon addon-matrix" data-title="4" data-row="3"></span>
+<span class="input-group-title">Nunca</span>
+</label></div></div></div><div class="input-group input-group-matrix  row"><div class="col-sm-4 col-md-4 col-pad-0 col-xs-pad-0"><div class="title data-row-4">Reportagens</div></div><div class="col-sm-8 col-md-8 col-xs-pad-0"><div class="label-container">
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90027" name="ot[111975][90024]" data-title="1" data-row="4">
+<span class="input-group-addon addon-matrix" data-title="1" data-row="4"></span>
+<span class="input-group-title">Sempre</span>
+</label>
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90028" name="ot[111975][90024]" data-title="2" data-row="4">
+<span class="input-group-addon addon-matrix" data-title="2" data-row="4"></span>
+<span class="input-group-title">Frequentemente</span>
+</label>
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90029" name="ot[111975][90024]" data-title="3" data-row="4">
+<span class="input-group-addon addon-matrix" data-title="3" data-row="4"></span>
+<span class="input-group-title">Ocasionalmente</span>
+</label>
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90030" name="ot[111975][90024]" data-title="4" data-row="4">
+<span class="input-group-addon addon-matrix" data-title="4" data-row="4"></span>
+<span class="input-group-title">Nunca</span>
+</label></div></div></div><div class="input-group input-group-matrix  row"><div class="col-sm-4 col-md-4 col-pad-0 col-xs-pad-0"><div class="title data-row-5">Seção de esportes</div></div><div class="col-sm-8 col-md-8 col-xs-pad-0"><div class="label-container">
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90027" name="ot[111975][90025]" data-title="1" data-row="5">
+<span class="input-group-addon addon-matrix" data-title="1" data-row="5"></span>
+<span class="input-group-title">Sempre</span>
+</label>
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90028" name="ot[111975][90025]" data-title="2" data-row="5">
+<span class="input-group-addon addon-matrix" data-title="2" data-row="5"></span>
+<span class="input-group-title">Frequentemente</span>
+</label>
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90029" name="ot[111975][90025]" data-title="3" data-row="5">
+<span class="input-group-addon addon-matrix" data-title="3" data-row="5"></span>
+<span class="input-group-title">Ocasionalmente</span>
+</label>
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90030" name="ot[111975][90025]" data-title="4" data-row="5">
+<span class="input-group-addon addon-matrix" data-title="4" data-row="5"></span>
+<span class="input-group-title">Nunca</span>
+</label></div></div></div><div class="input-group input-group-matrix  row"><div class="col-sm-4 col-md-4 col-pad-0 col-xs-pad-0"><div class="title data-row-6">Seção de Lifestyle/ Estilo</div></div><div class="col-sm-8 col-md-8 col-xs-pad-0"><div class="label-container">
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90027" name="ot[111975][90026]" data-title="1" data-row="6">
+<span class="input-group-addon addon-matrix" data-title="1" data-row="6"></span>
+<span class="input-group-title">Sempre</span>
+</label>
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90028" name="ot[111975][90026]" data-title="2" data-row="6">
+<span class="input-group-addon addon-matrix" data-title="2" data-row="6"></span>
+<span class="input-group-title">Frequentemente</span>
+</label>
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90029" name="ot[111975][90026]" data-title="3" data-row="6">
+<span class="input-group-addon addon-matrix" data-title="3" data-row="6"></span>
+<span class="input-group-title">Ocasionalmente</span>
+</label>
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90030" name="ot[111975][90026]" data-title="4" data-row="6">
+<span class="input-group-addon addon-matrix" data-title="4" data-row="6"></span>
+<span class="input-group-title">Nunca</span>
+</label></div></div></div><div class="input-group input-group-matrix  row"><div class="col-sm-4 col-md-4 col-pad-0 col-xs-pad-0"><div class="title data-row-7">Notíciais globais</div></div><div class="col-sm-8 col-md-8 col-xs-pad-0"><div class="label-container">
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90027" name="ot[111975][90033]" data-title="1" data-row="7">
+<span class="input-group-addon addon-matrix" data-title="1" data-row="7"></span>
+<span class="input-group-title">Sempre</span>
+</label>
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90028" name="ot[111975][90033]" data-title="2" data-row="7">
+<span class="input-group-addon addon-matrix" data-title="2" data-row="7"></span>
+<span class="input-group-title">Frequentemente</span>
+</label>
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90029" name="ot[111975][90033]" data-title="3" data-row="7">
+<span class="input-group-addon addon-matrix" data-title="3" data-row="7"></span>
+<span class="input-group-title">Ocasionalmente</span>
+</label>
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90030" name="ot[111975][90033]" data-title="4" data-row="7">
+<span class="input-group-addon addon-matrix" data-title="4" data-row="7"></span>
+<span class="input-group-title">Nunca</span>
+</label></div></div></div><div class="input-group input-group-matrix  row"><div class="col-sm-4 col-md-4 col-pad-0 col-xs-pad-0"><div class="title data-row-8">Seção de Negócios/Economia</div></div><div class="col-sm-8 col-md-8 col-xs-pad-0"><div class="label-container">
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90027" name="ot[111975][90034]" data-title="1" data-row="8">
+<span class="input-group-addon addon-matrix" data-title="1" data-row="8"></span>
+<span class="input-group-title">Sempre</span>
+</label>
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90028" name="ot[111975][90034]" data-title="2" data-row="8">
+<span class="input-group-addon addon-matrix" data-title="2" data-row="8"></span>
+<span class="input-group-title">Frequentemente</span>
+</label>
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90029" name="ot[111975][90034]" data-title="3" data-row="8">
+<span class="input-group-addon addon-matrix" data-title="3" data-row="8"></span>
+<span class="input-group-title">Ocasionalmente</span>
+</label>
+<label class="input-group input-group-radio">
+<input type="radio" class="hidden matrix" value="90030" name="ot[111975][90034]" data-title="4" data-row="8">
+<span class="input-group-addon addon-matrix" data-title="4" data-row="8"></span>
+<span class="input-group-title">Nunca</span>
+</label></div></div></div></div></div></fieldset><fieldset class="required"><h2><div class="title-part">
+<span class="number">4</span>
+Com que freqüência você visita o site da "nome da publicação"?<div class="require smallipop-initialized smallipop4" title=""><span class="smallipop-hint">
+Resposta exigida
+</span></div></div></h2><div class="special-padding-row"><div class="label-cont">
+<label class="input-group input-group-radio row">
+<input type="radio" class="hidden-inputs" name="ot[111977]" value="461484">
+<span class="input-group-addon"></span>
+<span class="input-group-title">O tempo todo - é a minha homepage</span>
+</label>
+<label class="input-group input-group-radio row">
+<input type="radio" class="hidden-inputs" name="ot[111977]" value="461485">
+<span class="input-group-addon"></span>
+<span class="input-group-title">Todo dia</span>
+</label>
+<label class="input-group input-group-radio row">
+<input type="radio" class="hidden-inputs" name="ot[111977]" value="461486">
+<span class="input-group-addon"></span>
+<span class="input-group-title">Toda semana</span>
+</label>
+<label class="input-group input-group-radio row">
+<input type="radio" class="hidden-inputs" name="ot[111977]" value="461487">
+<span class="input-group-addon"></span>
+<span class="input-group-title">Todo mês</span>
+</label>
+<label class="input-group input-group-radio row">
+<input type="radio" class="hidden-inputs" name="ot[111977]" value="461488">
+<span class="input-group-addon"></span>
+<span class="input-group-title">Nunca</span>
+</label></div></div></fieldset><fieldset class="required last"><h2><div class="title-part">
+<span class="number">5</span>
+Você tem algumas sugestões específicas onde poderíamos melhorar  a "nome da publicação"?<div class="require smallipop-initialized smallipop5" title=""><span class="smallipop-hint">
+Resposta exigida
+</span></div></div></h2><div class="special-padding-row">
+<label class="input-group input-group-textarea" data-for="ot[111976]">
+<span class="input-group-addon"></span><textarea class="form-control paragraph counter validate" name="ot[111976]" maxlength="1500" placeholder="Escreva um parágrafo"></textarea></label><span class="help-block"><strong data-name="ot[111976]">1500</strong> caracteres restantes </span></div></fieldset>
+</section><ul class="pager"></ul> <script type="text/javascript" src="./Feedback do Leitor de Publicação_files/jquery.rating.js.download"></script> <input type="text" name="q" value="" class="pot">
+<input name="iehack" type="hidden" value="☠">
+<input name="n" type="hidden" value=""></form>
+<footer>
+Crie <strong><a target="_blank" href="https://www.survio.com/br/?utm_source=frontend&amp;utm_campaign=footer&amp;utm_medium=link&amp;utm_term=v1" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Survey Footer&#39;, &#39;Click&#39;, &#39;Survey link&#39;);">Pesquisa &amp; Questionário Online</a></strong> grátis ✓ Ativados pela <a target="_blank" href="https://www.survio.com/br/caracteristicas/?utm_source=frontend&amp;utm_campaign=footer&amp;utm_medium=brand&amp;utm_term=v1" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Survey Footer&#39;, &#39;Click&#39;, &#39;Brand link&#39;);">Survio</a>
+</footer> <script type="text/javascript" src="./Feedback do Leitor de Publicação_files/jquery-ui-1.10.4.custom.min.js.download"></script> <script type="text/javascript" src="./Feedback do Leitor de Publicação_files/jquery-ui-touch.js.download"></script> <script type="text/javascript">function supportsDateInput(){var i=document.createElement("input");i.setAttribute("type","date");return i.type!=="text";}
+var datepickerlang={lang:"br",closeText:"Fechar",prevText:"Anterior",nextText:"Seguinte",currentText:"Hoje",monthNames:["Janeiro","Fevereiro","Mar\u00e7o","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"],monthNamesShort:["Janeiro","Fevereiro","Mar\u00e7o","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"],dayNames:["Jan","Fev","Mar","Abr","Maio","Jun","Jul","Ago","Set","Out","Nov","Dez"],dayNamesShort:["Dom","Seg","Ter","Qua","Qui","Sex","S\u00e1b"],dayNamesMin:["Dom","Seg","Ter","Qua","Qui","Sex","S\u00e1b"],dateFormat:supportsDateInput()?'yy-mm-dd':"dd\/mm\/yy",firstDay:1,isRTL:false};</script>  <script type="text/javascript">if(''>''&&document.getElementsByClassName('row-thank-you').length>0){var links=document.getElementsByClassName('row-thank-you')[0].getElementsByTagName('p')[0].getElementsByTagName('a')
+var queryString="utm_source=survio&utm_medium=survey&utm_campaign="+''
+for(var i=0;links.length>i;i++){if(links[i].href.search('\\?')===-1){links[i].href=links[i].href+'?'+queryString}else{links[i].href=links[i].href+'&'+queryString}}}</script> <!--[if lt IE 9]> <script src="//prod-8f86.kxcdn.com/s1//20170515/survey2014/js/ie/checked.js"></script> <![endif]-->
+ <script type="text/javascript" src="./Feedback do Leitor de Publicação_files/main.js.download"></script> <script type="text/javascript" src="./Feedback do Leitor de Publicação_files/jquery.validate.min.js.download"></script> <script type="text/javascript" async="async" src="./Feedback do Leitor de Publicação_files/jquery.fancybox.js.download"></script> <script type="text/javascript" async="async" src="./Feedback do Leitor de Publicação_files/browser.min.js.download"></script> <script type="text/javascript" async="async" src="./Feedback do Leitor de Publicação_files/jquery.inputmask.bundle.js.download"></script> <script type="text/javascript" src="./Feedback do Leitor de Publicação_files/jquery.FloatLabel.js.download"></script> <script type="text/javascript" src="./Feedback do Leitor de Publicação_files/signup-template.js.download"></script> <script type="text/javascript">$(document).ready(function(){popupSignup();var wait_validate=setInterval(function(){if($.validator)
+{$('body').append('<script type="text/javascript" async="async" src="//prod-8f86.kxcdn.com/s1//20170515/hp/plugins/validate/localization/messages_br.min.js"></'+'script>')
+clearInterval(wait_validate);}},100);})</script> <script type="text/javascript">var lang={"code":"br","incomplete":"Esta pergunta n\u00e3o foi respondida completamente. Por favor, analise-a e complete a sua resposta."}</script>  <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-5192617-58','auto');ga('send','pageview');</script>  <script type="text/javascript">lang.login_taken="Este e-mail j\u00e1 est\u00e1 sendo usado."</script><div class="smallipop-instance" id="smallipop1" style="opacity: 0;"><div class="smallipop-content"></div></div><script type="text/javascript" async="async" src="./Feedback do Leitor de Publicação_files/messages_br.min.js.download"></script></body></html>

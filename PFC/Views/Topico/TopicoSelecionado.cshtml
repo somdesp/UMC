@@ -50,8 +50,8 @@
             <div class="well well-sm">
                 <div class="media">
                     <div class="media-body">
-                        <h4 class="media-heading "><a href="#" target="_blank">{{topico.usuario.Nome}} </a><small> {{topico.DataCria}}<button class="btn"  ng-click="topicodeTexto($index)">Leia mais...</button></small></h4>
-                          <p  ng-class="$index==itemSelecionado ? 'textoaparecer':'textodesaparecer'">{{topico.Descricao}}</p>
+                        <h4 class="media-heading "><a href="#" target="_blank">{{topico.usuario.Nome}} </a><small> {{topico.DataCria}}<button class="btn" ng-click="topicodeTexto($index)">Leia mais...</button></small></h4>
+                        <p ng-class="$index==itemSelecionado ? 'textoaparecer':'textodesaparecer'">{{topico.Descricao}}</p>
                         <a href="~/Upload/{{topico.Anexos.Caminho}}">{{topico.Anexos.Caminho}}</a>
                     </div>
 
@@ -59,29 +59,32 @@
                         <img src="~/Upload/{{topico.usuario.UploadArquivo.Caminho}}" class="media-object" style="width:60px">
                     </div>
                     <div ng-if="(topico.usuario.Id!== usuario.Id)">
-                        <div ng-if="(usuID>0)">
+                        <div ng-if="(TopicosSelc.Status.Id !=2)">
+                            <div ng-if="(usuID>0)">
 
-                            <div ng-controller="avaliacao.controller">
+                                <div ng-controller="avaliacao.controller">
 
-                                <div uib-tooltip="{{dicas}}" tooltip-placement="bottom-left">
+                                    <div uib-tooltip="{{dicas}}" tooltip-placement="bottom-left">
 
-                                    <jk-rating-stars max-rating="5" style="user-select: none;" rating="ctrl.rating" ng-init="ctrl.rating = topico.avaliacao.mediaPontos" read-only="(ctrl.rating>0)" ng-class="{'classebloqueio': ctrl.readOnly }" ng-click="valorClick(ctrl.rating,topico,usuario,TopicosSelc)">
+                                        <jk-rating-stars max-rating="5" style="user-select: none;" rating="ctrl.rating" ng-init="ctrl.rating = topico.avaliacao.mediaPontos" read-only="(ctrl.rating>0)" ng-class="{'classebloqueio': ctrl.readOnly }" ng-click="valorClick(ctrl.rating,topico,usuario,TopicosSelc)">
 
-                                    </jk-rating-stars>
+                                        </jk-rating-stars>
 
 
-                                    <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-12">
 
-                                            <input type="hidden" ng-init="nota=topico.avaliacao.pontos" />
-                                            <span class="color-6 animate-if" ng-if="nota>0">Sua Nota é {{nota}}.</span>
-                                            <input type="hidden" ng-model="idAvaliacao" value="{{idAvaliacao}}" />
+                                                <input type="hidden" ng-init="nota=topico.avaliacao.pontos" />
+                                                <span class="color-6 animate-if" ng-if="nota>0">Sua Nota é {{nota}}.</span>
+                                                <input type="hidden" ng-model="idAvaliacao" value="{{idAvaliacao}}" />
+                                            </div>
                                         </div>
-                                    </div>
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
 
 
 
@@ -104,9 +107,9 @@
                             </div>
                         </div>
                     </div>
- 
+
                     <div class="form-group">
-                       
+
                         <textarea class="form-control" ng-model="areaResposta.Descricao" rows="10" cols="60" id="areaResposta" required></textarea>
                     </div>
                     <button class="btn btn-primary comentariobotao" type="submit" ng-click="novoPost(areaResposta)" ng-disabled="resposta.$invalid">
