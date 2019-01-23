@@ -155,6 +155,16 @@
     }
 
 
+
+    //função para quebrar o texto
+    $scope.mudartext = function (text) {
+        if (text===1) {
+            $scope.text = 2;
+        } else {
+            $scope.text = 1;
+        }
+    };
+
     //correção datas
     function converteDataHora(data) {
         var arrayMes = new Array(12);
