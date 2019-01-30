@@ -61,7 +61,6 @@ p {
 body {
     font-family: "Poppins", sans-serif;
     background: #fafafa !important;
-   
 }
 
 html {
@@ -112,6 +111,21 @@ a {
     margin-left: -200px;
     z-index: 10;
 }
+
+input.classePesquisa[type=text] {
+    width: 30px;
+    background-image: url('../images/favicon/magnifier.png');
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    transition: width 0.5s ease-in-out;
+}
+
+input.classePesquisa[type=text]:focus {
+        width: 100%;
+}
+
+
 
 b {
     font-weight: 600;
@@ -293,10 +307,12 @@ button {
         position: relative;
         -webkit-font-smoothing: antialiased;
     }
-    .button-style2 {
+
+.button-style2 {
     color: #1abc9c;
     overflow: hidden;
 }
+
     .button-style2:before {
         position: absolute;
         font-size: 27px;
@@ -314,7 +330,7 @@ button {
 .button-anim2:before {
     left: 40%;
     opacity: 0;
-    top:10%;
+    top: 10%;
 }
 
 .button-anim2:hover:before {
@@ -1860,6 +1876,7 @@ blockquote {
 .color-6 {
     color: #08a6f3;
 }
+
 .color-7 {
     color: #0ebe7d;
 }
@@ -1867,9 +1884,8 @@ blockquote {
 .padrao-curti {
     font-size: 23px;
 }
+
 .animate-if {
-    
-    
     padding: 10px;
 }
 
@@ -1877,15 +1893,15 @@ blockquote {
         transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
     }
 
-   .animate-if.ng-enter,
-   .animate-if.ng-leave.ng-leave-active {
+        .animate-if.ng-enter,
+        .animate-if.ng-leave.ng-leave-active {
             opacity: 0;
-   }
+        }
 
-   .animate-if.ng-leave,
-   .animate-if.ng-enter.ng-enter-active {
+            .animate-if.ng-leave,
+            .animate-if.ng-enter.ng-enter-active {
                 opacity: 1;
-    }
+            }
 
 
 /* Background Color */
@@ -1984,12 +2000,7 @@ button.btn.btn-primary.comentariobotao {
     bottom: 10px;
     right: 10px;
     padding: 15px;
-    
     border-radius: 30px;
-   
-    
-    
-
 }
 
 textarea#areaResposta.form-control {
@@ -1997,54 +2008,49 @@ textarea#areaResposta.form-control {
     border-color: #ccd0ce;
     box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
     opacity: 0.9;
-    min-height:100px;
+    min-height: 100px;
     resize: vertical;
 }
 
-textarea#areaResposta.form-control:focus {
-    border-color: #1abc9c;
-    
-    opacity: 0.9;
-    resize: none;
-}
+    textarea#areaResposta.form-control:focus {
+        border-color: #1abc9c;
+        opacity: 0.9;
+        resize: none;
+    }
 
 div.quebratext {
     word-break: break-all;
     text-overflow: ellipsis;
     overflow: hidden;
     height: 3em;
-    
 }
 
 div.noquebretext {
     word-break: break-all;
     text-overflow: ellipsis;
     overflow: hidden;
-    
 }
 
-p.textoaparecer{
+p.textoaparecer {
     overflow: hidden;
     white-space: normal;
     text-overflow: ellipsis;
     word-wrap: break-word;
     width: 680px;
-    
 }
 
-p.textodesaparecer{
+p.textodesaparecer {
     max-width: 70ch;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    
 }
 
 input.classePesquisa {
     border-radius: 30px;
     padding: 7px;
     margin-left: 20px;
-    max-width:280px;
+    max-width: 280px;
     border-color: rgb(26, 188, 156)
 }
 
@@ -2052,11 +2058,9 @@ ul, li.classePesquisa {
     margin-left: 16px;
     max-width: 270px;
     z-index: 1;
-    
-   
 }
 
-li.classePesquisa:hover {
-        transition:0.5s;
+    li.classePesquisa:hover {
+        transition: 0.5s;
         background-color: #1abc9c;
-}
+    }
