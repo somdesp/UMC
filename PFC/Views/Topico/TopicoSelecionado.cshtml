@@ -51,7 +51,7 @@
                 <div class="media">
                     <div class="media-body">
                         <h4 class="media-heading "><a href="#" target="_blank">{{topico.usuario.Nome}} </a><small> {{topico.DataCria}}<button class="btn" ng-click="topicodeTexto($index)">Leia mais...</button></small></h4>
-                        <p ng-class="$index==itemSelecionado ? 'textoaparecer':'textodesaparecer'">{{topico.Descricao}}</p>
+                        <p ng-class="$index==itemSelecionado ? 'textoaparecer':'text-nowrap bd-highlight'" style="width: 60rem;">{{topico.Descricao}}</p>
                         <a href="~/Upload/{{topico.Anexos.Caminho}}">{{topico.Anexos.Caminho}}</a>
                     </div>
 

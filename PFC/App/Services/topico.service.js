@@ -1,5 +1,5 @@
 ﻿//Serviços do Topico
-MeHelp.service('topicoService', function ($http) {
+MeHelp.service('topicoService', function ($http,$q) {
 
     //Servico de listar os Topicos abertos
     this.getTodosTopicos = function () {
@@ -53,13 +53,15 @@ MeHelp.service('topicoService', function ($http) {
         return request;
     };
 
-    this.pesquisar = function(pesquisa) {
+    this.pesquisar = function (pesquisa) {
+        var deffered = $q.defer();
         var request = $http({
             method: 'post',
             url: '/Topico/ListarTopicoPesquisa',
             data: JSON.stringify({ pesquisa })
         });
-        return request;
+        deffered.resolve(request);
+        return deffered.promise;
     };
 
     //Fecha topico apos votação

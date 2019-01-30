@@ -19,27 +19,33 @@
 
         <div class="row">
             <div class="col-md-4">
+                
                 <form name="FormPesquisa">
-                    <label class="button">Pesquisar:</label>
-                    <input type="text" class="form-control text-sm-center" ng-model="pesquisa" placeholder="digite sua pesquisa" style="border-radius:30px; border-color:rgb(26, 188, 156)" ng-keyup="pesquisar(pesquisa)" />
-                </form>
-            </div>
-            <div class="col-md-4">
 
+                    <input type="text" class="form-control text-sm-center classePesquisa" ng-model="pesquisa" ng-model-options="{debounce: 200}" placeholder="Digite sua pesquisa" ng-change="pesquisar(pesquisa) " />
+                    <div class="float-pesquisa">
+                        <ul class="list-group classePesquisa" ng-model="Topico" ng-show="(pesquisa.length>0)">
+                            <li class="list-group-item classePesquisa" ng-repeat="topico in Topico|limitTo:5">{{topico.Titulo}}</li>
+                        </ul>
+                    </div>
+                </form>
+                
             </div>
+           
             <div class="col-md-4">
 
             </div>
         </div>
         <div class="row">
             <div class="col-md-12 content-page">
+                
 
-                <div class="col-md-12 blog-post"  ng-repeat="topico in travel.cruise| limitTo:travel.limit">
+                <div class="col-md-12 blog-post" ng-repeat="topico in travel.cruise| limitTo:travel.limit">
                     <div class='post-title'>
                         <a href="http://localhost:52005/Topico/TopicoSelecionado?topicoId={{topico.Id}}"><h1>{{topico.Titulo}}</h1></a>
                         @*<button type="button" ng-click="abrirTopico(topico)">
-                            <h1>{{topico.Titulo}}</h1>
-                        </button>*@
+                    <h1>{{topico.Titulo}}</h1>
+                </button>*@
                     </div>
                     <div class='post-info'>
                         <span>{{topico.DataCria}}/ Por <a href='#' target='_blank'>{{topico.usuario.Nome}}</a></span>

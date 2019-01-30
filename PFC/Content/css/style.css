@@ -102,6 +102,17 @@ a {
     z-index: 10;
 }
 
+.float-pesquisa {
+    position: absolute;
+    left: 75%;
+    width: 400px;
+    height: 75px;
+    bottom: -75px;
+    margin-top: 200px;
+    margin-left: -200px;
+    z-index: 10;
+}
+
 b {
     font-weight: 600;
     color: #333333;
@@ -2012,16 +2023,16 @@ div.noquebretext {
     
 }
 
-p.textoaparecer {
+p.textoaparecer{
     overflow: hidden;
     white-space: normal;
     text-overflow: ellipsis;
     word-wrap: break-word;
     width: 680px;
-    transition: max-width 2s linear;
+    
 }
 
-p.textodesaparecer {
+p.textodesaparecer{
     max-width: 70ch;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -2029,4 +2040,23 @@ p.textodesaparecer {
     
 }
 
+input.classePesquisa {
+    border-radius: 30px;
+    padding: 7px;
+    margin-left: 20px;
+    max-width:280px;
+    border-color: rgb(26, 188, 156)
+}
 
+ul, li.classePesquisa {
+    margin-left: 16px;
+    max-width: 270px;
+    z-index: 1;
+    
+   
+}
+
+li.classePesquisa:hover {
+        transition:0.5s;
+        background-color: #1abc9c;
+}
