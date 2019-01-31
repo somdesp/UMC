@@ -3,11 +3,11 @@ MeHelp.controller('topicoCtrl', function ($scope, topicoService) {
     var vm = this;
     $scope.semdados = false;
     carregarTopicos();
-    
+
     vm.limit = 3;
-    
+
     carregarTemas();
-    
+
 
     //Listar Topicos
     function carregarTopicos() {
@@ -19,7 +19,7 @@ MeHelp.controller('topicoCtrl', function ($scope, topicoService) {
                 d.data[i].DataCria = converteDataHora(d.data[i].DataCria);
             }
 
-            
+
             vm.cruise = d.data;
         },
             function () {
@@ -59,11 +59,11 @@ MeHelp.controller('topicoCtrl', function ($scope, topicoService) {
             $scope.semdados = true;
         }
         else {
-            
+
             var increment = vm.limit + 3;
             vm.limit = increment > vm.cruise.length ? vm.cruise.length : increment;
         }
-        
+
 
 
     };
@@ -136,7 +136,7 @@ MeHelp.controller('topicoCtrl', function ($scope, topicoService) {
     }
 
     $scope.pesquisar = function (pesquisa) {
-        
+
         var listarTopicos = topicoService.pesquisar(pesquisa);
         listarTopicos.then(function (d) {
             var Topico;
@@ -148,6 +148,8 @@ MeHelp.controller('topicoCtrl', function ($scope, topicoService) {
 
             $scope.Topico = d.data;
         });
-       
+
     };
+
+    
 });
