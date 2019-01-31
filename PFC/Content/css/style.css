@@ -101,10 +101,10 @@ a {
     z-index: 10;
 }
 
-@media (max-width:1440px) {
+@media screen and (max-width:1920px) {
     .float-pesquisa {
         position: relative;
-        left: 75%;
+        left: 60%;
         width: 400px;
         height: 75px;
         bottom: -75px;
@@ -114,10 +114,10 @@ a {
     }
 }
 
-@media(max-width:400px){
+@media screen and (max-width:1366px) {
     .float-pesquisa {
         position: relative;
-        left: 40%;
+        left: 80%;
         width: 400px;
         height: 75px;
         bottom: -75px;
@@ -127,10 +127,10 @@ a {
     }
 }
 
-@media (max-width:1920px) {
+@media screen and (max-width:400px) {
     .float-pesquisa {
         position: relative;
-        left: 55%;
+        left: 2%;
         width: 400px;
         height: 75px;
         bottom: -75px;
@@ -139,6 +139,8 @@ a {
         z-index: 10;
     }
 }
+
+
 
 
 input.classePesquisa[type=text] {
