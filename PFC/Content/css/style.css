@@ -2088,7 +2088,7 @@ input.classePesquisa {
 
 ul, li.classePesquisa {
     margin-left: 16px;
-    max-width: 270px;
+    max-width: 2500px;
     z-index: 1;
     color: #333333;
 }
