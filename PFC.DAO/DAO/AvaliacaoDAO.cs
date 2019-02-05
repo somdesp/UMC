@@ -21,7 +21,7 @@ namespace PFC.DAO
 
                 string strQuery = String.Format("insert into Avaliacao (Id_Topico,Id_Usuario,Data_Avaliacao,Pontos,id_Usuario_DonoTopico) Values({0},{1},(Select GETDATE()),{2},(Select Id_Usuario from Topico where Id = {0})) select Pontos,(select avg(Pontos) from Avaliacao where Id_Topico = {0}) as media from Avaliacao where Id_Topico = {0} and Id_Usuario = {1} ", avaliar.idTopico, avaliar.idUsuario, pontosUsuario);
 
-
+                bool result = false;
                 SqlDataReader reader;
                 using (contexto = new Contexto())
                 {
@@ -36,9 +36,17 @@ namespace PFC.DAO
                     }
 
                 }
-                return avaliar;
+                result = AvaliacaoPontos(avaliar.idTopico);
+                if (result)
+                {
+                    return avaliar;
+                }
+                else
+                {
+                    return null;
+                }
 
-                
+
             }
 
 
@@ -75,7 +83,7 @@ namespace PFC.DAO
                 }
                 return avaliar;
 
-             }
+            }
 
 
         }
@@ -179,7 +187,7 @@ namespace PFC.DAO
 
                 string strQuery = String.Format("update Avaliacao set Pontos = {2},Data_Avaliacao = (select GETDATE()) where Id_Topico = {0} and Id_Usuario = {1} select Pontos,(select avg(Pontos) from Avaliacao where Id_Topico = {0}) as media from Avaliacao where Id_Topico = {0} and Id_Usuario = {1} ", avaliar.idTopico, avaliar.idUsuario, pontosUsuario);
 
-
+                bool result = false;
                 SqlDataReader reader;
                 using (contexto = new Contexto())
                 {
@@ -194,7 +202,16 @@ namespace PFC.DAO
                     }
 
                 }
-                return avaliar;
+                result = AvaliacaoPontos(avaliar.idTopico);
+                if (result)
+                {
+                    return avaliar;
+                }
+                else
+                {
+                    return null;
+                }
+
             }
 
 
@@ -274,13 +291,13 @@ namespace PFC.DAO
         #endregion
 
         #region consultar pontos curtir like e deslike
-        public int consultaLikeDeslike(Topico topico,int idUsuarioLogado)
+        public int consultaLikeDeslike(Topico topico, int idUsuarioLogado)
         {
 
             SqlCommand comando;
 
             string querSQL = String.Format("select Pontos from Avaliacao where Id_Topico = {0} and Id_Usuario = {1}", topico.Id, idUsuarioLogado);
-            int pontos=0;
+            int pontos = 0;
             SqlDataReader reader;
             using (contexto = new Contexto())
             {
@@ -355,6 +372,30 @@ namespace PFC.DAO
             return pontos;
         }
 
+        #endregion
+
+        #region Avaliar pontos atualizando 
+        public bool AvaliacaoPontos(int idTopico)
+        {
+            string strQuery = $"update Usuario set Pontos" +
+                $" = (select SUM(Pontos) from Avaliacao where id_Usuario_DonoTopico=(select Id_Usuario from Topico where id={idTopico})) " +
+                $"where id = (select Id_Usuario from Topico where id={idTopico}) ";
+            SqlCommand comando;
+            bool result = false;
+            using (contexto = new Contexto())
+            {
+                comando = new SqlCommand(strQuery, contexto.forumConexao);
+
+                 result= contexto.ExecutarInsert(strQuery);
+
+
+            }
+
+            return result;
+
+
+
+        }
         #endregion
     }
 }
