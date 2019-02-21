@@ -93,7 +93,7 @@
   <ItemGroup>
     <Compile Include="Business\ArquivoBLL.cs" />
     <Compile Include="Business\AvaliacaoBLL.cs" />
-    <Compile Include="Business\HankBLL.cs" />
+    <Compile Include="Business\RankBLL.cs" />
     <Compile Include="Business\LoginBLL.cs" />
     <Compile Include="Business\AutorizaçoesBLL.cs" />
     <Compile Include="Business\TopicoBLL.cs" />

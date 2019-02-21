@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PFC.Business
 {
-    public class HankBLL
+    public class RankBLL
     {
         #region Listar Usuarios Hank soma/Media
         public List<Usuario> ListarUsuariosHank()
@@ -77,7 +77,19 @@ namespace PFC.Business
             }
             return totalUsuario;
         }
+        #endregion
+
+        #region Consulta na tabela rank com job diario  
+        public List<Usuario> ListarRank()
+        {
+            RankingDAO dao = new RankingDAO();
+            List<Usuario> listarRanking = new List<Usuario>();
+            listarRanking = dao.ListandoTabelaRank();
+            return listarRanking;
+        }
+
+        #endregion
     }
-    #endregion
+
 }
 

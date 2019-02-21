@@ -83,7 +83,33 @@ namespace PFC.DAO
 
         }
         #endregion
+        #region Verificando tabela Usuario
+        public List<Usuario> ListandoTabelaRank()
+        {
+            SqlCommand comando;
+            List<Usuario> listarUsuarios = new List<Usuario>();
+            string querySQL = $"select NomeUsuario,Pontos,idUsuario from TabelaRanking";
+            SqlDataReader reader;
+            using (contexto = new Contexto())
+            {
+                comando = new SqlCommand(querySQL, contexto.forumConexao);
+
+                reader = contexto.ExecutaComandoComRetorno(querySQL);
+
+                while (reader.Read())
+                {
+                    Usuario usuario = new Usuario();
+                    usuario.Nome = reader["NomeUsuario"].ToString();
+                    usuario.avaliacao.pontos = Convert.ToInt16(reader["Pontos"].ToString());
+                    usuario.Id = Convert.ToInt16(reader["idUsuario"].ToString());
+                    listarUsuarios.Add(usuario);
+                }
+
+            }
+            return listarUsuarios;
 
 
+        }
+        #endregion 
     }
 }
