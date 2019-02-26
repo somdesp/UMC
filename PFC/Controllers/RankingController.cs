@@ -1,18 +1,18 @@
-﻿using System.Collections.Generic;
-using System.Web.Http;
+﻿
+
 using PFC.Business;
-using PFC.Model;
+using System.Web.Mvc;
 
 namespace PFC.Controllers
 {
-    public class RankingController : ApiController
+    public class RankingController : Controller
     {
         #region Listar Usuario Rank
-        [System.Web.Http.HttpPost]
-        public List<Usuario> ListarRank()
+        [HttpPost]
+        public JsonResult ListarRank()
         {
             RankBLL rank = new RankBLL();
-            return rank.ListarRank();
+            return Json(rank.ListarRank(), JsonRequestBehavior.AllowGet);
 
         }
 

@@ -79,7 +79,7 @@ namespace PFC.Business
         }
         #endregion
 
-        #region Consulta na tabela rank com job diario  
+        #region Consulta na tabela rank  diario  
         public List<Usuario> ListarRank()
         {
             RankingDAO dao = new RankingDAO();

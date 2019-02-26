@@ -88,7 +88,16 @@ namespace PFC.DAO
         {
             SqlCommand comando;
             List<Usuario> listarUsuarios = new List<Usuario>();
-            string querySQL = $"select NomeUsuario,Pontos,idUsuario from TabelaRanking";
+            string querySQL = $"select u.Nome'Nome',c.Curso'Curso'," +
+                $"CASE WHEN SUM(ava.Pontos) is Null then 0 " +
+                $"ELSE SUM(ava.Pontos) " +
+                $"End 'Pontos' " +
+                $"FROM(Avaliacao ava" +
+                $" Right JOIN Usuario u ON(ava.id_Usuario_DonoTopico = u.Id)" +
+                $" Left JOIN Curso c ON(u.Id_Curso = c.Id))" +
+                $" WHERE ava.Data_Avaliacao > CONVERT(date, GETDATE(), 111)" +
+                $" GROUP by u.Nome,c.Curso" +
+                $" ORDER by SUM(ava.Pontos) desc";
             SqlDataReader reader;
             using (contexto = new Contexto())
             {
@@ -99,9 +108,9 @@ namespace PFC.DAO
                 while (reader.Read())
                 {
                     Usuario usuario = new Usuario();
-                    usuario.Nome = reader["NomeUsuario"].ToString();
+                    usuario.Nome = reader["Nome"].ToString();
+                    usuario.Curso.curso = reader["Curso"].ToString();
                     usuario.avaliacao.pontos = Convert.ToInt16(reader["Pontos"].ToString());
-                    usuario.Id = Convert.ToInt16(reader["idUsuario"].ToString());
                     listarUsuarios.Add(usuario);
                 }
 
