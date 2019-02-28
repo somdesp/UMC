@@ -211,6 +211,7 @@
     <Content Include="App\Controller\chat.controller.js" />
     <Content Include="App\Controller\hank.controller.js" />
     <Content Include="App\Controller\login.controller.js" />
+    <Content Include="App\Controller\MainController.js" />
     <Content Include="App\Controller\topico.controller.js" />
     <Content Include="App\Controller\topicoSelecionado.controller.js" />
     <Content Include="App\Controller\usuario.controller.js" />

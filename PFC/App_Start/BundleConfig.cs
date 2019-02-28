@@ -46,6 +46,7 @@ namespace PFC
                "~/App/Controller/login.controller.js",
                "~/App/Controller/chat.controller.js",
                "~/App/Controller/hank.controller.js",
+                "~/App/Controller/MainController.js",
                "~/Scripts/jquery.signalR-2.3.0.min.js",
                "~/App/Factories.js"));
 
