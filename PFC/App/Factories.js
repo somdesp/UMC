@@ -10,9 +10,9 @@
         },
         //////////////////// SERVER METHODS/////////////////
         
-        Login: function (username) {
+        Login: function (ModelUsuario) {
             connection.done(function () {
-                $hub.server.login(username);
+                $hub.server.login(ModelUsuario);
             });
         },
         SendPrivateMessage: function (touser, message) {

@@ -280,40 +280,7 @@
 
         </div>
     @* Fim Modal cadastro de usuario*@
-    
-    <div ng-controller="MainController">
 
-        <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase.js"></script>
-
-
-
-        <div class="controller">
-            <div class="row">
-                <div class="col-sm-4 col-sm-offset-4">
-                    <h2 class="text-center">Chat App</h2>
-                    <div class="row">
-                        <div class="col-sm-6">Type your message</div>
-                        <div class="col-sm-6"><strong>Chatting as :&nbsp;</strong>{{name}}</div>
-                    </div> <!-- row -->
-                    <div class="panel panel-default">
-
-                        <div class="panel-body">
-                            <ul id="example-messages" class="example-chat-messages">
-                                <li ng-repeat="msg in data">
-                                    <strong class="example-chat-username">{{ msg.from }}</strong> {{ msg.body }}
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- panel-body -->
-                        <div class="panel-footer">
-                            <input ng-model="msg" ng-keydown="addMessage($event)" type="text" id="messageInput" placeholder="Type a message...">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- row -->
-        </div>
-    </div>
     @Scripts.Render("~/bundles/angular")
 
         <script src="~/Scripts/angular-animate.js"></script>

@@ -17,14 +17,16 @@ namespace PFC.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            return View();
+        }
 
-
+        public ActionResult Chat()
+        {
             return View();
         }
 
         public ActionResult CreateUsuario()
         {
-
             return View();
         }
 
