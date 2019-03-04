@@ -16,13 +16,13 @@ namespace PFC.DAO
         {
             SqlCommand comando;
             List<Usuario> listarUsuarios = new List<Usuario>();
-            
-            string querSQL = String.Format(" SELECT  AVG(AV.Pontos) AS Pontos,AV.Id_Usuario AS ID, US.Nome AS Nome FROM Avaliacao AV  "+
-            "INNER JOIN Usuario US ON US.Id = AV.Id_Usuario  "+
-            "INNER JOIN Topico TP ON TP.Id = AV.Id_Topico  "+
-            "WHERE TP.IdTopicoPai IS NOT NULL GROUP BY US.Nome, AV.Id_Usuario  "+
+
+            string querSQL = String.Format(" SELECT  AVG(AV.Pontos) AS Pontos,AV.Id_Usuario AS ID, US.Nome AS Nome FROM Avaliacao AV  " +
+            "INNER JOIN Usuario US ON US.Id = AV.Id_Usuario  " +
+            "INNER JOIN Topico TP ON TP.Id = AV.Id_Topico  " +
+            "WHERE TP.IdTopicoPai IS NOT NULL GROUP BY US.Nome, AV.Id_Usuario  " +
             "ORDER BY AVG(AV.Pontos) ");
-            
+
             SqlDataReader reader;
             using (contexto = new Contexto())
             {
@@ -48,18 +48,18 @@ namespace PFC.DAO
         #endregion
 
         #region Listar somas curti usuario
-        
+
         public List<Usuario> ListarSomaUsuario()
         {
             SqlCommand comando;
             List<Usuario> listarUsuarios = new List<Usuario>();
-            
-            string querSQL = String.Format("SELECT  SUM(AV.Pontos) AS Pontos,AV.Id_Usuario AS ID, US.Nome AS Nome FROM Avaliacao AV  "+
-            "INNER JOIN Usuario US ON US.Id = AV.Id_Usuario "+
-            "INNER JOIN Topico TP ON TP.Id = AV.Id_Topico "+
-            "WHERE TP.IdTopicoPai IS NULL GROUP BY US.Nome, AV.Id_Usuario "+
+
+            string querSQL = String.Format("SELECT  SUM(AV.Pontos) AS Pontos,AV.Id_Usuario AS ID, US.Nome AS Nome FROM Avaliacao AV  " +
+            "INNER JOIN Usuario US ON US.Id = AV.Id_Usuario " +
+            "INNER JOIN Topico TP ON TP.Id = AV.Id_Topico " +
+            "WHERE TP.IdTopicoPai IS NULL GROUP BY US.Nome, AV.Id_Usuario " +
             "ORDER BY SUM(AV.Pontos) ASC");
-            
+
             SqlDataReader reader;
             using (contexto = new Contexto())
             {
@@ -88,16 +88,7 @@ namespace PFC.DAO
         {
             SqlCommand comando;
             List<Usuario> listarUsuarios = new List<Usuario>();
-            string querySQL = $"select u.Nome'Nome',c.Curso'Curso'," +
-                $"CASE WHEN SUM(ava.Pontos) is Null then 0 " +
-                $"ELSE SUM(ava.Pontos) " +
-                $"End 'Pontos' " +
-                $"FROM(Avaliacao ava" +
-                $" Right JOIN Usuario u ON(ava.id_Usuario_DonoTopico = u.Id)" +
-                $" Left JOIN Curso c ON(u.Id_Curso = c.Id))" +
-                $" WHERE ava.Data_Avaliacao > CONVERT(date, GETDATE(), 111)" +
-                $" GROUP by u.Nome,c.Curso" +
-                $" ORDER by SUM(ava.Pontos) desc";
+            string querySQL = $"select Nome,Curso,Pontos from ##TempRankingDiario";
             SqlDataReader reader;
             using (contexto = new Contexto())
             {
@@ -120,5 +111,17 @@ namespace PFC.DAO
 
         }
         #endregion 
+
+        public void ExecutarRankingDiario()
+        {
+            SqlCommand comando;
+            string executarSQL = $"Exec RankingDiario";
+            using (contexto = new Contexto())
+            {
+                comando = new SqlCommand(executarSQL, contexto.forumConexao);
+                contexto.ExecutarInsert(executarSQL);
+            }
+
+        }
     }
 }

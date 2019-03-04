@@ -83,12 +83,19 @@ namespace PFC.Business
         public List<Usuario> ListarRank()
         {
             RankingDAO dao = new RankingDAO();
+
             List<Usuario> listarRanking = new List<Usuario>();
             listarRanking = dao.ListandoTabelaRank();
             return listarRanking;
         }
 
         #endregion
+
+        public void ExecutarRankDiarioJob()
+        {
+            RankingDAO dao = new RankingDAO();
+            dao.ExecutarRankingDiario();
+        }
     }
 
 }

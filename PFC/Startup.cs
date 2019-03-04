@@ -3,6 +3,7 @@ using Newtonsoft.Json.Serialization;
 using Owin;
 using System.Web.Http;
 using Microsoft.Owin;
+using Hangfire;
 
 
 [assembly: OwinStartup(typeof(PFC.Startup))]
@@ -40,6 +41,18 @@ namespace PFC
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
 
+            ExecutarJobs(app);
+
+        }
+
+        public void ExecutarJobs(IAppBuilder app)
+        {
+            //Serviço para executar Jobs de forma automatica.
+            Hangfire.GlobalConfiguration.Configuration.UseSqlServerStorage("Data Source=mehelp.c5jiatqwcxsd.sa-east-1.rds.amazonaws.com;Initial Catalog=MeHelp;User Id=mehelp;Password=TCCUMC2018");
+            
+            app.UseHangfireDashboard();
+            app.UseHangfireServer();
+            
         }
 
     }

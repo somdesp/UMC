@@ -1,6 +1,9 @@
 ﻿
 
+using Hangfire;
 using PFC.Business;
+using System;
+using System.Diagnostics;
 using System.Web.Mvc;
 
 namespace PFC.Controllers
@@ -12,10 +15,13 @@ namespace PFC.Controllers
         public JsonResult ListarRank()
         {
             RankBLL rank = new RankBLL();
+
+                       
+            RecurringJob.AddOrUpdate("RankingDiario",() => rank.ExecutarRankDiarioJob(), Cron.Daily);
+
             return Json(rank.ListarRank(), JsonRequestBehavior.AllowGet);
 
         }
-
         #endregion
     }
 }
