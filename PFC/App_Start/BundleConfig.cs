@@ -35,6 +35,7 @@ namespace PFC
                 "~/App/Services/avalicacao.service.js",
                 "~/App/Services/login.service.js",
                 "~/App/Services/topico.service.js",
+                "~/App/Services/chat.service.js",
                 "~/Scripts/jk-rating-stars.js",
                 "~/App/Controller/avaliacao.controller.js",
                 "~/App/Controller/FileUploadController.js",
@@ -46,7 +47,6 @@ namespace PFC
                "~/App/Controller/login.controller.js",
                "~/App/Controller/chat.controller.js",
                "~/App/Controller/hank.controller.js",
-                "~/App/Controller/MainController.js",
                "~/Scripts/jquery.signalR-2.3.0.min.js",
                "~/App/Factories.js"));
 
