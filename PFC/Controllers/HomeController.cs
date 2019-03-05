@@ -1,9 +1,12 @@
 ﻿
 using System;
+using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using PFC.Business;
+using PFC.Model;
 
 
 namespace PFC.Controllers
@@ -14,14 +17,16 @@ namespace PFC.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            return View();
+        }
 
-
+        public ActionResult Chat()
+        {
             return View();
         }
 
         public ActionResult CreateUsuario()
         {
-
             return View();
         }
 
@@ -46,6 +51,8 @@ namespace PFC.Controllers
         {
             return View();
         }
+
+      
 
         [AcceptVerbs(HttpVerbs.Post)]
         public JsonResult UploadImage()

@@ -8,23 +8,38 @@
 @Html.Raw(TempData["erroLogin"])
 @Html.Raw(TempData["RetornoTema"])
 
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
 <head>
 
     <title>MeHelp - Solução para sua duvida</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="/Content/images/icons/Icone Me Help.ico">
-    <link rel="apple-touch-icon" sizes="144x144" type="image/x-icon" href="images/favicon/apple-touch-icon.png">
     <!-- All CSS Plugins -->
     @Styles.Render("~/bundles/css")
-
+    @* <link rel="stylesheet" href="~/Content/css/jquery-ui-demo.css">*@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,300,500,600,700">
-
+    <meta name="description" content="File Upload widget with multiple file selection, drag&amp;drop support, progress bars, validation and preview images, audio and video for jQuery. Supports cross-domain, chunked and resumable file uploads and client-side image resizing. Works with any server-side platform (PHP, Python, Ruby on Rails, Java, Node.js, Go etc.) that supports standard HTML form file uploads.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- jQuery UI styles -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/dark-hive/jquery-ui.css" integrity="sha384-ufZtQaOYGuy/CibAC5jmelOpBu3H78Js7HrXSLo4LGccHUrGGHXt+uaTcDbio3kI" crossorigin="anonymous">
+    <!-- Generic page styles -->
+    <link rel="stylesheet" href="~/Content/css/style.css">
+    <!-- Demo styles -->
+    <link rel="stylesheet" href="~/Content/css/jquery-ui-demo.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="~/Content/css/util.css">
+    @* <link rel="stylesheet" type="text/css" href="~/Content/css/util.css">*@
     <link rel="stylesheet" type="text/css" href="~/Content/css/main.css">
     <link href="~/Content/css/jk-rating-stars.css" rel="stylesheet" />
+    <!-- blueimp Gallery styles -->
+    <link rel="stylesheet" href="https://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+    <link rel="stylesheet" href="~/Content/css/jquery.fileupload.css">
+    <link rel="stylesheet" href="~/Content/css/jquery.fileupload-ui.css">
+    <!-- CSS adjustments for browsers with JavaScript disabled -->
+    <noscript><link rel="stylesheet" href="~/Content/css/jquery.fileupload-noscript.css"></noscript>
+    <noscript><link rel="stylesheet" href="~/Content/css/jquery.fileupload-ui-noscript.css"></noscript>
+
     <!--===============================================================================================-->
     <!-- Google Web Fonts  -->
 
@@ -93,21 +108,28 @@
                         {
 
                             <form class="login100-form validate-form flex-sb flex-w">
+                                <span id="resposta" class="alert alert-danger fade in">
+
+                                </span>
+                                <br />
+                                <br />
                                 <span class="login100-form-title p-b-51">
                                     Login
                                 </span>
 
-                                <span id="resposta" class="alert alert-danger fade in">
 
-                                </span>
+                                <br />
+                                <br />
                                 <div class="wrap-input100 validate-input m-b-16" data-validate="Username is required">
                                     <input type="text" id="txtLogin" ng-model="login" class="input100">
                                     <span class="focus-input100"></span>
                                 </div>
+                                <br />
                                 <div class="wrap-input100 validate-input m-b-16" data-validate="Password is required">
                                     <input type="password" id="txtSenha" ng-model="senha" class="input100" />
                                     <span class="focus-input100"></span>
                                 </div>
+                                <br />
                                 <div class="flex-sb-m w-full p-t-3 p-b-24">
                                     <div class="contact100-form-checkbox">
                                         <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
@@ -255,44 +277,28 @@
                 </div>
             </div>
 
-            <script src="~/Scripts/angular.min.js"></script>
 
         </div>
-        @* Fim Modal cadastro de usuario*@
+    @* Fim Modal cadastro de usuario*@
 
+    @Scripts.Render("~/bundles/angular")
 
+        <script src="~/Scripts/angular-animate.js"></script>
+        <script src="~/Scripts/angular-flash.js"></script>
+        <script src="~/Scripts/angular-mocks.js"></script>
+        <script src="~/Scripts/angular-router.js"></script>
+        <script src="~/App/fileUploader.js"></script>
         <!-- Back to Top Start -->
         <a href="#" class="scroll-to-top"><i class="fa fa-long-arrow-up"></i></a>
         <!-- Back to Top End -->
         <!-- All Javascript Plugins  -->
-        @Scripts.Render("~/bundles/angular")
         @Scripts.Render("~/bundles/js")
+        <script src="~/App/Services/entity.js"></script>
         @RenderSection("scripts", required: false)
-        <script src="~/Scripts/angular-animate.js"></script>
-        <script src="~/Scripts/ui-bootstrap-tpls-2.5.0.min.js"></script>
-        <script src="~/Scripts/angular-flash.js"></script>
-        <script src="~/App/Module.js"></script>
-        <script src="~/App/Service.js"></script>
-        <script src="~/App/Services/hank.service.js"></script>
-        <script src="~/App/Services/avalicacao.service.js"></script>
-        <script src="~/App/Services/login.service.js"></script>
-        <script src="~/App/Services/topico.service.js"></script>
-        <script src="~/Scripts/jk-rating-stars.js"></script>
-        <script src="~/App/Controller/avaliacao.controller.js"></script>
-        <script src="~/App/Directive.js"></script>
-        <script src="~/App/Controller/FileUploadController.js"></script>
-        <script src="~/App/Controller/usuario.controller.js"></script>
-        <script src="~/App/Controller/topico.controller.js"></script>
-        <script src="~/App/Controller/topicoSelecionado.controller.js"></script>
-        <script src="~/App/Controller/usuarioSelecionado.controller.js"></script>
-        <script src="~/App/Controller/tema.controller.js"></script>
-        <script src="~/App/Controller/login.controller.js"></script>
-        <script src="~/App/Controller/chat.controller.js"></script>
-        <script src="~/App/Controller/hank.controller.js"></script>
-        <script src="~/Scripts/jquery.signalR-2.3.0.min.js"></script>
-        <script src="~/App/Factories.js"></script>
         <script src="~/signalr/hubs"></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-route.js"></script>
+
+
+
 
     </div>
 

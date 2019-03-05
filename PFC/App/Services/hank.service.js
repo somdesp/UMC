@@ -2,10 +2,10 @@
 
     this.rankUsuario = function () {
         var request = $http({
-            method: 'post',
-            url: '../api/Ranking/ListarRank',
+            method: 'POST',
+            url: '/Ranking/ListarRank',
             data: '{}'
         });
         return request;
-    }
+    };
 });

@@ -10,7 +10,7 @@
     </div>
 }
 
-    <div class="row" ng-controller="topicoCtrl">
+    <div class="row" ng-controller="topicoCtrl as travel">
 
         <div class="sub-title">
             <h2>Topicos Abertos</h2>
@@ -19,27 +19,33 @@
 
         <div class="row">
             <div class="col-md-4">
-                <form name="FormPesquisa">
-                    <label class="button">Pesquisar:</label>
-                    <input type="text" class="form-control text-sm-center" ng-model="pesquisa" placeholder="digite sua pesquisa" style="border-radius:30px; border-color:rgb(26, 188, 156)" ng-keyup="pesquisar(pesquisa)" />
-                </form>
-            </div>
-            <div class="col-md-4">
+                
+                <form name="FormPesquisa" >
 
+                    <input type="text" class="form-control text-sm-center classePesquisa" ng-model="pesquisa" placeholder="Pesquisar..." ng-model-options="{debounce: 200}"  ng-change="pesquisar(pesquisa)"  />
+                    <div class="float-pesquisa" >
+                        <ul class="list-group classePesquisa" ng-model="Topico" ng-show="(pesquisa.length>0)">
+                            <li class="list-group-item classePesquisa" ng-repeat="topico in Topico|limitTo:5"><a class="classePesquisa" href="http://localhost:52005/Topico/TopicoSelecionado?topicoId={{topico.Id}}">{{topico.Titulo}}></a></li>
+                        </ul>
+                    </div>
+                </form>
+                
             </div>
+           
             <div class="col-md-4">
 
             </div>
         </div>
         <div class="row">
             <div class="col-md-12 content-page">
+                
 
-                <div class="col-md-12 blog-post"  ng-repeat="topico in Topicos">
+                <div class="col-md-12 blog-post" ng-repeat="topico in travel.cruise| limitTo:travel.limit">
                     <div class='post-title'>
                         <a href="http://localhost:52005/Topico/TopicoSelecionado?topicoId={{topico.Id}}"><h1>{{topico.Titulo}}</h1></a>
                         @*<button type="button" ng-click="abrirTopico(topico)">
-                            <h1>{{topico.Titulo}}</h1>
-                        </button>*@
+                    <h1>{{topico.Titulo}}</h1>
+                </button>*@
                     </div>
                     <div class='post-info'>
                         <span>{{topico.DataCria}}/ Por <a href='#' target='_blank'>{{topico.usuario.Nome}}</a></span>
@@ -53,8 +59,15 @@
             </div>
 
             <div class="col-md-12 text-center">
-                <a href="javascript:void(0)" id="load-more-post" class="load-more-button">Load</a>
-                <div id="post-end-message"></div>
+
+                <button ng-click="load()"  class="load-more-button">
+                <span ng-show="(!semdados)">Load</span>
+                <span ng-show="(semdados)">End</span>
+                </button>
+                
+                   
+                   
+                
             </div>
 
 

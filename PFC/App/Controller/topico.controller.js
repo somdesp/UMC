@@ -1,7 +1,11 @@
 ﻿// Controle Topico
 MeHelp.controller('topicoCtrl', function ($scope, topicoService) {
-
+    var vm = this;
+    $scope.semdados = false;
     carregarTopicos();
+
+    vm.limit = 3;
+
     carregarTemas();
 
 
@@ -15,8 +19,8 @@ MeHelp.controller('topicoCtrl', function ($scope, topicoService) {
                 d.data[i].DataCria = converteDataHora(d.data[i].DataCria);
             }
 
-            $scope.Topicos = d.data;
 
+            vm.cruise = d.data;
         },
             function () {
                 console.log("Erro ao carregar a lista de Topicos");
@@ -48,6 +52,21 @@ MeHelp.controller('topicoCtrl', function ($scope, topicoService) {
             });
     };
 
+
+    $scope.load = function () {
+
+        if (vm.limit >= vm.cruise.length) {
+            $scope.semdados = true;
+        }
+        else {
+
+            var increment = vm.limit + 3;
+            vm.limit = increment > vm.cruise.length ? vm.cruise.length : increment;
+        }
+
+
+
+    };
 
 
     //Visualizar Topico
@@ -120,18 +139,17 @@ MeHelp.controller('topicoCtrl', function ($scope, topicoService) {
 
         var listarTopicos = topicoService.pesquisar(pesquisa);
         listarTopicos.then(function (d) {
-
+            var Topico;
             var i;
             for (i = 0; i < d.data.length; i++) {
                 d.data[i].DataCria = converteDataHora(d.data[i].DataCria);
             }
 
-            $scope.Topicos = d.data;
 
-        },
-            function () {
-                console.log("Erro ao carregar a lista de Topicos");
-            });
+            $scope.Topico = d.data;
+        });
+
     };
 
+    
 });

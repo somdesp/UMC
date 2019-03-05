@@ -1,11 +1,17 @@
-﻿MeHelp.controller('topicoSelecionadoCtrl', function ($scope, topicoService) {
+﻿MeHelp.controller('topicoSelecionadoCtrl', function ($scope, topicoService, entityService) {
 
     var topico = localStorage.getItem("topico");
     visualizarTopico(localStorage.getItem('IdTopico'));
     $scope.usuario = JSON.parse(localStorage.getItem('model'));
+    var cont = 0;
     carregarIdUsuario();
 
-
+    $scope.salvarAnexos = function (Topico) {
+        entityService.saveTutorial(Topico)
+            .then(function (data) {
+                console.log(data);
+            });
+    };
 
 
     //Listar Topicos
@@ -27,6 +33,21 @@
                 console.log("Erro ao carregar a lista de Topicos");
             });
     }
+
+    $scope.topicodeTexto = function (topico) {
+        cont++;
+        if ($scope.itemSelecionado === topico) {
+          
+            $scope.itemSelecionado = null;
+
+        }
+        else {
+            $scope.itemSelecionado = topico;
+        }
+             
+               
+    };
+
 
     function carregarIdUsuario() {
 
@@ -53,24 +74,38 @@
 
 
     //Novo Post
-    $scope.novoPost = function (areaResposta) {
+    $scope.novoPost = function (Topico2) {
 
         var Topico = {
-            Descricao: areaResposta,
-            TopicoFilho: { Descricao: areaResposta }
+            Descricao: Topico2.Descricao,
+            TopicoFilho: { Descricao: Topico2.Descricao },
+            Anexos: Topico2.Anexos
         };
+
+
 
 
         var adicionaDadosPost = topicoService.novoPost(Topico);
 
         adicionaDadosPost.then(function (d) {
-            if (d.data === true) {
-              //  alert("Resposta Enviada");
+            if (d.data !== 0) {
+                //  alert("Resposta Enviada");
+                //VALIDA SE EXISTE ARQUIVO 
+                if (Topico2.Anexos !== undefined) {
+                    var Anexos = {
+                        ID_Topico: d.data,
+                        ArquivoBase: Topico2.Anexos.ArquivoBase
+                    };
+                    entityService.saveTutorial(Anexos)
+                        .then(function (data) {
+                            console.log(data);
+                        });
+                }
                 resetDados();
                 location.reload();
-                $scope.areaResposta = '';               
+                $scope.areaResposta = '';
                 visualizarTopico(localStorage.getItem('IdTopico'));
-              
+
             } else {
                 alert("Resposta nao Enviada");
             }
@@ -107,19 +142,6 @@
         return DadosTopico;
     };
 
-    $scope.uploadFile = function () {
-        var file = $scope.myFile;
-        var uploadUrl = "../server/service.php", //Url of webservice/api/server
-            promise = fileUploadService.uploadFileToUrl(file, uploadUrl);
-
-        promise.then(function (response) {
-            $scope.serverResponse = response;
-        }, function () {
-            $scope.serverResponse = 'An error has occurred';
-        })
-    };
-
-
 
     //Listar Temas
     function carregarTemas() {
@@ -132,6 +154,16 @@
             });
     }
 
+
+
+    //função para quebrar o texto
+    $scope.mudartext = function (text) {
+        if (text===1) {
+            $scope.text = 2;
+        } else {
+            $scope.text = 1;
+        }
+    };
 
     //correção datas
     function converteDataHora(data) {
@@ -157,8 +189,8 @@
     };
 
 
-    function resetDados () {
+    function resetDados() {
         $scope.areaResposta = {};
     }
-
 });
+
