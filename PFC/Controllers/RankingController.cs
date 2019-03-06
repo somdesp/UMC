@@ -23,5 +23,18 @@ namespace PFC.Controllers
 
         }
         #endregion
+
+        [HttpPost]
+        public JsonResult ListarRankSemanal()
+        {
+            RankBLL rank = new RankBLL();
+
+
+            RecurringJob.AddOrUpdate("RankingSemanal", () => rank.ExecutarRankSemanalJob(), Cron.Daily);
+
+            return Json(rank.ListarRankSemanal(), JsonRequestBehavior.AllowGet);
+
+        }
+
     }
 }

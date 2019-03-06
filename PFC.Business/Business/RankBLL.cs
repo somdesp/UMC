@@ -88,14 +88,40 @@ namespace PFC.Business
             listarRanking = dao.ListandoTabelaRank();
             return listarRanking;
         }
-
         #endregion
 
+        #region Consulta na tabela rank semanal  
+        public List<Usuario> ListarRankSemanal()
+        {
+            RankingDAO dao = new RankingDAO();
+
+            List<Usuario> listarRanking = new List<Usuario>();
+            listarRanking = dao.ListandoTabelaRankSemanal();
+            return listarRanking;
+        }
+        #endregion
+
+
+
+
+
+
+
+        #region Executar rank diario
         public void ExecutarRankDiarioJob()
         {
             RankingDAO dao = new RankingDAO();
             dao.ExecutarRankingDiario();
         }
+        #endregion
+
+        #region Executar rank Semanal
+        public void ExecutarRankSemanalJob()
+        {
+            RankingDAO dao = new RankingDAO();
+            dao.ExecutarRankingSemanal();
+        }
+        #endregion
     }
 
 }
