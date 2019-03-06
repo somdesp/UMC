@@ -99,6 +99,7 @@
   <ItemGroup>
     <Compile Include="Model\Autorizaçoes.cs" />
     <Compile Include="Model\Avaliacao.cs" />
+    <Compile Include="Model\Chat.cs" />
     <Compile Include="Model\CommonViewModel.cs" />
     <Compile Include="Model\Curso.cs" />
     <Compile Include="Model\Genero.cs" />

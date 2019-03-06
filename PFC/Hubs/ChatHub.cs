@@ -1,84 +1,225 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.SignalR.Hubs;
+using PFC.DAO;
 using PFC.Model;
-using System.Security.Principal;
 
 namespace PFC.Hubs
 {
-    [HubName("chat")]
     public class ChatHub : Hub
     {
-        // ChatAppEntities db = new ChatAppEntities();
+        public static string emailIDLoaded = "";
 
-        public void say(string message)
+        #region Connect
+        public void Connect(LoginViewModel login)
         {
-            Clients.All.hello();
-            Trace.WriteLine(message);
-        }
-        static readonly HashSet<string> Rooms = new HashSet<string>();
-        static List<LoginViewModel> loggedInUsers = new List<LoginViewModel>();
-        //static List<Room> roomsWiseUser = new List<Room>();
-        public string Login(string name )
-        {
-            var LoginViewModel = new LoginViewModel { Nome = name, ConnectionId = Context.ConnectionId, Id = 23, sex = "Male", memberType = "Re+gistered", fontColor = "red", status = Model.Status.Online.ToString() };
-            Clients.Caller.rooms(Rooms.ToArray());
-            Clients.Caller.setInitial(Context.ConnectionId, name);
-            var oSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-            string sJSON = oSerializer.Serialize(loggedInUsers);
-            loggedInUsers.Add(LoginViewModel);
-            Clients.Caller.getOnlineUsers(sJSON);
-            Clients.Others.newOnlineUser(LoginViewModel);
-            return name;
-        }
-
-        public void SendPrivateMessage(string toUserId, string message)
-        {
-            string fromUserId = Context.ConnectionId;
-            var toUser = loggedInUsers.FirstOrDefault(x => x.ConnectionId == toUserId);
-            var fromUser = loggedInUsers.FirstOrDefault(x => x.ConnectionId == fromUserId);
-            if (toUser != null && fromUser != null)
+            emailIDLoaded = login.Email;
+            var id = Context.ConnectionId;
+            using (SignalREntities dc = new SignalREntities())
             {
-                Clients.Client(toUserId).sendPrivateMessage(fromUserId, fromUser.Nome, message);
-                Clients.Caller.sendPrivateMessage(toUserId, fromUser.Nome, message);
+                var item = dc.ChatUserDetail.FirstOrDefault(x => x.EmailID == login.Email);
+                if (item != null)
+                {
+                    dc.ChatUserDetail.Remove(item);
+                    dc.SaveChanges();
+
+                    // Disconnect
+                    Clients.All.onUserDisconnectedExisting(item.ConnectionId, item.UserName);
+                }
+
+                var Users = dc.ChatUserDetail.ToList();
+                if (Users.Where(x => x.EmailID == login.Email).ToList().Count == 0)
+                {
+                    var userdetails = new ChatUserDetail
+                    {
+                        ConnectionId = id,
+                        UserName = login.Nome,
+                        EmailID = login.Email
+                    };
+                    dc.ChatUserDetail.Add(userdetails);
+                    dc.SaveChanges();
+
+                    // send to caller
+                    var connectedUsers = dc.ChatUserDetail.ToList();
+                    var CurrentMessage = dc.ChatMessageDetail.ToList();
+                    Clients.Caller.onConnected(id, login.Nome, connectedUsers, CurrentMessage);
+                }
+
+                // send to all except caller client
+                Clients.AllExcept(id).onNewUserConnected(id, login.Nome, login.Email);
             }
         }
-        public void UpdateStatus(string status)
-        {
-            string userId = Context.ConnectionId;
-            loggedInUsers.FirstOrDefault(x => x.ConnectionId == userId).status = status;
-            //var fromUser = loggedInUsers.FirstOrDefault(x => x.ConnectionId == fromUserId);                          
-            Clients.Others.statusChanged(userId, status);
+        #endregion
 
-        }
-        public void UserTyping(string connectionId, string msg)
-        {
-            var id = Context.ConnectionId;
-            Clients.Client(connectionId).isTyping(id, msg);
-        }
+        #region Disconnect
         public override System.Threading.Tasks.Task OnDisconnected(bool stopCalled)
         {
-            var item = loggedInUsers.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
-            if (item != null)
+            using (SignalREntities dc = new SignalREntities())
             {
-                loggedInUsers.Remove(item); // list = 
-                var id = Context.ConnectionId;
-                Clients.Others.newOfflineUser(item);
-            }
-            return base.OnDisconnected(true);
-        }
-        public void Connect(string userName)
-        {
-            var id = Context.ConnectionId;
+                var item = dc.ChatUserDetail.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
+                if (item != null)
+                {
+                    dc.ChatUserDetail.Remove(item);
+                    dc.SaveChanges();
 
-            if (loggedInUsers.Count(x => x.ConnectionId == id) == 0)
+                    var id = Context.ConnectionId;
+                    Clients.All.onUserDisconnected(id, item.UserName);
+                }
+            }
+            return base.OnDisconnected(stopCalled);
+        }
+        #endregion
+
+        #region Send_To_All
+        public void SendMessageToAll(string userName, string message)
+        {
+            // store last 100 messages in cache
+            AddAllMessageinCache(userName, message);
+
+            // Broad cast message
+            Clients.All.messageReceived(userName, message);
+        }
+        #endregion
+
+        #region Private_Messages
+        public void SendPrivateMessage(string toUserId, string message, string status)
+        {
+            string fromUserId = Context.ConnectionId;
+            using (SignalREntities dc = new SignalREntities())
             {
-                loggedInUsers.Add(new LoginViewModel { ConnectionId = id, Nome = userName });
-                Clients.Caller.onConnected(id, userName, loggedInUsers);
-                Clients.AllExcept(id).onNewUserConnected(id, userName);
+                var toUser = dc.ChatUserDetail.FirstOrDefault(x => x.ConnectionId == toUserId);
+                var fromUser = dc.ChatUserDetail.FirstOrDefault(x => x.ConnectionId == fromUserId);
+                if (toUser != null && fromUser != null)
+                {
+                    if (status == "Click")
+                        AddPrivateMessageinCache(fromUser.EmailID, toUser.EmailID, fromUser.UserName, message);
+
+                    // send to 
+                    Clients.Client(toUserId).sendPrivateMessage(fromUserId, fromUser.UserName, message, fromUser.EmailID, toUser.EmailID, status, fromUserId);
+
+                    // send to caller user
+                    Clients.Caller.sendPrivateMessage(toUserId, fromUser.UserName, message, fromUser.EmailID, toUser.EmailID, status, fromUserId);
+                }
             }
         }
+        public List<PrivateChatMessage> GetPrivateMessage(string fromid, string toid, int take)
+        {
+            using (SignalREntities dc = new SignalREntities())
+            {
+                List<PrivateChatMessage> msg = new List<PrivateChatMessage>();
+
+                var v = (from a in dc.ChatPrivateMessageMaster
+                         join b in dc.ChatPrivateMessageDetails on a.EmailID equals b.MasterEmailID into cc
+                         from c in cc
+                         where (c.MasterEmailID.Equals(fromid) && c.ChatToEmailID.Equals(toid)) || (c.MasterEmailID.Equals(toid) && c.ChatToEmailID.Equals(fromid))
+                         orderby c.ID descending
+                         select new
+                         {
+                             UserName = a.UserName,
+                             Message = c.Message,
+                             ID = c.ID
+                         }).Take(take).ToList();
+                v = v.OrderBy(s => s.ID).ToList();
+
+                foreach (var a in v)
+                {
+                    var res = new PrivateChatMessage()
+                    {
+                        userName = a.UserName,
+                        message = a.Message
+                    };
+                    msg.Add(res);
+                }
+                return msg;
+            }
+        }
+
+        private int takeCounter = 0;
+        private int skipCounter = 0;
+        public List<PrivateChatMessage> GetScrollingChatData(string fromid, string toid, int start = 10, int length = 1)
+        {
+            takeCounter = (length * start); // 20
+            skipCounter = ((length - 1) * start); // 10
+
+            using (SignalREntities dc = new SignalREntities())
+            {
+                List<PrivateChatMessage> msg = new List<PrivateChatMessage>();
+                var v = (from a in dc.ChatPrivateMessageMaster
+                         join b in dc.ChatPrivateMessageDetails on a.EmailID equals b.MasterEmailID into cc
+                         from c in cc
+                         where (c.MasterEmailID.Equals(fromid) && c.ChatToEmailID.Equals(toid)) || (c.MasterEmailID.Equals(toid) && c.ChatToEmailID.Equals(fromid))
+                         orderby c.ID descending
+                         select new
+                         {
+                             UserName = a.UserName,
+                             Message = c.Message,
+                             ID = c.ID
+                         }).Take(takeCounter).Skip(skipCounter).ToList();
+
+                foreach (var a in v)
+                {
+                    var res = new PrivateChatMessage()
+                    {
+                        userName = a.UserName,
+                        message = a.Message
+                    };
+                    msg.Add(res);
+                }
+                return msg;
+            }
+        }
+        #endregion
+
+        #region Save_Cache
+        private void AddAllMessageinCache(string userName, string message)
+        {
+            using (SignalREntities dc = new SignalREntities())
+            {
+                var messageDetail = new ChatMessageDetail
+                {
+                    UserName = userName,
+                    Message = message,
+                    EmailID = emailIDLoaded
+                };
+                dc.ChatMessageDetail.Add(messageDetail);
+                dc.SaveChanges();
+            }
+        }
+
+        private void AddPrivateMessageinCache(string fromEmail, string chatToEmail, string userName, string message)
+        {
+            using (SignalREntities dc = new SignalREntities())
+            {
+                // Save master
+                var master = dc.ChatPrivateMessageMaster.ToList().Where(a => a.EmailID.Equals(fromEmail)).ToList();
+                if (master.Count == 0)
+                {
+                    var result = new ChatPrivateMessageMaster
+                    {
+                        EmailID = fromEmail,
+                        UserName = userName
+                    };
+                    dc.ChatPrivateMessageMaster.Add(result);
+                    dc.SaveChanges();
+                }
+
+                // Save details
+                var resultDetails = new ChatPrivateMessageDetails
+                {
+                    MasterEmailID = fromEmail,
+                    ChatToEmailID = chatToEmail,
+                    Message = message
+                };
+                dc.ChatPrivateMessageDetails.Add(resultDetails);
+                dc.SaveChanges();
+            }
+        }
+        #endregion
+    }
+
+    public class PrivateChatMessage
+    {
+        public string userName { get; set; }
+        public string message { get; set; }
     }
 }

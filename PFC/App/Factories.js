@@ -15,9 +15,9 @@
                 $hub.server.login(ModelUsuario);
             });
         },
-        SendPrivateMessage: function (touser, message) {
+        SendPrivateMessage: function (fromuser,touser, message) {
             connection.done(function () {
-                $hub.server.sendPrivateMessage(touser, message);
+                $hub.server.sendPrivateMessage(fromuser,touser, message);
             });
         },
         UpdateStatus: function (status) {

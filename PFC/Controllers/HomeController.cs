@@ -25,6 +25,11 @@ namespace PFC.Controllers
             return View();
         }
 
+        public ActionResult Chat2()
+        {
+            return View();
+        }
+
         public ActionResult CreateUsuario()
         {
             return View();
