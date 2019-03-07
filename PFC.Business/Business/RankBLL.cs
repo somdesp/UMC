@@ -101,12 +101,19 @@ namespace PFC.Business
         }
         #endregion
 
+        #region Consulta na tabela rank mensal  
+        public List<Usuario> ListarRankMensal()
+        {
+            RankingDAO dao = new RankingDAO();
+
+            List<Usuario> listarRanking = new List<Usuario>();
+            listarRanking = dao.ListandoTabelaRankMensal();
+            return listarRanking;
+        }
+        #endregion
 
 
-
-
-
-
+        
         #region Executar rank diario
         public void ExecutarRankDiarioJob()
         {
@@ -120,6 +127,14 @@ namespace PFC.Business
         {
             RankingDAO dao = new RankingDAO();
             dao.ExecutarRankingSemanal();
+        }
+        #endregion
+
+        #region Executar rank Mensal
+        public void ExecutarRankMensalJob()
+        {
+            RankingDAO dao = new RankingDAO();
+            dao.ExecutarRankingMensal();
         }
         #endregion
     }

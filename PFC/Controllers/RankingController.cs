@@ -1,9 +1,6 @@
-﻿
-
-using Hangfire;
+﻿using Hangfire;
 using PFC.Business;
 using System;
-using System.Diagnostics;
 using System.Web.Mvc;
 
 namespace PFC.Controllers
@@ -30,9 +27,21 @@ namespace PFC.Controllers
             RankBLL rank = new RankBLL();
 
 
-            RecurringJob.AddOrUpdate("RankingSemanal", () => rank.ExecutarRankSemanalJob(), Cron.Daily);
+            RecurringJob.AddOrUpdate("RankingSemanal", () => rank.ExecutarRankSemanalJob(), Cron.Weekly(DayOfWeek.Saturday));
 
             return Json(rank.ListarRankSemanal(), JsonRequestBehavior.AllowGet);
+
+        }
+
+        [HttpPost]
+        public JsonResult ListarRankMensal()
+        {
+            RankBLL rank = new RankBLL();
+
+
+            RecurringJob.AddOrUpdate("RankingMensal", () => rank.ExecutarRankSemanalJob(), Cron.Monthly);
+
+            return Json(rank.ListarRankMensal(), JsonRequestBehavior.AllowGet);
 
         }
 

@@ -118,7 +118,7 @@ namespace PFC.DAO
         {
             SqlCommand comando;
             List<Usuario> listarUsuarios = new List<Usuario>();
-            string querySQL = $"select Nome,Curso,Pontos from ##TempRankingSemanal";
+            string querySQL = $"select Nome,Curso,Pontos from TempRankingSemanal Order by Pontos desc";
             SqlDataReader reader;
             using (contexto = new Contexto())
             {
@@ -140,9 +140,41 @@ namespace PFC.DAO
 
 
         }
-        #endregion 
+        #endregion
 
-                                    
+        #region Listar tabela Mensal
+        public List<Usuario> ListandoTabelaRankMensal()
+        {
+            SqlCommand comando;
+            List<Usuario> listarUsuarios = new List<Usuario>();
+            string querySQL = $"select Nome,Curso,Pontos from TempRankingMensal Order by Pontos desc";
+            SqlDataReader reader;
+            using (contexto = new Contexto())
+            {
+                comando = new SqlCommand(querySQL, contexto.forumConexao);
+
+                reader = contexto.ExecutaComandoComRetorno(querySQL);
+
+                while (reader.Read())
+                {
+                    Usuario usuario = new Usuario();
+                    usuario.Nome = reader["Nome"].ToString();
+                    usuario.Curso.curso = reader["Curso"].ToString();
+                    usuario.avaliacao.pontos = Convert.ToInt16(reader["Pontos"].ToString());
+                    listarUsuarios.Add(usuario);
+                }
+
+            }
+            return listarUsuarios;
+
+
+        }
+        #endregion
+
+
+
+
+
         #region Método chamado pelo job para executar procedure diario
         public void ExecutarRankingDiario()
         {
@@ -162,6 +194,21 @@ namespace PFC.DAO
         {
             SqlCommand comando;
             string executarSQL = $"Exec RankingSemanal";
+            using (contexto = new Contexto())
+            {
+                comando = new SqlCommand(executarSQL, contexto.forumConexao);
+                contexto.ExecutarInsert(executarSQL);
+            }
+
+        }
+        #endregion
+
+
+        #region Método chamado pelo job para executar procedure mensal
+        public void ExecutarRankingMensal()
+        {
+            SqlCommand comando;
+            string executarSQL = $"EXEC RankingMensal";
             using (contexto = new Contexto())
             {
                 comando = new SqlCommand(executarSQL, contexto.forumConexao);

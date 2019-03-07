@@ -10,5 +10,42 @@
             function () {
                 console.log("Erro ao carregar a lista de usuario");
             });
+    }
+
+
+    $scope.SelecionarRank = function (opcaoSelecionada) {
+
+        if (opcaoSelecionada === 1) {
+
+            var listarUsuarios = hankService.rankUsuario();
+            listarUsuarios.then(function (d) {
+                $scope.hankeamento = d.data;
+            },
+                function () {
+                    console.log("Erro ao carregar a lista de rank diario");
+                });
+
+        }
+        else if (opcaoSelecionada === 2) {
+            listarUsuarios = hankService.rankUsuario();
+            listarUsuarios.then(function (d) {
+                $scope.hankeamento = d.data;
+            },
+                function () {
+                    console.log("Erro ao carregar a lista de rank semanal");
+                });
+
+        } else if (opcaoSelecionada === 3) {
+            listarUsuarios = hankService.rankUsuario();
+            listarUsuarios.then(function (d) {
+                $scope.hankeamento = d.data;
+            },
+                function () {
+                    console.log("Erro ao carregar a lista de rank mensal");
+                });
+
+
+        }
+
     };
 });

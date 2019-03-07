@@ -50,7 +50,7 @@ namespace PFC
             //Serviço para executar Jobs de forma automatica.
             Hangfire.GlobalConfiguration.Configuration.UseSqlServerStorage("Data Source=mehelp.c5jiatqwcxsd.sa-east-1.rds.amazonaws.com;Initial Catalog=MeHelp;User Id=mehelp;Password=TCCUMC2018");
             
-            app.UseHangfireDashboard();
+            //app.UseHangfireDashboard();
             app.UseHangfireServer();
             
         }

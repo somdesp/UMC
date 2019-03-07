@@ -1,14 +1,18 @@
 ﻿
-@{
-    ViewBag.Title = "Ranking Usuarios";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+
 
 
 <div class="row" ng-controller="hankCtrl">
     <div class="sub-title">
         <div class="panel-heading"><h2>Rank de Usuarios</h2></div>
     </div>
+    <select class="form-control" ng-change="SelecionarRank(opcaoSelecionada)" ng-model="opcaoSelecionada">
+        <option value="" disabled="disabled" class="ng-binding"> Selecione um tipo de Rank </option>
+        <option ng-value="1">Diario</option>
+        <option ng-value="2">Semanal</option>
+        <option ng-value="3">Mensal</option>
+    </select>
+
     <table class="table table-bordered ">
         <thead style="background-color:#1abc9c;">
         <tr>
