@@ -4,8 +4,8 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SignalRModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="ChatMessageDetail">
+      <Schema Namespace="MeHelpChatModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ChatMensDetal">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -14,7 +14,7 @@
           <Property Name="Message" Type="nvarchar(max)" />
           <Property Name="EmailID" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="ChatPrivateMessageDetails">
+        <EntityType Name="ChatPrivMensDetal">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -23,7 +23,7 @@
           <Property Name="ChatToEmailID" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Message" Type="nvarchar(max)" />
         </EntityType>
-        <EntityType Name="ChatPrivateMessageMaster">
+        <EntityType Name="ChatPrivMensMaster">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -31,7 +31,7 @@
           <Property Name="UserName" Type="nvarchar" MaxLength="100" />
           <Property Name="EmailID" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="ChatUserDetail">
+        <EntityType Name="ChatUsuDetal">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -40,18 +40,18 @@
           <Property Name="UserName" Type="nvarchar" MaxLength="100" />
           <Property Name="EmailID" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <EntityContainer Name="SignalRModelStoreContainer">
-          <EntitySet Name="ChatMessageDetail" EntityType="Self.ChatMessageDetail" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ChatPrivateMessageDetails" EntityType="Self.ChatPrivateMessageDetails" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ChatPrivateMessageMaster" EntityType="Self.ChatPrivateMessageMaster" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ChatUserDetail" EntityType="Self.ChatUserDetail" Schema="dbo" store:Type="Tables" />
+        <EntityContainer Name="MeHelpChatModelStoreContainer">
+          <EntitySet Name="ChatMensDetal" EntityType="Self.ChatMensDetal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChatPrivMensDetal" EntityType="Self.ChatPrivMensDetal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChatPrivMensMaster" EntityType="Self.ChatPrivMensMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChatUsuDetal" EntityType="Self.ChatUsuDetal" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="SignalRModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="ChatMessageDetail">
+      <Schema Namespace="MeHelpChatModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ChatMensDetal">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -60,7 +60,7 @@
           <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="EmailID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="ChatPrivateMessageDetails">
+        <EntityType Name="ChatPrivMensDetal">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -69,7 +69,7 @@
           <Property Name="ChatToEmailID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="ChatPrivateMessageMaster">
+        <EntityType Name="ChatPrivMensMaster">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -77,7 +77,7 @@
           <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="EmailID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="ChatUserDetail">
+        <EntityType Name="ChatUsuDetal">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -86,21 +86,21 @@
           <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="EmailID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="SignalREntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ChatMessageDetail" EntityType="Self.ChatMessageDetail" />
-          <EntitySet Name="ChatPrivateMessageDetails" EntityType="Self.ChatPrivateMessageDetails" />
-          <EntitySet Name="ChatPrivateMessageMaster" EntityType="Self.ChatPrivateMessageMaster" />
-          <EntitySet Name="ChatUserDetail" EntityType="Self.ChatUserDetail" />
+        <EntityContainer Name="MeHelpChat" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ChatMensDetal" EntityType="Self.ChatMensDetal" />
+          <EntitySet Name="ChatPrivMensDetal" EntityType="Self.ChatPrivMensDetal" />
+          <EntitySet Name="ChatPrivMensMaster" EntityType="Self.ChatPrivMensMaster" />
+          <EntitySet Name="ChatUsuDetal" EntityType="Self.ChatUsuDetal" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SignalRModelStoreContainer" CdmEntityContainer="SignalREntities">
-          <EntitySetMapping Name="ChatMessageDetail">
-            <EntityTypeMapping TypeName="SignalRModel.ChatMessageDetail">
-              <MappingFragment StoreEntitySet="ChatMessageDetail">
+        <EntityContainerMapping StorageEntityContainer="MeHelpChatModelStoreContainer" CdmEntityContainer="MeHelpChat">
+          <EntitySetMapping Name="ChatMensDetal">
+            <EntityTypeMapping TypeName="MeHelpChatModel.ChatMensDetal">
+              <MappingFragment StoreEntitySet="ChatMensDetal">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Message" ColumnName="Message" />
@@ -108,9 +108,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ChatPrivateMessageDetails">
-            <EntityTypeMapping TypeName="SignalRModel.ChatPrivateMessageDetails">
-              <MappingFragment StoreEntitySet="ChatPrivateMessageDetails">
+          <EntitySetMapping Name="ChatPrivMensDetal">
+            <EntityTypeMapping TypeName="MeHelpChatModel.ChatPrivMensDetal">
+              <MappingFragment StoreEntitySet="ChatPrivMensDetal">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="MasterEmailID" ColumnName="MasterEmailID" />
                 <ScalarProperty Name="ChatToEmailID" ColumnName="ChatToEmailID" />
@@ -118,18 +118,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ChatPrivateMessageMaster">
-            <EntityTypeMapping TypeName="SignalRModel.ChatPrivateMessageMaster">
-              <MappingFragment StoreEntitySet="ChatPrivateMessageMaster">
+          <EntitySetMapping Name="ChatPrivMensMaster">
+            <EntityTypeMapping TypeName="MeHelpChatModel.ChatPrivMensMaster">
+              <MappingFragment StoreEntitySet="ChatPrivMensMaster">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="EmailID" ColumnName="EmailID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ChatUserDetail">
-            <EntityTypeMapping TypeName="SignalRModel.ChatUserDetail">
-              <MappingFragment StoreEntitySet="ChatUserDetail">
+          <EntitySetMapping Name="ChatUsuDetal">
+            <EntityTypeMapping TypeName="MeHelpChatModel.ChatUsuDetal">
+              <MappingFragment StoreEntitySet="ChatUsuDetal">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ConnectionId" ColumnName="ConnectionId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />

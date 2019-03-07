@@ -12,7 +12,7 @@ namespace PFC.Hubs
     using System;
     using System.Collections.Generic;
     
-    public partial class ChatPrivateMessageDetails
+    public partial class ChatPrivMensDetal
     {
         public int ID { get; set; }
         public string MasterEmailID { get; set; }

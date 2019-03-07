@@ -26,8 +26,6 @@ namespace PFC.Model
         [RegularExpression(@"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}", ErrorMessage = "Favor informe um e-mail válido")]
         public string Email { get; set; }
 
-
-
         [Required]
         public string RGM { get; set; }
 
@@ -42,13 +40,8 @@ namespace PFC.Model
         [StringLength(10, MinimumLength = 6, ErrorMessage = "A senha deve ter entre 6 e 10 caracteres.")]
         [DataType(DataType.Password)]
         public string Senha { get; set; }
-        public Avaliacao avaliacao { get; set; } = new Avaliacao();
 
-
-
-
-
-
+        public DateTime DataCad { get; set; }
 
         /////////////////////////////////Fim Forumalario de cadastro****************************
 
@@ -62,18 +55,10 @@ namespace PFC.Model
         public Semestre Semestre { get; set; } = new Semestre();
         public Autorizaçoes Auth { get; set; } = new Autorizaçoes();
         public Anexos UploadArquivo { get; set; } = new Anexos();
+        public Avaliacao avaliacao { get; set; } = new Avaliacao();
+
 
         /////////////////////Fim Relaçoes com Outras Classes************************************
 
-
-        ////////////////////////Formulario de Login************************************************
-
-
-
-
-
-        //LabelFor Usuarios
-
-        //public string Curso { get; set; }
     }
 }
