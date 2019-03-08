@@ -170,6 +170,7 @@ namespace PFC.DAO
                     temObjeto.Nome = reader["Nome"].ToString();
                     temObjeto.Id = Convert.ToInt16(reader["Id"].ToString());
                     temObjeto.RGM = reader["RGM"].ToString();
+                    temObjeto.DataCad = Convert.ToDateTime(reader["DataCad"].ToString());
                     temObjeto.Curso.Id = Convert.ToInt16(reader["Id_Curso"].ToString());
                     temObjeto.Semestre.Id = Convert.ToInt16(reader["Id_Semestre"].ToString());
                     temObjeto.DataNasci = Convert.ToDateTime(reader["DataNasci"].ToString());

@@ -71,6 +71,17 @@ MeHelp.service('usuarioService', function ($http) {
         return request;
     }
 
+    //Servico por Vusualizar usuarios
+    this.visualizarPerfil = function (Usuario) {
+        var request = $http({
+            method: 'post',
+            url: '/Usuario/VisualizarPerfil',
+            data: Usuario
+        });
+
+        return request;
+    };
+
 });
 
 

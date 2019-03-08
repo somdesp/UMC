@@ -13,10 +13,10 @@ namespace PFC.Hubs
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class SignalREntities : DbContext
+    public partial class MeHelpChat : DbContext
     {
-        public SignalREntities()
-            : base("name=SignalREntities")
+        public MeHelpChat()
+            : base("name=MeHelpChat")
         {
         }
     
@@ -25,9 +25,9 @@ namespace PFC.Hubs
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<ChatMessageDetail> ChatMessageDetail { get; set; }
-        public DbSet<ChatPrivateMessageDetails> ChatPrivateMessageDetails { get; set; }
-        public DbSet<ChatPrivateMessageMaster> ChatPrivateMessageMaster { get; set; }
-        public DbSet<ChatUserDetail> ChatUserDetail { get; set; }
+        public DbSet<ChatMensDetal> ChatMensDetal { get; set; }
+        public DbSet<ChatPrivMensDetal> ChatPrivMensDetal { get; set; }
+        public DbSet<ChatPrivMensMaster> ChatPrivMensMaster { get; set; }
+        public DbSet<ChatUsuDetal> ChatUsuDetal { get; set; }
     }
 }

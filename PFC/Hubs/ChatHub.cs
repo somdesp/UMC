@@ -15,33 +15,33 @@ namespace PFC.Hubs
         {
             emailIDLoaded = login.Email;
             var id = Context.ConnectionId;
-            using (SignalREntities dc = new SignalREntities())
+            using (MeHelpChat dc = new MeHelpChat())
             {
-                var item = dc.ChatUserDetail.FirstOrDefault(x => x.EmailID == login.Email);
+                var item = dc.ChatUsuDetal.FirstOrDefault(x => x.EmailID == login.Email);
                 if (item != null)
                 {
-                    dc.ChatUserDetail.Remove(item);
+                    dc.ChatUsuDetal.Remove(item);
                     dc.SaveChanges();
 
                     // Disconnect
                     Clients.All.onUserDisconnectedExisting(item.ConnectionId, item.UserName);
                 }
 
-                var Users = dc.ChatUserDetail.ToList();
+                var Users = dc.ChatUsuDetal.ToList();
                 if (Users.Where(x => x.EmailID == login.Email).ToList().Count == 0)
                 {
-                    var userdetails = new ChatUserDetail
+                    var userdetails = new ChatUsuDetal
                     {
                         ConnectionId = id,
                         UserName = login.Nome,
                         EmailID = login.Email
                     };
-                    dc.ChatUserDetail.Add(userdetails);
+                    dc.ChatUsuDetal.Add(userdetails);
                     dc.SaveChanges();
 
                     // send to caller
-                    var connectedUsers = dc.ChatUserDetail.ToList();
-                    var CurrentMessage = dc.ChatMessageDetail.ToList();
+                    var connectedUsers = dc.ChatUsuDetal.ToList();
+                    var CurrentMessage = dc.ChatMensDetal.ToList();
                     Clients.Caller.onConnected(id, login.Nome, connectedUsers, CurrentMessage);
                 }
 
@@ -54,12 +54,12 @@ namespace PFC.Hubs
         #region Disconnect
         public override System.Threading.Tasks.Task OnDisconnected(bool stopCalled)
         {
-            using (SignalREntities dc = new SignalREntities())
+            using (MeHelpChat dc = new MeHelpChat())
             {
-                var item = dc.ChatUserDetail.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
+                var item = dc.ChatUsuDetal.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
                 if (item != null)
                 {
-                    dc.ChatUserDetail.Remove(item);
+                    dc.ChatUsuDetal.Remove(item);
                     dc.SaveChanges();
 
                     var id = Context.ConnectionId;
@@ -85,10 +85,10 @@ namespace PFC.Hubs
         public void SendPrivateMessage(string toUserId, string message, string status)
         {
             string fromUserId = Context.ConnectionId;
-            using (SignalREntities dc = new SignalREntities())
+            using (MeHelpChat dc = new MeHelpChat())
             {
-                var toUser = dc.ChatUserDetail.FirstOrDefault(x => x.ConnectionId == toUserId);
-                var fromUser = dc.ChatUserDetail.FirstOrDefault(x => x.ConnectionId == fromUserId);
+                var toUser = dc.ChatUsuDetal.FirstOrDefault(x => x.ConnectionId == toUserId);
+                var fromUser = dc.ChatUsuDetal.FirstOrDefault(x => x.ConnectionId == fromUserId);
                 if (toUser != null && fromUser != null)
                 {
                     if (status == "Click")
@@ -104,12 +104,12 @@ namespace PFC.Hubs
         }
         public List<PrivateChatMessage> GetPrivateMessage(string fromid, string toid, int take)
         {
-            using (SignalREntities dc = new SignalREntities())
+            using (MeHelpChat dc = new MeHelpChat())
             {
                 List<PrivateChatMessage> msg = new List<PrivateChatMessage>();
 
-                var v = (from a in dc.ChatPrivateMessageMaster
-                         join b in dc.ChatPrivateMessageDetails on a.EmailID equals b.MasterEmailID into cc
+                var v = (from a in dc.ChatPrivMensMaster
+                         join b in dc.ChatPrivMensDetal on a.EmailID equals b.MasterEmailID into cc
                          from c in cc
                          where (c.MasterEmailID.Equals(fromid) && c.ChatToEmailID.Equals(toid)) || (c.MasterEmailID.Equals(toid) && c.ChatToEmailID.Equals(fromid))
                          orderby c.ID descending
@@ -141,11 +141,11 @@ namespace PFC.Hubs
             takeCounter = (length * start); // 20
             skipCounter = ((length - 1) * start); // 10
 
-            using (SignalREntities dc = new SignalREntities())
+            using (MeHelpChat dc = new MeHelpChat())
             {
                 List<PrivateChatMessage> msg = new List<PrivateChatMessage>();
-                var v = (from a in dc.ChatPrivateMessageMaster
-                         join b in dc.ChatPrivateMessageDetails on a.EmailID equals b.MasterEmailID into cc
+                var v = (from a in dc.ChatPrivMensMaster
+                         join b in dc.ChatPrivMensDetal on a.EmailID equals b.MasterEmailID into cc
                          from c in cc
                          where (c.MasterEmailID.Equals(fromid) && c.ChatToEmailID.Equals(toid)) || (c.MasterEmailID.Equals(toid) && c.ChatToEmailID.Equals(fromid))
                          orderby c.ID descending
@@ -173,44 +173,44 @@ namespace PFC.Hubs
         #region Save_Cache
         private void AddAllMessageinCache(string userName, string message)
         {
-            using (SignalREntities dc = new SignalREntities())
+            using (MeHelpChat dc = new MeHelpChat())
             {
-                var messageDetail = new ChatMessageDetail
+                var messageDetail = new ChatMensDetal
                 {
                     UserName = userName,
                     Message = message,
                     EmailID = emailIDLoaded
                 };
-                dc.ChatMessageDetail.Add(messageDetail);
+                dc.ChatMensDetal.Add(messageDetail);
                 dc.SaveChanges();
             }
         }
 
         private void AddPrivateMessageinCache(string fromEmail, string chatToEmail, string userName, string message)
         {
-            using (SignalREntities dc = new SignalREntities())
+            using (MeHelpChat dc = new MeHelpChat())
             {
                 // Save master
-                var master = dc.ChatPrivateMessageMaster.ToList().Where(a => a.EmailID.Equals(fromEmail)).ToList();
+                var master = dc.ChatPrivMensMaster.ToList().Where(a => a.EmailID.Equals(fromEmail)).ToList();
                 if (master.Count == 0)
                 {
-                    var result = new ChatPrivateMessageMaster
+                    var result = new ChatPrivMensMaster
                     {
                         EmailID = fromEmail,
                         UserName = userName
                     };
-                    dc.ChatPrivateMessageMaster.Add(result);
+                    dc.ChatPrivMensMaster.Add(result);
                     dc.SaveChanges();
                 }
 
                 // Save details
-                var resultDetails = new ChatPrivateMessageDetails
+                var resultDetails = new ChatPrivMensDetal
                 {
                     MasterEmailID = fromEmail,
                     ChatToEmailID = chatToEmail,
                     Message = message
                 };
-                dc.ChatPrivateMessageDetails.Add(resultDetails);
+                dc.ChatPrivMensDetal.Add(resultDetails);
                 dc.SaveChanges();
             }
         }

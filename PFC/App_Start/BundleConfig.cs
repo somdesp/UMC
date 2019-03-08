@@ -46,6 +46,8 @@ namespace PFC
                "~/App/Controller/login.controller.js",
                "~/App/Controller/chat.controller.js",
                "~/App/Controller/hank.controller.js",
+                "~/App/Controller/amizade.controller.js",
+
                "~/App/Factories.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(

@@ -26,12 +26,9 @@ namespace PFC.Controllers
         [Authorize(Roles = "Admin,Usuario,Master")]
         public ActionResult EditarUsuario()
         {
-           ViewBag.IdUsuario = User.Identity.GetUserId<int>();
+            ViewBag.IdUsuario = User.Identity.GetUserId<int>();
             return View();
         }
-
-
-
 
         #region Metodo listar Usuario READ   
         //Get Usuario/GetUsuario
@@ -114,8 +111,41 @@ namespace PFC.Controllers
         public ActionResult InativarUsuario(Usuario usuario)
         {
             UsuarioBLL bll = new UsuarioBLL();
-            return Json(bll.InativarUsuario(usuario)); 
+            return Json(bll.InativarUsuario(usuario));
         }
+        #endregion
+
+        #region UsuarioEscolhido
+
+        [Authorize(Roles = "Admin,Usuario,Master")]
+        public ActionResult PerfilUsuario(string usuarioId)
+        {
+            ViewBag.UsuarioId = usuarioId;
+            ViewBag.Usuario = User.Identity.GetUserId<int>();
+            Usuario usuario = new Usuario();
+            UsuarioBLL usuarioBll = new UsuarioBLL();
+            usuario.Id = Convert.ToInt16(usuarioId);
+            usuario = usuarioBll.ConsultaUsuarioInt(usuario);
+            if (usuario.Nome != null)
+            {
+                usuario.Id = Convert.ToInt16(usuarioId);
+                ViewBag.TopicoId = usuarioId;
+                return View(usuario);
+            }
+            else
+            {
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult VisualizarPerfil(Usuario usuario)
+        {
+            UsuarioBLL usuarioBll = new UsuarioBLL();
+            usuario = usuarioBll.ConsultaUsuarioInt(usuario);
+            return Json(usuario, JsonRequestBehavior.AllowGet);
+        }
+
         #endregion
 
         [AllowAnonymous]
@@ -164,7 +194,7 @@ namespace PFC.Controllers
             int result = yearNow - year;
             if (result < 16)
             {
-               return Json(false,JsonRequestBehavior.AllowGet);
+                return Json(false, JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -175,7 +205,7 @@ namespace PFC.Controllers
         }
 
 
-       
+
 
 
     }
