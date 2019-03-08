@@ -91,6 +91,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\AmizadeBLL.cs" />
     <Compile Include="Business\ArquivoBLL.cs" />
     <Compile Include="Business\AvaliacaoBLL.cs" />
     <Compile Include="Business\RankBLL.cs" />

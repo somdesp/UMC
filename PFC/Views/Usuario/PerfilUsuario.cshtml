@@ -18,37 +18,28 @@
 </script>
 
 
-<div class="col-md-12 content-page">
-    <div class="col-md-12 blog-post"  ng-controller="amizadeCtrl">
-
+<div class="col-md-12 content-page" ng-controller="amizadeCtrl">
+    <div class="col-md-12 blog-post">
+        <div>
+            <img src=" http://localhost:52005/Upload/{{PerfilUsuario.UploadArquivo.Caminho}}" alt="">
+        </div>
         <!-- My Intro Start -->
         <div class="post-title margin-bottom-30">
-            <h1>Ola, Eu Sou o Rubens <span class="main-color">{{PerfilUsuario.Nome}}</span></h1>
+            <h1>Ola, Eu Sou o <span class="main-color">{{PerfilUsuario.Nome}}</span></h1>
 
             <ul class="knowledge">
-                <li class="bg-color-1">Web Designer</li>
-                <li class="bg-color-4">Web Developer</li>
-                <li class="bg-color-6">Freelancer</li>
-                <li class="bg-color-5">Consultant</li>
+                <li class="bg-color-{{PerfilUsuario.Auth.Id}}">{{PerfilUsuario.Auth.Permissao}}</li>
             </ul>
 
         </div>
         <!-- My Intro End -->
 
 
-        <p>Estou presente no forum desde {{PerfilUsuario.DataCad}}</p>
+        <p class='post-info'>Estou presente no forum desde {{PerfilUsuario.DataCad}}</p>
 
 
 
         <!-- Video Start -->
-        <div class="video-box margin-top-40 margin-bottom-80">
-            <div class="video-tutorial">
-                <a class="video-popup" href="https://www.youtube.com/watch?v=O2Bsw3lrhvs" title="My Thought">
-                    <img src="images/pic/my-pic.png" alt="">
-                </a>
-            </div>
-            <p>Take a look about my thought on website design.</p>
-        </div>
         <!-- Video End -->
         <!-- My Service Start -->
         <div class="post-title">
@@ -69,9 +60,9 @@
         <!-- My Service End -->
 
     </div>
+    <div ng-if="(valAmi!== false)">
+        <a ng-click="conviteAmizade(PerfilUsuario)" class="btn btn-info"><span>Adicionar Usuario</span></a>
 
-    <div class="col-md-12 text-center">
-        <a href="contact.html" data-toggle="tooltip" data-placement="top" title="Visit on my contact page for hire me." class="load-more-button">Adicionar</a>
     </div>
 
 </div>

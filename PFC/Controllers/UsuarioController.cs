@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using PFC.Business;
 using PFC.Business.Business;
 
 
@@ -145,6 +146,19 @@ namespace PFC.Controllers
             usuario = usuarioBll.ConsultaUsuarioInt(usuario);
             return Json(usuario, JsonRequestBehavior.AllowGet);
         }
+
+        #endregion
+
+        #region AmizadeSOlicitada
+
+        public ActionResult AmizadeSolicitada(Usuario usuario, Usuario usuarioSolicitado)
+        {
+            AmizadeBLL amizadeBll = new AmizadeBLL();
+            return Json(amizadeBll.solicitacaoAmizade(usuario, usuarioSolicitado),
+                JsonRequestBehavior.AllowGet);
+
+        }
+
 
         #endregion
 
