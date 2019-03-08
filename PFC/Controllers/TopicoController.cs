@@ -31,7 +31,7 @@ namespace PFC.Controllers
             return View();
         }
 
-        [AllowAnonymous]
+        [Authorize]
         public ActionResult Ranking()
         {
             return View();

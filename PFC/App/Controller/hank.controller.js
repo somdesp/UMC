@@ -18,8 +18,14 @@
         if (opcaoSelecionada === 1) {
 
             var listarUsuarios = hankService.rankUsuario();
-            listarUsuarios.then(function (d) {
-                $scope.hankeamento = d.data;
+            listarUsuarios.then(function (response) {
+                if (response.data) {
+                    $scope.hankeamento = d.data;
+                } else {
+                    $scope.hankeamento = 0;
+                }
+                
+
             },
                 function () {
                     console.log("Erro ao carregar a lista de rank diario");
@@ -27,7 +33,7 @@
 
         }
         else if (opcaoSelecionada === 2) {
-            listarUsuarios = hankService.rankUsuario();
+            listarUsuarios = hankService.rankUsuarioSemanal();
             listarUsuarios.then(function (d) {
                 $scope.hankeamento = d.data;
             },
@@ -36,7 +42,7 @@
                 });
 
         } else if (opcaoSelecionada === 3) {
-            listarUsuarios = hankService.rankUsuario();
+            listarUsuarios = hankService.rankUsuarioMensal();
             listarUsuarios.then(function (d) {
                 $scope.hankeamento = d.data;
             },

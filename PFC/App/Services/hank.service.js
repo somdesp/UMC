@@ -8,4 +8,22 @@
         });
         return request;
     };
+
+    this.rankUsuarioSemanal = function () {
+        var request = $http({
+            method: 'POST',
+            url: '/Ranking/ListarRankSemanal',
+            data: '{}'
+        });
+        return request;
+    };
+
+    this.rankUsuarioMensal = function () {
+        var request = $http({
+            method: 'POST',
+            url: '/Ranking/ListarRankMensal',
+            data: '{}'
+        });
+        return request;
+    };
 });

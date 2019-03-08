@@ -18,15 +18,18 @@
         <tr>
             
             <th>Nome</th>
+            <th>Curso</th>
             <th>Pontos</th>
 
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="usu in hankeamento">
-            <td>{{usu.Nome}}</td>
-            <td>{{usu.avaliacao.pontos}}</td>
-
+            
+                <td>{{usu.Nome}}</td>
+                <td>{{usu.Curso.curso}}</td>
+                <td>{{usu.avaliacao.pontos}}</td>
+            
 
         </tr>
         </tbody>
