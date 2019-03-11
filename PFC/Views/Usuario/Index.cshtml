@@ -15,7 +15,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="usu in Usuarios">
-                    <td>{{usu.Nome}}</td>
+                    <td ><a href="http://localhost:52005/Usuario/PerfilUsuario?usuarioid={{usu.Id}}">{{usu.Nome}}</a></td>
                     <td>{{usu.Email}}</td>
                     <td>{{usu.Curso.curso}}</td>
                     <td>{{usu.Semestre.semestre}}</td>

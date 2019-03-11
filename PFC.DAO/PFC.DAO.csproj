@@ -106,6 +106,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO\AmizadeDAO.cs" />
     <Compile Include="DAO\AvaliacaoDAO.cs" />
     <Compile Include="Contexto\Contexto.cs" />
     <Compile Include="DAO\ArquivoDAO.cs" />

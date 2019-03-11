@@ -33,6 +33,7 @@ namespace PFC
                 "~/App/Service.js",
                 "~/App/Services/hank.service.js",
                 "~/App/Services/avalicacao.service.js",
+                "~/App/Services/amizade.service.js",
                 "~/App/Services/login.service.js",
                 "~/App/Services/topico.service.js",
                 "~/Scripts/jk-rating-stars.js",
