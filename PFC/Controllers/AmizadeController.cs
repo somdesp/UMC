@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Results;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
+﻿using System.Web.Http;
 using PFC.Business;
-using PFC.Business.Business;
 using PFC.Model;
 
 namespace PFC.Controllers
 {
+
     public class AmizadeController : ApiController
     {
         #region UsuarioEscolhido
@@ -38,11 +30,11 @@ namespace PFC.Controllers
 
         #region ValidaAmizade
 
-       
-        public JsonResult<bool> ValidaAmizade([FromBody] Usuario usuario, [FromBody] Usuario usuarioSolicitado)
+        [AcceptVerbs("POST")]
+        public bool ValidaAmizade([FromBody]Amizade amizade)
         {
             AmizadeBLL amizadeBll = new AmizadeBLL();
-            return Json (amizadeBll.ValidaAmizade(usuario, usuarioSolicitado));
+            return (amizadeBll.ValidaAmizade(amizade.usuario, amizade.usuarioSolicitado));
 
         }
 
