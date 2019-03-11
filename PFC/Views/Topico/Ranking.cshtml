@@ -24,14 +24,15 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="usu in hankeamento">
-            
+            <tr ng-repeat="usu in hankeamento" ng-class="{'classeUsuario':usu.Id===Idusuario}">
+
                 <td>{{usu.Nome}}</td>
                 <td>{{usu.Curso.curso}}</td>
                 <td>{{usu.avaliacao.pontos}}</td>
-            
 
-        </tr>
+
+
+            </tr>
         </tbody>
     </table>
 

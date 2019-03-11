@@ -89,7 +89,7 @@ namespace PFC.DAO
         {
             SqlCommand comando;
             List<Usuario> listarUsuarios = new List<Usuario>();
-            string querySQL = $"select Nome,Curso,Pontos from ##TempRankingDiario";
+            string querySQL = $"select Id,Nome,Curso,Pontos from ##TempRankingDiario";
             SqlDataReader reader;
             using (contexto = new Contexto())
             {
@@ -100,6 +100,7 @@ namespace PFC.DAO
                 while (reader.Read())
                 {
                     Usuario usuario = new Usuario();
+                    usuario.Id = Convert.ToInt16(reader["Id"].ToString());
                     usuario.Nome = reader["Nome"].ToString();
                     usuario.Curso.curso = reader["Curso"].ToString();
                     usuario.avaliacao.pontos = Convert.ToInt16(reader["Pontos"].ToString());
@@ -118,7 +119,7 @@ namespace PFC.DAO
         {
             SqlCommand comando;
             List<Usuario> listarUsuarios = new List<Usuario>();
-            string querySQL = $"select Nome,Curso,Pontos from TempRankingSemanal Order by Pontos desc";
+            string querySQL = $"select Id,Nome,Curso,Pontos from TempRankingSemanal Order by Pontos desc";
             SqlDataReader reader;
             using (contexto = new Contexto())
             {
@@ -129,6 +130,7 @@ namespace PFC.DAO
                 while (reader.Read())
                 {
                     Usuario usuario = new Usuario();
+                    usuario.Id = Convert.ToInt16(reader["Id"].ToString());
                     usuario.Nome = reader["Nome"].ToString();
                     usuario.Curso.curso = reader["Curso"].ToString();
                     usuario.avaliacao.pontos = Convert.ToInt16(reader["Pontos"].ToString());
@@ -147,7 +149,7 @@ namespace PFC.DAO
         {
             SqlCommand comando;
             List<Usuario> listarUsuarios = new List<Usuario>();
-            string querySQL = $"select Nome,Curso,Pontos from TempRankingMensal Order by Pontos desc";
+            string querySQL = $"select Id,Nome,Curso,Pontos from TempRankingMensal Order by Pontos desc";
             SqlDataReader reader;
             using (contexto = new Contexto())
             {
@@ -158,6 +160,7 @@ namespace PFC.DAO
                 while (reader.Read())
                 {
                     Usuario usuario = new Usuario();
+                    usuario.Id = Convert.ToInt16(reader["Id"].ToString());
                     usuario.Nome = reader["Nome"].ToString();
                     usuario.Curso.curso = reader["Curso"].ToString();
                     usuario.avaliacao.pontos = Convert.ToInt16(reader["Pontos"].ToString());
