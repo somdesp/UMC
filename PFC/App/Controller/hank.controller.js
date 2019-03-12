@@ -24,7 +24,7 @@
             var listarUsuarios = hankService.rankUsuario();
             listarUsuarios.then(function (response) {
                 if (response.data) {
-                    $scope.hankeamento = d.data;
+                    $scope.hankeamento = response.data;
                 } else {
                     $scope.hankeamento = 0;
                 }

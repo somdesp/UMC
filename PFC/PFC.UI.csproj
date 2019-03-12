@@ -541,6 +541,7 @@
     <Content Include="Icone Me Help.ico" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-flash.js" />
+    <Content Include="Scripts\angular-growl-notifications.js" />
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular-router.js" />
     <Content Include="Scripts\angular-sanitize.min.js" />

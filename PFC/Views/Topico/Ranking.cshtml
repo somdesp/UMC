@@ -12,16 +12,20 @@
         <option ng-value="2">Semanal</option>
         <option ng-value="3">Mensal</option>
     </select>
-
+    <growl-notifications>
+        <growl-notification ttl="5000">
+            Hello world
+        </growl-notification>
+    </growl-notifications>
     <table class="table table-bordered ">
         <thead style="background-color:#1abc9c;">
-        <tr>
-            
-            <th>Nome</th>
-            <th>Curso</th>
-            <th>Pontos</th>
+            <tr>
 
-        </tr>
+                <th>Nome</th>
+                <th>Curso</th>
+                <th>Pontos</th>
+
+            </tr>
         </thead>
         <tbody>
             <tr ng-repeat="usu in hankeamento" ng-class="{'classeUsuario':usu.Id===Idusuario}">
