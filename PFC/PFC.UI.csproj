@@ -235,8 +235,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\Config.js" />
-    <Content Include="App\Controller\amizade.controller.js" />
-    <Content Include="App\Controller\chat.controller.js" />
+    <Content Include="App\Controller\notificacao.controller.js" />
+    <Content Include="App\Controller\solicitacao.controller.js" />
     <Content Include="App\Controller\hank.controller.js" />
     <Content Include="App\Controller\login.controller.js" />
     <Content Include="App\Controller\MainController.js" />
@@ -250,7 +250,7 @@
     <Content Include="App\fileUploader.js" />
     <Content Include="App\Module.js" />
     <Content Include="App\Service.js" />
-    <Content Include="App\Services\amizade.service.js" />
+    <Content Include="App\Services\solicitacao.service.js" />
     <Content Include="App\Services\avalicacao.service.js" />
     <Content Include="App\Services\chat.service.js" />
     <Content Include="App\Services\entity.js" />
@@ -545,6 +545,7 @@
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular-router.js" />
     <Content Include="Scripts\angular-sanitize.min.js" />
+    <Content Include="Scripts\angular-signalr-hub.js" />
     <Content Include="Scripts\angular-strap.min.js" />
     <Content Include="Scripts\angular-strap.tpl.js" />
     <Content Include="Scripts\angular.min.js" />
@@ -588,6 +589,7 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.min.js" />
     <Content Include="Scripts\scrollglue.js" />
+    <Content Include="Scripts\toaster.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-2.5.0.min.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-3.0.4.min.js" />
@@ -799,13 +801,13 @@
     <Compile Include="App_Start\FiltroConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\AmizadeController.cs" />
     <Compile Include="Controllers\AvaliacaoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ListasController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RankingController.cs" />
     <Compile Include="Controllers\SemestreController.cs" />
+    <Compile Include="Controllers\SolicitacaoController.cs" />
     <Compile Include="Controllers\TemaApiController.cs" />
     <Compile Include="Controllers\TemaController.cs" />
     <Compile Include="Controllers\TopicoAPIController.cs" />
@@ -842,6 +844,7 @@
     <Compile Include="Hubs\ChatUsuDetal.cs">
       <DependentUpon>ChatMeHelp.tt</DependentUpon>
     </Compile>
+    <Compile Include="Hubs\NotificacaoHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

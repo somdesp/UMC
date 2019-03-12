@@ -8,11 +8,11 @@ using PFC.Model;
 
 namespace PFC.Business
 {
-    public class AutorizaçoesBLL
+    public class AutorizacoesBLL
     {
-        AutorizaçoesDAO permisaoDao = new AutorizaçoesDAO();
+        AutorizacoesDAO permisaoDao = new AutorizacoesDAO();
 
-        public Autorizaçoes ReturnAutPorID(Autorizaçoes auth)
+        public Autorizacoes ReturnAutPorID(Autorizacoes auth)
         {
             return permisaoDao.ReturnAutPorID(auth);
         }

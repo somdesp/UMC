@@ -8,7 +8,7 @@ using PFC.Model;
 
 namespace PFC.DAO
 {
-    public class AmizadeDAO
+    public class SolicitacaoDAO
     {
         private Contexto contexto;
 

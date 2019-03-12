@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace PFC.DAO
 {
-    public class AutorizaçoesDAO
+    public class AutorizacoesDAO
     {
 
         private Contexto contexto;
 
         #region Listar Permissoes
-        public List<Autorizaçoes> ListarAutorizaçoes()
+        public List<Autorizacoes> ListarAutorizacoes()
         {
-            var Autorizaçoes = new List<Autorizaçoes>();
+            var Autorizacoes = new List<Autorizacoes>();
             SqlDataReader reader;
             using (contexto = new Contexto())
             {
@@ -25,22 +25,22 @@ namespace PFC.DAO
                 reader = contexto.ExecutaComandoComRetorno(strQuery);
                 while (reader.Read())
                 {
-                    var temObjeto = new Autorizaçoes()
+                    var temObjeto = new Autorizacoes()
                     {
                         Id = int.Parse(reader["Id"].ToString()),
                         Permissao = reader["Nome"].ToString()
                     };
-                    Autorizaçoes.Add(temObjeto);
+                    Autorizacoes.Add(temObjeto);
                 }
             }
             reader.Close();
-            return Autorizaçoes;
+            return Autorizacoes;
         }
         #endregion
 
-        public Autorizaçoes ReturnAutPorID(Autorizaçoes auth)
+        public Autorizacoes ReturnAutPorID(Autorizacoes auth)
         {
-            var Autorizaçoes = new Autorizaçoes();
+            var Autorizacoes = new Autorizacoes();
             SqlDataReader reader;
             using (contexto = new Contexto())
             {
@@ -48,16 +48,16 @@ namespace PFC.DAO
                 reader = contexto.ExecutaComandoComRetorno(strQuery);
                 while (reader.Read())
                 {
-                    var temObjeto = new Autorizaçoes()
+                    var temObjeto = new Autorizacoes()
                     {
                         Id = int.Parse(reader["Id"].ToString()),
                         Permissao = reader["Nome"].ToString()
                     };
-                    Autorizaçoes =(temObjeto);
+                    Autorizacoes =(temObjeto);
                 }
             }
             reader.Close();
-            return Autorizaçoes;
+            return Autorizacoes;
         }
 
     }

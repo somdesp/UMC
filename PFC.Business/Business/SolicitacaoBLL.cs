@@ -8,9 +8,9 @@ using PFC.Model;
 
 namespace PFC.Business
 {
-    public class AmizadeBLL
+    public class SolicitacaoBLL
     {
-        AmizadeDAO amizadeDao = new AmizadeDAO();
+        SolicitacaoDAO amizadeDao = new SolicitacaoDAO();
         public bool solicitacaoAmizade(Usuario usuario, Usuario usuarioSolicitado)
         {
 

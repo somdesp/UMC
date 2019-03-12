@@ -27,7 +27,12 @@ MeHelp.controller('amizadeCtrl', function ($scope, amizadeService) {
     //Solicitação Amizade
     $scope.conviteAmizade = function (Usu_Sol) {
 
-        var amizadeSolicitada = amizadeService.amizadeSolicitada(UsuarioLogado, Usu_Sol);
+        var Solicitacao = {
+            usuario: UsuarioLogado,
+            usuarioSolicitado: Usu_Sol
+        };
+
+        var amizadeSolicitada = amizadeService.amizadeSolicitada(Solicitacao);
 
         amizadeSolicitada.then(function (d) {
             if (d.data === true) {

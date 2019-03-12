@@ -36,7 +36,7 @@ namespace PFC.Model
 
         public bool success { get; set; }
 
-        public Autorizaçoes Permissao { get; set; } = new Autorizaçoes();
+        public Autorizacoes Permissao { get; set; } = new Autorizacoes();
         public Anexos UploadArquivo { get; set; } = new Anexos();
     }
 

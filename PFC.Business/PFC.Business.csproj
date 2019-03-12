@@ -91,12 +91,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Business\AmizadeBLL.cs" />
+    <Compile Include="Business\SolicitacaoBLL.cs" />
     <Compile Include="Business\ArquivoBLL.cs" />
     <Compile Include="Business\AvaliacaoBLL.cs" />
     <Compile Include="Business\RankBLL.cs" />
     <Compile Include="Business\LoginBLL.cs" />
-    <Compile Include="Business\AutorizaçoesBLL.cs" />
+    <Compile Include="Business\AutorizacoesBLL.cs" />
     <Compile Include="Business\TopicoBLL.cs" />
     <Compile Include="Business\UsuarioBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

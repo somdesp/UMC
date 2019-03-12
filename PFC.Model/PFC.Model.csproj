@@ -97,11 +97,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Amizade.cs" />
-    <Compile Include="Model\Autorizaçoes.cs" />
+    <Compile Include="Model\Solicitacao.cs" />
+    <Compile Include="Model\Autorizacoes.cs" />
     <Compile Include="Model\Avaliacao.cs" />
     <Compile Include="Model\Chat.cs" />
-    <Compile Include="Model\CommonViewModel.cs" />
     <Compile Include="Model\Curso.cs" />
     <Compile Include="Model\Genero.cs" />
     <Compile Include="Model\LoginViewModel.cs" />
