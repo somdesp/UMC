@@ -13,6 +13,7 @@ namespace PFC.Business
         AmizadeDAO amizadeDao = new AmizadeDAO();
         public bool solicitacaoAmizade(Usuario usuario, Usuario usuarioSolicitado)
         {
+
             return amizadeDao.solicitacaoAmizade(usuario, usuarioSolicitado);
         }
 

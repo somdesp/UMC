@@ -60,10 +60,14 @@
         <!-- My Service End -->
 
     </div>
-    <div ng-if="(valAmi!== false)">
-        <a ng-click="conviteAmizade(PerfilUsuario)" class="btn btn-info"><span>Adicionar Usuario</span></a>
+    <div ng-if="(valAmi)">
+        <button  ng-click="conviteAmizade(PerfilUsuario)"  class="btn btn-lg btn-primary" disabled>Usuario Adicionado</button>
 
     </div>
+    <div ng-if="(!valAmi)">
+        <button ng-click="conviteAmizade(PerfilUsuario)" class="btn btn-lg btn-primary" >Adicionar Usuario</button>
+    </div>
+
 
 </div>
 

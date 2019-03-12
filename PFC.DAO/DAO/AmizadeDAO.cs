@@ -16,8 +16,8 @@ namespace PFC.DAO
         public bool solicitacaoAmizade(Usuario usuario, Usuario usuarioSolicitado)
         {
             var strQuery = "";
-            strQuery += "INSERT INTO Amizade (Id_Usu_Sol,Id_Usu_Pen,Amizade_pend) ";
-            strQuery += string.Format("VALUES('{0}','{1}',0)",
+            strQuery += "INSERT INTO Amizade (Id_Usu_Sol,Id_Usu_Pen,Id_Status) ";
+            strQuery += string.Format("VALUES('{0}','{1}',1)",
                 usuario.Id, usuarioSolicitado.Id);
 
             using (contexto = new Contexto())
@@ -40,6 +40,7 @@ namespace PFC.DAO
 
                 if (reader.HasRows.Equals(false))
                 {
+                    reader.Close();
                     return false;
                 }
 

@@ -1,7 +1,7 @@
 ﻿//AMIZADE USUARIO---------------------
-MeHelp.service('amizadeService', function($http) {
-//Servico por Vusualizar usuarios
-    this.visualizarPerfil = function(Usuario) {
+MeHelp.service('amizadeService', function ($http) {
+    //Servico por Vusualizar usuarios
+    this.visualizarPerfil = function (Usuario) {
         var request = $http({
             method: 'post',
             url: '/Usuario/VisualizarPerfil',
@@ -10,8 +10,8 @@ MeHelp.service('amizadeService', function($http) {
 
         return request;
     };
-//Solicitar Amizade
-    this.amizadeSolicitada = function(usuario, usuarioSolicitado) {
+    //Solicitar Amizade
+    this.amizadeSolicitada = function (usuario, usuarioSolicitado) {
         var request = $http({
             method: 'post',
             url: '/Usuario/AmizadeSolicitada',
@@ -21,12 +21,12 @@ MeHelp.service('amizadeService', function($http) {
         return request;
     };
 
-//Valida Amizade
-    this.ValidaAmizade = function(usuario, usuarioSolicitado) {
+    //Valida Amizade
+    this.ValidaAmizade = function (amizade) {
         var request = $http({
             method: 'post',
-            url: '/Amizade/ValidaAmizade',
-            data: { usuario, usuarioSolicitado }
+            url: 'http://localhost:52005/api/Amizade/ValidaAmizade',
+            data: amizade 
         });
 
         return request;

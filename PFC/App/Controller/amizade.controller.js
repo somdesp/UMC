@@ -32,6 +32,8 @@ MeHelp.controller('amizadeCtrl', function ($scope, amizadeService) {
         amizadeSolicitada.then(function (d) {
             if (d.data === true) {
                 alert("Solicitação enviada");
+                $scope.valAmi = true;
+
             } else {
                 alert("Solicitação Nao enviada");
             }
@@ -42,17 +44,18 @@ MeHelp.controller('amizadeCtrl', function ($scope, amizadeService) {
     };
 
     //Valida se ja tem Amizade
-    function ValidaAmizade(UsuarioLogado, UsuarioSolicitado) {
+    function ValidaAmizade(UsuarioLogado, UsuarioSolicitadoForm) {
 
-        var ValidaAmizade = amizadeService.ValidaAmizade(UsuarioLogado, UsuarioSolicitado);
+        var Amizade = {
+            usuario: UsuarioLogado,
+            usuarioSolicitado: UsuarioSolicitadoForm
+        };
 
+
+        var ValidaAmizade = amizadeService.ValidaAmizade(Amizade);
+        var valAmi;
         ValidaAmizade.then(function (d) {
-            if (d.data === true) {
-                $scope.valAmi = true;
-            } else {
-                $scope.valAmi = false;
-
-            }
+                $scope.valAmi = d.data;
         },
             function () {
                 $("#resposta").text("Error Critico");
