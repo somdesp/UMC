@@ -186,8 +186,10 @@ button {
 }
 
 .page-body {
+    
     background: #ffffff;
     box-shadow: -2px -1px 88px 0px rgba(0,0,0,0.17);
+    
 }
 
 .sub-title {
@@ -398,7 +400,7 @@ input.ng-touched.ng-invalid {
     position: fixed;
     right: 0;
     top: 0;
-    z-index: 99999;
+    z-index: 6999;
 }
 
 .rounder {
@@ -414,7 +416,7 @@ input.ng-touched.ng-invalid {
     border-radius: 50%;
     -webkit-animation: spinner 700ms infinite linear;
     animation: spinner 700ms infinite linear;
-    z-index: 10000;
+    z-index: 6000;
 }
 
 
@@ -2093,16 +2095,74 @@ ul, li.classePesquisa {
     color: #333333;
 }
 
-    li.classePesquisa:hover {
+ li.classePesquisa:hover {
         transition: 0.5s;
         background-color: #D9F4EE;
         color: #333333;
-    }
+ }
 
 tr.classeUsuario {
     background: #1abc9c;
 }
 
+growl-notifications {
+    position: absolute;
+    top: -30px;
+    left: 50px;
+    z-index: 12244;
+}
+
+growl-notifications growl-notification {
+        background: rgba(0,168,107,0.7);
+        color: white;
+        font-size:18px;
+        padding: 15px 30px;
+        width: 250px;
+        display: block;
+        border-radius: 5px;
+        margin-top: 15px;
+}
 
 
+
+growl-notifications growl-notification.erro {
+        background: rgba(255,64,64,0.7);
+        color: white;
+        font-size: 18px;
+        padding: 15px 30px;
+        width: 250px;
+        display: block;
+        border-radius: 5px;
+        margin-top: 15px;
+}
+
+
+    growl-notification.fading.ng-move {
+        opacity: 0;
+        -webkit-transition: 1s linear all; /* Safari/Chrome */
+        transition: 1s linear all; /* All other modern browsers and IE10+ */
+    }
+
+growl-notification.fading.ng-move.ng-move-active {
+        opacity: 1;
+}
+
+growl-notification.fading.ng-leave {
+    opacity: 1;
+    -webkit-transition: 1s linear all; /* Safari/Chrome */
+    transition: 1s linear all; /* All other modern browsers and IE10+ */
+}
+
+ growl-notification.fading.ng-leave.ng-leave-active {
+    opacity: 0;
+ }
+
+span.tituloNotificacao{
+    padding-left:10px;
+}
+
+span.textoNotificacao{
+    padding-bottom:14px;
+    font-size:16px;
+}
 

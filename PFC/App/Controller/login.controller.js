@@ -11,9 +11,11 @@
         var loginUsuario = loginService.loginUsuario(LoginViewModel);
 
         loginUsuario.then(function (d) {
+            $scope.erro = null;
             if (d.data.success === false) {
-                $("#resposta").text("Usuario ou senha Incorretos");
-                $('.alert').alert();
+                //$("#resposta").text("Usuario ou senha Incorretos");
+                $scope.erro = true;
+                $scope.descricaoErro = "Usuario ou senha Incorretos";
             } else if (d.data.success === true) {
 
                 localStorage.setItem('model', JSON.stringify(d.data)),
