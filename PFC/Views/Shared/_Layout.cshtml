@@ -68,11 +68,12 @@
 
     <div id="main">
         <div class="container-fluid">
-            <growl-notifications></growl-notifications>
+            
             <div class="row">
-
+                
                 <!-- About Me (Left Sidebar) Start -->
                 <div class="col-md-3">
+                   
                     <div class="about-fixed" ng-controller="loginCtrl">
 
                         @if (@User.Identity.IsAuthenticated)
@@ -106,6 +107,13 @@
 
                         @if (!@User.Identity.IsAuthenticated)
                         {
+                            <growl-notifications>
+                                <growl-notification class="fading erro" ttl="2000" ng-if="erro">
+                                    <i class="fas fa-check fa-1x"></i><span class="font-weight-lighter tituloNotificacao">Erro</span>
+                                    <br />
+                                    <span class="textoNotificacao">{{descricaoErro}}</span>
+                                </growl-notification>
+                            </growl-notifications>
 
                             <form class="login100-form validate-form flex-sb flex-w">
                                 <span id="resposta" class="alert alert-danger fade in">
@@ -130,20 +138,7 @@
                                     <span class="focus-input100"></span>
                                 </div>
                                 <br />
-                                <div class="flex-sb-m w-full p-t-3 p-b-24">
-                                    <div class="contact100-form-checkbox">
-                                        <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
-                                        <label class="label-checkbox100" for="ckb1">
-                                            Lembrar - me
-                                        </label>
-                                    </div>
 
-                                    <div>
-                                        <a href="#" class="txt1">
-                                            Esqueceu - se?
-                                        </a>
-                                    </div>
-                                </div>
 
                                 <div class="container-login100-form-btn m-t-17">
                                     <div class="col-md-6">
@@ -171,7 +166,7 @@
 
                     <!-- Footer Start -->
 
-                    <div class="col-md-12 page-body margin-top-50 footer">
+                    <div class="col-md-12 page-body margin-top-100 footer">
                         <footer>
                             <ul class="menu-link">
                                 <li><a href="~/Home/Index"><i class="fas fa-home fa-2x"></i></a></li>
