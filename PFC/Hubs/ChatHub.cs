@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNet.SignalR;
-using PFC.DAO;
 using PFC.Model;
 
 namespace PFC.Hubs
@@ -9,6 +9,34 @@ namespace PFC.Hubs
     public class ChatHub : Hub
     {
         public static string emailIDLoaded = "";
+
+        public static void EnvioMensSoli(Solicitacao solicitacao)
+        {
+            var msg = String.Format("Nova Solicitação Amizade: {0} <{1}>", solicitacao.usuario.Nome, solicitacao.usuario.Email);
+
+            var hubContext = GlobalHost.ConnectionManager.GetHubContext<NotificacaoHub>();
+
+
+            //string fromUserId = Context.ConnectionId;
+            using (MeHelpChat dc = new MeHelpChat())
+            {
+                var toUser = dc.ChatUsuDetal.FirstOrDefault(x => x.EmailID == solicitacao.usuarioSolicitado.Email);
+                var fromUser = dc.ChatUsuDetal.FirstOrDefault(x => x.EmailID == solicitacao.usuario.Email);
+
+                hubContext.Clients.Client(toUser.ConnectionId).newContact(msg);
+
+                if (toUser != null && fromUser != null)
+                {
+                    //    // send to 
+                    //    Clients.Client(toUserId).sendPrivateMessage(fromUserId, fromUser.UserName, message, fromUser.EmailID, toUser.EmailID, status, fromUserId);
+
+                    //    // send to caller user
+                    //    Clients.Caller.sendPrivateMessage(toUserId, fromUser.UserName, message, fromUser.EmailID, toUser.EmailID, status, fromUserId);
+
+                }
+            }
+
+        }
 
         #region Connect
         public void Connect(LoginViewModel login)

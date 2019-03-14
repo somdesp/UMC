@@ -4,15 +4,31 @@
 
     // Declare a proxy to reference the hub.
     var chatHub = $.connection.chatHub;
+    var notHub = $.connection.notification;
+
     $.connection.hub.logging = true;
 
     registerClientMethods(chatHub);
+    registerClientMethods(notHub);
+
 
     // Start Hub
     $.connection.hub.start().done(function () {
-        registerEvents(chatHub)
+        registerEvents(chatHub);
     });
 });
+
+
+function noti(notHub) {
+
+    notHub.client.newContact = function(msg) {
+        $("#notificationTab").empty();
+        $("#cntNotifications").text(msg);
+
+        $("#notificationTab").append("<tr> <td> " + msg + "</td> <td>" + msg.Text + "</td> <td>" + msg + "</td></tr>");
+        console.log('newContact called ' + msg);
+    };
+}
 
 // ------------------------------------------------------------------Variable ----------------------------------------------------------------------//
 var loadMesgCount = 10;
@@ -116,6 +132,8 @@ function registerClientMethods(chatHub) {
     chatHub.client.messageReceived = function (userName, message) {
         AddMessage(userName, message);
     }
+
+
 
     chatHub.client.sendPrivateMessage = function (windowId, fromUserName, message, userEmail, email, status, fromUserId) {
         var ctrId = 'private_' + windowId;

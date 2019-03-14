@@ -53,7 +53,7 @@ namespace PFC.Model
         public Genero Sexo { get; set; } = new Genero();
         public Curso Curso { get; set; } = new Curso();
         public Semestre Semestre { get; set; } = new Semestre();
-        public Autorizaçoes Auth { get; set; } = new Autorizaçoes();
+        public Autorizacoes Auth { get; set; } = new Autorizacoes();
         public Anexos UploadArquivo { get; set; } = new Anexos();
         public Avaliacao avaliacao { get; set; } = new Avaliacao();
 

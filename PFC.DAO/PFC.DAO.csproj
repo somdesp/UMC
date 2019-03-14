@@ -106,11 +106,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DAO\AmizadeDAO.cs" />
+    <Compile Include="DAO\SolicitacaoDAO.cs" />
     <Compile Include="DAO\AvaliacaoDAO.cs" />
     <Compile Include="Contexto\Contexto.cs" />
     <Compile Include="DAO\ArquivoDAO.cs" />
-    <Compile Include="DAO\AutorizaçoesDAO.cs" />
+    <Compile Include="DAO\AutorizacoesDAO.cs" />
     <Compile Include="DAO\ChatDAO.cs" />
     <Compile Include="DAO\CursoDAO.cs" />
     <Compile Include="DAO\GeneroDAO.cs" />

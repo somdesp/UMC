@@ -29,11 +29,13 @@ namespace PFC
                 "~/Scripts/angular-animate.js",
                 "~/Scripts/ui-bootstrap-tpls-2.5.0.min.js",
                "~/Scripts/angular-flash.js",
+                "~/Scripts/angular-signalr-hub.js",
+                "~/Scripts/toaster.js",
                 "~/App/Module.js",
                 "~/App/Service.js",
                 "~/App/Services/hank.service.js",
                 "~/App/Services/avalicacao.service.js",
-                "~/App/Services/amizade.service.js",
+                "~/App/Services/solicitacao.service.js",
                 "~/App/Services/login.service.js",
                 "~/App/Services/topico.service.js",
                 "~/Scripts/jk-rating-stars.js",
@@ -47,7 +49,9 @@ namespace PFC
                "~/App/Controller/login.controller.js",
                "~/App/Controller/chat.controller.js",
                "~/App/Controller/hank.controller.js",
-                "~/App/Controller/amizade.controller.js",
+                "~/App/Controller/solicitacao.controller.js",
+                "~/App/Controller/notificacao.controller.js",
+
 
                "~/App/Factories.js"));
 

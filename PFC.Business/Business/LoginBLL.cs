@@ -9,7 +9,7 @@ namespace PFC.Business
     public class LoginBLL
     {
         LoginDAO loginDao = new LoginDAO();
-        AutorizaçoesDAO autorizaçoesDao = new AutorizaçoesDAO();
+        AutorizacoesDAO AutorizacoesDao = new AutorizacoesDAO();
         ArquivoDAO arquivoDao = new ArquivoDAO();
 
         public LoginViewModel LoginUsuario(LoginViewModel model)
@@ -23,7 +23,7 @@ namespace PFC.Business
             }
             else
             {
-                model.Permissao = autorizaçoesDao.ReturnAutPorID(model.Permissao);
+                model.Permissao = AutorizacoesDao.ReturnAutPorID(model.Permissao);
                 model.UploadArquivo = arquivoDao.CarregarArquivo(model.UploadArquivo);
                 model.success = true;
             }

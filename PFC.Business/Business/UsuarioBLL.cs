@@ -13,7 +13,7 @@ namespace PFC.Business.Business
 
         UsuarioDAO daoUsuario = new UsuarioDAO();
         ArquivoBLL arquivoDao = new ArquivoBLL();
-        AutorizaçoesBLL permissaoBll = new AutorizaçoesBLL();
+        AutorizacoesBLL permissaoBll = new AutorizacoesBLL();
 
         #region Inativar Usuario
         public bool InativarUsuario(Usuario usuario)

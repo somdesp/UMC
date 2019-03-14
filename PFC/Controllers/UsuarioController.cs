@@ -8,6 +8,7 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using PFC.Business;
 using PFC.Business.Business;
+using PFC.Hubs;
 
 
 namespace PFC.Controllers
@@ -149,18 +150,7 @@ namespace PFC.Controllers
 
         #endregion
 
-        #region AmizadeSOlicitada
 
-        public ActionResult AmizadeSolicitada(Usuario usuario, Usuario usuarioSolicitado)
-        {
-            AmizadeBLL amizadeBll = new AmizadeBLL();
-            return Json(amizadeBll.solicitacaoAmizade(usuario, usuarioSolicitado),
-                JsonRequestBehavior.AllowGet);
-
-        }
-
-
-        #endregion
 
         [AllowAnonymous]
         public ActionResult ConsultaUnico(Usuario cad)

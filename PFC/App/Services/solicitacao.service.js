@@ -11,11 +11,11 @@ MeHelp.service('amizadeService', function ($http) {
         return request;
     };
     //Solicitar Amizade
-    this.amizadeSolicitada = function (usuario, usuarioSolicitado) {
+    this.amizadeSolicitada = function (Solicitacao) {
         var request = $http({
             method: 'post',
-            url: '/Usuario/AmizadeSolicitada',
-            data: { usuario, usuarioSolicitado }
+            url: 'http://localhost:52005/api/Solicitacao/AmizadeSolicitada',
+            data: Solicitacao
         });
 
         return request;
@@ -25,7 +25,7 @@ MeHelp.service('amizadeService', function ($http) {
     this.ValidaAmizade = function (amizade) {
         var request = $http({
             method: 'post',
-            url: 'http://localhost:52005/api/Amizade/ValidaAmizade',
+            url: 'http://localhost:52005/api/Solicitacao/ValidaAmizade',
             data: amizade 
         });
 

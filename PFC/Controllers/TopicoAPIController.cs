@@ -26,7 +26,7 @@ namespace PFC.Controllers
 
         // POST: api/TopicoAPI
         [AcceptVerbs("POST")]
-        public void EnviaEmailTopicoFechado([FromBody]Topico topico)
+        public async void EnviaEmailTopicoFechado([FromBody]Topico topico)
         {
             TopicoBLL topicoBll = new TopicoBLL();
             topicoBll.EnviarEmail(topico);
