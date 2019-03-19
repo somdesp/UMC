@@ -14,6 +14,7 @@
             $scope.erro = null;
             if (d.data.success === false) {
                 //$("#resposta").text("Usuario ou senha Incorretos");
+                
                 $scope.erro = true;
                 $scope.descricaoErro = "Usuario ou senha Incorretos";
             } else if (d.data.success === true) {

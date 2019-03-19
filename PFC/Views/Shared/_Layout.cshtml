@@ -107,17 +107,13 @@
 
                         @if (!@User.Identity.IsAuthenticated)
                         {
-                            <growl-notifications>
-                                <growl-notification class="fading erro" ttl="2000" ng-if="erro">
-                                    <i class="fas fa-check fa-1x"></i><span class="font-weight-lighter tituloNotificacao">Erro</span>
-                                    <br />
-                                    <span class="textoNotificacao">{{descricaoErro}}</span>
-                                </growl-notification>
-                            </growl-notifications>
+                            
+                                   
+                               
 
                             <form class="login100-form validate-form flex-sb flex-w">
-                                <span id="resposta" class="alert alert-danger fade in">
-
+                                <span id="resposta" class="alert alert-danger sample-show-hide" ng-show="erro">
+                                    <span class="textoNotificacao">{{descricaoErro}}</span>
                                 </span>
                                 <br />
                                 <br />

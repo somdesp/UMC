@@ -3,9 +3,11 @@ MeHelp.controller('topicoCtrl', function ($scope, topicoService) {
     var vm = this;
     $scope.semdados = false;
     carregarTopicos();
-
+    $scope.notifications = {};
+    $scope.notificationsErro = {};
     vm.limit = 3;
-
+    var indexAcerto = 0;
+    var indexErro = 0;
     carregarTemas();
 
 
@@ -25,32 +27,50 @@ MeHelp.controller('topicoCtrl', function ($scope, topicoService) {
             function () {
                 console.log("Erro ao carregar a lista de Topicos");
             });
-    };
+    }
 
     //Novo Topico
     $scope.novoTopico = function () {
-
+        var acerto;
+        var erro;
         var topico = {
             Titulo: $scope.titulo,
             Descricao: $scope.descricao,
             Tema: { Id: $scope.cmbTema }
         };
 
-
+        
+        
         var adicionaDadosTopico = topicoService.novoTopico(topico);
 
         adicionaDadosTopico.then(function (d) {
             if (d.data === true) {
-                alert("Pergunta Cadastrado");
+               // alert("Pergunta Cadastrado");
+                
+
+                acerto = indexAcerto++;
+                $scope.notifications[acerto] = 'Notificacao';
                 carregarTopicos();
             } else {
-                alert("Pergunta nao Adicionado");
+                erro = indexErro++;
+                $scope.notificationsErro[erro] = 'notificacaoErro';
+               //alert("Pergunta nao Adicionado");
             }
         },
             function () {
                 console.log("Erro ao cadastrar");
             });
     };
+
+    /*$scope.add = function (notification) {
+
+        var i;
+
+        i = index++;
+        $scope.invalidNotification = false;
+       
+    };*/
+
 
 
     $scope.load = function () {
