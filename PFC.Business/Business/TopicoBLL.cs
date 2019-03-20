@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Razor.Tokenizer.Symbols;
 using Microsoft.AspNet.Identity;
@@ -145,10 +146,9 @@ namespace PFC.Business.Business
 
         #region Enviar Email
 
-        public void EnviarEmail(Topico topico)
+        public async Task EnviarEmail(Topico topico)
         {
-           List<Usuario> listUsuario = new List<Usuario>();
-            List<Usuario> nlistUsuario = new List<Usuario>();
+
             List<string> email = new List<string>(); 
             for (int i = 0; i < topico.Resposta.Count; i++)
             {

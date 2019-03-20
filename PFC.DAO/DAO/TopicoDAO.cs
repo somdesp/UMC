@@ -244,7 +244,7 @@ namespace PFC.DAO
         public bool FechaTopico(Topico topico)
         {
             var strQuery = "";
-            strQuery += string.Format("UPDATE Topico SET DataUpdate = '{0}',Id_Status= 2 WHERE Id='{1}'", DateTime.Now, topico.Id);
+            strQuery += string.Format("UPDATE Topico SET DataUpdate = GETDATE(),Id_Status= 2 WHERE Id='{0}'",  topico.Id);
             using (contexto = new Contexto())
             {
                 return contexto.ExecutarInsert(strQuery);

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using PFC.Business.Business;
@@ -10,7 +11,7 @@ namespace PFC.Controllers
     {
         // POST: api/TopicoAPI
         [AcceptVerbs("POST")]
-        public bool FechaTopico([FromBody]Topico topico)
+        public async Task FechaTopico([FromBody]Topico topico)
         {
             TopicoBLL topicoBll = new TopicoBLL();
             if (topico.usuario.Id == User.Identity.GetUserId<int>())
@@ -18,10 +19,10 @@ namespace PFC.Controllers
                 if (topicoBll.FechaTopico(topico) == true)
                 {
                     topicoBll.EnviarEmail(topico);
-                    return (true);
+                    //return (true);
                 };
             }
-            return (false);
+           // return (false);
         }
 
         // POST: api/TopicoAPI
