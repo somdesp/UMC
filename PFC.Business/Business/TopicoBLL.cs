@@ -167,7 +167,7 @@ namespace PFC.Business.Business
                 })
 
                 {
-                    client.Send(email[i], email[i], "Forum UMC", "O Topico http://localhost:52005/Topico/TopicoSelecionado?topicoId=" + topico.Id + " Foi Fechado");
+                    client.Send(email[i], email[i], "Forum UMC", "O Topico http://www.mehelpehml.tk/Topico/TopicoSelecionado?topicoId=" + topico.Id + " Foi Fechado");
                 }
 
             }
