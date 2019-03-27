@@ -166,12 +166,12 @@
                         });
 
                         var FechaTopico = topicoService.FechaTopico(TopicosSelc);
-                        FechaTopico.then(function (d) {
-                            if (d.data === true) {
+                        //FechaTopico.then(function (d) {
+                        //    if (d.data === true) {
                                 alert('Topico Fechado.');
                                 location.reload();
-                            };
-                        });
+                        //    };
+                        //});
 
                     } else {
                         $scope.ctrl.rating = 0;
