@@ -2,8 +2,6 @@
 using PFC.Business;
 using System;
 using System.Web.Mvc;
-using System.Net;
-using System.Net.Http;
 using PFC.Model;
 using System.Collections.Generic;
 
@@ -14,6 +12,7 @@ namespace PFC.Controllers
         #region Listar Usuario Rank
         [Authorize]
         [HttpPost]
+        
         public JsonResult ListarRank()
         {
             RankBLL rank = new RankBLL();
@@ -36,6 +35,7 @@ namespace PFC.Controllers
         #endregion
         [Authorize]
         [HttpPost]
+        [OutputCache(Duration = 120)]
         public JsonResult ListarRankSemanal()
         {
             RankBLL rank = new RankBLL();
@@ -49,6 +49,7 @@ namespace PFC.Controllers
 
         [Authorize]
         [HttpPost]
+        [OutputCache(Duration = 120)]
         public JsonResult ListarRankMensal()
         {
             RankBLL rank = new RankBLL();
