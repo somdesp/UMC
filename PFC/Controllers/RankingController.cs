@@ -12,7 +12,7 @@ namespace PFC.Controllers
         #region Listar Usuario Rank
         [Authorize]
         [HttpPost]
-        
+        [OutputCache(Duration = 120)]
         public JsonResult ListarRank()
         {
             RankBLL rank = new RankBLL();

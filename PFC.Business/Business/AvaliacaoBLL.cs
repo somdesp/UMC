@@ -10,7 +10,7 @@ namespace PFC.Business.Business
         {
             AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO();
             Avaliacao resultado=new Avaliacao();
-            int pontosUsuario = avaliacao.pontos;
+            float pontosUsuario = avaliacao.pontos * (float)0.2;
             if (avaliacaoDAO.consultaAvaliacaoID(avaliacao, avaliacao.idUsuario)> 0)
             {
                 if (pontosUsuario != avaliacaoDAO.consultaAvaliarpontos(avaliacao, avaliacao.idUsuario))
@@ -36,7 +36,7 @@ namespace PFC.Business.Business
         {
             AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO();
             Avaliacao resultado = new Avaliacao();
-            int pontosUsuario = avaliacao.pontos;
+            double pontosUsuario = avaliacao.pontos;
             // verifica se existe a avaliação no banco e dados
             if (avaliacaoDAO.consultaAvaliacaoID(avaliacao, avaliacao.idUsuario) > 0)
             {

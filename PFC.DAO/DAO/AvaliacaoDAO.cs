@@ -10,7 +10,7 @@ namespace PFC.DAO
 
 
         #region inserir e voltar valor da media dos pontos avaliados
-        public Avaliacao InserirPonto(Avaliacao avaliar, int pontosUsuario)
+        public Avaliacao InserirPonto(Avaliacao avaliar, double pontosUsuario)
         {
 
 
@@ -54,7 +54,7 @@ namespace PFC.DAO
         #endregion
 
         #region inserir e voltar valor da Like/Deslike dos pontos avaliados
-        public Avaliacao InserirPontoLikeDeslike(Avaliacao avaliar, int pontosUsuario)
+        public Avaliacao InserirPontoLikeDeslike(Avaliacao avaliar, double pontosUsuario)
         {
 
 
@@ -103,7 +103,7 @@ namespace PFC.DAO
         #endregion
 
         #region Consulta Pontos por tópico
-        public int consultaAvaliarpontos(Avaliacao avaliar, int idUsuario)
+        public float consultaAvaliarpontos(Avaliacao avaliar, int idUsuario)
         {
 
             SqlCommand comando;
@@ -121,7 +121,7 @@ namespace PFC.DAO
 
                     while (reader.Read())
                     {
-                        avaliar.pontos = Convert.ToInt16(reader["Pontos"].ToString());
+                        avaliar.pontos = float.Parse(reader["Pontos"].ToString());
 
                     }
                 }
@@ -139,7 +139,7 @@ namespace PFC.DAO
         #endregion
 
         #region Consulta Média por tópico
-        public int consultaMediaAvaliacao(Avaliacao avaliar)
+        public float consultaMediaAvaliacao(Avaliacao avaliar)
         {
 
             SqlCommand comando;
@@ -162,7 +162,7 @@ namespace PFC.DAO
                     }
                     else
                     {
-                        avaliar.mediaPontos = Convert.ToInt16(reader["media"].ToString());
+                        avaliar.mediaPontos = float.Parse(reader["media"].ToString());
                     }
 
 
@@ -176,7 +176,7 @@ namespace PFC.DAO
         #endregion
 
         #region Atualização da nota 
-        public Avaliacao AtualizarPonto(Avaliacao avaliar, int pontosUsuario)
+        public Avaliacao AtualizarPonto(Avaliacao avaliar, float pontosUsuario)
         {
 
 
@@ -184,8 +184,9 @@ namespace PFC.DAO
             SqlCommand comando;
             using (contexto = new Contexto())
             {
-
-                string strQuery = String.Format("update Avaliacao set Pontos = {2},Data_Avaliacao = (select GETDATE()) where Id_Topico = {0} and Id_Usuario = {1} select Pontos,(select avg(Pontos) from Avaliacao where Id_Topico = {0}) as media from Avaliacao where Id_Topico = {0} and Id_Usuario = {1} ", avaliar.idTopico, avaliar.idUsuario, pontosUsuario);
+               
+                
+                string strQuery = String.Format("update Avaliacao set Pontos = {2},Data_Avaliacao = (select GETDATE()) where Id_Topico = {0} and Id_Usuario = {1} select Pontos,(select avg(Pontos) from Avaliacao where Id_Topico = {0}) as media from Avaliacao where Id_Topico = {0} and Id_Usuario = {1} ", avaliar.idTopico, avaliar.idUsuario, pontosUsuario.ToString().Replace(',','.'));
 
                 bool result = false;
                 SqlDataReader reader;
@@ -197,8 +198,8 @@ namespace PFC.DAO
 
                     while (reader.Read())
                     {
-                        avaliar.pontos = Convert.ToInt16(reader["pontos"].ToString());
-                        avaliar.mediaPontos = Convert.ToInt16(reader["media"].ToString());
+                        avaliar.pontos = float.Parse(reader["pontos"].ToString());
+                        avaliar.mediaPontos = float.Parse(reader["media"].ToString());
                     }
 
                 }
@@ -219,7 +220,7 @@ namespace PFC.DAO
         #endregion
 
         #region Atualização da nota 
-        public Avaliacao AtualizarPontoLikeDeslike(Avaliacao avaliar, int pontosUsuario)
+        public Avaliacao AtualizarPontoLikeDeslike(Avaliacao avaliar, double pontosUsuario)
         {
 
 
@@ -240,7 +241,7 @@ namespace PFC.DAO
 
                     while (reader.Read())
                     {
-                        avaliar.pontos = Convert.ToInt16(reader["pontos"].ToString());
+                        avaliar.pontos = float.Parse(reader["pontos"].ToString());
                         avaliar.contarLike = Convert.ToInt16(reader["contarLike"].ToString());
                         avaliar.contarDeslike = Convert.ToInt16(reader["contarDeslike"].ToString());
                     }

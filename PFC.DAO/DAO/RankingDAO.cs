@@ -89,7 +89,7 @@ namespace PFC.DAO
         {
             SqlCommand comando;
             List<Usuario> listarUsuarios = new List<Usuario>();
-            string querySQL = $"select Id,Nome,Curso,Pontos from ##TempRankingDiario";
+            string querySQL = $"select Id,Nome,Curso,Pontos from TempRankingDiario";
             SqlDataReader reader;
             using (contexto = new Contexto())
             {
