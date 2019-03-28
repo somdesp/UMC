@@ -252,7 +252,6 @@
     <Content Include="App\Service.js" />
     <Content Include="App\Services\solicitacao.service.js" />
     <Content Include="App\Services\avalicacao.service.js" />
-    <Content Include="App\Services\chat.service.js" />
     <Content Include="App\Services\entity.js" />
     <Content Include="App\Services\hank.service.js" />
     <Content Include="App\Services\login.service.js" />
