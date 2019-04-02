@@ -14,7 +14,7 @@ MeHelp.service('amizadeService', function ($http) {
     this.amizadeSolicitada = function (Solicitacao) {
         var request = $http({
             method: 'post',
-            url: 'https://www.mehelpehml.tk/api/Solicitacao/AmizadeSolicitada',
+            url: '../api/Solicitacao/AmizadeSolicitada',
             data: Solicitacao
         });
 
@@ -25,7 +25,7 @@ MeHelp.service('amizadeService', function ($http) {
     this.ValidaAmizade = function (amizade) {
         var request = $http({
             method: 'post',
-            url: 'https://www.mehelpehml.tk/api/Solicitacao/ValidaAmizade',
+            url: '../api/Solicitacao/ValidaAmizade',
             data: amizade 
         });
 

@@ -70,7 +70,7 @@
             if (d.data === true) {
                 alert("Usuario Atualizado");
                 carregarUsuarioID(JSON.parse(localStorage.getItem('model')));
-                window.location.href = "https://www.mehelpehml.tk/";
+                window.location.href = "../";
             } else {
                 alert("Usuario nao Atualizado");
             }
