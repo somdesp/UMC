@@ -50,5 +50,15 @@ namespace PFC.Controllers
 
         }
         #endregion
+
+        #region AceitaAmizade
+        [AcceptVerbs("POST")]
+        public bool AceitaAmizade([FromBody]Solicitacao amizade)
+        {
+            SolicitacaoBLL amizadeBll = new SolicitacaoBLL();
+            return (amizadeBll.AceitaAmizade(amizade.usuario, amizade.usuarioSolicitado));
+
+        }
+        #endregion
     }
 }

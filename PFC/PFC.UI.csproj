@@ -250,6 +250,7 @@
     <Content Include="App\fileUploader.js" />
     <Content Include="App\Module.js" />
     <Content Include="App\Service.js" />
+    <Content Include="App\Services\notificacao.service.js" />
     <Content Include="App\Services\solicitacao.service.js" />
     <Content Include="App\Services\avalicacao.service.js" />
     <Content Include="App\Services\entity.js" />
@@ -796,6 +797,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ListasController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\NotificacaoController.cs" />
     <Compile Include="Controllers\RankingController.cs" />
     <Compile Include="Controllers\SemestreController.cs" />
     <Compile Include="Controllers\SolicitacaoController.cs" />
@@ -866,6 +868,7 @@
     <Content Include="Views\Topico\Ranking.cshtml" />
     <Content Include="Views\Home\Chat2.cshtml" />
     <Content Include="Views\Usuario\PerfilUsuario.cshtml" />
+    <Content Include="Views\Usuario\NotificacaoUsuario.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

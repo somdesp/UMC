@@ -46,9 +46,10 @@
 });
 
 $(function () {
+    var url_atual = window.location.href;
 
     var ModelUsuario = JSON.parse(localStorage.getItem('model'));
     if (ModelUsuario !== null) {
-        $("#imgUser").attr("src", "https://www.mehelpehml.tk/Upload/" + ModelUsuario.UploadArquivo.Caminho);
+        $("#imgUser").attr("src", "/Upload/" + ModelUsuario.UploadArquivo.Caminho);
     }
 });

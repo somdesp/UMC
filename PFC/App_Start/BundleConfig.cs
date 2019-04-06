@@ -23,6 +23,7 @@ namespace PFC
 
             bundles.Add(new ScriptBundle("~/bundles/js")
                 .Include(
+       
                 "~/Content/js/jquery.min.js",
                 "~/Content/js/plugin.js",
                 "~/Content/js/scripts.js",
@@ -31,10 +32,13 @@ namespace PFC
                "~/Scripts/angular-flash.js",
                 "~/Scripts/angular-signalr-hub.js",
                 "~/Scripts/toaster.js",
+                         "~/Scripts/jquery.signalR-2.2.0.min.js",
+                "~/Scripts/Chat/chat.controller.js",
                 "~/App/Module.js",
                 "~/App/Service.js",
                 "~/App/Services/hank.service.js",
                 "~/App/Services/avalicacao.service.js",
+                "~/App/Services/notificacao.service.js",
                 "~/App/Services/solicitacao.service.js",
                 "~/App/Services/login.service.js",
                 "~/App/Services/topico.service.js",

@@ -1,0 +1,28 @@
+﻿<div class="row" ng-controller="notificationController">
+    <div class="sub-title">
+        <div class="panel-heading"><h2>Notificacoes</h2></div>
+    </div>
+    <div ng-if="notifi">
+        <table class="table table-bordered">
+            <thead style="background-color:#1abc9c;">
+                <tr>
+                    <th>Usuario</th>
+                    <th>Email</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="usu in notifi">
+                    <td><a href="../Usuario/PerfilUsuario?usuarioid={{usu.usuarioSolicitado.id}}">{{usu.usuarioSolicitado.nome}}</a></td>
+                    <td>{{usu.usuarioSolicitado.email}}</td>
+
+                    <td style="width: 200px">
+                        <button type="button" class="btn btn-info" ng-click="aceitarAmizade(usu)">Aceitar</button>
+                        <button type="button" class="btn btn-danger" ng-click="recusar(usu)">Recusar</button>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

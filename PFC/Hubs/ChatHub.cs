@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 using PFC.Model;
 
@@ -80,7 +81,7 @@ namespace PFC.Hubs
         #endregion
 
         #region Disconnect
-        public override System.Threading.Tasks.Task OnDisconnected(bool stopCalled)
+        public override Task OnDisconnected(bool stopCalled)
         {
             using (MeHelpChat dc = new MeHelpChat())
             {

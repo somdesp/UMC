@@ -209,6 +209,12 @@ namespace PFC.Controllers
         }
 
 
+        public ActionResult NotificacaoUsuario()
+        {           
+            return View();
+        }
+
+
 
 
 

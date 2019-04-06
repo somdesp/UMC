@@ -25,15 +25,15 @@ namespace PFC.Hubs
 
                 hubContext.Clients.Client(toUser.ConnectionId).newContact(msg);
 
-                if (toUser != null && fromUser != null)
-                {
+                //if (toUser != null && fromUser != null)
+                //{
                 //    // send to 
                 //    Clients.Client(toUserId).sendPrivateMessage(fromUserId, fromUser.UserName, message, fromUser.EmailID, toUser.EmailID, status, fromUserId);
 
                 //    // send to caller user
                 //    Clients.Caller.sendPrivateMessage(toUserId, fromUser.UserName, message, fromUser.EmailID, toUser.EmailID, status, fromUserId);
-                
-                }
+
+                //}
             }
 
         }

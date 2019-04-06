@@ -22,6 +22,17 @@ namespace PFC.Business
             return amizadeDao.ValidaAmizade(usuario, usuarioSolicitado);
         }
 
-        
+        public async Task<List<Solicitacao>> NotificacaoAmizade(Usuario usuario)
+        {
+
+            return await amizadeDao.NotificacaoAmizade(usuario);
+        }
+
+        public bool AceitaAmizade(Usuario usuario, Usuario usuarioSolicitado)
+        {
+            return amizadeDao.AceitaAmizade(usuario, usuarioSolicitado);
+        }
+
+
     }
 }

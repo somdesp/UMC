@@ -18,7 +18,7 @@
 
             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                 <li role="presentation" ng-repeat="msg in n.notifications">
-                    <a href="javascript:void(0)" role="menuitem" tabindex="-1" ng-click="n.read($index)">{{msg}}</a>
+                    <a href="../Usuario/NotificacaoUsuario" role="menuitem" tabindex="-1" ng-click="n.read($index)">{{msg}}</a>
                     <hr />
                 </li>
             </ul>
@@ -55,13 +55,13 @@
 
             <div class="col-md-12 blog-post" ng-repeat="topico in travel.cruise| limitTo:travel.limit">
                 <div class='post-title'>
-                    <a href="http://www.mehelpehml.tk/Topico/TopicoSelecionado?topicoId={{topico.Id}}"><h1>{{topico.Titulo}}</h1></a>
+                    <a href="../Topico/TopicoSelecionado?topicoId={{topico.Id}}"><h1>{{topico.Titulo}}</h1></a>
                     @*<button type="button" ng-click="abrirTopico(topico)">
                             <h1>{{topico.Titulo}}</h1>
                         </button>*@
                 </div>
                 <div class='post-info'>
-                    <span>{{topico.DataCria}}/ Por <a href='#' target='_blank'>{{topico.usuario.Nome}}</a></span>
+                    <span>{{topico.DataCria}}/ Por <a href='../Usuario/PerfilUsuario?usuarioid={{topico.usuario.Id}}' target='_blank'>{{topico.usuario.Nome}}</a></span>
                 </div>
                 <p>{{topico.Descricao}}</p><input type='hidden' name='id' value="{{topico.Id}}">
                 <br />

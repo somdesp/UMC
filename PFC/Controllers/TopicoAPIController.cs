@@ -18,7 +18,7 @@ namespace PFC.Controllers
             {
                 if (topicoBll.FechaTopico(topico) == true)
                 {
-                    topicoBll.EnviarEmail(topico);
+                    await topicoBll.EnviarEmail(topico);
                     //return (true);
                 };
             }
@@ -30,7 +30,7 @@ namespace PFC.Controllers
         public async void EnviaEmailTopicoFechado([FromBody]Topico topico)
         {
             TopicoBLL topicoBll = new TopicoBLL();
-            topicoBll.EnviarEmail(topico);
+            await topicoBll.EnviarEmail(topico);
         }
     }
 }

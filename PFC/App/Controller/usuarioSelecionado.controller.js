@@ -2,6 +2,8 @@
 
     carregarUsuarioID(JSON.parse(localStorage.getItem('model')));
     var ModelUsuario = JSON.parse(localStorage.getItem('model'));
+    var url_atual = window.location.href;
+
 
     //Valida se tem dados na localStorage  
     if (ModelUsuario === null) {
@@ -70,7 +72,7 @@
             if (d.data === true) {
                 alert("Usuario Atualizado");
                 carregarUsuarioID(JSON.parse(localStorage.getItem('model')));
-                window.location.href = "https://www.mehelpehml.tk/";
+                window.location.href = url_atual;
             } else {
                 alert("Usuario nao Atualizado");
             }

@@ -48,6 +48,24 @@ MeHelp.controller('amizadeCtrl', function ($scope, amizadeService) {
             });
     };
 
+    //Aceitar Amizade
+    $scope.aceitarAmizade = function (usuarios) {
+
+        var aceitarAmizade = amizadeService.AceitaAmizade(usuarios);
+
+        aceitarAmizade.then(function (d) {
+            if (d.data === true) {
+                alert("Solicitação Aceita");
+
+            } else {
+                alert("Solicitação Nao enviada");
+            }
+        },
+            function () {
+                $("#resposta").text("Error Critico");
+            });
+    };
+
     //Valida se ja tem Amizade
     function ValidaAmizade(UsuarioLogado, UsuarioSolicitadoForm) {
 
