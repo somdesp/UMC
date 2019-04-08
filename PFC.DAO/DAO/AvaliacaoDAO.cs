@@ -10,7 +10,7 @@ namespace PFC.DAO
 
 
         #region inserir e voltar valor da media dos pontos avaliados
-        public Avaliacao InserirPonto(Avaliacao avaliar, double pontosUsuario)
+        public Avaliacao InserirPonto(Avaliacao avaliar, float pontosUsuario)
         {
 
 
@@ -19,7 +19,7 @@ namespace PFC.DAO
             using (contexto = new Contexto())
             {
 
-                string strQuery = String.Format("insert into Avaliacao (Id_Topico,Id_Usuario,Data_Avaliacao,Pontos,id_Usuario_DonoTopico) Values({0},{1},(Select GETDATE()),{2},(Select Id_Usuario from Topico where Id = {0})) select Pontos,(select avg(Pontos) from Avaliacao where Id_Topico = {0}) as media from Avaliacao where Id_Topico = {0} and Id_Usuario = {1} ", avaliar.idTopico, avaliar.idUsuario, pontosUsuario);
+                string strQuery = String.Format("insert into Avaliacao (Id_Topico,Id_Usuario,Data_Avaliacao,Pontos,id_Usuario_DonoTopico) Values({0},{1},(Select GETDATE()),{2},(Select Id_Usuario from Topico where Id = {0})) select Pontos,(select avg(Pontos) from Avaliacao where Id_Topico = {0}) as media from Avaliacao where Id_Topico = {0} and Id_Usuario = {1} ", avaliar.idTopico, avaliar.idUsuario, pontosUsuario.ToString().Replace(',', '.'));
 
                 bool result = false;
                 SqlDataReader reader;
@@ -31,8 +31,8 @@ namespace PFC.DAO
 
                     while (reader.Read())
                     {
-                        avaliar.pontos = Convert.ToInt16(reader["Pontos"].ToString());
-                        avaliar.mediaPontos = Convert.ToInt16(reader["media"].ToString());
+                        avaliar.pontos = float.Parse(reader["Pontos"].ToString());
+                        avaliar.mediaPontos = float.Parse(reader["media"].ToString());
                     }
 
                 }
@@ -292,13 +292,13 @@ namespace PFC.DAO
         #endregion
 
         #region consultar pontos curtir like e deslike
-        public int consultaLikeDeslike(Topico topico, int idUsuarioLogado)
+        public float consultaLikeDeslike(Topico topico, int idUsuarioLogado)
         {
 
             SqlCommand comando;
 
             string querSQL = String.Format("select Pontos from Avaliacao where Id_Topico = {0} and Id_Usuario = {1}", topico.Id, idUsuarioLogado);
-            int pontos = 0;
+            float pontos = 0;
             SqlDataReader reader;
             using (contexto = new Contexto())
             {
@@ -309,7 +309,7 @@ namespace PFC.DAO
                 while (reader.Read())
                 {
 
-                    pontos = Convert.ToInt16(reader["Pontos"].ToString());
+                    pontos = float.Parse(reader["Pontos"].ToString());
 
                 }
 
