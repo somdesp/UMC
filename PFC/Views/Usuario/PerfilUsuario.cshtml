@@ -60,14 +60,19 @@
         <!-- My Service End -->
 
     </div>
-    <div ng-if="(valAmi)">
-        <button  ng-click="conviteAmizade(PerfilUsuario)"  class="btn btn-lg btn-primary" disabled>Usuario Adicionado</button>
 
-    </div>
-    <div ng-if="(!valAmi)">
-        <button ng-click="conviteAmizade(PerfilUsuario)" class="btn btn-lg btn-primary" >Adicionar Usuario</button>
-    </div>
+    @if (@User.Identity.IsAuthenticated)
+    {
 
+        <div ng-if="(valAmi)">
+            <button ng-click="conviteAmizade(PerfilUsuario)" class="btn btn-lg btn-primary" disabled>Usuario Adicionado</button>
+
+        </div>
+        <div ng-if="(!valAmi)">
+            <button ng-click="conviteAmizade(PerfilUsuario)" class="btn btn-lg btn-primary">Adicionar Usuario</button>
+        </div>
+
+    }
 
 </div>
 
