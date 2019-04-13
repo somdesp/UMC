@@ -5,7 +5,10 @@
 }
 
 
-
+<div class="sub-title">
+    <h2>About Me</h2>
+    <a href="contact.html"><i class="icon-envelope"></i></a>
+</div>
 
 <script>
     var PerfilUsuario = { Id:@ViewBag.UsuarioId}
@@ -57,19 +60,14 @@
         <!-- My Service End -->
 
     </div>
+    <div ng-if="(valAmi)">
+        <button  ng-click="conviteAmizade(PerfilUsuario)"  class="btn btn-lg btn-primary" disabled>Usuario Adicionado</button>
 
-    @if (@User.Identity.IsAuthenticated)
-    {
+    </div>
+    <div ng-if="(!valAmi)">
+        <button ng-click="conviteAmizade(PerfilUsuario)" class="btn btn-lg btn-primary" >Adicionar Usuario</button>
+    </div>
 
-        <div ng-if="(valAmi)">
-            <button ng-click="conviteAmizade(PerfilUsuario)" class="btn btn-lg btn-primary" disabled>Usuario Adicionado</button>
-
-        </div>
-        <div ng-if="(!valAmi)">
-            <button ng-click="conviteAmizade(PerfilUsuario)" class="btn btn-lg btn-primary">Adicionar Usuario</button>
-        </div>
-
-    }
 
 </div>
 

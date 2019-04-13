@@ -180,7 +180,7 @@
                 } else {
                     var requisitar = avaliacaoService.enviarEstrela(avaliacao);
                     requisitar.then(function (d) {
-                        $scope.ctrl.rating = d.data.pontos;
+                        $scope.ctrl.rating = d.data.mediaPontos;
                         $scope.nota = d.data.pontos;
                         $scope.idAvaliacao = d.data.idAvaliacao;
                         sinalizador = 1;
