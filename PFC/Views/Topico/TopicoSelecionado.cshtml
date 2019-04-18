@@ -26,14 +26,15 @@
                         <div ng-if="(usuID>0)">
 
                             <div ng-controller="avaliacao.controller">
-
-                                <span class="badge label-danger label-danger animate-show-hide" ng-show="verificarmedia">{{contarDesLike}}</span>
+                                
+                                <span class="badge label-danger label-danger animate-show-hide" ng-model="TopicosSelc.avaliacao.contarDeslike">{{TopicosSelc.avaliacao.contarDeslike}}</span>
+                                
                                 <button ng-model="TopicosSelc.avaliacao.pontos" ng-click="valorpegoDeslike(TopicosSelc,usuario)"><i class="far fa-thumbs-down padrao-curti color-6" ng-class="{'fas':TopicosSelc.avaliacao.pontos===-1}"></i></button>
 
                                 <button ng-model="TopicosSelc.avaliacao.pontos" ng-click="valorpegoLike(TopicosSelc,usuario)"><i class="far fa-thumbs-up  padrao-curti color-6" ng-class="{'fas':TopicosSelc.avaliacao.pontos===1}"></i></button>
-                                <span class="badge label-success label-success animate-show-hide" ng-show="verificarmedia">{{contarLike}}</span>
+                                <span class="badge label-success label-success animate-show-hide"ng-model="TopicosSelc.avaliacao.contarLike">{{TopicosSelc.avaliacao.contarLike}}</span>
 
-                                <input type="hidden" ng-model="TopicosSelc.id" value="@ViewBag.TopicoId" />
+                                
                                 <input type="hidden" ng-model="idAvaliacaoLike" value="{{idAvaliacaoLike}}" />
                             </div>
                         </div>
@@ -66,7 +67,7 @@
 
                                     <div uib-tooltip="{{dicas}}" tooltip-placement="bottom-left">
 
-                                        <jk-rating-stars max-rating="5" style="user-select: none;" rating="ctrl.rating" ng-init="ctrl.rating = topico.avaliacao.mediaPontos" read-only="(ctrl.rating>0)" ng-class="{'classebloqueio': ctrl.readOnly }" ng-click="valorClick(ctrl.rating,topico,usuario,TopicosSelc)">
+                                        <jk-rating-stars max-rating="5" style="user-select: none;" rating="ctrl.rating" ng-init="ctrl.rating = topico.avaliacao.pontos" read-only="(ctrl.rating>0)" ng-class="{'classebloqueio': ctrl.readOnly }" ng-click="valorClick(ctrl.rating,topico,usuario,TopicosSelc)">
 
                                         </jk-rating-stars>
 

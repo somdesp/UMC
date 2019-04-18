@@ -203,7 +203,7 @@ namespace PFC.Controllers
             if (topicoBll.ValTopico(topico) == true)
             {
                 topico.Id = Convert.ToInt16(topicoId);
-                ViewBag.TopicoId = topicoId;
+               // ViewBag.TopicoId = topicoId;
                 return View(topico);
             }
             else

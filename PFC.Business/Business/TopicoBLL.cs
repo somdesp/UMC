@@ -86,6 +86,7 @@ namespace PFC.Business.Business
             topico.avaliacao = avaliacaobll.consultarAvaliacaoCurtir(topico,usuarioLogado);
             topico.usuario = bllUsuario.ConsultaUsuarioInt(topico.usuario);
             topico.Tema = daoTema.ConsultaTema(topico.Tema);
+            topico.avaliacao.idUsuario = usuarioLogado;
             topico.Resposta = ListarTopicoFilho(topico);
             
 
