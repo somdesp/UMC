@@ -77,11 +77,13 @@ MeHelp.controller('topicoCtrl', function ($scope, topicoService) {
 
         if (vm.limit >= vm.cruise.length) {
             $scope.semdados = true;
+            $scope.informacao = 'End';
         }
         else {
 
             var increment = vm.limit + 3;
             vm.limit = increment > vm.cruise.length ? vm.cruise.length : increment;
+            $scope.informacao = 'Load';
         }
 
 
@@ -171,10 +173,35 @@ MeHelp.controller('topicoCtrl', function ($scope, topicoService) {
             });
         }
         
-      
+       
         $scope.Topico = resultado;
             
         
+
+    };
+
+    $scope.pesquisaTema = function (temaSelecionado) {
+        var topicosExistentes = [];
+        topicosExistentes = JSON.parse(sessionStorage.getItem('topico'));
+        if (temaSelecionado !== null) {
+
+
+            var resultado = topicosExistentes.filter(obj => obj.Tema.Id === temaSelecionado.Id);
+            // Caso não consiga achar pesquisar no banco de dados
+            if (resultado.lenght === 0) {
+                var listarTopicos = topicoService.pesquisar(temaSelecionado);
+                listarTopicos.then(function (d) {
+
+                    resultado = d.data;
+
+                });
+            }
+        } else {
+            resultado = topicosExistentes;
+        }
+        $scope.informacao = 'Load';
+        vm.cruise = resultado;
+
 
     };
 
