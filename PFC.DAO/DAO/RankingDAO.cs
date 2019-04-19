@@ -103,7 +103,7 @@ namespace PFC.DAO
                     usuario.Id = Convert.ToInt16(reader["Id"].ToString());
                     usuario.Nome = reader["Nome"].ToString();
                     usuario.Curso.curso = reader["Curso"].ToString();
-                    usuario.avaliacao.pontos = Convert.ToInt16(reader["Pontos"].ToString());
+                    usuario.avaliacao.pontos = float.Parse(reader["Pontos"].ToString());
                     listarUsuarios.Add(usuario);
                 }
 
@@ -133,7 +133,7 @@ namespace PFC.DAO
                     usuario.Id = Convert.ToInt16(reader["Id"].ToString());
                     usuario.Nome = reader["Nome"].ToString();
                     usuario.Curso.curso = reader["Curso"].ToString();
-                    usuario.avaliacao.pontos = Convert.ToInt16(reader["Pontos"].ToString());
+                    usuario.avaliacao.pontos = float.Parse(reader["Pontos"].ToString());
                     listarUsuarios.Add(usuario);
                 }
 
@@ -163,7 +163,7 @@ namespace PFC.DAO
                     usuario.Id = Convert.ToInt16(reader["Id"].ToString());
                     usuario.Nome = reader["Nome"].ToString();
                     usuario.Curso.curso = reader["Curso"].ToString();
-                    usuario.avaliacao.pontos = Convert.ToInt16(reader["Pontos"].ToString());
+                    usuario.avaliacao.pontos = float.Parse(reader["Pontos"].ToString());
                     listarUsuarios.Add(usuario);
                 }
 

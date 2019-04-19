@@ -406,6 +406,7 @@
     <Content Include="Content\css\Login.css" />
     <Content Include="Content\css\main.css" />
     <Content Include="Content\css\plugin.css" />
+    <Content Include="Content\css\spinner.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\syntax\help.png" />
     <Content Include="Content\css\syntax\page_white_code.png" />

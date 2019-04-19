@@ -39,11 +39,20 @@ namespace PFC.Controllers
         public JsonResult ListarRankSemanal()
         {
             RankBLL rank = new RankBLL();
+            List<Usuario> resultado = new List<Usuario>();
 
 
             RecurringJob.AddOrUpdate("RankingSemanal", () => rank.ExecutarRankSemanalJob(), Cron.Weekly(DayOfWeek.Saturday));
+            if (rank.ListarRankSemanal().Count == 0)
+            {
+                resultado = null;
+            }
+            else
+            {
+                resultado = rank.ListarRankSemanal();
+            }
 
-            return Json(rank.ListarRankSemanal(), JsonRequestBehavior.AllowGet);
+            return Json(resultado, JsonRequestBehavior.AllowGet);
 
         }
 
@@ -53,11 +62,21 @@ namespace PFC.Controllers
         public JsonResult ListarRankMensal()
         {
             RankBLL rank = new RankBLL();
+            List<Usuario> resultado = new List<Usuario>();
 
 
             RecurringJob.AddOrUpdate("RankingMensal", () => rank.ExecutarRankMensalJob(), Cron.Monthly);
+            if (rank.ListarRankMensal().Count == 0)
+            {
+                resultado = null;
+            }
+            else
+            {
+                resultado = rank.ListarRankMensal();
+            }
 
-            return Json(rank.ListarRankMensal(), JsonRequestBehavior.AllowGet);
+
+            return Json(resultado, JsonRequestBehavior.AllowGet);
 
         }
 

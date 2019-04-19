@@ -21,7 +21,7 @@ MeHelp.controller('topicoCtrl', function ($scope, topicoService) {
                 d.data[i].DataCria = converteDataHora(d.data[i].DataCria);
             }
 
-
+            sessionStorage.setItem('topico', JSON.stringify(d.data));
             vm.cruise = d.data;
         },
             function () {
@@ -157,17 +157,24 @@ MeHelp.controller('topicoCtrl', function ($scope, topicoService) {
 
     $scope.pesquisar = function (pesquisa) {
 
-        var listarTopicos = topicoService.pesquisar(pesquisa);
-        listarTopicos.then(function (d) {
-            var Topico;
-            var i;
-            for (i = 0; i < d.data.length; i++) {
-                d.data[i].DataCria = converteDataHora(d.data[i].DataCria);
-            }
 
-
-            $scope.Topico = d.data;
-        });
+        var topicosExistentes = [];
+        topicosExistentes = JSON.parse(sessionStorage.getItem('topico'));
+        var resultado = topicosExistentes.filter(obj => obj.Titulo.toLowerCase().indexOf(pesquisa,0) > -1);
+        // Caso não consiga achar pesquisar no banco de dados
+        if (resultado.lenght === 0) {
+            var listarTopicos = topicoService.pesquisar(pesquisa);
+            listarTopicos.then(function (d) {
+               
+                resultado = d.data;
+                
+            });
+        }
+        
+      
+        $scope.Topico = resultado;
+            
+        
 
     };
 

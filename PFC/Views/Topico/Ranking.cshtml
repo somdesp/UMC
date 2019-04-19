@@ -14,7 +14,9 @@
     </select>
     
     <table class="table table-bordered ">
+
         <thead style="background-color:#1abc9c;">
+
             <tr>
 
                 <th>Nome</th>
@@ -24,6 +26,7 @@
             </tr>
         </thead>
         <tbody>
+
             <tr ng-repeat="usu in hankeamento" ng-class="{'classeUsuario':usu.Id===Idusuario}">
 
                 <td>{{usu.Nome}}</td>
@@ -33,7 +36,9 @@
 
 
             </tr>
+
         </tbody>
+        <div class="loader"></div>
     </table>
 
 </div>
