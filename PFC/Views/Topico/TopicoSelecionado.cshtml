@@ -19,7 +19,7 @@
                     <img src="~/Upload/{{TopicosSelc.usuario.UploadArquivo.Caminho}}" class="media-object" style="width: 60px">
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading"><a href="#" target="_blank"> {{TopicosSelc.usuario.Nome}} </a><small>{{TopicosSelc.DataCria}}</small></h4>
+                    <h4 class="media-heading"><a href="../Usuario/PerfilUsuario?usuarioid={{TopicosSelc.usuario.Id}}" target="_blank"> {{TopicosSelc.usuario.Nome}} </a><small>{{TopicosSelc.DataCria}}</small></h4>
 
                     <p>{{TopicosSelc.Descricao}}</p>
                     <div ng-if="(TopicosSelc.usuario.Id!==usuario.Id)">
@@ -51,7 +51,7 @@
             <div class="well well-sm">
                 <div class="media">
                     <div class="media-body">
-                        <h4 class="media-heading "><a href="#" target="_blank">{{topico.usuario.Nome}} </a><small> {{topico.DataCria}}<button class="btn" ng-click="topicodeTexto($index)" ng-show="(topico.Descricao.length>50)">Leia mais...</button></small></h4>
+                        <h4 class="media-heading "><a  href="../Usuario/PerfilUsuario?usuarioid={{topico.usuario.Id}}" target="_blank">{{topico.usuario.Nome}} </a><small> {{topico.DataCria}}<button class="btn" ng-click="topicodeTexto($index)" ng-show="(topico.Descricao.length>50)">Leia mais...</button></small></h4>
                         <p ng-class="$index==itemSelecionado ? 'textoaparecer':'text-nowrap bd-highlight'" style="width: 60rem;">{{topico.Descricao}}</p>
                         <a href="~/Upload/{{topico.Anexos.Caminho}}">{{topico.Anexos.Caminho}}</a>
                     </div>

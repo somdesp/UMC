@@ -136,7 +136,7 @@ namespace PFC.Controllers
 
             post.TopicoFilho.usuario.Id = User.Identity.GetUserId<int>();
 
-            int retorno = topicoBll.AdicionarPosts(post);
+            bool retorno = topicoBll.AdicionarPosts(post);
 
             return Json(retorno);
         }
