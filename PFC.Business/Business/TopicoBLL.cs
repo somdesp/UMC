@@ -96,7 +96,7 @@ namespace PFC.Business.Business
         #endregion
 
         #region Adicona Resposta
-        public int AdicionarPosts(Topico post)
+        public bool AdicionarPosts(Topico post)
         {
             daoTopico.UpdateDataTopico(post);
             return daoTopico.AdicionarPosts(post);

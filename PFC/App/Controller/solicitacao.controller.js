@@ -76,9 +76,8 @@ MeHelp.controller('amizadeCtrl', function ($scope, amizadeService) {
             usuarioSolicitado: UsuarioSolicitadoForm
         };
 
-
+        $scope.ModelUsuario = JSON.parse(localStorage.getItem('model'));
         var ValidaAmizade = amizadeService.ValidaAmizade(Amizade);
-        var valAmi;
         ValidaAmizade.then(function (d) {
             $scope.valAmi = d.data;
         },

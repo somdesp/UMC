@@ -847,27 +847,19 @@
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\CreateUsuario.cshtml" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Tema\TemaSelecionado.cshtml" />
-    <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Usuario\EditarUsuario.cshtml" />
-    <Content Include="Views\Tema\Create.cshtml" />
     <Content Include="Views\Usuario\ListarUsuario.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
-    <Content Include="Views\Tema\Details.cshtml" />
     <Content Include="Views\Tema\Index.cshtml" />
     <Content Include="Views\Tema\EditarTema.cshtml" />
-    <Content Include="Views\Topico\Create.cshtml" />
     <Content Include="Views\Topico\TopicoSelecionado.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
     <Content Include="Views\Topico\Index.cshtml" />
     <Content Include="Views\Topico\Topico.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Home\Chat.cshtml" />
     <Content Include="Views\Topico\Ranking.cshtml" />
-    <Content Include="Views\Home\Chat2.cshtml" />
     <Content Include="Views\Usuario\PerfilUsuario.cshtml" />
     <Content Include="Views\Usuario\NotificacaoUsuario.cshtml" />
     <None Include="Web.Debug.config">
@@ -882,8 +874,6 @@
     <Folder Include="fonts\" />
     <Folder Include="Models\" />
     <Folder Include="Upload\" />
-    <Folder Include="Views\Amizade\" />
-    <Folder Include="Views\Ranking\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PFC.Business\PFC.Business.csproj">

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
+using PFC.Business;
 using PFC.Model;
 
 namespace PFC.Hubs
@@ -43,7 +44,7 @@ namespace PFC.Hubs
         public void Connect(LoginViewModel login)
         {
             emailIDLoaded = login.Email;
-            var id = Context.ConnectionId;
+            string id = Context.ConnectionId;
             using (MeHelpChat dc = new MeHelpChat())
             {
                 var item = dc.ChatUsuDetal.FirstOrDefault(x => x.EmailID == login.Email);
@@ -67,9 +68,23 @@ namespace PFC.Hubs
                     };
                     dc.ChatUsuDetal.Add(userdetails);
                     dc.SaveChanges();
-
+                    Users = dc.ChatUsuDetal.ToList();
                     // send to caller
-                    var connectedUsers = dc.ChatUsuDetal.ToList();
+                    SolicitacaoBLL solicitacaoBLL = new SolicitacaoBLL();
+                    var userss = solicitacaoBLL.ListaAmizade(login.Id);
+                    List<ChatUsuDetal> list = new List<ChatUsuDetal>();
+
+                    //valida se achou amigos 
+                    if (userss != null)
+                    {
+                        for (int i = 0; userss.Count > i; i++)
+                        {
+                            list.Add(Users.Find(x => x.EmailID == userss[i].Email));
+                        }
+                    }
+
+
+                    var connectedUsers = list.ToList();
                     var CurrentMessage = dc.ChatMensDetal.ToList();
                     Clients.Caller.onConnected(id, login.Nome, connectedUsers, CurrentMessage);
                 }
@@ -91,8 +106,8 @@ namespace PFC.Hubs
                     dc.ChatUsuDetal.Remove(item);
                     dc.SaveChanges();
 
-                    var id = Context.ConnectionId;
-                    Clients.All.onUserDisconnected(id, item.UserName);
+                    
+                    Clients.All.onUserDisconnected(Context.ConnectionId, item.UserName);
                 }
             }
             return base.OnDisconnected(stopCalled);
