@@ -142,30 +142,33 @@
 }
 
 
-.draggable
-{
+.draggable {
+    font-family: "OpenSans";
     position: absolute;
     border: #5f9482 solid 1px !important;
     width: 250px;
+    border-radius: 10px;
 }
 
-    .draggable .header
-    {
+    .draggable .header {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        height: 25px;
         cursor: move;
-        background-color: #d7e5e4;
-        border-bottom: #5f9482 solid 1px;
+        background-color: #1abc9c;
         color: #1e4638;
+        text-align: center;
+        text-shadow: 1px 1px #4e796b;
     }
 
-    .draggable .selText
-    {
-        color: black;
-        padding: 4px;
+    .draggable .selText {
+        color: white;
+        font-size: 18px;
     }
 
     .draggable .messageArea
     {
-        width: 250px;
+        width: 248px;
         overflow-y: scroll;
         height: 200px;
          border-bottom: #5f9482 solid 1px;
@@ -179,16 +182,21 @@
     .draggable .buttonBar
     {
         width: 250px;
-       padding:4px;
     }
 
-        .draggable .buttonBar .msgText
-        {
-            width: 172px;
+        .draggable .buttonBar .msgText {
+            width: 178px;
+            margin-left: 2px;
+            padding-left: 3px;
+            padding-right: 5px;
+            border-radius: 15px;
         }
 
-        .draggable .buttonBar .button
-        {
-           margin-left:4px;
-            width: 55px;
+        .draggable .buttonBar .button {
+            width: 68px;
+            border-bottom-right-radius: 9px;
+            background-color: #1abc9c;
+            border: 0px;
+            color: white;
+            text-shadow: 1px 1px #4e796b;
         }

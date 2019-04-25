@@ -16,7 +16,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PFC</RootNamespace>
     <AssemblyName>PFC</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
@@ -127,7 +127,6 @@
     <Reference Include="System.Configuration.ConfigurationManager, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Configuration.ConfigurationManager.4.4.1\lib\net461\System.Configuration.ConfigurationManager.dll</HintPath>
     </Reference>
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Entity.Design" />
     <Reference Include="System.IdentityModel" />
@@ -156,7 +155,6 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Web.Entity.Design" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
@@ -196,7 +194,6 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="Unity.Abstractions, Version=3.3.1.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.5.8.11\lib\net46\Unity.Abstractions.dll</HintPath>
     </Reference>
@@ -258,22 +255,14 @@
     <Content Include="App\Services\login.service.js" />
     <Content Include="App\Services\topico.service.js" />
     <Content Include="App\View\Topico.html" />
-    <Content Include="Content\css\bootstrap-grid.css" />
     <Content Include="Content\css\bootstrap-grid.min.css" />
-    <Content Include="Content\css\bootstrap-reboot.css" />
     <Content Include="Content\css\bootstrap-reboot.min.css" />
-    <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\ChatStyle.css" />
-    <Content Include="Content\css\fa-brands.css" />
     <Content Include="Content\css\fa-brands.min.css" />
-    <Content Include="Content\css\fa-regular.css" />
     <Content Include="Content\css\fa-regular.min.css" />
-    <Content Include="Content\css\fa-solid.css" />
     <Content Include="Content\css\fa-solid.min.css" />
-    <Content Include="Content\css\fontawesome-all.css" />
     <Content Include="Content\css\fontawesome-all.min.css" />
-    <Content Include="Content\css\fontawesome.css" />
     <Content Include="Content\css\fontawesome.min.css" />
     <Content Include="Content\css\jk-rating-stars.css" />
     <Content Include="Content\css\jquery-ui-demo.css" />
@@ -414,40 +403,6 @@
     <Content Include="Content\css\syntax\shCore.css" />
     <Content Include="Content\css\syntax\shThemeDefault.css" />
     <Content Include="Content\css\util.css" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\css\font-awesome.css" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\css\font-awesome.min.css" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\HELP-US-OUT.txt" />
-    <Content Include="Content\fonts\fontawesome-webfont.svg" />
-    <Content Include="Content\fonts\Linearicons-Free-v1.0.0\icon-font.min.css" />
-    <Content Include="Content\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.svg" />
-    <Content Include="Content\fonts\montserrat\OFL.txt" />
-    <Content Include="Content\fonts\ubuntu\UFL.txt" />
-    <Content Include="Content\images\bg\pattern-bg.png" />
-    <Content Include="Content\images\blog\1.jpg" />
-    <Content Include="Content\images\blog\2.jpg" />
-    <Content Include="Content\images\blog\4.jpg" />
-    <Content Include="Content\images\blog\5.jpg" />
-    <Content Include="Content\images\blog\6.jpg" />
-    <Content Include="Content\images\blog\7.jpg" />
-    <Content Include="Content\images\blog\author.png" />
-    <Content Include="Content\images\favicon\apple-touch-icon.png" />
-    <Content Include="Content\images\favicon\favicon.ico" />
-    <Content Include="Content\images\icons\favicon.ico" />
-    <Content Include="Content\images\icons\icon-google.png" />
-    <Content Include="Content\images\icons\map-marker.png" />
-    <Content Include="Content\images\icons\symbol-01.png" />
-    <Content Include="Content\images\owl-carousel\grabbing.png" />
-    <Content Include="Content\images\pic\my-pic.png" />
-    <Content Include="Content\images\portfolio\1.jpg" />
-    <Content Include="Content\images\portfolio\2.jpg" />
-    <Content Include="Content\images\portfolio\3.jpg" />
-    <Content Include="Content\images\portfolio\4.jpg" />
-    <Content Include="Content\images\portfolio\5.jpg" />
-    <Content Include="Content\images\portfolio\6.jpg" />
-    <Content Include="Content\images\testimonial\1.png" />
-    <Content Include="Content\images\testimonial\2.png" />
-    <Content Include="Content\images\testimonial\3.png" />
     <Content Include="Content\img\avatar\av_1.png" />
     <Content Include="Content\img\avatar\av_10.png" />
     <Content Include="Content\img\avatar\av_11.png" />
@@ -505,9 +460,7 @@
     <Content Include="Content\img\smilies\yes.gif" />
     <Content Include="Content\img\user.png" />
     <Content Include="Content\js\app.js" />
-    <Content Include="Content\js\bootstrap.bundle.js" />
     <Content Include="Content\js\bootstrap.bundle.min.js" />
-    <Content Include="Content\js\bootstrap.js" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\cors\jquery.postmessage-transport.js" />
     <Content Include="Content\js\cors\jquery.xdr-transport.js" />
@@ -641,102 +594,6 @@
     <Content Include="Content\vendor\select2\select2.min.css" />
     <Content Include="Content\vendor\select2\select2.min.js" />
     <Content Include="Global.asax" />
-    <Content Include="Content\fonts\fontawesome-webfont.eot" />
-    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
-    <Content Include="Content\fonts\fontawesome-webfont.woff" />
-    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
-    <Content Include="Content\fonts\FontAwesome.otf" />
-    <Content Include="Content\css\bootstrap-grid.css.map" />
-    <Content Include="Content\css\bootstrap-grid.min.css.map" />
-    <Content Include="Content\css\bootstrap-reboot.css.map" />
-    <Content Include="Content\css\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\css\bootstrap.css.map" />
-    <Content Include="Content\css\bootstrap.min.css.map" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\fonts\FontAwesome.otf" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\less\animated.less" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\less\bordered-pulled.less" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\less\core.less" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\less\fixed-width.less" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\less\font-awesome.less" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\less\icons.less" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\less\larger.less" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\less\list.less" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\less\mixins.less" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\less\path.less" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\less\rotated-flipped.less" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\less\screen-reader.less" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\less\stacked.less" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\less\variables.less" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\scss\font-awesome.scss" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\scss\_animated.scss" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\scss\_core.scss" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\scss\_fixed-width.scss" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\scss\_icons.scss" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\scss\_larger.scss" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\scss\_list.scss" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\scss\_mixins.scss" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\scss\_path.scss" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\scss\_screen-reader.scss" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\scss\_stacked.scss" />
-    <Content Include="Content\fonts\font-awesome-4.7.0\scss\_variables.scss" />
-    <Content Include="Content\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.eot" />
-    <Content Include="Content\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.ttf" />
-    <Content Include="Content\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.woff" />
-    <Content Include="Content\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.woff2" />
-    <Content Include="Content\fonts\montserrat\Montserrat-Black.ttf" />
-    <Content Include="Content\fonts\montserrat\Montserrat-BlackItalic.ttf" />
-    <Content Include="Content\fonts\montserrat\Montserrat-Bold.ttf" />
-    <Content Include="Content\fonts\montserrat\Montserrat-BoldItalic.ttf" />
-    <Content Include="Content\fonts\montserrat\Montserrat-ExtraBold.ttf" />
-    <Content Include="Content\fonts\montserrat\Montserrat-ExtraBoldItalic.ttf" />
-    <Content Include="Content\fonts\montserrat\Montserrat-ExtraLight.ttf" />
-    <Content Include="Content\fonts\montserrat\Montserrat-ExtraLightItalic.ttf" />
-    <Content Include="Content\fonts\montserrat\Montserrat-Italic.ttf" />
-    <Content Include="Content\fonts\montserrat\Montserrat-Light.ttf" />
-    <Content Include="Content\fonts\montserrat\Montserrat-LightItalic.ttf" />
-    <Content Include="Content\fonts\montserrat\Montserrat-Medium.ttf" />
-    <Content Include="Content\fonts\montserrat\Montserrat-MediumItalic.ttf" />
-    <Content Include="Content\fonts\montserrat\Montserrat-Regular.ttf" />
-    <Content Include="Content\fonts\montserrat\Montserrat-SemiBold.ttf" />
-    <Content Include="Content\fonts\montserrat\Montserrat-SemiBoldItalic.ttf" />
-    <Content Include="Content\fonts\montserrat\Montserrat-Thin.ttf" />
-    <Content Include="Content\fonts\montserrat\Montserrat-ThinItalic.ttf" />
-    <Content Include="Content\fonts\poppins\Poppins-Black.ttf" />
-    <Content Include="Content\fonts\poppins\Poppins-BlackItalic.ttf" />
-    <Content Include="Content\fonts\poppins\Poppins-Bold.ttf" />
-    <Content Include="Content\fonts\poppins\Poppins-BoldItalic.ttf" />
-    <Content Include="Content\fonts\poppins\Poppins-ExtraBold.ttf" />
-    <Content Include="Content\fonts\poppins\Poppins-ExtraBoldItalic.ttf" />
-    <Content Include="Content\fonts\poppins\Poppins-ExtraLight.ttf" />
-    <Content Include="Content\fonts\poppins\Poppins-ExtraLightItalic.ttf" />
-    <Content Include="Content\fonts\poppins\Poppins-Italic.ttf" />
-    <Content Include="Content\fonts\poppins\Poppins-Light.ttf" />
-    <Content Include="Content\fonts\poppins\Poppins-LightItalic.ttf" />
-    <Content Include="Content\fonts\poppins\Poppins-Medium.ttf" />
-    <Content Include="Content\fonts\poppins\Poppins-MediumItalic.ttf" />
-    <Content Include="Content\fonts\poppins\Poppins-Regular.ttf" />
-    <Content Include="Content\fonts\poppins\Poppins-SemiBold.ttf" />
-    <Content Include="Content\fonts\poppins\Poppins-SemiBoldItalic.ttf" />
-    <Content Include="Content\fonts\poppins\Poppins-Thin.ttf" />
-    <Content Include="Content\fonts\poppins\Poppins-ThinItalic.ttf" />
-    <Content Include="Content\fonts\ubuntu\Ubuntu-Bold.ttf" />
-    <Content Include="Content\fonts\ubuntu\Ubuntu-BoldItalic.ttf" />
-    <Content Include="Content\fonts\ubuntu\Ubuntu-Italic.ttf" />
-    <Content Include="Content\fonts\ubuntu\Ubuntu-Light.ttf" />
-    <Content Include="Content\fonts\ubuntu\Ubuntu-LightItalic.ttf" />
-    <Content Include="Content\fonts\ubuntu\Ubuntu-Medium.ttf" />
-    <Content Include="Content\fonts\ubuntu\Ubuntu-MediumItalic.ttf" />
-    <Content Include="Content\fonts\ubuntu\Ubuntu-Regular.ttf" />
-    <Content Include="Content\js\bootstrap.bundle.js.map" />
-    <Content Include="Content\js\bootstrap.bundle.min.js.map" />
-    <Content Include="Content\js\bootstrap.js.map" />
-    <Content Include="Content\js\bootstrap.min.js.map" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.css.map" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap-reboot.css.map" />

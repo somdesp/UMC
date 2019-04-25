@@ -216,7 +216,7 @@ function createPrivateChatWindow(chatHub, userId, ctrId, userName, userEmail, em
     var div = '<div id="' + ctrId + '" class="ui-widget-content draggable" rel="0">' +
         '<div class="header">' +
         '<div  style="float:right;">' +
-        '<img id="imgDelete"  style="cursor:pointer;" src="../../Content/Img/delete.png"/>' +
+        '<img id="imgDelete"  class= "fas fa-paper-plane" style="cursor:pointer;margin-right: 5px;margin - top: 5px;" src="../../Content/Img/delete.png"/>' +
         '</div>' +
 
         '<span class="selText" rel="0">' + userName + '</span>' +
@@ -227,7 +227,7 @@ function createPrivateChatWindow(chatHub, userId, ctrId, userName, userEmail, em
         '</div>' +
         '<div class="buttonBar">' +
         '<input id="txtPrivateMessage" class="msgText" type="text"   />' +
-        '<input id="btnSendMessage" class="submitButton button" type="button" value="Send"   />' +
+        '<input id="btnSendMessage" class="submitButton button " type="button" value="Enviar"   />' +
         '</div>' +
         '<div id="scrollLength"></div>' +
         '</div>';
