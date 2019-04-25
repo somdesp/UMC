@@ -25,7 +25,14 @@
         </div>
         <!-- My Intro Start -->
         <div class="post-title margin-bottom-30">
-            <h1>Ola, Eu Sou o <span class="main-color">{{PerfilUsuario.Nome}}</span></h1>
+            <div class="form-group" ng-mouseover="botaoEditar()" ng-mouseleave="botaoEditarDesaparecer()">
+               Ola, Eu Sou o <input type="text" value="{{PerfilUsuario.Nome}}" /><input type="button" ng-click="clickBotaoEditar()" class="btn btn-primary small botao" value="Editar">
+                
+                <br />
+            </div>
+            <h3>Portardor do RGM:{{PerfilUsuario.RGM}}</h3>
+            <br />
+            <h4>Email: {{PerfilUsuario.Email}}</h4>
 
             <ul class="knowledge">
                 <li class="bg-color-{{PerfilUsuario.Auth.Id}}">{{PerfilUsuario.Auth.Permissao}}</li>

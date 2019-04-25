@@ -35,7 +35,7 @@ namespace PFC
                          "~/Scripts/jquery.signalR-2.2.0.min.js",
                 "~/Scripts/Chat/chat.controller.js",
                 "~/App/Module.js",
-                "~/App/Service.js",
+                "~/App/Services/usuario.service.js",
                 "~/App/Services/hank.service.js",
                 "~/App/Services/avalicacao.service.js",
                 "~/App/Services/notificacao.service.js",

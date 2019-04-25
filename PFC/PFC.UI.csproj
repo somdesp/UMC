@@ -249,7 +249,7 @@
     <Content Include="App\Factories.js" />
     <Content Include="App\fileUploader.js" />
     <Content Include="App\Module.js" />
-    <Content Include="App\Service.js" />
+    <Content Include="App\Services\usuario.service.js" />
     <Content Include="App\Services\notificacao.service.js" />
     <Content Include="App\Services\solicitacao.service.js" />
     <Content Include="App\Services\avalicacao.service.js" />
