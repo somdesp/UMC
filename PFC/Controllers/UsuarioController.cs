@@ -177,13 +177,23 @@ namespace PFC.Controllers
 
         //Método chamado para carregar Usuario  no Post vem todas as informações
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult ConsultarUsuario()
         {
             UsuarioBLL usuarioBll = new UsuarioBLL();
             Usuario usuario = new Usuario();
             usuario.Id = User.Identity.GetUserId<int>();
             usuario = usuarioBll.ConsultaUsuarioInt(usuario);
-            return Json(usuario);
+            Usuario resposta;
+            if (usuario.Id == 0)
+            {
+                resposta = null;
+            }
+            else
+            {
+                resposta = usuario;
+            }
+            return Json(resposta,JsonRequestBehavior.AllowGet);
         }
 
 

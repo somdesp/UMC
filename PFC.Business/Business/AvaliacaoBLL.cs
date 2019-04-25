@@ -17,19 +17,22 @@ namespace PFC.Business.Business
                 {
                     // realiza atualização da nota se caso os pontos que encontrar for diferente
                     resultado = avaliacaoDAO.AtualizarPonto(avaliacao,pontosUsuario);
-                   
+                    resultado.pontos = converterPontosEstrelas(resultado.pontos);
                 }
                 
             }
             else
             {
                // Se caso o tópico não foi respondido Inserir pontos 
-               resultado = avaliacaoDAO.InserirPonto(avaliacao,pontosUsuario);
+                resultado = avaliacaoDAO.InserirPonto(avaliacao,pontosUsuario);
+                resultado.pontos = converterPontosEstrelas(resultado.pontos);
             }
 
              return resultado;
         }
         #endregion
+
+
 
         #region Inserir novo ponto no banco de dados comunicação direta com a DAO
         public Avaliacao inserirPontosLikeDeslike(Avaliacao avaliacao)
@@ -78,11 +81,18 @@ namespace PFC.Business.Business
         public Avaliacao consultaAvaliacao(Avaliacao avalicao,int idUsuario)
         {
             AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO();
-            avalicao.pontos =  avaliacaoDAO.consultaAvaliarpontos(avalicao, idUsuario);
-            avalicao.mediaPontos = avaliacaoDAO.consultaMediaAvaliacao(avalicao);
+            avalicao.pontos = converterPontosEstrelas(avaliacaoDAO.consultaAvaliarpontos(avalicao, idUsuario));
+            avalicao.mediaPontos = converterPontosEstrelas(avaliacaoDAO.consultaMediaAvaliacao(avalicao));
             return avalicao;
         }
         #endregion
+
+        public float converterPontosEstrelas(float pontos)
+        {
+            float conversao = pontos * 10;
+            conversao = conversao / 2;
+            return conversao;
+        }
 
         #region consultar pontos respondido e quantidade 
         public Avaliacao consultarAvaliacaoCurtir(Topico topico,int idUsuarioLogado)

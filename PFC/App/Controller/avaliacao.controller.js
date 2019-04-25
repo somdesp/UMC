@@ -8,12 +8,13 @@
         topico: {}
     };
 
-    $scope.inicio = function (pontos, deslike, like) {
-        if (!pontos == 0) {
-            $scope.verificarmedia = true;
+    
+
+    $scope.inicio = function (deslike, like) {
+                   
             $scope.contarDesLike = deslike;
             $scope.contarLike = like;
-        }
+        
     };
 
 
@@ -48,9 +49,9 @@
             resultpoints.then(function (d) {
                 if (d.data !== null) {
 
-                    $scope.contarLike = d.data.contarLike;
-                    $scope.contarDesLike = d.data.contarDeslike;
-                    $scope.verificarmedia = true;
+                    $scope.TopicosSelc.avaliacao.contarLike = d.data.contarLike;
+                    $scope.TopicosSelc.avaliacao.contarDeslike = d.data.contarDeslike;
+                    //$scope.verificarmedia = true;
                 }
             });
         } else if (contadorLike === 2) {
@@ -63,7 +64,7 @@
             resultpoints.then(function (d) {
                 if (d.data !== null) {
 
-                    $scope.contarLike = d.data.contarLike;
+                    $scope.TopicosSelc.avaliacao.contarLike = d.data.contarLike;
                     $scope.verificarmedia = false;
                 }
             });
@@ -85,8 +86,8 @@
             resultpoints.then(function (d) {
                 if (d.data !== null) {
 
-                    $scope.contarLike = d.data.contarLike;
-                    $scope.contarDesLike = d.data.contarDeslike;
+                    $scope.TopicosSelc.avaliacao.contarLike = d.data.contarLike;
+                    $scope.TopicosSelc.avaliacao.contarDeslike = d.data.contarDeslike;
                     $scope.verificarmedia = true;
                 }
             });
@@ -101,7 +102,7 @@
             resultpoints.then(function (d) {
                 if (d.data !== null) {
                     $scope.idAvaliacaoLike = d.data.idAvaliacao;
-                    $scope.contarLike = d.data.contarLike;
+                    $scope.TopicosSelc.avaliacao.contarDeslike = d.data.contarDeslike;
                     $scope.verificarmedia = false;
                 }
             });
@@ -180,7 +181,7 @@
                 } else {
                     var requisitar = avaliacaoService.enviarEstrela(avaliacao);
                     requisitar.then(function (d) {
-                        $scope.ctrl.rating = d.data.mediaPontos;
+                        $scope.ctrl.rating = d.data.pontos;
                         $scope.nota = d.data.pontos;
                         $scope.idAvaliacao = d.data.idAvaliacao;
                         sinalizador = 1;

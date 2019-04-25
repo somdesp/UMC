@@ -105,7 +105,7 @@ MeHelp.controller('usuarioCtrl', function ($scope, usuarioService) {
             if (d.data.success === true) {
                 alert("Usuario Cadastrado");
             } else {
-                alert("Usurio nao Adicionado");
+                alert("Usuario não Cadastrado");
             };
         },
             function () {
@@ -134,11 +134,14 @@ MeHelp.controller('usuarioCtrl', function ($scope, usuarioService) {
         var BuscUsuariUni = usuarioService.ConsultaUnicoUsuario(usuario);
 
         BuscUsuariUni.then(function (d) {
-            if (d.data.sucess !== null) {
-                localStorage.setItem('model', JSON.stringify(d.data));
+            if (d.data === "") {
+                localStorage.setItem('model', null);
             } else {
-                alert("Vazio");
+                localStorage.setItem('model', JSON.stringify(d.data));
+
             }
+
+
         },
             function () {
                 alert("Erro ao Carregar Campos");
