@@ -121,5 +121,50 @@ namespace PFC.DAO
 
         #endregion
 
+        #region Carrega Lista Amizade
+        public List<Usuario> ListaAmizade(Usuario usuario)
+        {
+            SqlDataReader reader;
+            List<Usuario> usuarios = new List<Usuario>();
+
+            using (contexto = new Contexto())
+            {
+
+                string strQuery = string.Format("select * from Amizade WHERE Id_Status = 4 and (Id_Usu_Pen = {0} or Id_Usu_Sol = {0})",
+                    usuario.Id);
+                reader = contexto.ExecutaComandoComRetorno(strQuery);
+
+                if (reader.HasRows.Equals(false))
+                {
+                    reader.Close();
+                    return null;
+                }
+                else
+                {
+                    while (reader.Read())
+                    {
+                        Usuario temObjeto = new Usuario();
+                        temObjeto.Id = Convert.ToInt32(reader["Id_Usu_Pen"].ToString());
+                        if (temObjeto.Id != usuario.Id)
+                        {
+                            temObjeto = usuarioDAO.ConsultaUsuarioInt(temObjeto);
+
+                        }
+                        temObjeto.Id = Convert.ToInt32(reader["Id_Usu_Sol"].ToString());
+                        if (temObjeto.Id != usuario.Id)
+                        {
+                            temObjeto = usuarioDAO.ConsultaUsuarioInt(temObjeto);
+
+                        }
+
+                        usuarios.Add(temObjeto);
+                    }
+                    reader.Close();
+                }
+            }
+            return usuarios;
+        }
+        #endregion
+
     }
 }

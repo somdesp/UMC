@@ -33,8 +33,8 @@ namespace PFC.Controllers
         public bool AmizadeSolicitada([FromBody]Solicitacao amizade)
         {
             SolicitacaoBLL amizadeBll = new SolicitacaoBLL();
-            NotificacaoHub notificacaoHub = new NotificacaoHub();
-            notificacaoHub.EnvioMensSoli(amizade);
+            //NotificacaoHub notificacaoHub = new NotificacaoHub();
+            //notificacaoHub.EnvioMensSoli(amizade);
 
             return (amizadeBll.solicitacaoAmizade(amizade.usuario, amizade.usuarioSolicitado));
 
@@ -59,6 +59,12 @@ namespace PFC.Controllers
             return (amizadeBll.AceitaAmizade(amizade.usuario, amizade.usuarioSolicitado));
 
         }
+        #endregion
+
+        #region Carrega Lista de amizade do Chat
+
+
+
         #endregion
     }
 }

@@ -6,6 +6,7 @@ using System.Web.Http;
 
 namespace PFC.Controllers
 {
+    [Authorize]
     public class NotificacaoController : ApiController
     {
 

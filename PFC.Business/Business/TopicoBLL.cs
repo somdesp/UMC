@@ -86,6 +86,7 @@ namespace PFC.Business.Business
             topico.avaliacao = avaliacaobll.consultarAvaliacaoCurtir(topico,usuarioLogado);
             topico.usuario = bllUsuario.ConsultaUsuarioInt(topico.usuario);
             topico.Tema = daoTema.ConsultaTema(topico.Tema);
+            topico.avaliacao.idUsuario = usuarioLogado;
             topico.Resposta = ListarTopicoFilho(topico);
             
 
@@ -95,7 +96,7 @@ namespace PFC.Business.Business
         #endregion
 
         #region Adicona Resposta
-        public int AdicionarPosts(Topico post)
+        public bool AdicionarPosts(Topico post)
         {
             daoTopico.UpdateDataTopico(post);
             return daoTopico.AdicionarPosts(post);

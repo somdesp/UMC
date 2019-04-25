@@ -4,7 +4,7 @@ using Owin;
 using System.Web.Http;
 using Microsoft.Owin;
 using Hangfire;
-
+using System.Configuration;
 
 [assembly: OwinStartup(typeof(PFC.Startup))]
 
@@ -48,7 +48,8 @@ namespace PFC
         public void ExecutarJobs(IAppBuilder app)
         {
             //Serviço para executar Jobs de forma automatica.
-           // Hangfire.GlobalConfiguration.Configuration.UseSqlServerStorage("Data Source=mehelp.c5jiatqwcxsd.sa-east-1.rds.amazonaws.com;Initial Catalog=MeHelp;User Id=mehelp;Password=TCCUMC2018");
+            Hangfire.GlobalConfiguration.Configuration.UseSqlServerStorage(ConfigurationManager.ConnectionStrings["dbconectionString"].ConnectionString);
+
             
             //app.UseHangfireDashboard();
             //app.UseHangfireServer();

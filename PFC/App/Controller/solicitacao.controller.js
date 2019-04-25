@@ -48,6 +48,8 @@ MeHelp.controller('amizadeCtrl', function ($scope, amizadeService) {
             });
     };
 
+
+
     //Aceitar Amizade
     $scope.aceitarAmizade = function (usuarios) {
 
@@ -74,11 +76,10 @@ MeHelp.controller('amizadeCtrl', function ($scope, amizadeService) {
             usuarioSolicitado: UsuarioSolicitadoForm
         };
 
-
+        $scope.ModelUsuario = JSON.parse(localStorage.getItem('model'));
         var ValidaAmizade = amizadeService.ValidaAmizade(Amizade);
-        var valAmi;
         ValidaAmizade.then(function (d) {
-                $scope.valAmi = d.data;
+            $scope.valAmi = d.data;
         },
             function () {
                 $("#resposta").text("Error Critico");
@@ -105,6 +106,22 @@ MeHelp.controller('amizadeCtrl', function ($scope, amizadeService) {
         var dataReplace = data.toString().replace(/\/Date\((-?\d+)\)\//, '$1');
         var conversao = new Date(parseInt(dataReplace));
         return conversao.getFullYear() + "," + arrayMes[conversao.getUTCMonth()] + "," + conversao.getDate();
+    };
+
+
+
+    //Editar formulario usuario perfil
+    $scope.botaoEditar = function () {
+        $(".botao").show();
+    };
+
+    $scope.botaoEditarDesaparecer = function () {
+        $(".botao").hide();
+    };
+
+    $scope.clickBotaoEditar = function () {
+        // $("#nome").remove();
+        $(".form-group").append("<input type='text' name='form'/>");
     };
 
 })

@@ -114,24 +114,18 @@ namespace PFC.DAO
         #endregion
 
         #region Adicionar Posts (Respostas)
-        public int AdicionarPosts(Topico post)
+        public bool AdicionarPosts(Topico post)
         {
-            int retorno = 0;
-            SqlDataReader reader;
+            bool retorno = false;
             var strQuery = "";
             strQuery += "INSERT INTO Topico(Titulo,Descricao,Id_Tema,Id_Usuario ,IdTopicoPai,DataCriacao) ";
-            strQuery += string.Format("VALUES('{0}','{1}','{2}','{3}','{4}','{5}'); SELECT SCOPE_IDENTITY()AS retorno;",
-                post.Titulo,post.TopicoFilho.Descricao,post.Tema.Id, post.TopicoFilho.usuario.Id, post.Id,DateTime.Now);
+            strQuery += string.Format("VALUES('{0}','{1}','{2}','{3}','{4}','{5}')",
+                post.Titulo,post.TopicoFilho.Descricao,post.Tema.Id, post.TopicoFilho.usuario.Id, post.Id,DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
 
             using (contexto = new Contexto())
             {
-                reader = contexto.ExecutaComandoComRetorno(strQuery);
+                retorno = contexto.ExecutarInsert(strQuery);
 
-                while (reader.Read())
-                {
-                    retorno = Convert.ToInt32(reader["retorno"].ToString());
-
-                }
             }
 
             return retorno;
@@ -201,7 +195,7 @@ namespace PFC.DAO
         public bool UpdateDataTopico(Topico post)
         {
             var strQuery = "";
-            strQuery += string.Format("UPDATE Topico SET DataUpdate = '{0}' WHERE Id='{1}'", DateTime.Now, post.Id);
+            strQuery += string.Format("UPDATE Topico SET DataUpdate = '{0}' WHERE Id='{1}'", DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"), post.Id);
             using (contexto = new Contexto())
             {
                 return contexto.ExecutarInsert(strQuery);

@@ -74,6 +74,7 @@ namespace PFC.Controllers
 
         #region Listar temas
         [HttpGet]
+        [AllowAnonymous]
         public JsonResult GetTema()
         {
             TemaDAO temaDao = new TemaDAO();

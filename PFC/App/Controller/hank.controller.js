@@ -8,8 +8,12 @@
 
     function carregarHank() {
         var listarUsuarios = hankService.rankUsuario();
+        $(".loader").show();
         listarUsuarios.then(function (d) {
+            $(".loader").hide();
             $scope.hankeamento = d.data;
+            
+               
         },
             function () {
                 console.log("Erro ao carregar a lista de usuario");
@@ -22,13 +26,16 @@
         if (opcaoSelecionada === 1) {
 
             var listarUsuarios = hankService.rankUsuario();
-            listarUsuarios.then(function (response) {
-                if (response.data) {
-                    $scope.hankeamento = response.data;
+            $(".loader").show();
+            $scope.spinner = true;
+            listarUsuarios.then(function (d) {
+                if (d.data) {
+                    $(".loader").hide();
+                    $scope.hankeamento = d.data;
                 } else {
+                    $(".loader").hide();
                     $scope.hankeamento = 0;
                 }
-                
 
             },
                 function () {
@@ -38,17 +45,34 @@
         }
         else if (opcaoSelecionada === 2) {
             listarUsuarios = hankService.rankUsuarioSemanal();
+            $(".loader").show();
+            $scope.spinner = true;
             listarUsuarios.then(function (d) {
-                $scope.hankeamento = d.data;
+                if (d.data) {
+                    $(".loader").hide();
+                    $scope.hankeamento = d.data;
+                } else {
+                    $(".loader").hide();
+                    $scope.hankeamento = 0;
+                }
+               
             },
                 function () {
                     console.log("Erro ao carregar a lista de rank semanal");
                 });
 
         } else if (opcaoSelecionada === 3) {
+            
             listarUsuarios = hankService.rankUsuarioMensal();
+            $(".loader").show();
             listarUsuarios.then(function (d) {
-                $scope.hankeamento = d.data;
+                if (d.data) {
+                    $(".loader").hide();
+                    $scope.hankeamento = d.data;
+                } else {
+                    $(".loader").hide();
+                    $scope.hankeamento = 0;
+                }
             },
                 function () {
                     console.log("Erro ao carregar a lista de rank mensal");

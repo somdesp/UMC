@@ -11,9 +11,13 @@
 }
 
 <div class="row" ng-controller="topicoCtrl as travel">
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:5px 0;">
         <a class="navbar-brand " >Topicos Abertos</a>
-        <div class="navbar-collapse collapse" id="navb" style="" ng-controller="notificationController as n">
+        <div class="navbar-collapse collapse" id="navb" style="">
+               @if (@User.Identity.IsAuthenticated)
+        {
+          <div  ng-controller="notificationController as n">
             <ul class="navbar-nav mr-auto" role="menu">
                 <li class="nav-item" role="presentation"  ng-repeat="msg in n.notifications">
                     <a href="../Usuario/NotificacaoUsuario" role="menuitem" tabindex="-1" ng-click="n.read($index)">{{msg}}</a>
@@ -24,6 +28,8 @@
                 </li>
                 
             </ul>
+            </div>
+           }
             
             <form name="FormPesquisa " class="form-inline my-2 my-lg-0">
                 <input type="text" class="form-control text-sm-center classePesquisa" ng-model="pesquisa" placeholder="Pesquisar..." ng-model-options="{debounce: 200}" ng-change="pesquisar(pesquisa)" />
@@ -31,10 +37,14 @@
                     <ul class="list-group classePesquisa" ng-model="Topico" ng-show="(pesquisa.length>0)">
                         <li class="list-group-item classePesquisa" ng-repeat="topico in Topico|limitTo:5"><a class="classePesquisa" href="http://localhost:52005/Topico/TopicoSelecionado?topicoId={{topico.Id}}">{{topico.Titulo}}></a></li>
                     </ul>
+
                 </div>
+                
+
             </form>
         </div>
     </nav>
+
 
         <div class="row">
             <div class="col-md-12 content-page">
@@ -56,14 +66,17 @@
                     <br />
                     <br />
                 </div>
+
             </div>
 
             <div class="col-md-12 text-center">
 
-                <button ng-click="load()" class="load-more-button">
-                    <span ng-show="(!semdados)">Load</span>
-                    <span ng-show="(semdados)">End</span>
-                </button>
+
+            <button ng-click="load()" class="load-more-button">
+                <span ng-init="informacao = 'Load'">{{informacao}}</span>
+                
+            </button>
+
 
 
 
