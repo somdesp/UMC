@@ -145,7 +145,7 @@ a {
 
 input.classePesquisa[type=text] {
     width: 150px;
-    margin-left: 40%;
+  
     background-image: url('../images/favicon/magnifier.png');
     background-position: 100px 10px;
     background-repeat: no-repeat;

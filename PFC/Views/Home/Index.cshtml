@@ -15,33 +15,40 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:5px 0;">
         <a class="navbar-brand " >Topicos Abertos</a>
         <div class="navbar-collapse collapse" id="navb" style="">
-               @if (@User.Identity.IsAuthenticated)
-        {
-          <div  ng-controller="notificationController as n">
-            <ul class="navbar-nav mr-auto" role="menu">
-                <li class="nav-item" role="presentation"  ng-repeat="msg in n.notifications">
-                    <a href="../Usuario/NotificacaoUsuario" role="menuitem" tabindex="-1" ng-click="n.read($index)">{{msg}}</a>
-                    <hr />
+            @if (@User.Identity.IsAuthenticated)
+            {
+                <div ng-controller="notificationController as n">
+                    <ul class="navbar-nav mr-auto" role="menu">
+                        <li class="nav-item" role="presentation" ng-repeat="msg in n.notifications">
+                            <a href="../Usuario/NotificacaoUsuario" role="menuitem" tabindex="-1" ng-click="n.read($index)">{{msg}}</a>
+                            <hr />
 
-                </li>
-                <li class="nav-item" >
-                </li>
-                
-            </ul>
-            </div>
-           }
-            
-            <form name="FormPesquisa " class="form-inline my-2 my-lg-0">
-                <input type="text" class="form-control text-sm-center classePesquisa" ng-model="pesquisa" placeholder="Pesquisar..." ng-model-options="{debounce: 200}" ng-change="pesquisar(pesquisa)" />
-                <div class="float-pesquisa">
-                    <ul class="list-group classePesquisa" ng-model="Topico" ng-show="(pesquisa.length>0)">
-                        <li class="list-group-item classePesquisa" ng-repeat="topico in Topico|limitTo:5"><a class="classePesquisa" href="http://localhost:52005/Topico/TopicoSelecionado?topicoId={{topico.Id}}">{{topico.Titulo}}></a></li>
+                        </li>
+                        <li class="nav-item">
+                        </li>
+
                     </ul>
-
                 </div>
-                
+            }
 
-            </form>
+        <form name="FormPesquisa " class="form-inline my-2 my-lg-0">
+            <div class="input-group-prepend">
+                <select class="form-control" ng-options="t.Nome for t in Tema track by t.Id" ng-change="pesquisaTema(temaSelecionado)" ng-model="temaSelecionado">
+                    <option value="" class="ng-binding">Nenhum tema</option>
+                </select>
+                <input type="text" class="form-control text-sm-center classePesquisa" ng-model="pesquisa" placeholder="Pesquisar..." ng-model-options="{debounce: 200}" ng-change="pesquisar(pesquisa)" />
+            </div>
+            
+            <div class="float-pesquisa">
+                <ul class="list-group classePesquisa" ng-model="Topico" ng-show="(pesquisa.length>0)">
+                    <li class="list-group-item classePesquisa" ng-repeat="topico in Topico|limitTo:5"><a class="classePesquisa" href="http://localhost:52005/Topico/TopicoSelecionado?topicoId={{topico.Id}}">{{topico.Titulo}}></a></li>
+                </ul>
+            </div>
+        </form>
+
+
+
+            
         </div>
     </nav>
 
