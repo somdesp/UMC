@@ -21,7 +21,7 @@ namespace PFC.DAO
             var strQuery = "";
             strQuery += "INSERT INTO Usuario (Nome,Login,Email,Senha,Id_Genero,DataNasci,RGM,Id_Curso,Id_Semestre,DataCad,Id_Permissoes,Id_Arquivo) ";
             strQuery += string.Format("VALUES('{0}','{1}','{2}',PWDENCRYPT('{3}'),'{4}','{5}','{6}','{7}','{8}','{9}','{10}',(select max(Id) from Arquivos))",
-                usuario.Nome, usuario.Login, usuario.Email, usuario.Senha, usuario.Sexo.Id, usuario.DataNasci.ToString("dd/MM/yyyy"), usuario.RGM, usuario.Curso.Id, usuario.Semestre.Id, DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss"), 3);
+                usuario.Nome, usuario.Login, usuario.Email, usuario.Senha, usuario.Sexo.Id, usuario.DataNasci.ToString("dd/MM/yyyy"), usuario.RGM, usuario.Curso.Id, usuario.Semestre.Id, DateTime.Now.ToString("yyyy/MM/dd hh:mm:ss"), 3);
 
             using (contexto = new Contexto())
             {
