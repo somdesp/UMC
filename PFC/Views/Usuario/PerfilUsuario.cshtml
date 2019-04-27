@@ -71,7 +71,7 @@
     @*Verifica se usuario nao é ele mesmo*@
     <div ng-if="(ModelUsuario.Id != PerfilUsuario.Id)">
         <div ng-if="(valAmi)">
-            <button ng-click="conviteAmizade(PerfilUsuario)" class="btn btn-lg btn-primary" disabled>Usuario Adicionado</button>
+            <button ng-click="cancelaAmizade(PerfilUsuario)" class="btn btn-lg btn-danger" >Cancelar amizade</button>
 
         </div>
         <div ng-if="(!valAmi)">

@@ -33,6 +33,11 @@ namespace PFC.Business
             return amizadeDao.AceitaAmizade(usuario, usuarioSolicitado);
         }
 
+        public bool CancelaAmizade(Usuario usuario, Usuario usuarioSolicitado)
+        {
+            return amizadeDao.CancelaAmizade(usuario, usuarioSolicitado);
+        }
+
         public List<Usuario> ListaAmizade(int Id_Usuario)
         {
             Usuario usuario = new Usuario();

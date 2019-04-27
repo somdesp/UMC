@@ -5,6 +5,7 @@ using PFC.Model;
 
 namespace PFC.Controllers
 {
+    [Authorize]
     public class SolicitacaoController : ApiController
     {
         #region UsuarioEscolhido
@@ -57,6 +58,16 @@ namespace PFC.Controllers
         {
             SolicitacaoBLL amizadeBll = new SolicitacaoBLL();
             return (amizadeBll.AceitaAmizade(amizade.usuario, amizade.usuarioSolicitado));
+
+        }
+        #endregion
+
+        #region CancelaAmizade
+        [AcceptVerbs("POST")]
+        public bool CancelaAmizade([FromBody]Solicitacao amizade)
+        {
+            SolicitacaoBLL amizadeBll = new SolicitacaoBLL();
+            return (amizadeBll.CancelaAmizade(amizade.usuario, amizade.usuarioSolicitado));
 
         }
         #endregion

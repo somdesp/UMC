@@ -58,9 +58,38 @@ MeHelp.controller('amizadeCtrl', function ($scope, amizadeService) {
         aceitarAmizade.then(function (d) {
             if (d.data === true) {
                 alert("Solicitação Aceita");
+                ValidaAmizade(UsuarioLogado, UsuarioSolicitado);
+
 
             } else {
                 alert("Solicitação Nao enviada");
+            }
+        },
+            function () {
+                $("#resposta").text("Error Critico");
+            });
+    };
+
+    //Cancela Amizade
+    $scope.cancelaAmizade = function (usuarios) {
+
+        var Solicitacao = {
+            usuario: UsuarioLogado,
+            usuarioSolicitado: usuarios
+        };
+
+        var cancelaAmizade = amizadeService.CancelaAmizade(Solicitacao);
+
+
+
+
+        cancelaAmizade.then(function (d) {
+            if (d.data === true) {
+                alert("Amizade Cancelada");
+                ValidaAmizade(UsuarioLogado, UsuarioSolicitado);
+
+            } else {
+                alert("Amizade Nao Cancelada");
             }
         },
             function () {

@@ -36,7 +36,7 @@ namespace PFC.DAO
             using (contexto = new Contexto())
             {
 
-                string strQuery = string.Format("select * from Amizade WHERE Id_Usu_Sol = '{0}' AND Id_Usu_Pen='{1}' ",
+                string strQuery = string.Format("select * from Amizade WHERE (Id_Usu_Sol = '{0}' AND Id_Usu_Pen='{1}') OR (Id_Usu_Sol = '{1}' AND Id_Usu_Pen='{0}')   ",
                     usuario.Id, usuarioSolicitado.Id);
                 reader = contexto.ExecutaComandoComRetorno(strQuery);
 
@@ -97,25 +97,50 @@ namespace PFC.DAO
         #region AceitaAmizade
         public bool AceitaAmizade(Usuario usuario, Usuario usuarioSolicitado)
         {
-            SqlDataReader reader;
 
             using (contexto = new Contexto())
             {
-
-                string strQuery = string.Format("UPDATE Amizade SET Id_Status = 4  WHERE Id_Usu_Pen = '{0}' AND Id_Usu_Sol='{1}' ",
-                    usuario.Id, usuarioSolicitado.Id);
-                reader = contexto.ExecutaComandoComRetorno(strQuery);
-
-                if (reader.HasRows.Equals(false))
+                try
                 {
-                    reader.Close();
+                    string strQuery = string.Format("UPDATE Amizade SET Id_Status = 4  WHERE Id_Usu_Pen = '{0}' AND Id_Usu_Sol='{1}' ",
+                    usuario.Id, usuarioSolicitado.Id);
+                    contexto.ExecutarInsert(strQuery);
+                    return true;
+
+                }
+                catch (Exception ex)
+                {
                     return false;
+
+                }
+            }
+
+        }
+
+        #endregion
+
+
+        #region CancelaAmizade
+        public bool CancelaAmizade(Usuario usuario, Usuario usuarioSolicitado)
+        {
+            using (contexto = new Contexto())
+            {
+                try
+                {
+                    string strQuery = string.Format("DELETE Amizade WHERE (Id_Usu_Pen = '{0}' AND Id_Usu_Sol='{1}') OR (Id_Usu_Pen = '{1}' AND Id_Usu_Sol='{0}') ",
+                    usuario.Id, usuarioSolicitado.Id);
+                    contexto.ExecutarInsert(strQuery);
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    return false;
+
                 }
 
 
             }
-            reader.Close();
-            return true;
+
 
         }
 

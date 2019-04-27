@@ -43,4 +43,15 @@ MeHelp.service('amizadeService', function ($http) {
 
         return request;
     };
+
+    //Cancela Amizade
+    this.CancelaAmizade = function (amizade) {
+        var request = $http({
+            method: 'post',
+            url: '../api/Solicitacao/CancelaAmizade',
+            data: amizade
+        });
+
+        return request;
+    };
 });
