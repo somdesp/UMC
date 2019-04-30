@@ -19,15 +19,17 @@
 
 
 <div class="col-md-12 content-page" ng-controller="amizadeCtrl">
-    <div class="col-md-12 blog-post">
+
+    <div class="col-md-9 blog-post">
+
         <div>
             <img src="../Upload/{{PerfilUsuario.UploadArquivo.Caminho}}" alt="">
         </div>
         <!-- My Intro Start -->
         <div class="post-title margin-bottom-30">
-            <div class="form-group" ng-mouseover="botaoEditar()" ng-mouseleave="botaoEditarDesaparecer()">
-               Ola, Eu Sou o <input type="text" value="{{PerfilUsuario.Nome}}" /><input type="button" ng-click="clickBotaoEditar()" class="btn btn-primary small botao" value="Editar">
-                
+            <div class="form-group">
+                Ola, Eu Sou o <input type="text" value="{{PerfilUsuario.Nome}}" />
+
                 <br />
             </div>
             <h3>Portardor do RGM:{{PerfilUsuario.RGM}}</h3>
@@ -65,19 +67,105 @@
             </ul>
         </div>
         <!-- My Service End -->
+        @*Verifica se usuario nao é ele mesmo*@
+        <div ng-if="(ModelUsuario.Id != PerfilUsuario.Id)">
+            <div ng-if="(valAmi)">
+                <button ng-click="cancelaAmizade(PerfilUsuario)" class="btn btn-lg btn-danger">Cancelar amizade</button>
 
-    </div>
-
-    @*Verifica se usuario nao é ele mesmo*@
-    <div ng-if="(ModelUsuario.Id != PerfilUsuario.Id)">
-        <div ng-if="(valAmi)">
-            <button ng-click="cancelaAmizade(PerfilUsuario)" class="btn btn-lg btn-danger" >Cancelar amizade</button>
-
-        </div>
-        <div ng-if="(!valAmi)">
-            <button ng-click="conviteAmizade(PerfilUsuario)" class="btn btn-lg btn-primary">Adicionar Usuario</button>
+            </div>
+            <div ng-if="(!valAmi)">
+                <button ng-click="conviteAmizade(PerfilUsuario)" class="btn btn-lg btn-primary">Adicionar Usuario</button>
+            </div>
         </div>
     </div>
+    <div class="col-md-3 blog-post">
+        <button type="button" class="btn btn-primary editarbotao" data-toggle="modal" data-target="#exampleModalCenter">
+            <i class="fas fa-pencil-alt fa-2x"></i>
+        </button>
+    </div>
+
+
+
+    <div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fas fa-times-circle"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <form>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputPassword4">Nome</label>
+                                        <input type="text" class="form-control" id="Nome" ng-model="Nome" placeholder="Digite seu Nome" value="{{PerfilUsuario.Nome}}">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Email</label>
+                                        <input type="email" class="form-control" id="Email" ng-model="Email" placeholder="Digite seu Email" value="{{PerfilUsuario.Email}}">
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="inputAddress">RGM</label>
+                                    <input type="text" class="form-control" id="RGM" ng-model="RGM" placeholder="Digite seu RGM" value="{{PerfilUsuario.RGM}}">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="DataNasci">Data de Nascimento</label>
+                                    <input class="form-control" type="date" ng-model="dataNasci" id="DataNasci" name="DataNasci" placeholder="DataNasci" required />
+                                    <span ng-class="error" ng-show="AdiconarUsuarioForm.DataNasci.$error.required">DataNasci é obrigatório</span>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="Genero">Genero</label>
+                                        <select class="form-control" ng-model="cmbGenero" id="Genero"
+                                                ng-options="c.Id as c.Sexo for c in Genero">
+                                            <option value="" selected="selected" disabled="disabled"> {{Id || 'Sexo'}} </option>
+                                        </select>
+                                    </div>
+                                    <span ng-class="error" ng-show="AdiconarUsuarioForm.cmbGenero.$error.required">Genero é obrigatório</span>
+                                    <div class="form-group col-md-4">
+                                        <label for="Curso">Curso</label>
+                                        <select class="form-control" ng-model="cmbCurso" id="Curso"
+                                                ng-change="carregarSemestre(cmbCurso)"
+                                                ng-options="c.Id as c['curso' + Lang] for c in Curso">
+                                            <option value="" selected="selected" disabled="disabled"> {{Id || 'Curso'}} </option>
+                                        </select>
+                                        <span ng-class="error" ng-show="AdiconarUsuarioForm.cmbCurso.$error.required">Curso é obrigatório</span>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="Semestre">Semestre</label>
+                                        <select class="form-control" ng-model="selSemestre" id="Semestre"
+                                                ng-options="s.Id as s.semestre for s in Semestre">
+                                            
+                                            <option value="" selected="selected" disabled="disabled">{{Id || 'Semestre'}}</option>
+                                        </select>
+                                        <span ng-class="error" ng-show="AdiconarUsuarioForm.cmbSemestre.$error.required">Semestre é obrigatório</span>
+                                        
+                                    </div>
+                                </div>
+                               
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary">Atualizar Perfil</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
 </div>
 
 
