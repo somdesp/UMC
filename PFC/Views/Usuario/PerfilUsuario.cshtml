@@ -99,52 +99,53 @@
                     <div class="row">
 
                         <div class="col-md-12">
-                            <form>
+                            <form name="EditarUsuario">
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="inputPassword4">Nome</label>
-                                        <input type="text" class="form-control" id="Nome" ng-model="Nome" placeholder="Digite seu Nome" value="{{PerfilUsuario.Nome}}">
+                                        <input type="text" class="form-control" id="Nome" ng-model="Nome" placeholder="Digite seu Nome" value="{{PerfilUsuario.Nome}}" required>
+                                        <span ng-class="error" ng-show="EditarUsuario.DataNasci.$error.required">Seu nome é obrigatório</span>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="inputEmail4">Email</label>
-                                        <input type="email" class="form-control" id="Email" ng-model="Email" placeholder="Digite seu Email" value="{{PerfilUsuario.Email}}">
+                                        <input type="email" class="form-control" id="Email" ng-model="Email" placeholder="Digite seu Email" value="{{PerfilUsuario.Email}}" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="inputAddress">RGM</label>
-                                    <input type="text" class="form-control" id="RGM" ng-model="RGM" placeholder="Digite seu RGM" value="{{PerfilUsuario.RGM}}">
+                                    <input type="text" class="form-control" id="RGM" ng-model="RGM" placeholder="Digite seu RGM" value="{{PerfilUsuario.RGM}}" required>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="DataNasci">Data de Nascimento</label>
-                                    <input class="form-control" type="date" ng-model="dataNasci" id="DataNasci" name="DataNasci" placeholder="DataNasci" required />
-                                    <span ng-class="error" ng-show="AdiconarUsuarioForm.DataNasci.$error.required">DataNasci é obrigatório</span>
+                                    <input class="form-control" type="date" ng-model="dataNasci" id="DataNasci" name="DataNasci" placeholder="DataNasci" required  />
+                                    <span ng-class="error" ng-show="EditarUsuario.DataNasci.$error.required">DataNasci é obrigatório</span>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-4">
                                         <label for="Genero">Genero</label>
                                         <select class="form-control" ng-model="cmbGenero" id="Genero"
-                                                ng-options="c.Id as c.Sexo for c in Genero">
+                                                ng-options="c.Id as c.Sexo for c in Genero" required>
                                             <option value="" selected="selected" disabled="disabled"> {{Id || 'Sexo'}} </option>
                                         </select>
                                     </div>
-                                    <span ng-class="error" ng-show="AdiconarUsuarioForm.cmbGenero.$error.required">Genero é obrigatório</span>
+                                    <span ng-class="error" ng-show="EditarUsuario.cmbGenero.$error.required">Genero é obrigatório</span>
                                     <div class="form-group col-md-4">
                                         <label for="Curso">Curso</label>
                                         <select class="form-control" ng-model="cmbCurso" id="Curso"
                                                 ng-change="carregarSemestre(cmbCurso)"
-                                                ng-options="c.Id as c['curso' + Lang] for c in Curso">
+                                                ng-options="c.Id as c['curso' + Lang] for c in Curso" required>
                                             <option value="" selected="selected" disabled="disabled"> {{Id || 'Curso'}} </option>
                                         </select>
-                                        <span ng-class="error" ng-show="AdiconarUsuarioForm.cmbCurso.$error.required">Curso é obrigatório</span>
+                                        <span ng-class="error" ng-show="EditarUsuario.cmbCurso.$error.required">Curso é obrigatório</span>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label for="Semestre">Semestre</label>
                                         <select class="form-control" ng-model="selSemestre" id="Semestre"
-                                                ng-options="s.Id as s.semestre for s in Semestre">
+                                                ng-options="s.Id as s.semestre for s in Semestre" required>
                                             
                                             <option value="" selected="selected" disabled="disabled">{{Id || 'Semestre'}}</option>
                                         </select>
-                                        <span ng-class="error" ng-show="AdiconarUsuarioForm.cmbSemestre.$error.required">Semestre é obrigatório</span>
+                                        <span ng-class="error" ng-show="EditarUsuario.cmbSemestre.$error.required">Semestre é obrigatório</span>
                                         
                                     </div>
                                 </div>
@@ -156,7 +157,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Atualizar Perfil</button>
+                    <button type="button" class="btn btn-primary" ng-disabled="EditarUsuario.$invalid">Atualizar Perfil</button>
                 </div>
             </div>
         </div>
