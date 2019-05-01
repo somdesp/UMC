@@ -102,11 +102,12 @@ namespace PFC.DAO
             strQuery += " UPDATE Usuario SET ";
             strQuery += string.Format(" Nome = '{0}', ", usuario.Nome);
             strQuery += string.Format(" RGM = '{0}', ", usuario.RGM);
-            strQuery += string.Format(" DataNasci = '{0}', ", usuario.DataNasci);
+            strQuery += string.Format(" Email = '{0}', ", usuario.Email);
+            strQuery += string.Format(" DataNasci = '{0}', ",usuario.DataNasci.ToString("yyyy-MM-dd"));
             strQuery += string.Format(" Id_Curso = '{0}', ", usuario.Curso.Id);
             strQuery += string.Format(" Id_Semestre = '{0}', ", usuario.Semestre.Id);
             strQuery += string.Format(" Id_Genero = '{0}', ", usuario.Sexo.Id);
-            strQuery += string.Format(" DataCad = '{0}' ", DateTime.Now.ToString());
+            //strQuery += string.Format(" DataCad = '{0}' ", DateTime.Now.ToString());
             strQuery += string.Format(" WHERE Id = {0}; ", usuario.Id);
 
             using (contexto = new Contexto())

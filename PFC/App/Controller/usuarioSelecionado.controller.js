@@ -33,7 +33,7 @@
     }
 
     function carregarCampos(usuario) {
-        var result = converteDataHora(usuario.DataNasci)
+        var result = converteDataHora(usuario.DataNasci);
 
         var data = new Date(converteDataHora(usuario.DataNasci));
         carregarSemestre(usuario);

@@ -1,9 +1,14 @@
 ﻿// Controle Usuarios
-MeHelp.controller('amizadeCtrl', function ($scope, amizadeService,usuarioService) {
+MeHelp.controller('amizadeCtrl', function ($scope, amizadeService, usuarioService) {
     //---------------Visualização de perfil de outros usuarios---------------------------------//
     var UsuarioSolicitado = JSON.parse(localStorage.getItem("PerfilUsuario"));
     var UsuarioLogado = JSON.parse(localStorage.getItem('model'));
+    // Notificaçao de acerto ou erro
 
+    $scope.notifications = {};
+    $scope.notificationsErro = {};
+    var indexAcerto = 0;
+    var indexErro = 0;
 
     visualizarPerfil(UsuarioSolicitado);
     ValidaAmizade(UsuarioLogado, UsuarioSolicitado);
@@ -34,15 +39,54 @@ MeHelp.controller('amizadeCtrl', function ($scope, amizadeService,usuarioService
         carregarGenero();
         carregarSemestre(PerfilUsuario);
         var data = new Date(converteDataHora(PerfilUsuario.DataNasci));
-        $scope.Nome = PerfilUsuario.Nome;
+        $scope.usuario = PerfilUsuario;
+        $scope.usuario.DataNasci = data;
+        /*$scope.Nome = PerfilUsuario.Nome;
         $scope.Email = PerfilUsuario.Email;
         $scope.RGM = PerfilUsuario.RGM;
         $scope.dataNasci = data;
         $scope.cmbGenero = PerfilUsuario.Sexo.Id;
         $scope.cmbCurso = PerfilUsuario.Curso.Id;
-        $scope.selSemestre = PerfilUsuario.Semestre.Id;
-        
+        $scope.selSemestre = PerfilUsuario.Semestre.Id;*/
+
     };
+
+    //Editar Usuario
+    //Função para notificar usuario
+    function notificarUsuario(statusnotificacao) {
+        if (statusnotificacao) {
+            indexAcerto++;
+            $scope.notifications[indexAcerto] = 'Notificacao';
+        }
+        else {
+            indexErro++;
+            $scope.notificationsErro[indexErro] = 'notificacaoErro';
+        }
+    }
+
+
+
+    $scope.EnviarPerfil = function (usuario) {
+        var statusnotificar = false;
+        var respostaUsuario = usuarioService.atualizarUsuario(usuario);
+        respostaUsuario.then(function (response) {
+            if (response.data === true) {
+                statusnotificar = true;
+                notificarUsuario(statusnotificar);                
+                $('#editarPerfil').modal('hide');
+            } else {
+                statusnotificar = false;
+                notificarUsuario(statusnotificar);             
+             }
+        });
+    };
+
+    $('#editarPerfil').on('hidden.bs.modal', function () {
+        visualizarPerfil(UsuarioLogado);
+        $('#editarPerfil').modal('hide');
+    });
+
+
     //Listar Cursos
     function carregarCursos() {
         var listarCursos = usuarioService.getTodosCursos();
@@ -53,7 +97,7 @@ MeHelp.controller('amizadeCtrl', function ($scope, amizadeService,usuarioService
                 console.log("Erro ao carregar Cursos");
             });
 
-    }
+    };
 
     //Listar Semestre 
     function carregarSemestre(usuario) {
@@ -71,8 +115,7 @@ MeHelp.controller('amizadeCtrl', function ($scope, amizadeService,usuarioService
 
     // Carregar Semestre
     $scope.carregarSemestre = function (curso) {
-        curso = $scope.cmbCurso;
-        var listarSemestre = usuarioService.getSemestre(curso);
+         var listarSemestre = usuarioService.getSemestre(curso);
         listarSemestre.then(function (d) {
             $scope.Semestre = d.data;
             console.log($scope.Semestre);
