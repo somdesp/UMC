@@ -505,6 +505,7 @@
     <Content Include="Scripts\angular-signalr-hub.js" />
     <Content Include="Scripts\angular-strap.min.js" />
     <Content Include="Scripts\angular-strap.tpl.js" />
+    <Content Include="Scripts\angular-zxcvbn.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -646,6 +647,7 @@
     <Content Include="Scripts\ui\jquery.ui.resizable.js" />
     <Content Include="Scripts\ui\jquery.ui.widget.js" />
     <Content Include="Scripts\Upload\uploadImgUsu.js" />
+    <Content Include="Scripts\zxcvbn.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

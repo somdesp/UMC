@@ -80,5 +80,30 @@ namespace PFC.Controllers
 
         }
 
+        [Authorize]
+        [HttpPost]
+        public JsonResult ListarRankInicial()
+        {
+            RankBLL rank = new RankBLL();
+            List<Usuario> resultado = new List<Usuario>();
+
+
+            RecurringJob.AddOrUpdate("RankingInicial", () => rank.ListarUsuariosInicial(), Cron.Minutely);
+            if (rank.ListarUsuariosInicial().Count == 0)
+            {
+                resultado = null;
+            }
+            else
+            {
+                resultado = rank.ListarUsuariosInicial();
+            }
+
+
+            return Json(resultado, JsonRequestBehavior.AllowGet);
+
+        }
+
+
+
     }
 }

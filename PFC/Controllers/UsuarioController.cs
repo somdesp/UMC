@@ -68,6 +68,16 @@ namespace PFC.Controllers
         }
         #endregion
 
+        [Authorize(Roles = "Admin,Usuario,Master")]
+        [HttpPost]
+        public JsonResult AlterarSenha(Usuario usuario)
+        {
+            UsuarioBLL usuarioBll = new UsuarioBLL();
+            usuario.Id = User.Identity.GetUserId<int>();
+            return Json(usuarioBll.AtualizarSenha(usuario), JsonRequestBehavior.AllowGet);
+        }
+
+
         #region Metodo Que salva a imagem no caminho /Upload/ e retorna para o JS o caminho salvo
 
         [AcceptVerbs(HttpVerbs.Post)]

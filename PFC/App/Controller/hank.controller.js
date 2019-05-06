@@ -1,7 +1,7 @@
 ﻿MeHelp.controller('hankCtrl', function ($scope, hankService) {
 
     carregarHank();
-
+    carregarHankInicial();
     var localid = JSON.parse(localStorage.getItem('model'));
 
     $scope.Idusuario = localid.Id;
@@ -19,6 +19,23 @@
                 console.log("Erro ao carregar a lista de usuario");
             });
     }
+
+    function carregarHankInicial() {
+        var listarUsuarios = hankService.rankInicial();
+        $(".loader").show();
+        listarUsuarios.then(function (d) {
+            $(".loader").hide();
+            $scope.hankeamento = d.data;
+
+
+        },
+            function () {
+                console.log("Erro ao carregar a lista de usuario");
+            });
+    }
+
+
+
 
 
     $scope.SelecionarRank = function (opcaoSelecionada) {

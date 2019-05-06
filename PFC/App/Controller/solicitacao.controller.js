@@ -3,13 +3,14 @@ MeHelp.controller('amizadeCtrl', function ($scope, amizadeService, usuarioServic
     //---------------Visualização de perfil de outros usuarios---------------------------------//
     var UsuarioSolicitado = JSON.parse(localStorage.getItem("PerfilUsuario"));
     var UsuarioLogado = JSON.parse(localStorage.getItem('model'));
+
     // Notificaçao de acerto ou erro
 
     $scope.notifications = {};
     $scope.notificationsErro = {};
     var indexAcerto = 0;
     var indexErro = 0;
-
+    $scope.max = 4;
     visualizarPerfil(UsuarioSolicitado);
     ValidaAmizade(UsuarioLogado, UsuarioSolicitado);
 
@@ -163,11 +164,43 @@ MeHelp.controller('amizadeCtrl', function ($scope, amizadeService, usuarioServic
         return conversao.getFullYear() + "-" + arrayMes[conversao.getUTCMonth()] + "-" + conversao.getDate();
     }
 
+    //Força da senha
 
-
-
-
-
+    $scope.verificarForca = function (forcaSenha) {
+        
+        if (forcaSenha === 1) {
+            $scope.type = 'danger';
+            $scope.dynamic = forcaSenha;
+        } else if (forcaSenha === 2) {
+            $scope.type = 'warning';
+            $scope.dynamic = forcaSenha;
+        } else if (forcaSenha === 3) {
+            $scope.type = 'info';
+            $scope.dynamic = forcaSenha;
+        } else if (forcaSenha === 4) {
+            $scope.type = 'sucess';
+            $scope.dynamic = forcaSenha;
+        } else {
+            $scope.dynamic = forcaSenha;
+        }
+        
+    };
+         
+    $scope.alterarSenha = function () {
+        var usuario = {};
+        usuario.Senha = $scope.senha;
+        var result = usuarioService.AlterarSenha(usuario);
+        result.then(function (response) {
+            if (response.data === true) {
+                statusnotificar = true;
+                notificarUsuario(statusnotificar);
+                $('#loginSenha').modal('hide');
+            } else {
+                statusnotificar = false;
+                notificarUsuario(statusnotificar);
+            }
+        });
+    };
 
 
 

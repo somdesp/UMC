@@ -38,6 +38,11 @@ namespace PFC.Business.Business
         }
         #endregion
 
+        public bool AtualizarSenha(Usuario usuario)
+        {
+            return daoUsuario.AtualizarSenha(usuario);
+        }
+
         #region Listar Usuarios
 
         //public List<Usuario> ListarUsuarios()

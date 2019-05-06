@@ -223,25 +223,40 @@
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalCenterTitle"></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                            <i class="fas fa-times-circle"></i>
                         </button>
                     </div>
                     <div class="modal-body">
-                        Em breve mais novidades construção de uma nova funcionalidade
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <div class="row">
+                            <form name="FormSenha">
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-12">
+                                        <label for="inputAddress">Senha</label>
+                                        <input type="password" class="form-control" id="senha" ng-model="senha" zxcvbn="passwordStrength" placeholder="Digite a senha que deseja alterar" ng-keyup="verificarForca(passwordStrength.score)" zx-min-score="3">
+                                        <uib-progressbar class="active" ng-init="dynamic = 0" max="max" value="dynamic" type="{{type}}"></uib-progressbar>
+                                        <span ng-show="FormSenha.senha.$invalid">Erro de comparação de senha</span>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="inputAddress">Confirmar senha</label>
+                                        <input type="password" class="form-control" id="confirmasenha" ng-model="ConfirmarSenha" name="ConfirmarSenha" placeholder="Confirme a senha de alteração"  required ng-pattern="senha"/>
+                                        <span class="error text-danger" ng-show="FormSenha.ConfirmarSenha.$invalid">Senhas não estão iguais!!!</span>
+                                    </div>
+                                    </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            <button type="button" class="btn btn-primary" ng-disabled="FormSenha.$invalid" ng-click="alterarSenha()">OK</button>
+                        </div>
                     </div>
                 </div>
             </div>
+
+
+
+
+
         </div>
-
-
-
-
-
-    </div>
 
 
 

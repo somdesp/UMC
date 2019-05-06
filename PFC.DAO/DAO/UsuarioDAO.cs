@@ -14,7 +14,7 @@ namespace PFC.DAO
         GeneroDAO generoDao = new GeneroDAO();
         ArquivoDAO arquivoDAO = new ArquivoDAO();
 
-        #region Adiconar Usuario
+        #region Adicionar Usuario
         public bool AdicionarUsuario(Usuario usuario)
         {
 
@@ -116,6 +116,22 @@ namespace PFC.DAO
             }
         }
         #endregion
+
+        public bool AtualizarSenha(Usuario usuario)
+        {
+            var strQuery = "";
+            strQuery += " UPDATE Usuario SET ";
+            strQuery += string.Format(" Senha = PWDENCRYPT('{0}') ", usuario.Senha);
+            strQuery += string.Format(" WHERE Id = {0}; ", usuario.Id);
+            using (contexto = new Contexto())
+            {
+                return contexto.ExecutarInsert(strQuery);
+            }
+        }
+
+
+
+
 
         #region Lista Somente Usuarios Ativos
         public List<Usuario> ListarUsuarios()
