@@ -4,6 +4,7 @@ using System;
 using System.Web.Mvc;
 using PFC.Model;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PFC.Controllers
 {
@@ -95,7 +96,7 @@ namespace PFC.Controllers
             }
             else
             {
-                resultado = rank.ListarUsuariosInicial();
+                resultado = rank.ListarUsuariosInicial().OrderByDescending(r=>r.avaliacao.pontos).ToList();
             }
 
 
