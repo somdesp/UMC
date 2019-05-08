@@ -81,7 +81,7 @@ namespace PFC.Controllers
 
         }
 
-        [Authorize]
+        [AllowAnonymous]
         [HttpPost]
         public JsonResult ListarRankInicial()
         {
