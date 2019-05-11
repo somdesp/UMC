@@ -44,6 +44,7 @@ namespace PFC
                 "~/App/Services/solicitacao.service.js",
                 "~/App/Services/login.service.js",
                 "~/App/Services/topico.service.js",
+                "~/App/Services/denuncia.service.js",
                 "~/Scripts/jk-rating-stars.js",
                 "~/App/Controller/avaliacao.controller.js",
                 "~/App/Controller/FileUploadController.js",
@@ -57,7 +58,7 @@ namespace PFC
                "~/App/Controller/hank.controller.js",
                 "~/App/Controller/solicitacao.controller.js",
                 "~/App/Controller/notificacao.controller.js",
-
+                "~/App/Controller/denuncia.controller.js",                
 
                "~/App/Factories.js"));
 

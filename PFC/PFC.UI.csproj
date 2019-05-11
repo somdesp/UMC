@@ -250,6 +250,7 @@
     <Content Include="App\Factories.js" />
     <Content Include="App\fileUploader.js" />
     <Content Include="App\Module.js" />
+    <Content Include="App\Services\denuncia.service.js" />
     <Content Include="App\Services\usuario.service.js" />
     <Content Include="App\Services\notificacao.service.js" />
     <Content Include="App\Services\solicitacao.service.js" />
@@ -659,6 +660,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AvaliacaoController.cs" />
+    <Compile Include="Controllers\DenunciaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ListasController.cs" />
     <Compile Include="Controllers\LoginController.cs" />

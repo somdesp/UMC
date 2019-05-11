@@ -92,6 +92,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\DenunciaBLL.cs" />
     <Compile Include="Business\NotificacaoBLL.cs" />
     <Compile Include="Business\SolicitacaoBLL.cs" />
     <Compile Include="Business\ArquivoBLL.cs" />
