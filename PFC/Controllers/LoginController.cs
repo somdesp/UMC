@@ -1,12 +1,11 @@
-﻿using System;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using PFC.Model;
 using Microsoft.AspNet.Identity;
-using PFC.DAO;
 using PFC.Business;
 using PFC.Business.Business;
+using System.Threading.Tasks;
 
 namespace PFC.Controllers
 {
@@ -19,11 +18,11 @@ namespace PFC.Controllers
         }
 
         [HttpPost]
-        public JsonResult Login(LoginViewModel model)
+        public async Task<JsonResult> Login(LoginViewModel model)
         {
             LoginBLL loginUsuario = new LoginBLL();
             UsuarioBLL usuariobll = new UsuarioBLL();
-            model = loginUsuario.LoginUsuario(model);
+            model = await loginUsuario.LoginUsuario(model);
 
             if (model.success == true)
             {

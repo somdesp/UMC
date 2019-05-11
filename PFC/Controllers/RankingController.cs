@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using PFC.Model;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace PFC.Controllers
 {
@@ -14,20 +15,21 @@ namespace PFC.Controllers
         [Authorize]
         [HttpPost]
         [OutputCache(Duration = 120)]
-        public JsonResult ListarRank()
+        public async Task<JsonResult> ListarRank()
         {
             RankBLL rank = new RankBLL();
             List<Usuario> resultado = new List<Usuario>();
 
 
             RecurringJob.AddOrUpdate("RankingDiario",() => rank.ExecutarRankDiarioJob(), Cron.Daily);
-            if(rank.ListarRank().Count==0)
+            var  listRank = await rank.ListarRank();
+            if (listRank.Count  == 0)
             {
                 resultado = null;
             }
             else
             {
-                resultado = rank.ListarRank();
+                resultado =await rank.ListarRank();
             }
 
             return Json(resultado, JsonRequestBehavior.AllowGet);
@@ -37,20 +39,22 @@ namespace PFC.Controllers
         [Authorize]
         [HttpPost]
         [OutputCache(Duration = 120)]
-        public JsonResult ListarRankSemanal()
+        public async Task<JsonResult> ListarRankSemanal()
         {
             RankBLL rank = new RankBLL();
             List<Usuario> resultado = new List<Usuario>();
 
 
             RecurringJob.AddOrUpdate("RankingSemanal", () => rank.ExecutarRankSemanalJob(), Cron.Weekly(DayOfWeek.Saturday));
-            if (rank.ListarRankSemanal().Count == 0)
+            var ListarRankSemanal = await rank.ListarRankSemanal();
+
+            if (ListarRankSemanal.Count == 0)
             {
                 resultado = null;
             }
             else
             {
-                resultado = rank.ListarRankSemanal();
+                resultado = await rank.ListarRankSemanal();
             }
 
             return Json(resultado, JsonRequestBehavior.AllowGet);
@@ -60,20 +64,21 @@ namespace PFC.Controllers
         [Authorize]
         [HttpPost]
         [OutputCache(Duration = 120)]
-        public JsonResult ListarRankMensal()
+        public async Task<JsonResult> ListarRankMensal()
         {
             RankBLL rank = new RankBLL();
             List<Usuario> resultado = new List<Usuario>();
 
 
             RecurringJob.AddOrUpdate("RankingMensal", () => rank.ExecutarRankMensalJob(), Cron.Monthly);
-            if (rank.ListarRankMensal().Count == 0)
+            var ListarRankMensal = await rank.ListarRankMensal();
+            if (ListarRankMensal.Count == 0)
             {
                 resultado = null;
             }
             else
             {
-                resultado = rank.ListarRankMensal();
+                resultado =await rank.ListarRankMensal();
             }
 
 
@@ -83,20 +88,22 @@ namespace PFC.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public JsonResult ListarRankInicial()
+        public async Task<JsonResult> ListarRankInicial()
         {
             RankBLL rank = new RankBLL();
             List<Usuario> resultado = new List<Usuario>();
 
 
             RecurringJob.AddOrUpdate("RankingInicial", () => rank.ListarUsuariosInicial(), Cron.Minutely);
-            if (rank.ListarUsuariosInicial().Count == 0)
+            var ListarUsuariosInicial =await rank.ListarUsuariosInicial();
+            if (ListarUsuariosInicial.Count == 0)
             {
                 resultado = null;
             }
             else
             {
-                resultado = rank.ListarUsuariosInicial().OrderByDescending(r=>r.avaliacao.pontos).ToList();
+               
+                resultado = ListarUsuariosInicial.OrderByDescending(r => r.avaliacao.pontos).ToList();
             }
 
 

@@ -12,7 +12,7 @@ namespace PFC.DAO
     {
         #region Listar média Estrela usuario
         private Contexto contexto;
-        public List<Usuario> ListarMédiaUsuario()
+        public async Task<List<Usuario>> ListarMédiaUsuario()
         {
             SqlCommand comando;
             List<Usuario> listarUsuarios = new List<Usuario>();
@@ -28,7 +28,7 @@ namespace PFC.DAO
             {
                 comando = new SqlCommand(querSQL, contexto.forumConexao);
 
-                reader = contexto.ExecutaComandoComRetorno(querSQL);
+                reader = await contexto.ExecutaComandoComRetorno(querSQL);
 
                 while (reader.Read())
                 {
@@ -49,7 +49,7 @@ namespace PFC.DAO
 
         #region Listar somas curti usuario
 
-        public List<Usuario> ListarSomaUsuario()
+        public async Task<List<Usuario>> ListarSomaUsuario()
         {
             SqlCommand comando;
             List<Usuario> listarUsuarios = new List<Usuario>();
@@ -65,7 +65,7 @@ namespace PFC.DAO
             {
                 comando = new SqlCommand(querSQL, contexto.forumConexao);
 
-                reader = contexto.ExecutaComandoComRetorno(querSQL);
+                reader = await contexto.ExecutaComandoComRetorno(querSQL);
 
                 while (reader.Read())
                 {
@@ -85,7 +85,7 @@ namespace PFC.DAO
         #endregion
 
         #region Verificando tabela rank diario
-        public List<Usuario> ListandoTabelaRank()
+        public async Task<List<Usuario>> ListandoTabelaRank()
         {
             SqlCommand comando;
             List<Usuario> listarUsuarios = new List<Usuario>();
@@ -95,7 +95,7 @@ namespace PFC.DAO
             {
                 comando = new SqlCommand(querySQL, contexto.forumConexao);
 
-                reader = contexto.ExecutaComandoComRetorno(querySQL);
+                reader = await contexto.ExecutaComandoComRetorno(querySQL);
 
                 while (reader.Read())
                 {
@@ -115,7 +115,7 @@ namespace PFC.DAO
         #endregion
 
         #region Listar tabela Semanal
-        public List<Usuario> ListandoTabelaRankSemanal()
+        public async Task<List<Usuario>> ListandoTabelaRankSemanal()
         {
             SqlCommand comando;
             List<Usuario> listarUsuarios = new List<Usuario>();
@@ -125,7 +125,7 @@ namespace PFC.DAO
             {
                 comando = new SqlCommand(querySQL, contexto.forumConexao);
 
-                reader = contexto.ExecutaComandoComRetorno(querySQL);
+                reader = await contexto.ExecutaComandoComRetorno(querySQL);
 
                 while (reader.Read())
                 {
@@ -145,7 +145,7 @@ namespace PFC.DAO
         #endregion
 
         #region Listar tabela Mensal
-        public List<Usuario> ListandoTabelaRankMensal()
+        public async Task<List<Usuario>> ListandoTabelaRankMensal()
         {
             SqlCommand comando;
             List<Usuario> listarUsuarios = new List<Usuario>();
@@ -155,7 +155,7 @@ namespace PFC.DAO
             {
                 comando = new SqlCommand(querySQL, contexto.forumConexao);
 
-                reader = contexto.ExecutaComandoComRetorno(querySQL);
+                reader = await contexto.ExecutaComandoComRetorno(querySQL);
 
                 while (reader.Read())
                 {
@@ -175,7 +175,7 @@ namespace PFC.DAO
         #endregion
 
         #region Usuarios no Rank inicial
-        public List<Usuario> UsuariosInicials()
+        public async Task<List<Usuario>> UsuariosInicials()
         {
             SqlCommand comando;
             List<Usuario> listarUsuarios = new List<Usuario>();
@@ -193,7 +193,7 @@ namespace PFC.DAO
             {
                 comando = new SqlCommand(querySQL, contexto.forumConexao);
 
-                reader = contexto.ExecutaComandoComRetorno(querySQL);
+                reader = await contexto.ExecutaComandoComRetorno(querySQL);
 
                 while (reader.Read())
                 {

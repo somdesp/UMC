@@ -9,6 +9,7 @@ namespace PFC.Controllers
     [Authorize]
     public class NotificacaoController : ApiController
     {
+        NotificacaoBLL notificacaoBLL = new NotificacaoBLL();
 
         #region AmizadeSOlicitada
         [AcceptVerbs("POST")]
@@ -24,6 +25,14 @@ namespace PFC.Controllers
           
             return null;
 
+        }
+        #endregion
+
+        #region VerificaNotificacaoAmizade
+        [AcceptVerbs("POST")]
+        public async Task<bool> VerificaNotificacaoAmizade([FromBody]Usuario usuario)
+        {
+            return await notificacaoBLL.VerificaNotificacaoAmizadeAsync(usuario);
         }
         #endregion
     }

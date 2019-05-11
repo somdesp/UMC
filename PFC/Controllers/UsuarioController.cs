@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using PFC.Business;
 using PFC.Business.Business;
 using PFC.Hubs;
-
+using System.Threading.Tasks;
 
 namespace PFC.Controllers
 {
@@ -130,14 +130,14 @@ namespace PFC.Controllers
         #region UsuarioEscolhido
 
         [Authorize(Roles = "Admin,Usuario,Master")]
-        public ActionResult PerfilUsuario(string usuarioId)
+        public async Task<ActionResult> PerfilUsuario(string usuarioId)
         {
             ViewBag.UsuarioId = usuarioId;
             ViewBag.Usuario = User.Identity.GetUserId<int>();
             Usuario usuario = new Usuario();
             UsuarioBLL usuarioBll = new UsuarioBLL();
             usuario.Id = Convert.ToInt16(usuarioId);
-            usuario = usuarioBll.ConsultaUsuarioInt(usuario);
+            usuario = await usuarioBll.ConsultaUsuarioInt(usuario);
             if (usuario.Nome != null)
             {
                 usuario.Id = Convert.ToInt16(usuarioId);
@@ -151,10 +151,10 @@ namespace PFC.Controllers
         }
 
         [HttpPost]
-        public ActionResult VisualizarPerfil(Usuario usuario)
+        public async Task<ActionResult> VisualizarPerfil(Usuario usuario)
         {
             UsuarioBLL usuarioBll = new UsuarioBLL();
-            usuario = usuarioBll.ConsultaUsuarioInt(usuario);
+            usuario = await usuarioBll.ConsultaUsuarioInt(usuario);
             return Json(usuario, JsonRequestBehavior.AllowGet);
         }
 
@@ -163,12 +163,12 @@ namespace PFC.Controllers
 
 
         [AllowAnonymous]
-        public ActionResult ConsultaUnico(Usuario cad)
+        public async Task<ActionResult> ConsultaUnico(Usuario cad)
         {
 
             Usuario retornoCad = new Usuario();
             UsuarioDAO dao = new UsuarioDAO();
-            retornoCad = dao.ConsultaUsuario(cad);
+            retornoCad = await dao.ConsultaUsuario(cad);
             try
             {
 
@@ -188,12 +188,12 @@ namespace PFC.Controllers
         //Método chamado para carregar Usuario  no Post vem todas as informações
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult ConsultarUsuario()
+        public async Task<ActionResult> ConsultarUsuario()
         {
             UsuarioBLL usuarioBll = new UsuarioBLL();
             Usuario usuario = new Usuario();
             usuario.Id = User.Identity.GetUserId<int>();
-            usuario = usuarioBll.ConsultaUsuarioInt(usuario);
+            usuario = await usuarioBll.ConsultaUsuarioInt(usuario);
             Usuario resposta;
             if (usuario.Id == 0)
             {

@@ -1,52 +1,53 @@
 ﻿using PFC.DAO;
 using PFC.Model;
+using System.Threading.Tasks;
 
 namespace PFC.Business.Business
 {
     public class AvaliacaoBLL
     {
         #region Inserir novo ponto no banco de dados comunicação direta com a DAO
-        public Avaliacao inserirPontos(Avaliacao avaliacao)
+        public async Task<Avaliacao> inserirPontos(Avaliacao avaliacao)
         {
             AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO();
-            Avaliacao resultado=new Avaliacao();
+            Avaliacao resultado = new Avaliacao();
             float pontosUsuario = avaliacao.pontos * (float)0.2;
-            if (avaliacaoDAO.consultaAvaliacaoID(avaliacao, avaliacao.idUsuario)> 0)
+            if (await avaliacaoDAO.consultaAvaliacaoID(avaliacao, avaliacao.idUsuario) > 0)
             {
-                if (pontosUsuario != avaliacaoDAO.consultaAvaliarpontos(avaliacao, avaliacao.idUsuario))
+                if (pontosUsuario != await avaliacaoDAO.consultaAvaliarpontos(avaliacao, avaliacao.idUsuario))
                 {
                     // realiza atualização da nota se caso os pontos que encontrar for diferente
-                    resultado = avaliacaoDAO.AtualizarPonto(avaliacao,pontosUsuario);
+                    resultado = await avaliacaoDAO.AtualizarPonto(avaliacao, pontosUsuario);
                     resultado.pontos = converterPontosEstrelas(resultado.pontos);
                 }
-                
+
             }
             else
             {
-               // Se caso o tópico não foi respondido Inserir pontos 
-                resultado = avaliacaoDAO.InserirPonto(avaliacao,pontosUsuario);
+                // Se caso o tópico não foi respondido Inserir pontos 
+                resultado = await avaliacaoDAO.InserirPonto(avaliacao, pontosUsuario);
                 resultado.pontos = converterPontosEstrelas(resultado.pontos);
             }
 
-             return resultado;
+            return resultado;
         }
         #endregion
 
 
 
         #region Inserir novo ponto no banco de dados comunicação direta com a DAO
-        public Avaliacao inserirPontosLikeDeslike(Avaliacao avaliacao)
+        public async Task<Avaliacao> inserirPontosLikeDeslike(Avaliacao avaliacao)
         {
             AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO();
             Avaliacao resultado = new Avaliacao();
             double pontosUsuario = avaliacao.pontos;
             // verifica se existe a avaliação no banco e dados
-            if (avaliacaoDAO.consultaAvaliacaoID(avaliacao, avaliacao.idUsuario) > 0)
+            if (await avaliacaoDAO.consultaAvaliacaoID(avaliacao, avaliacao.idUsuario) > 0)
             {
-                if (pontosUsuario != avaliacaoDAO.consultaAvaliarpontos(avaliacao, avaliacao.idUsuario))
+                if (pontosUsuario != await avaliacaoDAO.consultaAvaliarpontos(avaliacao, avaliacao.idUsuario))
                 {
                     // realiza atualização da nota se caso os pontos que encontrar for diferente
-                    resultado = avaliacaoDAO.AtualizarPontoLikeDeslike(avaliacao, pontosUsuario);
+                    resultado = await avaliacaoDAO.AtualizarPontoLikeDeslike(avaliacao, pontosUsuario);
 
                 }
 
@@ -54,7 +55,7 @@ namespace PFC.Business.Business
             else
             {
                 // Se caso o tópico não foi respondido Inserir pontos 
-                resultado = avaliacaoDAO.InserirPontoLikeDeslike(avaliacao, pontosUsuario);
+                resultado = await avaliacaoDAO.InserirPontoLikeDeslike(avaliacao, pontosUsuario);
             }
 
             return resultado;
@@ -78,11 +79,11 @@ namespace PFC.Business.Business
         #endregion
 
         #region consultar avaliacao média e pontos
-        public Avaliacao consultaAvaliacao(Avaliacao avalicao,int idUsuario)
+        public async Task<Avaliacao> consultaAvaliacao(Avaliacao avalicao, int idUsuario)
         {
             AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO();
-            avalicao.pontos = converterPontosEstrelas(avaliacaoDAO.consultaAvaliarpontos(avalicao, idUsuario));
-            avalicao.mediaPontos = converterPontosEstrelas(avaliacaoDAO.consultaMediaAvaliacao(avalicao));
+            avalicao.pontos = converterPontosEstrelas(await avaliacaoDAO.consultaAvaliarpontos(avalicao, idUsuario));
+            avalicao.mediaPontos = converterPontosEstrelas(await avaliacaoDAO.consultaMediaAvaliacao(avalicao));
             return avalicao;
         }
         #endregion
@@ -95,14 +96,14 @@ namespace PFC.Business.Business
         }
 
         #region consultar pontos respondido e quantidade 
-        public Avaliacao consultarAvaliacaoCurtir(Topico topico,int idUsuarioLogado)
+        public async Task<Avaliacao> consultarAvaliacaoCurtir(Topico topico, int idUsuarioLogado)
         {
-            
+
             AvaliacaoDAO avaliacaoDao = new AvaliacaoDAO();
             Avaliacao avaliacao = new Avaliacao();
-            avaliacao.pontos = avaliacaoDao.consultaLikeDeslike(topico,idUsuarioLogado);
-            avaliacao.contarLike = avaliacaoDao.consultaLike(topico, idUsuarioLogado);
-            avaliacao.contarDeslike = avaliacaoDao.consultaDeslike(topico, idUsuarioLogado);
+            avaliacao.pontos = await avaliacaoDao.consultaLikeDeslike(topico, idUsuarioLogado);
+            avaliacao.contarLike = await avaliacaoDao.consultaLike(topico, idUsuarioLogado);
+            avaliacao.contarDeslike = await avaliacaoDao.consultaDeslike(topico, idUsuarioLogado);
             return avaliacao;
 
 

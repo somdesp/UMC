@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-
+using System.Threading.Tasks;
 
 namespace PFC.DAO
 {
@@ -32,7 +32,7 @@ namespace PFC.DAO
         #endregion
 
         #region Consulta Usuario
-        public Usuario ConsultaUsuario(Usuario cad)
+        public async Task<Usuario> ConsultaUsuario(Usuario cad)
         {
             var usuarios = new Usuario();
             SqlDataReader reader;
@@ -40,7 +40,7 @@ namespace PFC.DAO
             using (contexto = new Contexto())
             {
                 string strQuery = string.Format("SELECT Id,Nome,Email,Login,Id_Arquivo FROM Usuario WHERE Email = '{0}' OR Login = '{1}'", cad.Email, cad.Login);
-                reader = contexto.ExecutaComandoComRetorno(strQuery);
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                 while (reader.Read())
                 {
@@ -61,7 +61,7 @@ namespace PFC.DAO
         #endregion
 
         #region Lista por pesquisa // Sem uso no momento
-        public List<Usuario> ConsultaUsuario(string pesquisa)
+        public async Task< List<Usuario>> ConsultaUsuario(string pesquisa)
         {
             var usuarios = new List<Usuario>();
             SqlDataReader reader;
@@ -69,7 +69,7 @@ namespace PFC.DAO
             using (contexto = new Contexto())
             {
                 string strQuery = string.Format("select u.Id,u.Nome,u.Login,u.Email,u.RGM,u.DataNasci,c.Curso,s.Semestre,g.Genero from Usuario u,Genero g, Semestre s,Curso c where u.Id_Curso = c.Id and g.Id = u.Id_Genero and u.Id_Semestre = s.Id and  Id_Permissoes <> 1002 and u.Nome Like '%{0}%'", pesquisa);
-                reader = contexto.ExecutaComandoComRetorno(strQuery);
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                 if (reader.HasRows)
                 {
@@ -134,7 +134,7 @@ namespace PFC.DAO
 
 
         #region Lista Somente Usuarios Ativos
-        public List<Usuario> ListarUsuarios()
+        public async Task<List<Usuario>> ListarUsuarios()
         {
             var usuarios = new List<Usuario>();
             SqlDataReader reader;
@@ -142,7 +142,7 @@ namespace PFC.DAO
             using (contexto = new Contexto())
             {
                 var strQuery = "SELECT * FROM Usuario WHERE Id_Permissoes <> 4";
-                reader = contexto.ExecutaComandoComRetorno(strQuery);
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                 while (reader.Read())
                 {
@@ -168,7 +168,7 @@ namespace PFC.DAO
         #endregion
 
         #region Consulta Usuario Por ID
-        public Usuario ConsultaUsuarioInt(Usuario usuario)
+        public async Task<Usuario> ConsultaUsuarioInt(Usuario usuario)
         {
             var usuarios = new Usuario();
             SqlDataReader reader;
@@ -176,7 +176,7 @@ namespace PFC.DAO
             using (contexto = new Contexto())
             {
                 string strQuery = string.Format("SELECT * FROM Usuario WHERE Id = '{0}' ", usuario.Id);
-                reader = contexto.ExecutaComandoComRetorno(strQuery);
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                 while (reader.Read())
                 {

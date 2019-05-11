@@ -12,16 +12,26 @@ namespace PFC.DAO
         private UsuarioDAO usuarioDAO = new UsuarioDAO();
 
         #region SolicitaAMizade
-        public bool solicitacaoAmizade(Usuario usuario, Usuario usuarioSolicitado)
+        public async Task<int> solicitacaoAmizade(Usuario usuario, Usuario usuarioSolicitado)
         {
+            int Id_Amizade = 0;
+            SqlDataReader reader;
             var strQuery = "";
             strQuery += "INSERT INTO Amizade (Id_Usu_Sol,Id_Usu_Pen,Id_Status) ";
-            strQuery += string.Format("VALUES('{0}','{1}',1)",
+            strQuery += string.Format("VALUES('{0}','{1}',1);SELECT SCOPE_IDENTITY() AS Id_Amizade",
                 usuario.Id, usuarioSolicitado.Id);
 
             using (contexto = new Contexto())
-            {
-                return contexto.ExecutarInsert(strQuery);
+            {                                
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
+
+                while (reader.Read())
+                {
+                    Id_Amizade= Convert.ToInt32(reader["Id_Amizade"].ToString());       
+                }
+                reader.Close();
+
+                return Id_Amizade;
             }
 
         }
@@ -29,7 +39,7 @@ namespace PFC.DAO
         #endregion
 
         #region ValidaAmizade
-        public bool ValidaAmizade(Usuario usuario, Usuario usuarioSolicitado)
+        public async Task<bool> ValidaAmizade(Usuario usuario, Usuario usuarioSolicitado)
         {
             SqlDataReader reader;
 
@@ -38,7 +48,7 @@ namespace PFC.DAO
 
                 string strQuery = string.Format("select * from Amizade WHERE (Id_Usu_Sol = '{0}' AND Id_Usu_Pen='{1}') OR (Id_Usu_Sol = '{1}' AND Id_Usu_Pen='{0}')   ",
                     usuario.Id, usuarioSolicitado.Id);
-                reader = contexto.ExecutaComandoComRetorno(strQuery);
+                reader =await contexto.ExecutaComandoComRetorno(strQuery);
 
                 if (reader.HasRows.Equals(false))
                 {
@@ -65,7 +75,7 @@ namespace PFC.DAO
 
                 string strQuery = string.Format("select * from Amizade WHERE Id_Usu_Pen = {0} AND Id_Status=1 ",
                     usuario.Id);
-                reader = contexto.ExecutaComandoComRetorno(strQuery);
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                 if (reader.HasRows.Equals(false))
                 {
@@ -78,9 +88,9 @@ namespace PFC.DAO
                     {
                         Solicitacao temObjeto = new Solicitacao();
                         temObjeto.usuarioSolicitado.Id = Convert.ToInt32(reader["Id_Usu_Sol"].ToString());
-                        temObjeto.usuarioSolicitado = usuarioDAO.ConsultaUsuarioInt(temObjeto.usuarioSolicitado);
+                        temObjeto.usuarioSolicitado = await usuarioDAO.ConsultaUsuarioInt(temObjeto.usuarioSolicitado);
                         temObjeto.usuario.Id = Convert.ToInt32(reader["Id_Usu_Pen"].ToString());
-                        temObjeto.usuario = usuarioDAO.ConsultaUsuarioInt(temObjeto.usuario);
+                        temObjeto.usuario = await usuarioDAO.ConsultaUsuarioInt(temObjeto.usuario);
                         solicitacao.Add(temObjeto);
                     }
                     reader.Close();
@@ -95,16 +105,35 @@ namespace PFC.DAO
         #endregion
 
         #region AceitaAmizade
-        public bool AceitaAmizade(Usuario usuario, Usuario usuarioSolicitado)
+        public async Task<bool> AceitaAmizadeAsync(Usuario usuario, Usuario usuarioSolicitado)
         {
 
             using (contexto = new Contexto())
             {
                 try
                 {
+                    SqlDataReader reader;
+                    int Notificacao = 0;
                     string strQuery = string.Format("UPDATE Amizade SET Id_Status = 4  WHERE Id_Usu_Pen = '{0}' AND Id_Usu_Sol='{1}' ",
                     usuario.Id, usuarioSolicitado.Id);
                     contexto.ExecutarInsert(strQuery);
+
+                    strQuery = string.Format("SELECT * FROM  Amizade WHERE Id_Usu_Pen = '{0}' AND Id_Usu_Sol='{1}' ",
+                    usuario.Id, usuarioSolicitado.Id);
+
+                    reader = await contexto.ExecutaComandoComRetorno(strQuery);
+
+                    while (reader.Read())
+                    {
+                        Notificacao = Convert.ToInt32(reader["Id"].ToString());
+                    }
+                    reader.Close();
+
+                    strQuery = string.Format("UPDATE Notificacao SET Status = 0  WHERE Id_Amizade = '{0}'",
+                    Notificacao);
+
+                    contexto.ExecutarInsert(strQuery);
+
                     return true;
 
                 }
@@ -147,7 +176,7 @@ namespace PFC.DAO
         #endregion
 
         #region Carrega Lista Amizade
-        public List<Usuario> ListaAmizade(Usuario usuario)
+        public async Task<List<Usuario>> ListaAmizade(Usuario usuario)
         {
             SqlDataReader reader;
             List<Usuario> usuarios = new List<Usuario>();
@@ -157,7 +186,7 @@ namespace PFC.DAO
 
                 string strQuery = string.Format("select * from Amizade WHERE Id_Status = 4 and (Id_Usu_Pen = {0} or Id_Usu_Sol = {0})",
                     usuario.Id);
-                reader = contexto.ExecutaComandoComRetorno(strQuery);
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                 if (reader.HasRows.Equals(false))
                 {
@@ -172,13 +201,13 @@ namespace PFC.DAO
                         temObjeto.Id = Convert.ToInt32(reader["Id_Usu_Pen"].ToString());
                         if (temObjeto.Id != usuario.Id)
                         {
-                            temObjeto = usuarioDAO.ConsultaUsuarioInt(temObjeto);
+                            temObjeto = await usuarioDAO.ConsultaUsuarioInt(temObjeto);
 
                         }
                         temObjeto.Id = Convert.ToInt32(reader["Id_Usu_Sol"].ToString());
                         if (temObjeto.Id != usuario.Id)
                         {
-                            temObjeto = usuarioDAO.ConsultaUsuarioInt(temObjeto);
+                            temObjeto = await usuarioDAO.ConsultaUsuarioInt(temObjeto);
 
                         }
 

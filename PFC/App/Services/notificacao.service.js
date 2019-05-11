@@ -2,7 +2,7 @@
 MeHelp.service('notificacaoService', function ($http) {
 
     //Notificacao Amizade
-    this.VisualizarNotificacao = function (usuario) {
+    this.VisualizarNotificacaoAmizade = function (usuario) {
         var request = $http({
             method: 'post',
             url: '../api/Notificacao/NotificacaoAmizade',
@@ -12,6 +12,15 @@ MeHelp.service('notificacaoService', function ($http) {
         return request;
     };
 
+    //Notificacao Geral
+    this.VisualizarNotificacaoGeral = function (usuario) {
+        var request = $http({
+            method: 'post',
+            
+            url: '../api/Notificacao/VerificaNotificacaoAmizade',
+            data: usuario
+        });
 
-
+        return request;
+    };
 });

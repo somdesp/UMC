@@ -1,8 +1,6 @@
 ﻿using PFC.DAO;
 using PFC.Model;
-using System;
-using System.Security.Claims;
-using Microsoft.AspNet.Identity;
+using System.Threading.Tasks;
 
 namespace PFC.Business
 {
@@ -12,7 +10,7 @@ namespace PFC.Business
         AutorizacoesDAO AutorizacoesDao = new AutorizacoesDAO();
         ArquivoDAO arquivoDao = new ArquivoDAO();
 
-        public LoginViewModel LoginUsuario(LoginViewModel model)
+        public async Task<LoginViewModel> LoginUsuario(LoginViewModel model)
         {
             
             model = loginDao.Login(model);
@@ -23,8 +21,8 @@ namespace PFC.Business
             }
             else
             {
-                model.Permissao = AutorizacoesDao.ReturnAutPorID(model.Permissao);
-                model.UploadArquivo = arquivoDao.CarregarArquivo(model.UploadArquivo);
+                model.Permissao = await AutorizacoesDao.ReturnAutPorID(model.Permissao);
+                model.UploadArquivo = await arquivoDao.CarregarArquivo(model.UploadArquivo);
                 model.success = true;
             }
 

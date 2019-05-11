@@ -15,14 +15,14 @@ namespace PFC.DAO
         private Contexto contexto;
 
         #region Listar Permissoes
-        public List<Autorizacoes> ListarAutorizacoes()
+        public async Task<List<Autorizacoes>> ListarAutorizacoes()
         {
             var Autorizacoes = new List<Autorizacoes>();
             SqlDataReader reader;
             using (contexto = new Contexto())
             {
                 var strQuery = string.Format("SELECT * FROM Permissoes ");
-                reader = contexto.ExecutaComandoComRetorno(strQuery);
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
                 while (reader.Read())
                 {
                     var temObjeto = new Autorizacoes()
@@ -38,14 +38,14 @@ namespace PFC.DAO
         }
         #endregion
 
-        public Autorizacoes ReturnAutPorID(Autorizacoes auth)
+        public async Task<Autorizacoes> ReturnAutPorID(Autorizacoes auth)
         {
             var Autorizacoes = new Autorizacoes();
             SqlDataReader reader;
             using (contexto = new Contexto())
             {
                 var strQuery = string.Format("SELECT * FROM Permissoes WHERE Id={0} ",auth.Id);
-                reader = contexto.ExecutaComandoComRetorno(strQuery);
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
                 while (reader.Read())
                 {
                     var temObjeto = new Autorizacoes()

@@ -2,6 +2,7 @@
 using PFC.Model;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
 
 namespace PFC.DAO
 {
@@ -10,14 +11,14 @@ namespace PFC.DAO
         private Contexto contexto;
         CursoDAO cursoDao = new CursoDAO();
 
-        public List<Semestre> ListarSemestre(int curso)
+        public async Task<List<Semestre>> ListarSemestre(int curso)
         {
             var Turma = new List<Semestre>();
             SqlDataReader reader;
             using (contexto = new Contexto())
             {
                 var strQuery = string.Format("SELECT * FROM Semestre S,Curso C WHERE S.Id_Curso = C.Id  AND S.Id_Curso = {0}", curso);
-                reader = contexto.ExecutaComandoComRetorno(strQuery);
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
                 while (reader.Read())
                 {
                     var temObjeto = new Semestre()
@@ -32,7 +33,7 @@ namespace PFC.DAO
             return Turma;
         }
 
-        public Semestre BuscaPorID(int idSemestre)
+        public async Task<Semestre> BuscaPorID(int idSemestre)
         {
             var semestre = new Semestre();
             SqlDataReader reader;
@@ -40,7 +41,7 @@ namespace PFC.DAO
             using (contexto = new Contexto())
             {
                 var strQuery = string.Format(" SELECT * FROM Semestre WHERE Id='{0}'", idSemestre);
-                reader = contexto.ExecutaComandoComRetorno(strQuery);
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                 while (reader.Read())
                 {
@@ -48,7 +49,7 @@ namespace PFC.DAO
                     {
                         Id = Convert.ToInt32(reader["Id"].ToString()),
                         semestre = reader["Semestre"].ToString(),
-                        Curso =cursoDao.BuscaPorID(Convert.ToInt32(reader["Id_Curso"].ToString()))
+                        Curso = await cursoDao.BuscaPorID(Convert.ToInt32(reader["Id_Curso"].ToString()))
 
                     };
                     semestre=(temObjeto);
@@ -57,7 +58,7 @@ namespace PFC.DAO
             return semestre;
         }
 
-        public List<Semestre> ListarSemestre()
+        public async Task<List<Semestre>> ListarSemestre()
         {
             var Semestre = new List<Semestre>();
             SqlDataReader reader;
@@ -65,7 +66,7 @@ namespace PFC.DAO
             using (contexto = new Contexto())
             {
                 var strQuery = " SELECT * FROM Semestre ";
-                reader = contexto.ExecutaComandoComRetorno(strQuery);
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                 while (reader.Read())
                 {

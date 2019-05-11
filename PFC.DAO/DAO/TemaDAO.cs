@@ -36,7 +36,7 @@ namespace PFC.DAO
         /// 
         /// 
         //////////////////CONSULTA TEMA//////////////////////////////
-        public Tema ConsultaTema(Tema tema)
+        public async Task<Tema> ConsultaTema(Tema tema)
         {
             var Tema = new Tema();
             SqlDataReader reader;
@@ -44,7 +44,7 @@ namespace PFC.DAO
             using (contexto = new Contexto())
             {
                 string strQuery = string.Format("SELECT Id,Tema FROM Tema WHERE Id = '{0}' ", tema.Id);
-                reader = contexto.ExecutaComandoComRetorno(strQuery);
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                 while (reader.Read())
                 {
@@ -59,7 +59,7 @@ namespace PFC.DAO
             reader.Close();
             return Tema;
         }
-        public Tema ConsultaTema(int id)
+        public async Task<Tema> ConsultaTema(int id)
         {
             var Tema = new Tema();
             SqlDataReader reader;
@@ -67,7 +67,7 @@ namespace PFC.DAO
             using (contexto = new Contexto())
             {
                 string strQuery = string.Format("SELECT Id,Tema FROM Tema WHERE Id = '{0}' ", id);
-                reader = contexto.ExecutaComandoComRetorno(strQuery);
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                 while (reader.Read())
                 {
@@ -87,7 +87,7 @@ namespace PFC.DAO
 
 
 
-        public List<Tema> ConsultaTema(string pesquisa)
+        public async Task<List<Tema>> ConsultaTema(string pesquisa)
         {
             List<Tema> tema = new List<Tema>();
             SqlDataReader reader;
@@ -95,7 +95,7 @@ namespace PFC.DAO
             using (contexto = new Contexto())
             {
                 string strQuery = string.Format("SELECT Id,Tema FROM Tema WHERE Tema Like '%{0}%'", pesquisa);
-                reader = contexto.ExecutaComandoComRetorno(strQuery);
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                 while (reader.Read())
                 {
@@ -112,7 +112,7 @@ namespace PFC.DAO
         }
 
 
-        public List<Tema> ListarTema()
+        public async Task<List<Tema>> ListarTema()
         {
             var Curso = new List<Tema>();
             SqlDataReader reader;
@@ -121,7 +121,7 @@ namespace PFC.DAO
             {
                 var strQuery = "";
                 strQuery += " SELECT * FROM Tema ";
-                reader = contexto.ExecutaComandoComRetorno(strQuery);
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                 while (reader.Read())
                 {
@@ -137,7 +137,7 @@ namespace PFC.DAO
             return Curso;
         }
 
-        public Tema ListarTemaTopico(int idtema)
+        public async Task<Tema >ListarTemaTopico(int idtema)
         {
             var tema = new Tema();
             SqlDataReader reader;
@@ -145,7 +145,7 @@ namespace PFC.DAO
             using (contexto = new Contexto())
             {
                 string strQuery = string.Format(" SELECT * FROM Tema WHERE Id= '{0}'", idtema);
-                reader = contexto.ExecutaComandoComRetorno(strQuery);
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                 while (reader.Read())
                 {
@@ -161,7 +161,7 @@ namespace PFC.DAO
             return tema;
         }
 
-        public bool AtualizarTema(Tema tema)
+        public async Task<bool> AtualizarTema(Tema tema)
         {
             SqlDataReader reader;
             var validaAlteracao = "SELECT Id_Tema FROM Topico ";
@@ -171,7 +171,7 @@ namespace PFC.DAO
 
             using (contexto = new Contexto())
             {
-                reader = contexto.ExecutaComandoComRetorno(validaAlteracao);
+                reader = await contexto.ExecutaComandoComRetorno(validaAlteracao);
                 while (reader.Read())
                 {
                     retornoIdTema = int.Parse(reader["Id_Tema"].ToString());
@@ -203,7 +203,7 @@ namespace PFC.DAO
         }
 
 
-        public string ExcluirTema(Tema tema)
+        public async Task<string> ExcluirTema(Tema tema)
         {
 
             SqlDataReader reader;
@@ -214,7 +214,7 @@ namespace PFC.DAO
 
             using (contexto = new Contexto())
             {
-                reader = contexto.ExecutaComandoComRetorno(validaExclusao);
+                reader = await contexto.ExecutaComandoComRetorno(validaExclusao);
                 while (reader.Read())
                 {
                     retorno2 = int.Parse(reader["Id_Tema"].ToString());

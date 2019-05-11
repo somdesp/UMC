@@ -26,15 +26,15 @@
                         <div ng-if="(usuID>0)">
 
                             <div ng-controller="avaliacao.controller">
-                                
+
                                 <span class="badge label-danger label-danger animate-show-hide" ng-model="TopicosSelc.avaliacao.contarDeslike">{{TopicosSelc.avaliacao.contarDeslike}}</span>
-                                
+
                                 <button ng-model="TopicosSelc.avaliacao.pontos" ng-click="valorpegoDeslike(TopicosSelc,usuario)"><i class="far fa-thumbs-down padrao-curti color-6" ng-class="{'fas':TopicosSelc.avaliacao.pontos===-1}"></i></button>
 
                                 <button ng-model="TopicosSelc.avaliacao.pontos" ng-click="valorpegoLike(TopicosSelc,usuario)"><i class="far fa-thumbs-up  padrao-curti color-6" ng-class="{'fas':TopicosSelc.avaliacao.pontos===1}"></i></button>
-                                <span class="badge label-success label-success animate-show-hide"ng-model="TopicosSelc.avaliacao.contarLike">{{TopicosSelc.avaliacao.contarLike}}</span>
+                                <span class="badge label-success label-success animate-show-hide" ng-model="TopicosSelc.avaliacao.contarLike">{{TopicosSelc.avaliacao.contarLike}}</span>
 
-                                
+
                                 <input type="hidden" ng-model="idAvaliacaoLike" value="{{idAvaliacaoLike}}" />
                             </div>
                         </div>
@@ -46,17 +46,59 @@
             </div>
         </div>
 
+
+        <div ng-repeat="topico in TopicosSelc.Resposta" class="modal fade" id="modalLoginAvatar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
+                <!--Content-->
+                <div class="modal-content">
+
+                    <!--Header-->
+                    <div class="modal-header" style="text-align: -webkit-center">
+                        <img src="~/Upload/{{topico.usuario.UploadArquivo.Caminho}}" class="media-object" style="width:150px" alt="avatar">
+                    </div>
+                    <!--Body-->
+                    <div class="modal-body text-center mb-1">
+
+                        <h5 class="mt-1 mb-2"><a href="../Usuario/PerfilUsuario?usuarioid={{topico.usuario.Id}}" target="_blank">{{topico.usuario.Nome}} </a></h5>
+
+                        <div class="md-form ml-0 mr-0">
+                            <label data-error="wrong" data-success="right" for="form29" class="ml-0">Você gostaria de formar uma amizade?</label>
+                        </div>
+                        <br />
+                        <div class="text-center mt-4">
+                            <a type="button" class="btn btn-primary waves-effect waves-light" data-dismiss="modal">
+                                Enviar Solicitação
+                                <i class="fa fa-paper-plane ml-1"></i>
+                            </a>
+                            <a type="button" class="btn btn-outline-primary waves-effect" data-dismiss="modal">Cancelar</a>
+                        </div>
+                    </div>
+
+                </div>
+                <!--/.Content-->
+            </div>
+        </div>
+
+
+
+
+
         <div ng-repeat="topico in TopicosSelc.Resposta">
 
             <div class="well well-sm">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -6px;margin-right: 0px;">
+                    <span aria-hidden="true" class="white-text">×</span>
+                </button>
                 <div class="media">
-                    <div class="media-body">
-                        <h4 class="media-heading "><a  href="../Usuario/PerfilUsuario?usuarioid={{topico.usuario.Id}}" target="_blank">{{topico.usuario.Nome}} </a><small> {{topico.DataCria}}<button class="btn" ng-click="topicodeTexto($index)" ng-show="(topico.Descricao.length>50)">Leia mais...</button></small></h4>
-                        <p ng-class="$index==itemSelecionado ? 'textoaparecer':'text-nowrap bd-highlight'" style="width: 60rem;">{{topico.Descricao}}</p>
+                    <div class="media-body ">
+                        <h4 class="media-heading "><a href="../Usuario/PerfilUsuario?usuarioid={{topico.usuario.Id}}" target="_blank">{{topico.usuario.Nome}} </a><small> {{topico.DataCria}}<button class="btn" ng-click="topicodeTexto($index)" ng-show="(topico.Descricao.length>50)">Leia mais...</button></small></h4>
+                        <p ng-class="$index==itemSelecionado ? 'textoaparecer':'text-nowrap bd-highlight'">{{topico.Descricao}}</p>
                         <a href="~/Upload/{{topico.Anexos.Caminho}}">{{topico.Anexos.Caminho}}</a>
+
                     </div>
 
-                    <div class="media-right">
+                    <div class="media-right btn" data-toggle="modal" data-target="#modalLoginAvatar">
                         <img src="~/Upload/{{topico.usuario.UploadArquivo.Caminho}}" class="media-object" style="width:60px">
                     </div>
                     <div ng-if="(topico.usuario.Id!== usuario.Id)">

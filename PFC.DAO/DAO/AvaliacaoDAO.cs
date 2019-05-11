@@ -1,6 +1,7 @@
 ﻿using PFC.Model;
 using System;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
 
 namespace PFC.DAO
 {
@@ -10,7 +11,7 @@ namespace PFC.DAO
 
 
         #region inserir e voltar valor da media dos pontos avaliados
-        public Avaliacao InserirPonto(Avaliacao avaliar, float pontosUsuario)
+        public async Task<Avaliacao> InserirPonto(Avaliacao avaliar, float pontosUsuario)
         {
 
 
@@ -27,7 +28,7 @@ namespace PFC.DAO
                 {
                     comando = new SqlCommand(strQuery, contexto.forumConexao);
 
-                    reader = contexto.ExecutaComandoComRetorno(strQuery);
+                    reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                     while (reader.Read())
                     {
@@ -54,7 +55,7 @@ namespace PFC.DAO
         #endregion
 
         #region inserir e voltar valor da Like/Deslike dos pontos avaliados
-        public Avaliacao InserirPontoLikeDeslike(Avaliacao avaliar, double pontosUsuario)
+        public async Task<Avaliacao> InserirPontoLikeDeslike(Avaliacao avaliar, double pontosUsuario)
         {
 
 
@@ -71,7 +72,7 @@ namespace PFC.DAO
                 {
                     comando = new SqlCommand(strQuery, contexto.forumConexao);
 
-                    reader = contexto.ExecutaComandoComRetorno(strQuery);
+                    reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                     while (reader.Read())
                     {
@@ -103,7 +104,7 @@ namespace PFC.DAO
         #endregion
 
         #region Consulta Pontos por tópico
-        public float consultaAvaliarpontos(Avaliacao avaliar, int idUsuario)
+        public async Task<float> consultaAvaliarpontos(Avaliacao avaliar, int idUsuario)
         {
 
             SqlCommand comando;
@@ -115,7 +116,7 @@ namespace PFC.DAO
             {
                 comando = new SqlCommand(querSQL, contexto.forumConexao);
 
-                reader = contexto.ExecutaComandoComRetorno(querSQL);
+                reader = await contexto.ExecutaComandoComRetorno(querSQL);
                 if (reader.HasRows)
                 {
 
@@ -139,7 +140,7 @@ namespace PFC.DAO
         #endregion
 
         #region Consulta Média por tópico
-        public float consultaMediaAvaliacao(Avaliacao avaliar)
+        public async Task<float> consultaMediaAvaliacao(Avaliacao avaliar)
         {
 
             SqlCommand comando;
@@ -151,7 +152,7 @@ namespace PFC.DAO
             {
                 comando = new SqlCommand(querSQL, contexto.forumConexao);
 
-                reader = contexto.ExecutaComandoComRetorno(querSQL);
+                reader = await contexto.ExecutaComandoComRetorno(querSQL);
 
                 while (reader.Read())
                 {
@@ -176,7 +177,7 @@ namespace PFC.DAO
         #endregion
 
         #region Atualização da nota 
-        public Avaliacao AtualizarPonto(Avaliacao avaliar, float pontosUsuario)
+        public async Task<Avaliacao> AtualizarPonto(Avaliacao avaliar, float pontosUsuario)
         {
 
 
@@ -194,7 +195,7 @@ namespace PFC.DAO
                 {
                     comando = new SqlCommand(strQuery, contexto.forumConexao);
 
-                    reader = contexto.ExecutaComandoComRetorno(strQuery);
+                    reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                     while (reader.Read())
                     {
@@ -220,7 +221,7 @@ namespace PFC.DAO
         #endregion
 
         #region Atualização da nota 
-        public Avaliacao AtualizarPontoLikeDeslike(Avaliacao avaliar, double pontosUsuario)
+        public async Task<Avaliacao> AtualizarPontoLikeDeslike(Avaliacao avaliar, double pontosUsuario)
         {
 
 
@@ -237,7 +238,7 @@ namespace PFC.DAO
                 {
                     comando = new SqlCommand(strQuery, contexto.forumConexao);
 
-                    reader = contexto.ExecutaComandoComRetorno(strQuery);
+                    reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                     while (reader.Read())
                     {
@@ -256,7 +257,7 @@ namespace PFC.DAO
 
         #region Consultar pelo Id da Avaliacao
 
-        public int consultaAvaliacaoID(Avaliacao avaliar, int idUsuario)
+        public async Task<int> consultaAvaliacaoID(Avaliacao avaliar, int idUsuario)
         {
 
             SqlCommand comando;
@@ -268,7 +269,7 @@ namespace PFC.DAO
             {
                 comando = new SqlCommand(querSQL, contexto.forumConexao);
 
-                reader = contexto.ExecutaComandoComRetorno(querSQL);
+                reader = await contexto.ExecutaComandoComRetorno(querSQL);
                 if (reader.HasRows)
                 {
 
@@ -292,7 +293,7 @@ namespace PFC.DAO
         #endregion
 
         #region consultar pontos curtir like e deslike
-        public float consultaLikeDeslike(Topico topico, int idUsuarioLogado)
+        public async Task<float> consultaLikeDeslike(Topico topico, int idUsuarioLogado)
         {
 
             SqlCommand comando;
@@ -304,7 +305,7 @@ namespace PFC.DAO
             {
                 comando = new SqlCommand(querSQL, contexto.forumConexao);
 
-                reader = contexto.ExecutaComandoComRetorno(querSQL);
+                reader = await contexto.ExecutaComandoComRetorno(querSQL);
 
                 while (reader.Read())
                 {
@@ -320,7 +321,7 @@ namespace PFC.DAO
         #endregion
 
         #region contar pontos like
-        public int consultaLike(Topico topico, int idUsuarioLogado)
+        public async Task<int> consultaLike(Topico topico, int idUsuarioLogado)
         {
 
             SqlCommand comando;
@@ -332,7 +333,7 @@ namespace PFC.DAO
             {
                 comando = new SqlCommand(querSQL, contexto.forumConexao);
 
-                reader = contexto.ExecutaComandoComRetorno(querSQL);
+                reader = await contexto.ExecutaComandoComRetorno(querSQL);
 
                 while (reader.Read())
                 {
@@ -348,7 +349,7 @@ namespace PFC.DAO
         #endregion
 
         #region contar pontos Deslike
-        public int consultaDeslike(Topico topico, int idUsuarioLogado)
+        public async Task<int> consultaDeslike(Topico topico, int idUsuarioLogado)
         {
 
             SqlCommand comando;
@@ -360,7 +361,7 @@ namespace PFC.DAO
             {
                 comando = new SqlCommand(querSQL, contexto.forumConexao);
 
-                reader = contexto.ExecutaComandoComRetorno(querSQL);
+                reader = await contexto.ExecutaComandoComRetorno(querSQL);
 
                 while (reader.Read())
                 {

@@ -5,15 +5,27 @@
 {
     <div id="float-banner" class="float-banner">
         <div class="col-md-6">
-            <button type="button" class="btn btn-info glyphicon glyphicon-edit" data-toggle="modal" data-target=".NovoTopico"> Novo Tópico</button>
+            <button id="one" type="button" class="btn btn-info glyphicon glyphicon-edit" data-toggle="modal" data-target=".NovoTopico"> Novo Tópico</button>
+            <script>
+                $('.button').click(function () {
+                    var buttonId = $(this).attr('id');
+                    $('modal fade NovoTopico').removeAttr('class').addClass(buttonId);
+                    $('body').addClass('modal-active');
+                })
+
+                $('modal fade NovoTopico').click(function () {
+                    $(this).addClass('out');
+                    $('body').removeClass('modal-active');
+                });</script>
         </div>
+
     </div>
 }
 
 <div class="row" ng-controller="topicoCtrl as travel">
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:5px 0;">
-        <a class="navbar-brand " >Topicos Abertos</a>
+        <a class="navbar-brand ">Topicos Abertos</a>
         <div class="navbar-collapse collapse" id="navb" style="">
             @if (@User.Identity.IsAuthenticated)
             {
@@ -31,138 +43,162 @@
                 </div>
             }
 
-        <form name="FormPesquisa " class="form-inline my-2 my-lg-0">
-            <div class="input-group-prepend">
-                <select class="form-control" ng-options="t.Nome for t in Tema track by t.Id" ng-change="pesquisaTema(temaSelecionado)" ng-model="temaSelecionado">
-                    <option value="" class="ng-binding">Nenhum tema</option>
-                </select>
-                <input type="text" class="form-control text-sm-center classePesquisa" ng-model="pesquisa" placeholder="Pesquisar..." ng-model-options="{debounce: 200}" ng-change="pesquisar(pesquisa)" />
-            </div>
-            
-            <div class="float-pesquisa">
-                <ul class="list-group classePesquisa" ng-model="Topico" ng-show="(pesquisa.length>0)">
-                    <li class="list-group-item classePesquisa" ng-repeat="topico in Topico|limitTo:5"><a class="classePesquisa" href="http://localhost:52005/Topico/TopicoSelecionado?topicoId={{topico.Id}}">{{topico.Titulo}}></a></li>
-                </ul>
-            </div>
-        </form>
+            <form name="FormPesquisa " class="form-inline my-2 my-lg-0">
+                <div class="input-group-prepend">
+                    <select class="form-control" ng-options="t.Nome for t in Tema track by t.Id" ng-change="pesquisaTema(temaSelecionado)" ng-model="temaSelecionado">
+                        <option value="" class="ng-binding">Nenhum tema</option>
+                    </select>
+                    <input type="text" class="form-control text-sm-center classePesquisa" ng-model="pesquisa" placeholder="Pesquisar..." ng-model-options="{debounce: 200}" ng-change="pesquisar(pesquisa)" />
+                </div>
+
+                <div class="float-pesquisa">
+                    <ul class="list-group classePesquisa" ng-model="Topico" ng-show="(pesquisa.length>0)">
+                        <li class="list-group-item classePesquisa" ng-repeat="topico in Topico|limitTo:5"><a class="classePesquisa" href="http://localhost:52005/Topico/TopicoSelecionado?topicoId={{topico.Id}}">{{topico.Titulo}}></a></li>
+                    </ul>
+                </div>
+            </form>
 
 
 
-            
+
         </div>
     </nav>
 
 
-        <div class="row">
-            <div class="col-md-12 content-page">
+    <div class="row">
+        <div class="col-md-12 content-page">
 
 
-                <div class="col-md-12 blog-post" ng-repeat="topico in travel.cruise| limitTo:travel.limit">
-                    <div class='post-title'>
-                        <a href="../Topico/TopicoSelecionado?topicoId={{topico.Id}}"><h1>{{topico.Titulo}}</h1></a>
-                        @*<button type="button" ng-click="abrirTopico(topico)">
+            <div class="col-md-12 blog-post" ng-repeat="topico in travel.cruise| limitTo:travel.limit">
+                <div class='post-title'>
+                    <a href="../Topico/TopicoSelecionado?topicoId={{topico.Id}}"><h1>{{topico.Titulo}}</h1></a>
+                    @*<button type="button" ng-click="abrirTopico(topico)">
                             <h1>{{topico.Titulo}}</h1>
                         </button>*@
-                    </div>
-                    <div class='post-info'>
-                        <span>{{topico.DataCria}}/ Por <a href='../Usuario/PerfilUsuario?usuarioid={{topico.usuario.Id}}' target='_blank'>{{topico.usuario.Nome}}</a></span>
-                    </div>
-                    <p>{{topico.Descricao}}</p><input type='hidden' name='id' value="{{topico.Id}}">
-                    <br />
-                    <a ng-click="abrirTopico(topico)" class="button2 button-style2 button-anim2 fa fa-long-arrow-right"><span>Leia Mais...</span></a>
-                    <br />
-                    <br />
                 </div>
-
+                <div class='post-info'>
+                    <span>{{topico.DataCria}}/ Por <a href='../Usuario/PerfilUsuario?usuarioid={{topico.usuario.Id}}' target='_blank'>{{topico.usuario.Nome}}</a></span>
+                </div>
+                <p>{{topico.Descricao}}</p><input type='hidden' name='id' value="{{topico.Id}}">
+                <br />
+                <a ng-click="abrirTopico(topico)" class="button2 button-style2 button-anim2 fa fa-long-arrow-right"><span>Leia Mais...</span></a>
+                <br />
+                <br />
             </div>
 
-            <div class="col-md-12 text-center">
+        </div>
+
+        <div class="col-md-12 text-center">
 
 
             <button ng-click="load()" class="load-more-button">
                 <span ng-init="informacao = 'Load'">{{informacao}}</span>
-                
+
             </button>
 
 
+        </div>
 
 
+        <div class="row">
+            <div class="col-md-4">
 
             </div>
+        </div>
 
-
-            <div class="row">
-                <div class="col-md-4">
+        <growl-notifications class="growl-notifications">
+            <div style="display:none">
+                <div ng-repeat="(id, notification) in notifications track by id">
+                    <growl-notification class="fading" ttl="5000">
+                        <i class="fas fa-check fa-1x"></i><span class="font-weight-lighter tituloNotificacao">Sucesso</span>
+                        <br />
+                        <span class="textoNotificacao">Operação concluida com sucesso!</span>
+                    </growl-notification>
 
                 </div>
             </div>
-
-            <growl-notifications class="growl-notifications">
-                <div style="display:none">
-                    <div ng-repeat="(id, notification) in notifications track by id">
-                        <growl-notification class="fading" ttl="5000">
-                            <i class="fas fa-check fa-1x"></i><span class="font-weight-lighter tituloNotificacao">Sucesso</span>
-                            <br />
-                            <span class="textoNotificacao">Operação concluida com sucesso!</span>
-                        </growl-notification>
-
-                    </div>
+            <div style="display:none">
+                <div ng-repeat="(id, notification) in notificationsErro track by id">
+                    <growl-notification class="fading erro" ttl="5000">
+                        <i class="fas fa-times fa-1x"></i><span class="font-weight-lighter tituloNotificacao">Erro</span>
+                        <br />
+                        <span class="textoNotificacao">Opa!Alguma coisa deu errada</span>
+                    </growl-notification>
                 </div>
-                <div style="display:none">
-                    <div ng-repeat="(id, notification) in notificationsErro track by id">
-                        <growl-notification class="fading erro" ttl="5000">
-                            <i class="fas fa-times fa-1x"></i><span class="font-weight-lighter tituloNotificacao">Erro</span>
-                            <br />
-                            <span class="textoNotificacao">Opa!Alguma coisa deu errada</span>
-                        </growl-notification>
+            </div>
+
+        </growl-notifications>
+
+        @* Modal Criar de Topico*@
+
+        <!-- Modal: modalPoll -->
+        <div class="modal fade right NovoTopico" id=".NovoTopico" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true" data-backdrop="false">
+            <div class="modal-dialog modal-full-height modal-right modal-notify modal-info" role="document">
+                <div class="modal-content">
+                    <!--Header-->
+                    <div class="modal-header">
+                        <p class="heading lead" style="margin-bottom: 0px;">
+                            Novo Tópico
+                        </p>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -30px;margin-right: 10px;">
+                            <span aria-hidden="true" class="white-text">×</span>
+                        </button>
                     </div>
-                </div>
-
-            </growl-notifications>
-
-            @* Modal Criar de Topico*@
-            <div class="modal fade NovoTopico" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="text-info">Nova Pergunta</h3>
+                    <form class="form-horizontal" name="AdiconarTopicoForm">
+                        <div>
+                            <input class="form-control" readonly="readonly" ng-model="id" name="Id" type="hidden" />
                         </div>
+                        <!--Body-->
                         <div class="modal-body">
-                            <form class="form-horizontal" name="AdiconarTopicoForm">
-                                <div>
-                                    <input class="form-control" readonly="readonly" ng-model="id" name="Id" type="hidden" />
-                                </div>
+                            <div class="text-center">
+                                <i class="far fa-edit fa-4x mb-3 animated rotateIn"></i>
+                                <p>
+                                    <strong>Escolha o tema do seu tópico</strong>
+                                </p>
                                 <div class="form-group">
-                                    <select ng-model="cmbTema"
-                                            ng-options="c.Id as c.Nome for c in Tema">
+                                    <select data-style="btn-info" ng-model="cmbTema" ng-options="c.Id as c.Nome for c in Tema">
                                         <option value="" selected="selected" disabled="disabled"> {{Id || 'Tema'}} </option>
                                     </select>
                                     <span ng-class="error" ng-show="AdiconarTopicoForm.cmbTema.$error.required">Tema é obrigatório</span>
                                 </div>
-                                <h5 class="text-info">Titulo</h5>
-                                <div class="form-group">
-                                    <input class="form-control" ng-model="titulo" name="Nome" placeholder="Nome" />
-                                </div>
-                                <h5 class="text-info">Descrição</h5>
-                                <div class="form-group">
-                                    <textarea class="form-control" ng-model="descricao" name="Descricao"></textarea>
-                                </div>
-                            </form>
+                            </div>
+
+                            <hr>
+                            <p class="text-center">
+                                <strong>Titulo</strong>
+                            </p>
+                            <div class="form-group">
+                                <input class="form-control" ng-model="titulo" name="Nome" placeholder="Titulo" />
+                            </div>
+
+                            <p class="text-center">
+                                <strong>Descrição</strong>
+                            </p>
+
+                            <div class="md-form form-group">
+                                <textarea ng-model="descricao" type="text" id="form79textarea" class="md-textarea form-control" rows="3"></textarea>
+                                <label for="form79textarea">Sua menssagem</label>
+                            </div>
 
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary "
-                                    data-dismiss="modal" ng-click="novoTopico()">
-                                Criar
-                            </button>
-                        </div>
+                    </form>
+                    <div class="modal-footer justify-content-center">
+                        <a type="button" class="btn btn-primary waves-effect waves-light" ng-click="novoTopico()" data-dismiss="modal">
+                            Criar
+                            <i class="fa fa-paper-plane ml-1"></i>
+                        </a>
+                        <a type="button" class="btn btn-outline-primary waves-effect" data-dismiss="modal">Cancelar</a>
                     </div>
-
                 </div>
             </div>
-            @* Fim Modal Criar de Topico*@
-
         </div>
+        <!-- Modal: modalPoll -->
+        @*</div>*@
+        @* Fim Modal Criar de Topico*@
+
+    </div>
 </div>
 <!-- Subscribe Form Start -->
 <div class="col-md-8 col-md-offset-2">

@@ -12,7 +12,7 @@ namespace PFC.DAO
     {
         private Contexto contexto;
 
-        public List<Genero> ListarGenero()
+        public async Task<List<Genero>> ListarGenero()
         {
             var Genero = new List<Genero>();
             SqlDataReader reader;
@@ -20,7 +20,7 @@ namespace PFC.DAO
             using (contexto = new Contexto())
             {
                 var strQuery = " SELECT * FROM Genero ";
-                reader = contexto.ExecutaComandoComRetorno(strQuery);
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                 while (reader.Read())
                 {
@@ -36,7 +36,7 @@ namespace PFC.DAO
             return Genero;
         }
 
-        public Genero BuscaPorID(int idGenero)
+        public async Task<Genero> BuscaPorID(int idGenero)
         {
             var genero = new Genero();
             SqlDataReader reader;
@@ -44,7 +44,7 @@ namespace PFC.DAO
             using (contexto = new Contexto())
             {
                 var strQuery = string.Format(" SELECT * FROM Genero WHERE Id='{0}'", idGenero);
-                reader = contexto.ExecutaComandoComRetorno(strQuery);
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                 while (reader.Read())
                 {

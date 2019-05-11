@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-
+using System.Threading.Tasks;
 
 namespace PFC.DAO
 {
@@ -29,7 +29,7 @@ namespace PFC.DAO
         #endregion
 
         #region Listar Topicos Pai
-        public List<Topico> ListarTopico()
+        public async Task<List<Topico>> ListarTopico()
         {
             var topico = new List<Topico>();
             SqlDataReader reader;
@@ -37,7 +37,7 @@ namespace PFC.DAO
             using (contexto = new Contexto())
             {
                 var strQuery = " SELECT * FROM Topico WHERE IdTopicoPai IS NULL ORDER BY DataUpdate DESC ";
-                reader = contexto.ExecutaComandoComRetorno(strQuery);
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                 while (reader.Read())
                 {
@@ -57,7 +57,7 @@ namespace PFC.DAO
         #endregion
 
         #region Listar Topicos Filhos
-        public List<Topico> ListarTopicoFilho(int idTopico)
+        public async Task<List<Topico>> ListarTopicoFilho(int idTopico)
         {
             List<Topico> topico = new List<Topico>();
             SqlDataReader reader;
@@ -65,7 +65,7 @@ namespace PFC.DAO
             using (contexto = new Contexto())
             {
                 var strQuery = string.Format(" SELECT * FROM Topico WHERE IdTopicoPai ={0}",idTopico);
-                reader = contexto.ExecutaComandoComRetorno(strQuery);
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                 while (reader.Read())
                 {
@@ -85,14 +85,14 @@ namespace PFC.DAO
         #endregion
 
         #region Detalhe Topico
-        public Topico DetalheTopico(Topico topico)
+        public async Task<Topico> DetalheTopico(Topico topico)
         {
             SqlDataReader reader;
 
             using (contexto = new Contexto())
             {
                 var strQuery = string.Format(" SELECT * FROM Topico WHERE Id ='{0}' ", topico.Id);
-                reader = contexto.ExecutaComandoComRetorno(strQuery);
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                 while (reader.Read())
                 {
@@ -119,8 +119,8 @@ namespace PFC.DAO
             bool retorno = false;
             var strQuery = "";
             strQuery += "INSERT INTO Topico(Titulo,Descricao,Id_Tema,Id_Usuario ,IdTopicoPai,DataCriacao) ";
-            strQuery += string.Format("VALUES('{0}','{1}','{2}','{3}','{4}','{5}')",
-                post.Titulo,post.TopicoFilho.Descricao,post.Tema.Id, post.TopicoFilho.usuario.Id, post.Id,DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            strQuery += string.Format("VALUES('{0}','{1}','{2}','{3}','{4}',GETDATE());",
+                post.Titulo,post.TopicoFilho.Descricao,post.Tema.Id, post.TopicoFilho.usuario.Id, post.Id);
 
             using (contexto = new Contexto())
             {
@@ -163,14 +163,14 @@ namespace PFC.DAO
 
         #region ValTopico se Existe
 
-        public Topico ValTopico(Topico topico)
+        public async Task<Topico> ValTopico(Topico topico)
         {
             SqlDataReader reader;
 
             using (contexto = new Contexto())
             {
                 var strQuery = string.Format(" SELECT * FROM Topico WHERE Id ='{0}' AND IdTopicoPai IS NULL", topico.Id);
-                reader = contexto.ExecutaComandoComRetorno(strQuery);
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
                 Topico readerTopico = new Topico();
                 while (reader.Read())
                 {
@@ -195,7 +195,7 @@ namespace PFC.DAO
         public bool UpdateDataTopico(Topico post)
         {
             var strQuery = "";
-            strQuery += string.Format("UPDATE Topico SET DataUpdate = '{0}' WHERE Id='{1}'", DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"), post.Id);
+            strQuery += string.Format("UPDATE Topico SET DataUpdate = GETDATE() WHERE Id='{0}'",post.Id);
             using (contexto = new Contexto())
             {
                 return contexto.ExecutarInsert(strQuery);
@@ -206,7 +206,7 @@ namespace PFC.DAO
         #endregion
 
         #region Listar Topicos Pai conforme a pesquisa do usuario
-        public List<Topico> ListarTopicoPesquisa(string pesquisa)
+        public async Task<List<Topico> >ListarTopicoPesquisa(string pesquisa)
         {
             var topico = new List<Topico>();
             SqlDataReader reader;
@@ -214,7 +214,7 @@ namespace PFC.DAO
             using (contexto = new Contexto())
             {
                 var strQuery =String.Format(" SELECT * FROM Topico WHERE IdTopicoPai IS NULL and Titulo Like '%{0}%' ",pesquisa);
-                reader = contexto.ExecutaComandoComRetorno(strQuery);
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                 while (reader.Read())
                 {

@@ -34,13 +34,13 @@
     //});
 
     function visualizarNotificacao(UsuarioSolicitado) {
-        var Notificacao = notificacaoService.VisualizarNotificacao(UsuarioSolicitado);
+        var Notificacao = notificacaoService.VisualizarNotificacaoGeral(UsuarioSolicitado);
 
         Notificacao.then(function (d) {
 
-            if (d.data !== null) {
+            if (d.data !== false) {
                 $self.notifications.push("Voçe tem novas Mensagens");
-                $scope.notifi = d.data;
+                visualizarNotificacaoAmizade(UsuarioSolicitado);
                 $scope.$apply();
             }
         },
@@ -49,6 +49,23 @@
             });
         return Notificacao;
     };
+
+
+    function visualizarNotificacaoAmizade(UsuarioSolicitado) {
+        var Notificacao = notificacaoService.VisualizarNotificacaoAmizade(UsuarioSolicitado);
+
+        Notificacao.then(function (d) {
+
+            if (d.data !== true) {
+                $scope.notifi = d.data;                
+            }
+        },
+            function () {
+                console.log("Erro ao visualizarNotificacaoAmizade");
+            });
+        return Notificacao;
+    };
+
 
     //Aceitar Amizade
     $scope.aceitarAmizade = function (usuarios) {

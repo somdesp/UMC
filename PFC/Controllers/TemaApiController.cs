@@ -2,6 +2,7 @@
 using PFC.Model;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Mvc;
 
@@ -11,10 +12,10 @@ namespace PFC.Controllers
     {
 
         [System.Web.Mvc.HttpGet]
-        public JsonResult GetTema()
+        public async Task<JsonResult> GetTema()
         {
             TemaDAO temaDao = new TemaDAO();
-            return Json(temaDao.ListarTema(), JsonRequestBehavior.AllowGet);
+            return Json(await temaDao.ListarTema(), JsonRequestBehavior.AllowGet);
 
         }
 

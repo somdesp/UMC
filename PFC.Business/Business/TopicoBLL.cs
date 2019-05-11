@@ -1,14 +1,10 @@
 ﻿using PFC.DAO;
 using PFC.Model;
-using System.Security.Claims;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
-using System.Web.Mvc;
-using System.Web.Razor.Tokenizer.Symbols;
-using Microsoft.AspNet.Identity;
 
 
 namespace PFC.Business.Business
@@ -23,20 +19,20 @@ namespace PFC.Business.Business
         ArquivoBLL arquivoBll = new ArquivoBLL();
 
         #region Listar Topicos Filhos
-        public List<Topico> ListarTopicoFilho(Topico topico)
+        public async Task<List<Topico>> ListarTopicoFilho(Topico topico)
         {
 
             List<Topico> listTopicos = new List<Topico>();
-            listTopicos = daoTopico.ListarTopicoFilho(topico.Id);
+            listTopicos = await daoTopico.ListarTopicoFilho(topico.Id);
 
             for (int i = 0; i < listTopicos.Count(); i++)
             {
                 listTopicos[i].Anexos.id_topico = listTopicos[i].Id;
-                listTopicos[i].Anexos = arquivoBll.RecuperarArqTopico(listTopicos[i].Anexos);
-                listTopicos[i].usuario = bllUsuario.ConsultaUsuarioInt(listTopicos[i].usuario);
-                listTopicos[i].Tema = daoTema.ListarTemaTopico(listTopicos[i].Tema.Id);
+                listTopicos[i].Anexos =await arquivoBll.RecuperarArqTopico(listTopicos[i].Anexos);
+                listTopicos[i].usuario =await bllUsuario.ConsultaUsuarioInt(listTopicos[i].usuario);
+                listTopicos[i].Tema =await daoTema.ListarTemaTopico(listTopicos[i].Tema.Id);
                 listTopicos[i].avaliacao.idTopico = listTopicos[i].Id;
-                listTopicos[i].avaliacao = avaliacaobll.consultaAvaliacao(listTopicos[i].avaliacao, topico.avaliacao.idUsuario);
+                listTopicos[i].avaliacao =await avaliacaobll.consultaAvaliacao(listTopicos[i].avaliacao, topico.avaliacao.idUsuario);
             }
 
             return listTopicos;
@@ -44,15 +40,15 @@ namespace PFC.Business.Business
         #endregion
 
         #region Listar Topicos Pai
-        public List<Topico> ListarTopico()
+        public async Task<List<Topico>> ListarTopico()
         {
             List<Topico> listTopicos = new List<Topico>();
 
-            listTopicos = daoTopico.ListarTopico();
+            listTopicos = await daoTopico.ListarTopico();
 
             for (int i = 0; i < listTopicos.Count(); i++)
             {
-                listTopicos[i].usuario = bllUsuario.ConsultaUsuarioInt(listTopicos[i].usuario);
+                listTopicos[i].usuario =await bllUsuario.ConsultaUsuarioInt(listTopicos[i].usuario);
                 //listTopicos[i].Resposta = ListarTopicoFilho(listTopicos[i]);
             }
 
@@ -61,16 +57,16 @@ namespace PFC.Business.Business
         #endregion
 
         #region Listar Topicos Pai conforme Pesquisa do Usuario
-        public List<Topico> ListarTopico(string pesquisa)
+        public async Task<List<Topico>> ListarTopico(string pesquisa)
         {
             List<Topico> listTopicos = new List<Topico>();
 
-            listTopicos = daoTopico.ListarTopicoPesquisa(pesquisa);
+            listTopicos = await daoTopico.ListarTopicoPesquisa(pesquisa);
 
             for (int i = 0; i < listTopicos.Count(); i++)
             {
-                listTopicos[i].usuario = bllUsuario.ConsultaUsuarioInt(listTopicos[i].usuario);
-                listTopicos[i].Resposta = ListarTopicoFilho(listTopicos[i]);
+                listTopicos[i].usuario =await bllUsuario.ConsultaUsuarioInt(listTopicos[i].usuario);
+                listTopicos[i].Resposta = await ListarTopicoFilho(listTopicos[i]);
             }
 
             return listTopicos;
@@ -78,16 +74,16 @@ namespace PFC.Business.Business
         #endregion
 
         #region Detalha Topico
-        public Topico DetalheTopico(Topico topico)
+        public async Task<Topico> DetalheTopico(Topico topico)
         {
             AvaliacaoBLL avaliacaobll = new AvaliacaoBLL();
             int usuarioLogado = topico.avaliacao.idUsuario;
-            topico = daoTopico.DetalheTopico(topico);
-            topico.avaliacao = avaliacaobll.consultarAvaliacaoCurtir(topico,usuarioLogado);
-            topico.usuario = bllUsuario.ConsultaUsuarioInt(topico.usuario);
-            topico.Tema = daoTema.ConsultaTema(topico.Tema);
+            topico = await daoTopico.DetalheTopico(topico);
+            topico.avaliacao =await avaliacaobll.consultarAvaliacaoCurtir(topico,usuarioLogado);
+            topico.usuario =await bllUsuario.ConsultaUsuarioInt(topico.usuario);
+            topico.Tema = await daoTema.ConsultaTema(topico.Tema);
             topico.avaliacao.idUsuario = usuarioLogado;
-            topico.Resposta = ListarTopicoFilho(topico);
+            topico.Resposta = await ListarTopicoFilho(topico);
             
 
             return topico;
@@ -105,10 +101,10 @@ namespace PFC.Business.Business
 
         #region Valida se topico escolhido existe
 
-        public bool ValTopico(Topico topico)
+        public async Task<bool> ValTopico(Topico topico)
         {
 
-            topico = daoTopico.ValTopico(topico);
+            topico = await daoTopico.ValTopico(topico);
 
             if (topico.Id != 0)
             {
@@ -127,10 +123,10 @@ namespace PFC.Business.Business
 
         #region Novo Topico
 
-        public bool AdicionarTopico(Topico topico)
+        public async Task<bool> AdicionarTopico(Topico topico)
         {
             topico.Status.Id = 1;
-            topico.Tema = daoTema.ConsultaTema(topico.Tema.Id);
+            topico.Tema = await daoTema.ConsultaTema(topico.Tema.Id);
             return daoTopico.AdicionarTopico(topico);
         }
 

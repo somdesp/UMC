@@ -98,6 +98,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Denuncia.cs" />
+    <Compile Include="Model\Notificacao.cs" />
     <Compile Include="Model\Solicitacao.cs" />
     <Compile Include="Model\Autorizacoes.cs" />
     <Compile Include="Model\Avaliacao.cs" />

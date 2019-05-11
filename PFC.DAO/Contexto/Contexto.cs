@@ -48,10 +48,10 @@ namespace PFC.DAO
         #endregion
 
 
-        public SqlDataReader ExecutaComandoComRetorno(string strQuery)
+        public async Task<SqlDataReader> ExecutaComandoComRetorno(string strQuery)
         {
             var cmdComando = new SqlCommand(strQuery, forumConexao);
-            return cmdComando.ExecuteReader();
+            return await cmdComando.ExecuteReaderAsync();
         }
 
         public void Dispose()

@@ -1,7 +1,7 @@
 ﻿using PFC.Model;
-using System;
 using System.Web.Mvc;
 using PFC.Business.Business;
+using System.Threading.Tasks;
 
 namespace PFC.Controllers
 {
@@ -9,12 +9,12 @@ namespace PFC.Controllers
     {
         #region Método de avaliacao de pontos retornar todos os pontos correspondentes
         [HttpPost]
-        public JsonResult AvaliacaoPontos(Avaliacao avaliacao)
+        public async Task<JsonResult> AvaliacaoPontos(Avaliacao avaliacao)
         {
             //int pontosAvaliacao = Convert.ToInt16(TopicosSelc);
 
             AvaliacaoBLL avaliacaobussiness = new AvaliacaoBLL();
-            avaliacao = avaliacaobussiness.inserirPontos(avaliacao);
+            avaliacao = await avaliacaobussiness.inserirPontos(avaliacao);
 
             return Json(avaliacao, JsonRequestBehavior.AllowGet);
         }
@@ -22,12 +22,12 @@ namespace PFC.Controllers
         
         #region Método de avaliacao de pontos retornar todos os pontos correspondentes LikeDeslike
         [HttpPost]
-        public JsonResult AvaliacaoPontosDeslike(Avaliacao avaliacao)
+        public async Task<JsonResult> AvaliacaoPontosDeslike(Avaliacao avaliacao)
         {
             //int pontosAvaliacao = Convert.ToInt16(TopicosSelc);
 
             AvaliacaoBLL avaliacaobussiness = new AvaliacaoBLL();
-            avaliacao = avaliacaobussiness.inserirPontosLikeDeslike(avaliacao);
+            avaliacao = await avaliacaobussiness.inserirPontosLikeDeslike(avaliacao);
 
             return Json(avaliacao, JsonRequestBehavior.AllowGet);
         }
@@ -44,10 +44,10 @@ namespace PFC.Controllers
         #endregion
 
         [HttpPost]
-        public JsonResult consultarAvaliacao(Avaliacao avaliacao)
+        public async Task<JsonResult> consultarAvaliacao(Avaliacao avaliacao)
         {
             AvaliacaoBLL consultarbll = new AvaliacaoBLL();
-            avaliacao = consultarbll.consultaAvaliacao(avaliacao,avaliacao.idUsuario);
+            avaliacao = await consultarbll.consultaAvaliacao(avaliacao, avaliacao.idUsuario);
             return Json(avaliacao, JsonRequestBehavior.AllowGet);
         }
 

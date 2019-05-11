@@ -235,6 +235,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\Config.js" />
+    <Content Include="App\Controller\denuncia.controller.js" />
     <Content Include="App\Controller\notificacao.controller.js" />
     <Content Include="App\Controller\solicitacao.controller.js" />
     <Content Include="App\Controller\hank.controller.js" />

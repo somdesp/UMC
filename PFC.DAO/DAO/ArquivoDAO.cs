@@ -1,6 +1,7 @@
 ﻿using PFC.Model;
 using System;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
 
 namespace PFC.DAO
 {
@@ -23,7 +24,7 @@ namespace PFC.DAO
         }
 
         #region Carregar Imagem
-        public Anexos CarregarArquivo(Anexos arquivo)
+        public async Task<Anexos> CarregarArquivo(Anexos arquivo)
         {
 
             SqlDataReader reader;
@@ -32,7 +33,7 @@ namespace PFC.DAO
             {
 
                 string strQuery = string.Format("SELECT * FROM Arquivos WHERE Id = '{0}' ", arquivo.Id);
-                reader = contexto.ExecutaComandoComRetorno(strQuery);
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                 while (reader.Read())
                 {
@@ -52,7 +53,7 @@ namespace PFC.DAO
         #endregion
 
         #region Carregar Arq Topico
-        public Anexos CarregarArquivoTopico(Anexos arquivo)
+        public async Task<Anexos> CarregarArquivoTopico(Anexos arquivo)
         {
 
             SqlDataReader reader;
@@ -61,7 +62,7 @@ namespace PFC.DAO
             {
 
                 string strQuery = string.Format("SELECT * FROM Arquivos WHERE Id_Topico = '{0}' ", arquivo.id_topico);
-                reader = contexto.ExecutaComandoComRetorno(strQuery);
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                 while (reader.Read())
                 {

@@ -11,15 +11,34 @@ namespace PFC.Business
     public class SolicitacaoBLL
     {
         SolicitacaoDAO amizadeDao = new SolicitacaoDAO();
-        public bool solicitacaoAmizade(Usuario usuario, Usuario usuarioSolicitado)
-        {
+        NotificacaoBLL notificacaoBLL = new NotificacaoBLL();
 
-            return amizadeDao.solicitacaoAmizade(usuario, usuarioSolicitado);
+        public async Task<bool> solicitacaoAmizade(Usuario usuario, Usuario usuarioSolicitado)
+        {
+            try
+            {
+                int id_amizade = await amizadeDao.solicitacaoAmizade(usuario, usuarioSolicitado);
+                if (id_amizade > 0)
+                {
+                    notificacaoBLL.AdicionaNotificação(id_amizade);
+                    return true;
+                }
+                return false;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+
         }
 
-        public bool ValidaAmizade(Usuario usuario, Usuario usuarioSolicitado)
+        public async Task<bool> ValidaAmizade(Usuario usuario, Usuario usuarioSolicitado)
         {
-            return amizadeDao.ValidaAmizade(usuario, usuarioSolicitado);
+            return await amizadeDao.ValidaAmizade(usuario, usuarioSolicitado);
         }
 
         public async Task<List<Solicitacao>> NotificacaoAmizade(Usuario usuario)
@@ -28,9 +47,9 @@ namespace PFC.Business
             return await amizadeDao.NotificacaoAmizade(usuario);
         }
 
-        public bool AceitaAmizade(Usuario usuario, Usuario usuarioSolicitado)
+        public async Task<bool> AceitaAmizade(Usuario usuario, Usuario usuarioSolicitado)
         {
-            return amizadeDao.AceitaAmizade(usuario, usuarioSolicitado);
+            return await amizadeDao.AceitaAmizadeAsync(usuario, usuarioSolicitado);
         }
 
         public bool CancelaAmizade(Usuario usuario, Usuario usuarioSolicitado)
@@ -38,11 +57,11 @@ namespace PFC.Business
             return amizadeDao.CancelaAmizade(usuario, usuarioSolicitado);
         }
 
-        public List<Usuario> ListaAmizade(int Id_Usuario)
+        public async Task<List<Usuario>> ListaAmizade(int Id_Usuario)
         {
             Usuario usuario = new Usuario();
             usuario.Id = Id_Usuario;
-            return amizadeDao.ListaAmizade(usuario);
+            return await amizadeDao.ListaAmizade(usuario);
         }
 
 

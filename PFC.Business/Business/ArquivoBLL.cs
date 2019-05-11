@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PFC.DAO;
+﻿using PFC.DAO;
 using PFC.Model;
+using System.Threading.Tasks;
 
 namespace PFC.Business
 {
@@ -15,9 +11,9 @@ namespace PFC.Business
 
         #region Carregar Imagem
 
-        public Anexos RecuperarImagem(Anexos arquivo)
+        public async Task< Anexos> RecuperarImagem(Anexos arquivo)
         {
-            return arquivoDao.CarregarArquivo(arquivo);
+            return await arquivoDao.CarregarArquivo(arquivo);
         }
 
         #endregion
@@ -30,9 +26,9 @@ namespace PFC.Business
 
         #region Carregar Arq TOpico
 
-        public Anexos RecuperarArqTopico(Anexos arquivo)
+        public async Task<Anexos> RecuperarArqTopico(Anexos arquivo)
         {
-            return arquivoDao.CarregarArquivoTopico(arquivo);
+            return await arquivoDao.CarregarArquivoTopico(arquivo);
         }
 
         #endregion

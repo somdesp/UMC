@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Web.Helpers;
-using System.Web.Hosting;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using PFC.Business;
 using PFC.Business.Business;
-using PFC.DAO;
 using PFC.Model;
 
 namespace PFC.Controllers
@@ -19,11 +17,11 @@ namespace PFC.Controllers
         // GET: Topico
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult Index(Topico Topico)
+        public async Task<ActionResult> Index(Topico Topico)
         {
             TopicoBLL topicoBll = new TopicoBLL();
-            topicoSalva = topicoBll.DetalheTopico(Topico);
-            return View(topicoBll.DetalheTopico(Topico));
+            topicoSalva = await topicoBll.DetalheTopico(Topico);
+            return View(await topicoBll.DetalheTopico(Topico));
         }
 
         public ActionResult Topico()
@@ -78,11 +76,11 @@ namespace PFC.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult TopicoSelecionadoJson(Topico topico)
+        public async Task<ActionResult> TopicoSelecionadoJson(Topico topico)
         {
             topico.avaliacao.idUsuario = User.Identity.GetUserId<int>();
             TopicoBLL topicoBll = new TopicoBLL();
-            topico = topicoBll.DetalheTopico(topico);
+            topico = await topicoBll.DetalheTopico(topico);
             topicoSalva = topico;
             return Json(topico, JsonRequestBehavior.AllowGet);
 
@@ -93,12 +91,12 @@ namespace PFC.Controllers
         //Listar Topicos
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult ListarTopico()
+        public async Task<ActionResult> ListarTopico()
         {
             TopicoBLL topicoBll = new TopicoBLL();
             List<Topico> topico = new List<Topico>();
 
-            topico = topicoBll.ListarTopico();
+            topico = await topicoBll.ListarTopico();
             return Json(topico, JsonRequestBehavior.AllowGet);
 
         }
@@ -107,12 +105,12 @@ namespace PFC.Controllers
         #region Listar topico conforme pesquisa
         [HttpPost]
         [AllowAnonymous]
-        public JsonResult ListarTopicoPesquisa(string pesquisa)
+        public async Task<JsonResult> ListarTopicoPesquisa(string pesquisa)
         {
             TopicoBLL topicoBll = new TopicoBLL();
             List<Topico> topico = new List<Topico>();
 
-            topico = topicoBll.ListarTopico(pesquisa);
+            topico = await topicoBll.ListarTopico(pesquisa);
             return Json(topico, JsonRequestBehavior.AllowGet);
 
         }
@@ -192,7 +190,7 @@ namespace PFC.Controllers
         #region Topico Escolhido
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult TopicoSelecionado(string topicoId)
+        public async Task<ActionResult> TopicoSelecionado(string topicoId)
         {
             ViewBag.TopicoId = topicoId;
             ViewBag.Usuario = User.Identity.GetUserId<int>();
@@ -200,7 +198,7 @@ namespace PFC.Controllers
             TopicoBLL topicoBll = new TopicoBLL();
             topico.Id = Convert.ToInt16(topicoId);
 
-            if (topicoBll.ValTopico(topico) == true)
+            if (await topicoBll.ValTopico(topico) == true)
             {
                 topico.Id = Convert.ToInt16(topicoId);
                // ViewBag.TopicoId = topicoId;

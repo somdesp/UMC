@@ -7,6 +7,7 @@ using PFC.Model;
 
 namespace PFC.Controllers
 {
+    [Authorize]
     public class TopicoAPIController : ApiController
     {
         // POST: api/TopicoAPI

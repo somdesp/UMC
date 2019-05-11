@@ -4,22 +4,22 @@
 @using (Html.BeginForm("AdicionarResposta", "Topico", FormMethod.Post,
                 new { @class = "form-horizontal", role = "form" }))
 {
-<div class="col-md-12 content-page">
-    <div class="col-md-12 blog-post">
-        <div class="post-title">
-            <h1>  @Html.DisplayFor(model => model.Titulo)</h1>
-        </div>
-        <div class="well well-sm" style="background-color: #d7ffef">
-            <div class="media" >
-                <div class="media-left">
-                    <img src="~/Upload/FOUMC_54252699-140f-41e1-83c4-2aed62b5d5af.jpg" class="media-object" style="width:60px">
-                </div>
-                <div class="media-body">
-                    <h4 class="media-heading"><a href="#" target="_blank"> @Html.DisplayFor(model => model.usuario.Nome) </a><small>@Html.DisplayFor(model => model.DataCria)</small></h4>
-                    <p>@Html.DisplayFor(model => model.Descricao)</p>
+    <div class="col-md-12 content-page">
+        <div class="col-md-12 blog-post">
+            <div class="post-title">
+                <h1>  @Html.DisplayFor(model => model.Titulo)</h1>
+            </div>
+            <div class="well well-sm" style="background-color: #d7ffef">
+                <div class="media">
+                    <div class="media-left">
+                        <img src="~/Upload/FOUMC_54252699-140f-41e1-83c4-2aed62b5d5af.jpg" class="media-object" style="width:60px">
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading"><a href="#" target="_blank"> @Html.DisplayFor(model => model.usuario.Nome) </a><small>@Html.DisplayFor(model => model.DataCria)</small></h4>
+                        <p>@Html.DisplayFor(model => model.Descricao)</p>
+                    </div>
                 </div>
             </div>
-         </div>
 
             @foreach (var i in @Model.Resposta)
             {
@@ -47,6 +47,6 @@
 
         </div>
 
-</div>
+    </div>
 
 }

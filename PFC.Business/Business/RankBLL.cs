@@ -1,8 +1,5 @@
 ﻿using PFC.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using PFC.DAO;
 using System.Threading.Tasks;
 
@@ -13,45 +10,45 @@ namespace PFC.Business
 
 
         #region Consulta na tabela rank  diario  
-        public List<Usuario> ListarRank()
+        public async Task<List<Usuario>> ListarRank()
         {
             RankingDAO dao = new RankingDAO();
 
             List<Usuario> listarRanking = new List<Usuario>();
-            listarRanking = dao.ListandoTabelaRank();
+            listarRanking = await dao.ListandoTabelaRank();
             return listarRanking;
         }
         #endregion
 
         #region Consulta na tabela rank semanal  
-        public List<Usuario> ListarRankSemanal()
+        public async Task<List<Usuario>> ListarRankSemanal()
         {
             RankingDAO dao = new RankingDAO();
 
             List<Usuario> listarRanking = new List<Usuario>();
-            listarRanking = dao.ListandoTabelaRankSemanal();
+            listarRanking = await dao.ListandoTabelaRankSemanal();
             return listarRanking;
         }
         #endregion
 
         #region Consulta na tabela rank mensal  
-        public List<Usuario> ListarRankMensal()
+        public async Task<List<Usuario>> ListarRankMensal()
         {
             RankingDAO dao = new RankingDAO();
 
             List<Usuario> listarRanking = new List<Usuario>();
-            listarRanking = dao.ListandoTabelaRankMensal();
+            listarRanking = await dao.ListandoTabelaRankMensal();
             return listarRanking;
         }
         #endregion
 
         #region Listar Usuarios Inicial
-        public List<Usuario> ListarUsuariosInicial()
+        public async Task<List<Usuario>> ListarUsuariosInicial()
         {
             RankingDAO dao = new RankingDAO();
 
             List<Usuario> listarRanking = new List<Usuario>();
-            listarRanking = dao.UsuariosInicials();
+            listarRanking = await dao.UsuariosInicials();
             return listarRanking;
         }
         #endregion

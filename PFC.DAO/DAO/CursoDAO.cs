@@ -1,7 +1,7 @@
 ﻿using PFC.Model;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-
+using System.Threading.Tasks;
 
 namespace PFC.DAO
 {
@@ -9,7 +9,7 @@ namespace PFC.DAO
     {
         private Contexto contexto;
 
-        public List<Curso> ListarCurso()
+        public async Task<List<Curso>> ListarCurso()
         {
             var Curso = new List<Curso>();
             SqlDataReader reader;
@@ -17,7 +17,7 @@ namespace PFC.DAO
             using (contexto = new Contexto())
             {
                 var strQuery = " SELECT * FROM Curso ";
-                reader = contexto.ExecutaComandoComRetorno(strQuery);
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                 while (reader.Read())
                 {
@@ -33,7 +33,7 @@ namespace PFC.DAO
             return Curso;
         }
 
-        public Curso BuscaPorID(int idCurso)
+        public async Task<Curso> BuscaPorID(int idCurso)
         {
             var Curso = new Curso();
             SqlDataReader reader;
@@ -41,7 +41,7 @@ namespace PFC.DAO
             using (contexto = new Contexto())
             {
                 var strQuery = string.Format(" SELECT * FROM Curso WHERE Id='{0}'", idCurso);
-                reader = contexto.ExecutaComandoComRetorno(strQuery);
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
                 while (reader.Read())
                 {
 

@@ -41,7 +41,7 @@ namespace PFC.Hubs
         }
 
         #region Connect
-        public void Connect(LoginViewModel login)
+        public async Task Connect(LoginViewModel login)
         {
             emailIDLoaded = login.Email;
             string id = Context.ConnectionId;
@@ -71,7 +71,7 @@ namespace PFC.Hubs
                     Users = dc.ChatUsuDetal.ToList();
                     // send to caller
                     SolicitacaoBLL solicitacaoBLL = new SolicitacaoBLL();
-                    var userss = solicitacaoBLL.ListaAmizade(login.Id);
+                    var userss =await solicitacaoBLL.ListaAmizade(login.Id);
                     List<ChatUsuDetal> list = new List<ChatUsuDetal>();
 
                     //valida se achou amigos 
