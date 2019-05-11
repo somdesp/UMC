@@ -174,6 +174,53 @@ namespace PFC.DAO
         }
         #endregion
 
+        #region Usuarios no Rank inicial
+        public List<Usuario> UsuariosInicials()
+        {
+            SqlCommand comando;
+            List<Usuario> listarUsuarios = new List<Usuario>();
+            string querySQL = $"select Top 3 ava.id_Usuario_DonoTopico 'Id', u.Nome'Nome',c.Curso'Curso',";
+            querySQL += "CASE WHEN SUM(ava.Pontos) is Null then 0 ";
+            querySQL += "ELSE SUM(ava.Pontos) ";
+            querySQL += "End 'Pontos' ";
+            querySQL += "FROM(Avaliacao ava ";
+            querySQL += "Right JOIN Usuario u ON(ava.id_Usuario_DonoTopico = u.Id) ";
+            querySQL += "Left JOIN Curso c ON(u.Id_Curso = c.Id)) ";
+            querySQL += "WHERE ava.Data_Avaliacao BETWEEN(select MIN(Data_Avaliacao) from Avaliacao) AND GETDATE() ";
+            querySQL += "GROUP by u.Nome,c.Curso,ava.id_Usuario_DonoTopico";
+            SqlDataReader reader;
+            using (contexto = new Contexto())
+            {
+                comando = new SqlCommand(querySQL, contexto.forumConexao);
+
+                reader = contexto.ExecutaComandoComRetorno(querySQL);
+
+                while (reader.Read())
+                {
+                    Usuario usuario = new Usuario();
+                    usuario.Id = Convert.ToInt16(reader["Id"].ToString());
+                    usuario.Nome = reader["Nome"].ToString();
+                    usuario.Curso.curso = reader["Curso"].ToString();
+                    usuario.avaliacao.pontos = float.Parse(reader["Pontos"].ToString());
+                    listarUsuarios.Add(usuario);
+                }
+
+            }
+            return listarUsuarios;
+
+
+        }
+        #endregion
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -148,7 +148,7 @@ input.classePesquisa[type=text] {
     background-image: url('../images/favicon/magnifier.png');
     background-position: 100px 10px;
     background-repeat: no-repeat;
-    padding: 12px 20px 12px 25px;
+    padding: 12px 55px 12px 25px;
     transition: width background-position 0.6s linear;
 }
 
@@ -156,6 +156,29 @@ input.classePesquisa[type=text]:focus {
         width: 100%;
         background-position: 230px 10px;
 }
+
+input.classePesquisaUsuario[type=text] {
+    width: 240px;
+    font-family: monospace;
+    background-image: url('../images/favicon/magnifier.png');
+    font-size: 15px;
+    background-position: 205px 10px;
+    background-repeat: no-repeat;
+    padding: 12px 63px 12px 25px;
+    margin-bottom:10px;
+    transition: width background-position 0.6s linear;
+}
+
+    input.classePesquisaUsuario[type=text]:focus {
+        width: 115%;
+        background-position: 230px 10px;
+    }
+
+
+
+
+
+
 
 
 
@@ -2036,15 +2059,20 @@ button.btn.btn-primary.comentariobotao {
     padding: 15px;
     border-radius: 30px;
 }
-
-textarea#areaResposta.form-control {
-    border-radius: 9px;
-    border-color: #ccd0ce;
-    box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
-    opacity: 0.9;
-    min-height: 100px;
-    resize: vertical;
+button.btn.btn-primary.editarbotao {
+    padding: 15px;
+    border-radius: 30px;
 }
+
+
+    textarea#areaResposta.form-control {
+        border-radius: 9px;
+        border-color: #ccd0ce;
+        box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+        opacity: 0.9;
+        min-height: 100px;
+        resize: vertical;
+    }
 
     textarea#areaResposta.form-control:focus {
         border-color: #1abc9c;
@@ -2082,6 +2110,15 @@ p.textodesaparecer {
 
 input.classePesquisa {
     border-radius: 30px;
+    padding: 7px;
+    margin-left: 20px;
+    max-width: 280px;
+    border-color: rgb(26, 188, 156)
+}
+
+
+input.classePesquisaUsuario {
+    border-radius: 20px;
     padding: 7px;
     margin-left: 20px;
     max-width: 280px;

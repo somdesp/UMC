@@ -49,9 +49,10 @@ namespace PFC
         {
             //Serviço para executar Jobs de forma automatica.
             Hangfire.GlobalConfiguration.Configuration.UseSqlServerStorage(ConfigurationManager.ConnectionStrings["dbconectionString"].ConnectionString);
+
             
             //app.UseHangfireDashboard();
-            app.UseHangfireServer();
+            //app.UseHangfireServer();
             
         }
 

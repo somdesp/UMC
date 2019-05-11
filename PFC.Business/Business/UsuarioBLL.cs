@@ -38,6 +38,11 @@ namespace PFC.Business.Business
         }
         #endregion
 
+        public bool AtualizarSenha(Usuario usuario)
+        {
+            return daoUsuario.AtualizarSenha(usuario);
+        }
+
         #region Listar Usuarios
 
         //public List<Usuario> ListarUsuarios()
@@ -62,7 +67,13 @@ namespace PFC.Business.Business
         public Usuario ConsultaUsuarioInt(Usuario UsuarioId)
         {
             Usuario usuario = new Usuario();
+            CursoDAO curso = new CursoDAO();
+            GeneroDAO genero = new GeneroDAO();
+            SemestreDAO semestre = new SemestreDAO();
             usuario = daoUsuario.ConsultaUsuarioInt(UsuarioId);
+            usuario.Curso = curso.BuscaPorID(usuario.Curso.Id);
+            usuario.Semestre = semestre.BuscaPorID(usuario.Semestre.Id);
+            usuario.Sexo = genero.BuscaPorID(usuario.Sexo.Id);
             usuario.UploadArquivo = arquivoDao.RecuperarImagem(usuario.UploadArquivo);
             usuario.Auth = permissaoBll.ReturnAutPorID(usuario.Auth);
             return usuario;

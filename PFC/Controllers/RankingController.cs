@@ -4,6 +4,7 @@ using System;
 using System.Web.Mvc;
 using PFC.Model;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PFC.Controllers
 {
@@ -79,6 +80,31 @@ namespace PFC.Controllers
             return Json(resultado, JsonRequestBehavior.AllowGet);
 
         }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public JsonResult ListarRankInicial()
+        {
+            RankBLL rank = new RankBLL();
+            List<Usuario> resultado = new List<Usuario>();
+
+
+            RecurringJob.AddOrUpdate("RankingInicial", () => rank.ListarUsuariosInicial(), Cron.Minutely);
+            if (rank.ListarUsuariosInicial().Count == 0)
+            {
+                resultado = null;
+            }
+            else
+            {
+                resultado = rank.ListarUsuariosInicial().OrderByDescending(r=>r.avaliacao.pontos).ToList();
+            }
+
+
+            return Json(resultado, JsonRequestBehavior.AllowGet);
+
+        }
+
+
 
     }
 }

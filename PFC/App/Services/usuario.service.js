@@ -30,6 +30,15 @@ MeHelp.service('usuarioService', function ($http) {
         return $http.get("/Listas/GetGenero");
     };
 
+    this.AlterarSenha = function (usuario) {
+        var request = $http({
+            method: 'POST',
+            url: '/Usuario/AlterarSenha',
+            data: usuario
+        });
+        return request;
+    };
+
     this.getSemestre = function (curso) {
 
         var request = $http({
@@ -38,7 +47,7 @@ MeHelp.service('usuarioService', function ($http) {
             data: JSON.stringify({ CursoId: curso })
         });
         return request;
-    }
+    };
 
     //Metodo para chamar dados de somente 1 único usuario
     this.ConsultaUnicoUsuario = function (usuario) {

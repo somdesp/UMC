@@ -26,4 +26,17 @@
         });
         return request;
     };
+
+
+    this.rankInicial = function () {
+        var request = $http({
+            method: 'POST',
+            url: '/Ranking/ListarRankInicial',
+            data: '{}'
+        });
+        return request;
+    };
+
+
+
 });

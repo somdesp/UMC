@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\GitHub\somdesp\UMC\PFC\Hubs\ChatMeHelp.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Anderson\source\repos\somdesp\UMC\PFC\Hubs\ChatMeHelp.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

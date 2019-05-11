@@ -75,7 +75,7 @@ namespace PFC.DAO
 
                     while (reader.Read())
                     {
-                        avaliar.pontos = Convert.ToInt16(reader["pontos"].ToString());
+                        avaliar.pontos = float.Parse(reader["pontos"].ToString());
                         avaliar.contarLike = Convert.ToInt16(reader["contarLike"].ToString());
                         avaliar.contarDeslike = Convert.ToInt16(reader["contarDeslike"].ToString());
                     }

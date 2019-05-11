@@ -14,14 +14,14 @@ namespace PFC.DAO
         GeneroDAO generoDao = new GeneroDAO();
         ArquivoDAO arquivoDAO = new ArquivoDAO();
 
-        #region Adiconar Usuario
+        #region Adicionar Usuario
         public bool AdicionarUsuario(Usuario usuario)
         {
 
             var strQuery = "";
             strQuery += "INSERT INTO Usuario (Nome,Login,Email,Senha,Id_Genero,DataNasci,RGM,Id_Curso,Id_Semestre,DataCad,Id_Permissoes,Id_Arquivo) ";
             strQuery += string.Format("VALUES('{0}','{1}','{2}',PWDENCRYPT('{3}'),'{4}','{5}','{6}','{7}','{8}','{9}','{10}',(select max(Id) from Arquivos))",
-                usuario.Nome, usuario.Login, usuario.Email, usuario.Senha, usuario.Sexo.Id, usuario.DataNasci.ToString("dd/MM/yyyy"), usuario.RGM, usuario.Curso.Id, usuario.Semestre.Id, DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss"), 3);
+                usuario.Nome, usuario.Login, usuario.Email, usuario.Senha, usuario.Sexo.Id, usuario.DataNasci.ToString("dd/MM/yyyy"), usuario.RGM, usuario.Curso.Id, usuario.Semestre.Id, DateTime.Now.ToString("yyyy/MM/dd hh:mm:ss"), 3);
 
             using (contexto = new Contexto())
             {
@@ -102,11 +102,12 @@ namespace PFC.DAO
             strQuery += " UPDATE Usuario SET ";
             strQuery += string.Format(" Nome = '{0}', ", usuario.Nome);
             strQuery += string.Format(" RGM = '{0}', ", usuario.RGM);
-            strQuery += string.Format(" DataNasci = '{0}', ", usuario.DataNasci);
+            strQuery += string.Format(" Email = '{0}', ", usuario.Email);
+            strQuery += string.Format(" DataNasci = '{0}', ",usuario.DataNasci.ToString("yyyy-MM-dd"));
             strQuery += string.Format(" Id_Curso = '{0}', ", usuario.Curso.Id);
             strQuery += string.Format(" Id_Semestre = '{0}', ", usuario.Semestre.Id);
             strQuery += string.Format(" Id_Genero = '{0}', ", usuario.Sexo.Id);
-            strQuery += string.Format(" DataCad = '{0}' ", DateTime.Now.ToString());
+            //strQuery += string.Format(" DataCad = '{0}' ", DateTime.Now.ToString());
             strQuery += string.Format(" WHERE Id = {0}; ", usuario.Id);
 
             using (contexto = new Contexto())
@@ -115,6 +116,22 @@ namespace PFC.DAO
             }
         }
         #endregion
+
+        public bool AtualizarSenha(Usuario usuario)
+        {
+            var strQuery = "";
+            strQuery += " UPDATE Usuario SET ";
+            strQuery += string.Format(" Senha = PWDENCRYPT('{0}') ", usuario.Senha);
+            strQuery += string.Format(" WHERE Id = {0}; ", usuario.Id);
+            using (contexto = new Contexto())
+            {
+                return contexto.ExecutarInsert(strQuery);
+            }
+        }
+
+
+
+
 
         #region Lista Somente Usuarios Ativos
         public List<Usuario> ListarUsuarios()

@@ -6,7 +6,14 @@
 
 
 <div class="sub-title">
-    <h2>About Me</h2>
+    <div class="col-md-9">
+        <form class="form-inline">
+            <h2>Perfil</h2>
+            <div class="form-group">
+                <input type="text" class="form-control classePesquisaUsuario" id="pesquisaUsuario" ng-model="pesquisar" placeholder="Buscar usuarios...">
+            </div>
+        </form>
+    </div>
     <a href="contact.html"><i class="icon-envelope"></i></a>
 </div>
 
@@ -19,64 +26,245 @@
 
 
 <div class="col-md-12 content-page" ng-controller="amizadeCtrl">
-    <div class="col-md-12 blog-post">
-        <div>
-            <img src="../Upload/{{PerfilUsuario.UploadArquivo.Caminho}}" alt="">
-        </div>
-        <!-- My Intro Start -->
-        <div class="post-title margin-bottom-30">
-            <div class="form-group" ng-mouseover="botaoEditar()" ng-mouseleave="botaoEditarDesaparecer()">
-               Ola, Eu Sou o <input type="text" value="{{PerfilUsuario.Nome}}" /><input type="button" ng-click="clickBotaoEditar()" class="btn btn-primary small botao" value="Editar">
-                
-                <br />
+    <div class="row">
+        <div class="col-md-4 blog-post">
+            <div class="row">
+                <div class="col-md-12" ng-if="(ModelUsuario.Id === PerfilUsuario.Id)">
+
+                    <button type="button" class="btn btn-primary editarbotao" data-toggle="modal" data-target="#editarPerfil">
+                        <i class="fas fa-pencil-alt fa-2x"></i>
+                    </button>
+
+                </div>
             </div>
-            <h3>Portardor do RGM:{{PerfilUsuario.RGM}}</h3>
-            <br />
-            <h4>Email: {{PerfilUsuario.Email}}</h4>
+            <div class="row">
+                <div class="col-md-12" ng-if="(ModelUsuario.Id === PerfilUsuario.Id)" >
+                    <br />
+                    <button type="button" class="btn btn-primary editarbotao" data-toggle="modal" data-target="#loginSenha">
+                        <i class="fas fa-key fa-2x"></i>
+                    </button>
+                </div>
 
-            <ul class="knowledge">
-                <li class="bg-color-{{PerfilUsuario.Auth.Id}}">{{PerfilUsuario.Auth.Permissao}}</li>
-            </ul>
+            </div>
+        </div>
+        <div class="col-md-4 container-fluid">
+            <div class="form-group">
+                <img class="img-thumbnail" src="../Upload/{{PerfilUsuario.UploadArquivo.Caminho}}" alt="">
+            </div>
+            <h2>{{PerfilUsuario.Nome}}</h2>
+        </div>
+        <div class="col-md-4 blog-post">
 
         </div>
-        <!-- My Intro End -->
+
+        <div class="row">
+            <div class="col-md-12 blog-post">
 
 
-        <p class='post-info'>Estou presente no forum desde {{PerfilUsuario.DataCad}}</p>
+                <div class="col-md-6">
+
+
+                    <div class="post-title">
+                        <h1>Dados do usuario</h1>
+                    </div>
+                    <div class="list list-style-2 margin-top-30">
+                        <ul>
+                            <li>Genero: {{PerfilUsuario.Sexo.Sexo}}</li>
+                            <li>RGM:{{PerfilUsuario.RGM}}</li>
+                            <li>Email: {{PerfilUsuario.Email}}</li>
+                            <li>Curso: {{PerfilUsuario.Curso.curso}}</li>
+                            <li>Semestre: {{PerfilUsuario.Semestre.semestre}}</li>
+                        </ul>
+                        <ul class="knowledge">
+                            <li class="bg-color-{{PerfilUsuario.Auth.Id}}">{{PerfilUsuario.Auth.Permissao}}</li>
+                        </ul>
 
 
 
-        <!-- Video Start -->
-        <!-- Video End -->
-        <!-- My Service Start -->
-        <div class="post-title">
-            <h1>My <span class="main-color">Services</span></h1>
+                        <p class='post-info'>Estou presente no forum desde {{PerfilUsuario.DataCad}}</p>
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="post-title">
+                        <h1>My <span class="main-color">Services</span></h1>
+                    </div>
+                    <div class="list list-style-2 margin-top-30">
+                        <ul>
+                            <li>Website Design</li>
+                            <li>Website Development</li>
+                            <li>Wordpress Theme Development</li>
+                            <li>Mobile Apps UI/UX Design</li>
+                            <li>Online Software Development</li>
+                            <li>E-commerce Development</li>
+                            <li>UI/UX Consulting</li>
+                        </ul>
+                    </div>
+                    <!-- My Service End -->
+                    @*Verifica se usuario nao é ele mesmo*@
+                    <div ng-if="(ModelUsuario.Id != PerfilUsuario.Id)">
+                        <div ng-if="(valAmi)">
+                            <button ng-click="cancelaAmizade(PerfilUsuario)" class="btn btn-lg btn-danger">Cancelar amizade</button>
+
+                        </div>
+                        <div ng-if="(!valAmi)">
+                            <button ng-click="conviteAmizade(PerfilUsuario)" class="btn btn-lg btn-primary">Adicionar Usuario</button>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+
+            </div>
         </div>
-
-        <div class="list list-style-2 margin-top-30">
-            <ul>
-                <li>Website Design</li>
-                <li>Website Development</li>
-                <li>Wordpress Theme Development</li>
-                <li>Mobile Apps UI/UX Design</li>
-                <li>Online Software Development</li>
-                <li>E-commerce Development</li>
-                <li>UI/UX Consulting</li>
-            </ul>
-        </div>
-        <!-- My Service End -->
-
     </div>
 
-    @*Verifica se usuario nao é ele mesmo*@
-    <div ng-if="(ModelUsuario.Id != PerfilUsuario.Id)">
-        <div ng-if="(valAmi)">
-            <button ng-click="conviteAmizade(PerfilUsuario)" class="btn btn-lg btn-primary" disabled>Usuario Adicionado</button>
+    <!--Notificação mostrada para o Usuario após Editar ----------------------------------------------->
+    <growl-notifications class="growl-notifications">
+        <div style="display:none">
+            <div ng-repeat="(id, notification) in notifications track by id">
+                <growl-notification class="fading" ttl="5000">
+                    <i class="fas fa-check fa-1x"></i><span class="font-weight-lighter tituloNotificacao">Sucesso</span>
+                    <br />
+                    <span class="textoNotificacao">Operação concluida com sucesso!</span>
+                </growl-notification>
 
+            </div>
         </div>
-        <div ng-if="(!valAmi)">
-            <button ng-click="conviteAmizade(PerfilUsuario)" class="btn btn-lg btn-primary">Adicionar Usuario</button>
+        <div style="display:none">
+            <div ng-repeat="(id, notification) in notificationsErro track by id">
+                <growl-notification class="fading erro" ttl="5000">
+                    <i class="fas fa-times fa-1x"></i><span class="font-weight-lighter tituloNotificacao">Erro</span>
+                    <br />
+                    <span class="textoNotificacao">Opa!Alguma coisa deu errada</span>
+                </growl-notification>
+            </div>
         </div>
+
+    </growl-notifications>
+    <!----------------------------------------------------------------------------------------------------------->
+
+    <div class="modal fade bd-example-modal-lg" id="editarPerfil" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fas fa-times-circle"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <form name="EditarUsuario">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputPassword4">Nome</label>
+                                        <input type="text" class="form-control" id="Nome" ng-model="usuario.Nome" placeholder="Digite seu Nome" required>
+                                        <span ng-class="error" ng-show="EditarUsuario.DataNasci.$error.required">Seu nome é obrigatório</span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Email</label>
+                                        <input type="email" class="form-control" id="Email" ng-model="usuario.Email" placeholder="Digite seu Email" required>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="inputAddress">RGM</label>
+                                    <input type="text" class="form-control" id="RGM" ng-model="usuario.RGM" placeholder="Digite seu RGM" required>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="DataNasci">Data de Nascimento</label>
+                                    <input class="form-control" type="date" ng-model="usuario.DataNasci" id="DataNasci" name="DataNasci" placeholder="DataNasci" required />
+                                    <span ng-class="error" ng-show="EditarUsuario.DataNasci.$error.required">DataNasci é obrigatório</span>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="Genero">Genero</label>
+                                        <select class="form-control" ng-model="usuario.Sexo.Id" id="Genero"
+                                                ng-options="c.Id as c.Sexo for c in Genero" required>
+                                            <option value="" selected="selected" disabled="disabled"> {{Id || 'Sexo'}} </option>
+                                        </select>
+                                    </div>
+                                    <span ng-class="error" ng-show="EditarUsuario.usuario.Sexo.Id.$error.required">Genero é obrigatório</span>
+                                    <div class="form-group col-md-4">
+                                        <label for="Curso">Curso</label>
+                                        <select class="form-control" ng-model="usuario.Curso.Id" id="Curso"
+                                                ng-change="carregarSemestre(usuario.Curso.Id)"
+                                                ng-options="c.Id as c['curso' + Lang] for c in Curso" required>
+                                            <option value="" selected="selected" disabled="disabled"> {{Id || 'Curso'}} </option>
+                                        </select>
+                                        <span ng-class="error" ng-show="EditarUsuario.usuario.Curso.Id.$error.required">Curso é obrigatório</span>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="Semestre">Semestre</label>
+                                        <select class="form-control" ng-model="usuario.Semestre.Id" id="Semestre"
+                                                ng-options="s.Id as s.semestre for s in Semestre" required>
+
+                                            <option value="" selected="selected" disabled="disabled">{{Id || 'Semestre'}}</option>
+                                        </select>
+                                        <span ng-class="error" ng-show="EditarUsuario.usuario.Semestre.Id.$error.required">Semestre é obrigatório</span>
+
+                                    </div>
+                                </div>
+
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" ng-disabled="EditarUsuario.$invalid" ng-click="EnviarPerfil(usuario)">Atualizar Perfil</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="loginSenha" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fas fa-times-circle"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <form name="FormSenha">
+                            <div class="col-md-12">
+                                <div class="form-group col-md-12">
+                                    <label for="inputAddress">Senha</label>
+                                    <input type="password" class="form-control" id="senha" ng-model="senha" zxcvbn="passwordStrength" placeholder="Digite a senha que deseja alterar" ng-keyup="verificarForca(passwordStrength.score)" zx-min-score="3">
+                                    <uib-progressbar class="active" ng-init="dynamic = 0" max="max" value="dynamic" type="{{type}}"></uib-progressbar>
+                                    <span ng-show="FormSenha.senha.$invalid">Erro de comparação de senha</span>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="inputAddress">Confirmar senha</label>
+                                    <input type="password" class="form-control" id="confirmasenha" ng-model="ConfirmarSenha" name="ConfirmarSenha" placeholder="Confirme a senha de alteração" required ng-pattern="senha" />
+                                    <span class="error text-danger" ng-show="FormSenha.ConfirmarSenha.$invalid">Senhas não estão iguais!!!</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-primary" ng-disabled="FormSenha.$invalid" ng-click="alterarSenha()">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
     </div>
 </div>
 

@@ -10,7 +10,7 @@ namespace PFC.Business
 {
     public class RankBLL
     {
-        
+
 
         #region Consulta na tabela rank  diario  
         public List<Usuario> ListarRank()
@@ -45,8 +45,19 @@ namespace PFC.Business
         }
         #endregion
 
+        #region Listar Usuarios Inicial
+        public List<Usuario> ListarUsuariosInicial()
+        {
+            RankingDAO dao = new RankingDAO();
 
-        
+            List<Usuario> listarRanking = new List<Usuario>();
+            listarRanking = dao.UsuariosInicials();
+            return listarRanking;
+        }
+        #endregion
+
+
+
         #region Executar rank diario
         public void ExecutarRankDiarioJob()
         {
