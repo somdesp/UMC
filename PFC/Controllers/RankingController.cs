@@ -12,7 +12,6 @@ namespace PFC.Controllers
     public class RankingController : Controller
     {
         #region Listar Usuario Rank
-        [Authorize]
         [HttpPost]
         [OutputCache(Duration = 120)]
         public async Task<JsonResult> ListarRank()
@@ -36,7 +35,6 @@ namespace PFC.Controllers
 
         }
         #endregion
-        [Authorize]
         [HttpPost]
         [OutputCache(Duration = 120)]
         public async Task<JsonResult> ListarRankSemanal()

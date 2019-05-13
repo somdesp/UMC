@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace PFC.Controllers
 {
-    [Authorize]
+
     public class TemaController : Controller
     {
 

@@ -1,4 +1,5 @@
 ﻿using PFC.DAO;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace PFC.Controllers
@@ -8,18 +9,18 @@ namespace PFC.Controllers
         /////////////////////////////Listar Entidades sem Authorize //////////////////
 
         [HttpGet]
-        public JsonResult GetGenero()
+        public async Task<JsonResult> GetGenero()
         {
             GeneroDAO gen = new GeneroDAO();
-            return Json(gen.ListarGenero(), JsonRequestBehavior.AllowGet);
+            return Json(await gen.ListarGenero(), JsonRequestBehavior.AllowGet);
         }
 
 
         [HttpGet]
-        public JsonResult GetCurso()
+        public async Task<JsonResult> GetCurso()
         {
             CursoDAO curso = new CursoDAO();
-            return Json(curso.ListarCurso(), JsonRequestBehavior.AllowGet);
+            return Json(await curso.ListarCurso(), JsonRequestBehavior.AllowGet);
         }
 
 

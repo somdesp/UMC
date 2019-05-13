@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 namespace PFC.Controllers
 {
 
-    [Authorize]
     public class UsuarioController : Controller
     {
         private static string CaminhoImage;

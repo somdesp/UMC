@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -10,18 +11,18 @@ namespace PFC.Controllers
     public class SemestreController : Controller
     {
         [HttpPost]
-        public JsonResult GetSemestre(string CursoId)
+        public async  Task<JsonResult> GetSemestre(string CursoId)
         {
             SemestreDAO semestre = new SemestreDAO();
-            return Json(semestre.ListarSemestre(Convert.ToInt32(CursoId)), JsonRequestBehavior.AllowGet);
+            return Json(await semestre.ListarSemestre(Convert.ToInt32(CursoId)), JsonRequestBehavior.AllowGet);
 
         }
 
         [HttpGet]
-        public JsonResult GetSemestre()
+        public async Task<JsonResult> GetSemestre()
         {
             SemestreDAO semestre = new SemestreDAO();
-            return Json(semestre.ListarSemestre(), JsonRequestBehavior.AllowGet);
+            return Json(await semestre.ListarSemestre(), JsonRequestBehavior.AllowGet);
         }
 
     }
