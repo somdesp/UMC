@@ -33,10 +33,10 @@ namespace PFC.Controllers
 
         #region Metodo listar Usuario READ   
         //Get Usuario/GetUsuario
-        public JsonResult ListarUsuarios()
+        public async Task<JsonResult> ListarUsuarios()
         {
             UsuarioDAO db = new UsuarioDAO();
-            return Json(db.ListarUsuarios(), JsonRequestBehavior.AllowGet);
+            return Json(await db.ListarUsuarios(), JsonRequestBehavior.AllowGet);
         }
         #endregion
 

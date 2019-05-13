@@ -3,6 +3,7 @@ using PFC.DAO;
 using PFC.Model;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace PFC.Controllers
@@ -75,10 +76,10 @@ namespace PFC.Controllers
         #region Listar temas
         [HttpGet]
         [AllowAnonymous]
-        public JsonResult GetTema()
+        public async Task<JsonResult> GetTema()
         {
             TemaDAO temaDao = new TemaDAO();
-            return Json(temaDao.ListarTema(), JsonRequestBehavior.AllowGet);
+            return Json(await temaDao.ListarTema(), JsonRequestBehavior.AllowGet);
 
         }
         #endregion
