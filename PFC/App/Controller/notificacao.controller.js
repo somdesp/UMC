@@ -1,7 +1,10 @@
 ﻿MeHelp.controller('notificationController', function ($scope, notificacaoService, amizadeService) {
     var $self = this;
     var ModelUsuario = JSON.parse(localStorage.getItem('model'));
-    visualizarNotificacao(ModelUsuario);
+    visualizarNotificacaoAmizade(ModelUsuario);
+    if (ModelUsuario.Auth.Id === 1 || ModelUsuario.Auth.Id === 3) {
+        visualizarNotificacaoDenuncia(ModelUsuario);
+    }
 
 
     $self.notifications = [];
@@ -14,50 +17,56 @@
         $self.notifications.splice(index, 1);
     };
 
-    //var signalRClient = new Hub('notification', {
-    //    listeners: {
-    //        'newContact': function (msg) {
-    //            $self.notifications.push(msg);
-    //            toaster.pop('success', msg);
-    //            $scope.$apply();
+    //valida notificação Amizade
+    function visualizarNotificacaoAmizade(UsuarioSolicitado) {
+        var Notificacao = notificacaoService.VisualizarNotificacaoAmizade(UsuarioSolicitado);
 
-    //            console.log('newContact called ' + msg);
-    //        },
-    //        'deleteContact': function (msg) {
-    //            $self.notifications.push(msg);
-    //            toaster.pop('error', msg);
-    //            $scope.$apply();
 
-    //            console.log('deleteContact called. ' + msg);
-    //        }
-    //    }
-    //});
-
-    function visualizarNotificacao(UsuarioSolicitado) {
-        var Notificacao = notificacaoService.VisualizarNotificacaoGeral(UsuarioSolicitado);
 
         Notificacao.then(function (d) {
 
             if (d.data !== false) {
                 $self.notifications.push("Voçe tem novas Mensagens");
-                visualizarNotificacaoAmizade(UsuarioSolicitado);
+                NotificacaoAmizade(UsuarioSolicitado);
                 $scope.$apply();
             }
         },
             function () {
                 console.log("Erro ao visualizarNotificacao");
             });
-        return Notificacao;
+
+    };
+
+    //valida notificação denuncia
+    function visualizarNotificacaoDenuncia(UsuarioSolicitado) {
+        var Notificacao = notificacaoService.VisualizarNotificacaoDenuncia(UsuarioSolicitado);
+
+
+
+        Notificacao.then(function (d) {
+
+            if (d.data !== null) {
+                $self.notifications.push("Voçe tem novas Mensagens");
+                NotificacaoDenuncia(UsuarioSolicitado);
+                $scope.$apply();
+            }
+        },
+            function () {
+                console.log("Erro ao visualizarNotificacao");
+            });
+
     };
 
 
-    function visualizarNotificacaoAmizade(UsuarioSolicitado) {
-        var Notificacao = notificacaoService.VisualizarNotificacaoAmizade(UsuarioSolicitado);
+    function NotificacaoAmizade(UsuarioSolicitado) {
+        var Notificacao = notificacaoService.NotificacaoAmizade(UsuarioSolicitado);
 
         Notificacao.then(function (d) {
 
             if (d.data !== true) {
-                $scope.notifi = d.data;                
+                $scope.notifiamizade = d.data;
+            } else {
+                $scope.notifiamizade = false;
             }
         },
             function () {
@@ -66,6 +75,22 @@
         return Notificacao;
     };
 
+    function NotificacaoDenuncia(UsuarioSolicitado) {
+        var Notificacao = notificacaoService.visualizarNotificacaoDenuncia(UsuarioSolicitado);
+
+        Notificacao.then(function (d) {
+
+            if (d.data !== null) {
+                $scope.notifidenuncia = d.data;
+            } else {
+                $scope.notifidenuncia = false;
+            }
+        },
+            function () {
+                console.log("Erro ao visualizarNotificacaoAmizade");
+            });
+        return Notificacao;
+    };
 
     //Aceitar Amizade
     $scope.aceitarAmizade = function (usuarios) {
@@ -86,6 +111,26 @@
     };
 
 
+    //Recusa Amizade
+    $scope.recusarAmizade = function (usuarios) {
+
+        var aceitarAmizade = amizadeService.CancelaAmizade(usuarios);
+
+        aceitarAmizade.then(function (d) {
+            if (d.data === true) {
+                alert("Solicitação Recusada");
+                NotificacaoAmizade(ModelUsuario);
+
+            } else {
+                alert("Solicitação Nao enviada");
+            }
+        },
+            function () {
+                $("#resposta").text("Error Critico");
+            });
+    };
+
+    
 
 });
 

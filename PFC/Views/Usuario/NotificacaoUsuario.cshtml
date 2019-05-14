@@ -2,7 +2,9 @@
     <div class="sub-title">
         <div class="panel-heading"><h2>Notificacoes</h2></div>
     </div>
-    <div ng-if="notifi">
+    <div ng-if="notifiamizade">
+        <div class="panel-heading"><h2>Solcitação de amizade</h2></div>
+
         <table class="table table-bordered">
             <thead style="background-color:#1abc9c;">
                 <tr>
@@ -12,15 +14,38 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="usu in notifi">
+                <tr ng-repeat="usu in notifiamizade">
                     <td><a href="../Usuario/PerfilUsuario?usuarioid={{usu.usuarioSolicitado.id}}">{{usu.usuarioSolicitado.nome}}</a></td>
                     <td>{{usu.usuarioSolicitado.email}}</td>
 
                     <td style="width: 200px">
                         <button type="button" class="btn btn-info" ng-click="aceitarAmizade(usu)">Aceitar</button>
-                        <button type="button" class="btn btn-danger" ng-click="recusar(usu)">Recusar</button>
+                        <button type="button" class="btn btn-danger" ng-click="recusarAmizade(usu)">Recusar</button>
                     </td>
 
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div ng-if="notifidenuncia">
+        <div class="panel-heading"><h2>Denuncias</h2></div>
+
+        <table class="table table-bordered">
+            <thead style="background-color:#1abc9c;">
+                <tr>
+                    <th>Usuario</th>
+                    <th>Email</th>
+                    <th>Denuncia</th>
+                    <th>Topico</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="usu in notifidenuncia">
+                    <td><a href="../Usuario/PerfilUsuario?usuarioid={{usu.id_Usu_Sol.id}}">{{usu.id_Usu_Sol.nome}}</a></td>
+                    <td>{{usu.id_Usu_Sol.email}}</td>
+                    <td>{{usu.descricao}}</td>
+                    <td><a href="../Topico/TopicoSelecionado?topicoId={{usu.topico.id}}">{{usu.topico.titulo}}</a></td>
                 </tr>
             </tbody>
         </table>
