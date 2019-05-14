@@ -22,12 +22,12 @@ namespace PFC.DAO
                 usuario.Id, usuarioSolicitado.Id);
 
             using (contexto = new Contexto())
-            {                                
+            {
                 reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                 while (reader.Read())
                 {
-                    Id_Amizade= Convert.ToInt32(reader["Id_Amizade"].ToString());       
+                    Id_Amizade = Convert.ToInt32(reader["Id_Amizade"].ToString());
                 }
                 reader.Close();
 
@@ -48,7 +48,7 @@ namespace PFC.DAO
 
                 string strQuery = string.Format("select * from Amizade WHERE (Id_Usu_Sol = '{0}' AND Id_Usu_Pen='{1}') OR (Id_Usu_Sol = '{1}' AND Id_Usu_Pen='{0}')   ",
                     usuario.Id, usuarioSolicitado.Id);
-                reader =await contexto.ExecutaComandoComRetorno(strQuery);
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                 if (reader.HasRows.Equals(false))
                 {
@@ -65,44 +65,7 @@ namespace PFC.DAO
 
         #endregion
 
-        #region NotificaçãoAMizade
-        public async Task<List<Solicitacao>> NotificacaoAmizade(Usuario usuario)
-        {
-            SqlDataReader reader;
-            List<Solicitacao> solicitacao = new List<Solicitacao>();
-            using (contexto = new Contexto())
-            {
 
-                string strQuery = string.Format("select * from Amizade WHERE Id_Usu_Pen = {0} AND Id_Status=1 ",
-                    usuario.Id);
-                reader = await contexto.ExecutaComandoComRetorno(strQuery);
-
-                if (reader.HasRows.Equals(false))
-                {
-                    reader.Close();
-                    return solicitacao;
-                }
-                else
-                {
-                    while (reader.Read())
-                    {
-                        Solicitacao temObjeto = new Solicitacao();
-                        temObjeto.usuarioSolicitado.Id = Convert.ToInt32(reader["Id_Usu_Sol"].ToString());
-                        temObjeto.usuarioSolicitado = await usuarioDAO.ConsultaUsuarioInt(temObjeto.usuarioSolicitado);
-                        temObjeto.usuario.Id = Convert.ToInt32(reader["Id_Usu_Pen"].ToString());
-                        temObjeto.usuario = await usuarioDAO.ConsultaUsuarioInt(temObjeto.usuario);
-                        solicitacao.Add(temObjeto);
-                    }
-                    reader.Close();
-                }
-
-
-            }
-            return solicitacao;
-
-        }
-
-        #endregion
 
         #region AceitaAmizade
         public async Task<bool> AceitaAmizadeAsync(Usuario usuario, Usuario usuarioSolicitado)
@@ -150,14 +113,31 @@ namespace PFC.DAO
 
 
         #region CancelaAmizade
-        public bool CancelaAmizade(Usuario usuario, Usuario usuarioSolicitado)
+        public async Task<bool> CancelaAmizade(Usuario usuario, Usuario usuarioSolicitado)
         {
             using (contexto = new Contexto())
             {
+                SqlDataReader reader;
                 try
                 {
-                    string strQuery = string.Format("DELETE Amizade WHERE (Id_Usu_Pen = '{0}' AND Id_Usu_Sol='{1}') OR (Id_Usu_Pen = '{1}' AND Id_Usu_Sol='{0}') ",
+                    string strQuery = string.Format("SELECT * FROM Amizade WHERE (Id_Usu_Pen = {0} AND Id_Usu_Sol={1}) OR (Id_Usu_Pen = {1} AND Id_Usu_Sol={0}) ",
                     usuario.Id, usuarioSolicitado.Id);
+
+                    reader= await contexto.ExecutaComandoComRetorno(strQuery);
+                    int idNot = 0;
+                    while (reader.Read())
+                    {
+                        idNot = int.Parse(reader["Id"].ToString());         
+                    }
+                    reader.Close();
+                    strQuery = string.Format("DELETE FROM Notificacao WHERE Id_Amizade ={0};", idNot);
+
+                    contexto.ExecutarInsert(strQuery);
+
+
+                    strQuery = string.Format(" DELETE Amizade WHERE (Id_Usu_Pen = {0} AND Id_Usu_Sol={1}) OR (Id_Usu_Pen = {1} AND Id_Usu_Sol={0}) ",
+    usuario.Id, usuarioSolicitado.Id);
+
                     contexto.ExecutarInsert(strQuery);
                     return true;
                 }

@@ -15,8 +15,7 @@ namespace PFC.Controllers
         [AcceptVerbs("POST")]
         public async Task<List<Solicitacao>> NotificacaoAmizade([FromBody]Usuario usuario)
         {
-            SolicitacaoBLL amizadeBll = new SolicitacaoBLL();
-           var notif = await amizadeBll.NotificacaoAmizade(usuario);
+           var notif = await notificacaoBLL.NotificacaoAmizade(usuario);
 
             if (notif.Count > 0)
             {
@@ -30,9 +29,34 @@ namespace PFC.Controllers
 
         #region VerificaNotificacaoAmizade
         [AcceptVerbs("POST")]
-        public async Task<bool> VerificaNotificacaoAmizade([FromBody]Usuario usuario)
+        public async Task<bool> VerificaNotificacaoAmizadeAsync([FromBody]Usuario usuario)
         {
             return await notificacaoBLL.VerificaNotificacaoAmizadeAsync(usuario);
+        }
+        #endregion        
+
+        #region VerificaNotificacaoAmizade
+        [AcceptVerbs("POST")]
+        [Authorize(Roles = "Admin,Master")]
+        public async Task<bool> VerificaNotificacaoDenunciaAsync([FromBody]Usuario usuario)
+        {
+            return await notificacaoBLL.VerificaNotificacaoDenunciaAsync(usuario);
+        }
+        #endregion
+
+        #region Denuncia
+        [AcceptVerbs("POST")]
+        public async Task<List<Denuncia>> NotificacaoDenunciaAsync([FromBody]Usuario usuario)
+        {
+            var notif = await notificacaoBLL.NotificacaoDenunciaAsync(usuario);
+
+            if (notif.Count > 0)
+            {
+                return notif;
+            }
+
+            return null;
+
         }
         #endregion
     }

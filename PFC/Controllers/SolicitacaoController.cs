@@ -64,10 +64,10 @@ namespace PFC.Controllers
 
         #region CancelaAmizade
         [AcceptVerbs("POST")]
-        public bool CancelaAmizade([FromBody]Solicitacao amizade)
+        public async Task<bool> CancelaAmizade([FromBody]Solicitacao amizade)
         {
             SolicitacaoBLL amizadeBll = new SolicitacaoBLL();
-            return (amizadeBll.CancelaAmizade(amizade.usuario, amizade.usuarioSolicitado));
+            return (await amizadeBll.CancelaAmizade(amizade.usuario, amizade.usuarioSolicitado));
 
         }
         #endregion

@@ -45,11 +45,12 @@
                 </div>
             </div>
 
-
-            <button type="button" class="btn btn-danger right" data-toggle="modal" data-target="#ModalDenuncia">
-                Algo Errado?
-            </button>
-
+            @if (@User.Identity.IsAuthenticated)
+            {
+                <button type="button" class="btn btn-danger right" data-toggle="modal" data-target="#ModalDenuncia">
+                    Algo Errado?
+                </button>
+            }
         </div>
 
 
@@ -173,32 +174,45 @@
         }
     </div>
 
+    <div ng-controller="denunciaController">
+        <div class="modal fade" id="ModalDenuncia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" >
+                    <div class="modal-body text-center mb-1">
+                        <label data-error="wrong" data-success="right" for="form29" class="ml-0">O que esta acontencendo?</label>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Titulo:</label>
+                                <input type="text" ng-model="titulo" class="form-control" id="recipient-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="col-form-label">Digite uma mensagem:</label>
+                                <textarea class="form-control" ng-model="mensagem" id="message-text"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-toggle="modal" data-target="#ModalDenunciaConfirma" class="btn btn-primary">Enviar notificação</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
 
-    <div class="modal fade" id="ModalDenuncia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" ng-controller="denunciaController">
-                <div class="modal-body text-center mb-1">
-                    <label data-error="wrong" data-success="right" for="form29" class="ml-0">O que esta acontencendo?</label>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Titulo:</label>
-                            <input type="text" ng-model="titulo" class="form-control" id="recipient-name">
+            <div class="modal fade" id="ModalDenunciaConfirma" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Deseja registrar?</h4>
                         </div>
-                        <div class="form-group">
-                            <label for="message-text" class="col-form-label">Digite uma mensagem:</label>
-                            <textarea class="form-control" ng-model="mensagem" id="message-text"></textarea>
+                        <div class="modal-footer">
+                            <button type="button" data-dismiss="modal" ng-click="DenunciaUsuario(TopicosSelc)" class="btn btn-primary" id="modal-btn-si">Sim</button>
+                            <button type="button" class="btn btn-default" id="modal-btn-no">Não</button>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                    <button type="button" ng-click="DenunciaUsuario(TopicosSelc)" class="btn btn-primary">Enviar notificação</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
-

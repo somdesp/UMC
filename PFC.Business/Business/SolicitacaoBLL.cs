@@ -20,7 +20,7 @@ namespace PFC.Business
                 int id_amizade = await amizadeDao.solicitacaoAmizade(usuario, usuarioSolicitado);
                 if (id_amizade > 0)
                 {
-                    notificacaoBLL.AdicionaNotificação(id_amizade);
+                    await notificacaoBLL.AdicionaNotificação(id_amizade);
                     return true;
                 }
                 return false;
@@ -41,20 +41,15 @@ namespace PFC.Business
             return await amizadeDao.ValidaAmizade(usuario, usuarioSolicitado);
         }
 
-        public async Task<List<Solicitacao>> NotificacaoAmizade(Usuario usuario)
-        {
-
-            return await amizadeDao.NotificacaoAmizade(usuario);
-        }
 
         public async Task<bool> AceitaAmizade(Usuario usuario, Usuario usuarioSolicitado)
         {
             return await amizadeDao.AceitaAmizadeAsync(usuario, usuarioSolicitado);
         }
 
-        public bool CancelaAmizade(Usuario usuario, Usuario usuarioSolicitado)
+        public async Task<bool> CancelaAmizade(Usuario usuario, Usuario usuarioSolicitado)
         {
-            return amizadeDao.CancelaAmizade(usuario, usuarioSolicitado);
+            return await amizadeDao.CancelaAmizade(usuario, usuarioSolicitado);
         }
 
         public async Task<List<Usuario>> ListaAmizade(int Id_Usuario)
