@@ -80,6 +80,21 @@ MeHelp.service('usuarioService', function ($http) {
         return request;
     };
 
+    //pesquisar no arquivo javascript service
+    this.pesquiUsuario = function (pesquisa) {
+        var request = $http({
+            method: 'POST',
+            url: '/Usuario/PesquisarUsuario',
+            data: JSON.stringify({ pesquisa: pesquisa })
+        });
+        return request;
+    };
+
+
+
+
+
+
 
 });
 

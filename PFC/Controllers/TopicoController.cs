@@ -56,7 +56,7 @@ namespace PFC.Controllers
         #region Criação de topicos
         [HttpPost]
         [Authorize(Roles = "Admin,Usuario,Master")]
-        public ActionResult AdicionarTopico(Topico topico)
+        public async Task<ActionResult> AdicionarTopico(Topico topico)
         {
             Boolean retorno = false;
             TopicoBLL topicoBll = new TopicoBLL();
@@ -65,7 +65,7 @@ namespace PFC.Controllers
             if (ModelState.IsValid)
             {
 
-                topicoBll.AdicionarTopico(topico);
+                 await topicoBll.AdicionarTopico(topico);
                 retorno = true;
             }
             return Json(retorno);

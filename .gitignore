@@ -261,3 +261,4 @@ __pycache__/
 *.pyc
 /PFC/Content/css/materialize.css
 /PFC/Scripts/materialize.js
+/PFC/Upload

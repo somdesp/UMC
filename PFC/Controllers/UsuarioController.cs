@@ -10,6 +10,7 @@ using PFC.Business;
 using PFC.Business.Business;
 using PFC.Hubs;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace PFC.Controllers
 {
@@ -233,6 +234,18 @@ namespace PFC.Controllers
             return View();
         }
 
+
+        [HttpPost]
+        [Authorize]
+        public async Task<JsonResult> PesquisarUsuario(string pesquisa)
+        {
+            UsuarioBLL usuariopesquisa = new UsuarioBLL();
+            List<Usuario> objetoPesquisa = new List<Usuario>();
+            objetoPesquisa = await usuariopesquisa.ConsultaUsuario();
+            var result = objetoPesquisa.Where(p => p.Nome.Contains(pesquisa)).ToList();
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
 
 
 

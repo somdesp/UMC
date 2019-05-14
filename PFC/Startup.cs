@@ -41,7 +41,7 @@ namespace PFC
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
 
-            ExecutarJobs(app);
+            //ExecutarJobs(app);
 
         }
 

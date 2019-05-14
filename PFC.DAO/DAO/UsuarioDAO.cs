@@ -106,7 +106,7 @@ namespace PFC.DAO
             strQuery += string.Format(" DataNasci = '{0}', ",usuario.DataNasci.ToString("yyyy-MM-dd"));
             strQuery += string.Format(" Id_Curso = '{0}', ", usuario.Curso.Id);
             strQuery += string.Format(" Id_Semestre = '{0}', ", usuario.Semestre.Id);
-            strQuery += string.Format(" Id_Genero = '{0}', ", usuario.Sexo.Id);
+            strQuery += string.Format(" Id_Genero = '{0}' ", usuario.Sexo.Id);
             //strQuery += string.Format(" DataCad = '{0}' ", DateTime.Now.ToString());
             strQuery += string.Format(" WHERE Id = {0}; ", usuario.Id);
 
@@ -125,7 +125,7 @@ namespace PFC.DAO
             strQuery += string.Format(" WHERE Id = {0}; ", usuario.Id);
             using (contexto = new Contexto())
             {
-                return contexto.ExecutarInsert(strQuery);
+                return  contexto.ExecutarInsert(strQuery);
             }
         }
 
@@ -231,6 +231,36 @@ namespace PFC.DAO
         }
 
 
+        #endregion
+
+
+
+        #region Lista por pesquisa // Sem uso no momento
+        public  async Task<List<Usuario>> PesquisarUsuario()
+        {
+            var usuarios = new List<Usuario>();
+            SqlDataReader reader;
+
+            using (contexto = new Contexto())
+            {
+                string strQuery = string.Format("select u.Id'ID',u.Nome'Nome',u.Id,arqu.Arquivo'Anexo'  from Usuario u INNER JOIN Arquivos arqu ON u.Id = arqu.Id");
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        Usuario temObjeto = new Usuario();
+                        temObjeto.Id = Convert.ToInt16(reader["Id"].ToString());
+                        temObjeto.Nome = reader["Nome"].ToString();
+                        temObjeto.UploadArquivo.Caminho = reader["Anexo"].ToString();
+                        usuarios.Add(temObjeto);
+                    }
+                }
+            }
+            reader.Close();
+            return usuarios;
+        }
         #endregion
 
     }

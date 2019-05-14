@@ -220,6 +220,16 @@ MeHelp.controller('usuarioCtrl', function ($scope, usuarioService) {
     };
 
 
+    //pesquisar usuarios javascript controller
+    $scope.pesquisarUsuario = function (pesquisaUsuario) {
+        var resultPesquisa = usuarioService.pesquiUsuario(pesquisaUsuario);
+        resultPesquisa.then(function (d) {
+            $scope.pesquisaUsu = d.data;
+
+        });
+    };
+
+
 });
 
 jQuery(document).ready(function () {

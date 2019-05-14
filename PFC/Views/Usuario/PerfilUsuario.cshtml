@@ -6,13 +6,20 @@
 
 
 <div class="sub-title">
-    <div class="col-md-9">
+    <div class="col-md-9" ng-controller="usuarioCtrl">
         <form class="form-inline">
             <h2>Perfil</h2>
             <div class="form-group">
-                <input type="text" class="form-control classePesquisaUsuario" id="pesquisaUsuario" ng-model="pesquisar" placeholder="Buscar usuarios...">
+                <input type="text" class="form-control classePesquisaUsuario" id="pesquisaUsuario" ng-model="pesquisar" placeholder="Buscar usuarios..." ng-change="pesquisarUsuario(pesquisar)">
             </div>
         </form>
+        <div class="float-pesquisa">
+
+            <ul class="list-group classePesquisa" ng-model="pesquisaUsu" ng-show="(pesquisar.length>0)">
+                
+                <li class="list-group-item" ng-repeat="p in pesquisaUsu|limitTo:5"><a class="classePesquisa" href="/Usuario/PerfilUsuario?usuarioid={{p.Id}}">{{p.Nome}}</a></li>
+            </ul>
+        </div>
     </div>
     <a href="contact.html"><i class="icon-envelope"></i></a>
 </div>
@@ -81,7 +88,7 @@
 
 
 
-                        <p class='post-info'>Estou presente no forum desde {{PerfilUsuario.DataCad}}</p>
+                        <p class='post-info'>Estou presente no forum desde {{PerfilUsuario.DataCad | date:'dd/MM/yyyy' }}</p>
 
                     </div>
                 </div>

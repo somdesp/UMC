@@ -1,4 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Caching;
 using PFC.DAO;
 using PFC.Model;
 
@@ -78,8 +82,29 @@ namespace PFC.Business.Business
 
         #endregion
 
+        #region Pesquisar Usuario camada BLL
+        public async Task<List<Usuario>> ConsultaUsuario()
+        {
+            UsuarioDAO usuario = new UsuarioDAO();
+            Cache cache = new Cache();
 
-        
+            var objetoCache = (List<Usuario>)HttpContext.Current.Cache["listandoUsuario"];
+            if (objetoCache == null)
+            {
+                objetoCache = await usuario.PesquisarUsuario();
+                HttpContext.Current.Cache.Insert("listandoUsuario", objetoCache, null, DateTime.Now.AddMinutes(2), Cache.NoSlidingExpiration);
+            }
+
+            return objetoCache;
+
+        }
+        #endregion
+
+
+
+
+
+
 
     }
 
