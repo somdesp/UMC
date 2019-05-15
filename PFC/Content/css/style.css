@@ -2205,6 +2205,11 @@ div.aparecer {
     display:block;
 }
 
+img.img-thumbnail.pesquisa{
+    width:39px;
+    margin:5px;
+}
+
 #modal-container {
     position: fixed;
     display: table;

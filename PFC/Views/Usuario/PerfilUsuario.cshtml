@@ -17,7 +17,7 @@
 
             <ul class="list-group classePesquisa" ng-model="pesquisaUsu" ng-show="(pesquisar.length>0)">
                 
-                <li class="list-group-item" ng-repeat="p in pesquisaUsu|limitTo:5"><a class="classePesquisa" href="/Usuario/PerfilUsuario?usuarioid={{p.Id}}">{{p.Nome}}</a></li>
+                <li class="list-group-item" ng-repeat="p in pesquisaUsu|limitTo:5"><a class="classePesquisa" href="/Usuario/PerfilUsuario?usuarioid={{p.Id}}"><img class="img-thumbnail pesquisa" src="../Upload/{{p.UploadArquivo.Caminho}}" alt="">{{p.Nome}}</a></li>
             </ul>
         </div>
     </div>
@@ -88,7 +88,7 @@
 
 
 
-                        <p class='post-info'>Estou presente no forum desde {{PerfilUsuario.DataCad | date:'dd/MM/yyyy' }}</p>
+                        <p class='post-info'>Estou presente no forum desde {{PerfilUsuario.DataCad | date }}</p>
 
                     </div>
                 </div>

@@ -242,7 +242,7 @@ namespace PFC.Controllers
             UsuarioBLL usuariopesquisa = new UsuarioBLL();
             List<Usuario> objetoPesquisa = new List<Usuario>();
             objetoPesquisa = await usuariopesquisa.ConsultaUsuario();
-            var result = objetoPesquisa.Where(p => p.Nome.Contains(pesquisa)).ToList();
+            var result = objetoPesquisa.Where(p => p.Nome.IndexOf(pesquisa,StringComparison.OrdinalIgnoreCase)!=-1);
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }

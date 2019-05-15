@@ -162,7 +162,7 @@ MeHelp.controller('topicoCtrl', function ($scope, topicoService) {
 
         var topicosExistentes = [];
         topicosExistentes = JSON.parse(sessionStorage.getItem('topico'));
-        var resultado = topicosExistentes.filter(obj => obj.Titulo.toLowerCase().indexOf(pesquisa,0) > -1);
+        var resultado = topicosExistentes.filter(obj => obj.Titulo.toLowerCase().indexOf(pesquisa.toLowerCase(),0) > -1);
         // Caso não consiga achar pesquisar no banco de dados
         if (resultado.lenght === 0) {
             var listarTopicos = topicoService.pesquisar(pesquisa);
