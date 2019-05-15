@@ -33,7 +33,7 @@ namespace PFC.Controllers
                             new Claim(ClaimTypes.NameIdentifier, model.Id.ToString()),
                             new Claim(ClaimTypes.Name, model.Nome),
                             new Claim(ClaimTypes.Email, model.Email),
-                            new Claim(ClaimTypes.Role, model.Permissao.Permissao),
+                            new Claim(ClaimTypes.Role, model.Auth.Permissao),
 
                         },
                     "ApplicationCookie");

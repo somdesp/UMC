@@ -46,11 +46,11 @@ namespace PFC.Business.Business
 
             listTopicos = await daoTopico.ListarTopico();
 
-            for (int i = 0; i < listTopicos.Count(); i++)
-            {
-                listTopicos[i].usuario =await bllUsuario.ConsultaUsuarioInt(listTopicos[i].usuario);
-                //listTopicos[i].Resposta = ListarTopicoFilho(listTopicos[i]);
-            }
+            //for (int i = 0; i < listTopicos.Count(); i++)
+            //{
+            //    listTopicos[i].usuario =await bllUsuario.ConsultaUsuarioInt(listTopicos[i].usuario);
+            //    //listTopicos[i].Resposta = ListarTopicoFilho(listTopicos[i]);
+            //}
 
             return listTopicos;
         }

@@ -15,13 +15,13 @@ namespace PFC.Business
             
             model = loginDao.Login(model);
 
-            if ((model.Permissao.Id == 4) || (model.Nome == null))
+            if ((model.Auth.Id == 4) || (model.Nome == null))
             {
                 model.success = false;
             }
             else
             {
-                model.Permissao = await AutorizacoesDao.ReturnAutPorID(model.Permissao);
+                model.Auth = await AutorizacoesDao.ReturnAutPorID(model.Auth);
                 model.UploadArquivo = await arquivoDao.CarregarArquivo(model.UploadArquivo);
                 model.success = true;
             }

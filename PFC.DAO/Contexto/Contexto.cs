@@ -50,8 +50,18 @@ namespace PFC.DAO
 
         public async Task<SqlDataReader> ExecutaComandoComRetorno(string strQuery)
         {
-            var cmdComando = new SqlCommand(strQuery, forumConexao);
-            return await cmdComando.ExecuteReaderAsync();
+            try
+            {
+                var cmdComando = new SqlCommand(strQuery, forumConexao);
+                return await cmdComando.ExecuteReaderAsync();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+
         }
 
         public void Dispose()

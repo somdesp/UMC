@@ -37,7 +37,7 @@ namespace PFC.DAO
                     temObjeto.Nome = reader["Nome"].ToString();
                     temObjeto.Id = Convert.ToInt32(reader["Id"].ToString());
                     temObjeto.UploadArquivo.Id = Convert.ToInt32(reader["Id_Arquivo"].ToString());
-                    temObjeto.Permissao.Id = Convert.ToInt32(reader["Id_Permissoes"].ToString());
+                    temObjeto.Auth.Id = Convert.ToInt32(reader["Id_Permissoes"].ToString());
                     login = (temObjeto);
                 }
             }

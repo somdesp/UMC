@@ -93,11 +93,8 @@ namespace PFC.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ListarTopico()
         {
-            TopicoBLL topicoBll = new TopicoBLL();
-            List<Topico> topico = new List<Topico>();
-
-            topico = await topicoBll.ListarTopico();
-            return Json(topico, JsonRequestBehavior.AllowGet);
+            TopicoBLL topicoBll = new TopicoBLL();           
+            return Json(await topicoBll.ListarTopico(), JsonRequestBehavior.AllowGet);
 
         }
         #endregion
