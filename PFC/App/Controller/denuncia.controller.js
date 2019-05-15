@@ -21,6 +21,15 @@
         });
     };
 
+    $scope.submitForm = function () {
+
+        // verifica se o formulário é válido
+        if ($scope.userForm.$valid) {
+            alert('our form is amazing');
+        }
+
+    };
+
 
     var modalConfirm = function (callback) {
 
