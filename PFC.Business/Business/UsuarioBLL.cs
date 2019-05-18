@@ -6,7 +6,7 @@ using System.Web.Caching;
 using PFC.DAO;
 using PFC.Model;
 
-namespace PFC.Business.Business
+namespace PFC.Business
 {
     public class UsuarioBLL
     {
@@ -97,6 +97,13 @@ namespace PFC.Business.Business
 
             return objetoCache;
 
+        }
+        #endregion
+
+        #region Pesquisar Usuario Master/ADM
+        public async Task<List<Usuario>> ConsultaUsuarioMasterADM()
+        { 
+            return await daoUsuario.ConsultaUsuarioMastersADM();
         }
         #endregion
 

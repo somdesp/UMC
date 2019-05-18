@@ -29,7 +29,7 @@
     <!--===============================================================================================-->
     @* <link rel="stylesheet" type="text/css" href="~/Content/css/util.css">*@
     <link rel="stylesheet" type="text/css" href="~/Content/css/main.css">
-        <link href="~/Content/css/spinner.css" rel="stylesheet" />
+    <link href="~/Content/css/spinner.css" rel="stylesheet" />
     <link href="~/Content/css/spinner.css" rel="stylesheet" />
     <link href="~/Content/css/jk-rating-stars.css" rel="stylesheet" />
     <!-- blueimp Gallery styles -->
@@ -86,16 +86,29 @@
                                 <img id="imgUser" height="229" width="270">
 
                                 <a href="javascript:void(0)" class="collapsed" data-target="#menu" data-toggle="collapse"><i class="icon-menu menu"></i></a>
+
+
                                 <div id="menu" class="collapse">
-                                    <ul class="menu-link">
-                                        <li>@Html.ActionLink("Editar Perfil", "EditarUsuario", "Usuario")</li>
-                                        <li>@Html.ActionLink("Gerenciamento de Usuarios", "Index", "Usuario")</li>
-                                        <li>@Html.ActionLink("Tema", "Index", "Tema")</li>
-                                        <li>@Html.ActionLink("Rankeamento Usuario", "Ranking", "Topico")</li>
-                                        <li><a href="contact.html">Contact</a></li>
-                                        <li><button onclick="" ng-click="logoutUsuario()" id="btnLogOut">LogOut</button></li>
-                                    </ul>
+                                    @if (@User.IsInRole("Usuario"))
+                                    {
+                                        <ul class="menu-link">
+                                            <li>@Html.ActionLink("Editar Perfil", "EditarUsuario", "Usuario")</li>
+                                            <li><button onclick="" ng-click="logoutUsuario()" id="btnLogOut">LogOut</button></li>
+                                        </ul>
+                                    }
+                                    @if (@User.IsInRole("Admin") || @User.IsInRole("Master") )
+                                    {
+                                        <ul class="menu-link">
+                                            <li>@Html.ActionLink("Editar Perfil", "EditarUsuario", "Usuario")</li>
+                                            <li>@Html.ActionLink("Gerenciamento de Usuarios", "Index", "Usuario")</li>
+                                            <li>@Html.ActionLink("Tema", "Index", "Tema")</li>
+                                            <li>@Html.ActionLink("Rankeamento Usuario", "Ranking", "Topico")</li>
+                                            <li>@Html.ActionLink("Denuncias", "Denuncia", "Home")</li>
+                                            <li><button onclick="" ng-click="logoutUsuario()" id="btnLogOut">LogOut</button></li>
+                                        </ul>
+                                    }                  
                                 </div>
+
                             </div>
 
                             <div class="my-detail">
@@ -108,7 +121,7 @@
                         }
 
                         @if (!@User.Identity.IsAuthenticated)
-                        {                                                 
+                        {
 
                             <form class="login100-form validate-form flex-sb flex-w">
                                 <span id="resposta" class="alert alert-danger sample-show-hide" ng-show="erro">
@@ -191,11 +204,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="usu in hankeamento" >
+                                    <tr ng-repeat="usu in hankeamento">
                                         <td><span class="glyphicon glyphicon-king" style="color:#f1c40f"> {{usu.Nome}}</span></td>
                                         <td>{{usu.avaliacao.pontos}}</td>
                                     </tr>
-                                   
+
                                 </tbody>
                             </table>
 
@@ -365,7 +378,7 @@
 
         <script src="~/Scripts/angular.min.js"></script>
         @Scripts.Render("~/bundles/angular")
-       
+
         <script src="~/Scripts/angular-animate.js"></script>
         <script src="~/Scripts/toastr.js"></script>
         <script src="~/Scripts/scrollglue.js"></script>

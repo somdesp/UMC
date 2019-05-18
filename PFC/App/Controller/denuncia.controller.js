@@ -5,7 +5,7 @@
         var Denuncia = {
             Id_Usu_Pen: topico.usuario,
             Id_Usu_Sol: JSON.parse(localStorage.getItem('model')),
-            Descricao: $scope.mensagem,
+            Descricao: $scope.denuncia,
             Topico: topico
         };
 
@@ -30,30 +30,22 @@
 
     };
 
+    $scope.RemoverResposta = function (topico) {
 
-    var modalConfirm = function (callback) {
+        var Denuncia = {
+            Id_Usu_Pen: topico.usuario,
+            Id_Usu_Sol: JSON.parse(localStorage.getItem('model')),
+            Resposta: $scope.respostaRemove,
+            Topico: topico
+        };
 
-        $("#btn-confirm").on("click", function () {
-            $("#ModalDenunciaConfirma").modal('show');
-        });
-
-        $("#modal-btn-si").on("click", function () {
-            callback(true);
-            $("#ModalDenunciaConfirma").modal('hide');
-        });
-
-        $("#modal-btn-no").on("click", function () {
-            callback(false);
-            $("#ModalDenunciaConfirma").modal('hide');
+        var respostaUsuario = denunciaService.RemoverResposta(Denuncia);
+        respostaUsuario.then(function (response) {
+            if (response.data === true) {
+                alert("Resposta removida!!");
+            } else {
+                console.log("Erro ao enviar a Denuncia");
+            }
         });
     };
-
-    modalConfirm(function (confirm) {
-        if (confirm) {
-            //Acciones si el usuario confirma
-        } else {
-            //Acciones si el usuario no confirma
-        }
-    });
-
 });

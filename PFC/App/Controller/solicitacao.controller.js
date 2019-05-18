@@ -211,6 +211,10 @@ MeHelp.controller('amizadeCtrl', function ($scope, amizadeService, usuarioServic
     //Solicitação Amizade
     $scope.conviteAmizade = function (Usu_Sol) {
 
+        $scope.habilitaBotao = false;
+        $scope.desabilitaBotao = true;
+
+
         var Solicitacao = {
             usuario: UsuarioLogado,
             usuarioSolicitado: Usu_Sol
@@ -257,6 +261,8 @@ MeHelp.controller('amizadeCtrl', function ($scope, amizadeService, usuarioServic
     //Cancela Amizade
     $scope.cancelaAmizade = function (usuarios) {
 
+        $scope.habilitaBotao = true;
+        $scope.desabilitaBotao = false;
         var Solicitacao = {
             usuario: UsuarioLogado,
             usuarioSolicitado: usuarios

@@ -94,9 +94,122 @@
         <div ng-repeat="topico in TopicosSelc.Resposta">
 
             <div class="well well-sm">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -6px;margin-right: 0px;">
-                    <span aria-hidden="true" class="white-text">×</span>
-                </button>
+
+                <div class="btn-group dropright">
+
+                    <button type="button" class="close" data-toggle="dropdown" aria-label="Close" style="margin-top: -6px;margin-right: 0px;">
+                        <span aria-hidden="true" class="white-text">×</span>
+                    </button>
+
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="" data-toggle="modal" data-target="#ModalDenuncia{{topico.usuario.Id}}">Denunciar</a></li>
+
+                        @if (@User.IsInRole("Admin") || @User.IsInRole("Master"))
+                        {
+                            <li role="separator" class="divider"></li>
+                            <li><a href="" data-toggle="modal" data-target="#ModalRemove{{topico.usuario.Id}}">Remover Resposta</a></li>
+                        }
+                    </ul>
+
+                    <div ng-controller="denunciaController">
+
+                        <div class="modal fade" id="ModalDenuncia{{topico.usuario.Id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content" ng-submit="#ModalDenunciaConfirma">
+                                    <div class="modal-body text-center mb-1">
+                                        <label data-error="wrong" data-success="right" for="form29" class="ml-0">O que esta acontencendo?</label>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- FORM -->
+                                        <form name="userForm" novalidate>
+
+                                            <!-- USERNAME -->
+                                            <div class="form-group">
+                                                <div class="media-body ">
+                                                    <h4 class="media-heading ">
+                                                        <a href="../Usuario/PerfilUsuario?usuarioid={{topico.usuario.Id}}">{{topico.usuario.Nome}}</a>
+                                                        <small> {{topico.DataCria}}</small>
+                                                    </h4>
+                                                    <p>{{topico.Descricao}}</p>
+                                                    <br>
+                                                    <a href="~/Upload/{{topico.Anexos.Caminho}}">{{topico.Anexos.Caminho}}</a>
+
+                                                </div>
+
+                                                <div class="media-right btn" data-toggle="modal" data-target="#modalLoginAvatar">
+                                                    <img src="~/Upload/{{topico.usuario.UploadArquivo.Caminho}}" class="media-object" style="width:60px">
+                                                </div>
+                                            </div>
+
+                                            <!-- USERNAME -->
+                                            <div class="form-group" ng-class="{ 'has-error' : userForm.titulo.$invalid && !userForm.titulo.$pristine }">
+                                                <textarea type="text" name="mensagem" class="form-control" ng-model="denuncia" ng-minlength="15" ng-maxlength="300"></textarea>
+                                                <p ng-show="userForm.denuncia.$error.minlength" class="help-block">A denuncia deve ter no mínimo 15 caracteres.</p>
+                                                <p ng-show="userForm.denuncia.$error.maxlength" class="help-block">A denuncia deve ter no máximo 300 caracteres.</p>
+                                            </div>
+
+                                            <button type="button" data-dismiss="modal" data-toggle="modal" ng-disabled="userForm.$invalid" ng-click="DenunciaUsuario(TopicosSelc)" class="btn btn-primary">Enviar notificação</button>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal fade" id="ModalRemove{{topico.usuario.Id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content" ng-submit="#ModalDenunciaConfirma">
+                                    <div class="modal-body text-center mb-1">
+                                        <label data-error="wrong" data-success="right" for="form29" class="ml-0">Motivo..</label>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- FORM -->
+                                        <form name="userForm" novalidate>
+
+                                            <!-- USERNAME -->
+                                            <div class="form-group">
+                                                <div class="media-body ">
+                                                    <h4 class="media-heading ">
+                                                        <a href="../Usuario/PerfilUsuario?usuarioid={{topico.usuario.Id}}">{{topico.usuario.Nome}}</a>
+                                                        <small> {{topico.DataCria}}</small>
+                                                    </h4>
+                                                    <p>{{topico.Descricao}}</p>
+                                                    <br>
+                                                    <a href="~/Upload/{{topico.Anexos.Caminho}}">{{topico.Anexos.Caminho}}</a>
+
+                                                </div>
+
+                                                <div class="media-right btn" data-toggle="modal" data-target="#modalLoginAvatar">
+                                                    <img src="~/Upload/{{topico.usuario.UploadArquivo.Caminho}}" class="media-object" style="width:60px">
+                                                </div>
+                                            </div>
+
+                                            <!-- USERNAME -->
+                                            <div class="form-group" ng-class="{ 'has-error' : userForm.titulo.$invalid && !userForm.titulo.$pristine }">
+                                                <textarea type="text" name="mensagem" class="form-control" ng-model="respostaRemove" ng-minlength="15" ng-maxlength="300"></textarea>
+                                                <p ng-show="userForm.denuncia.$error.minlength" class="help-block">A denuncia deve ter no mínimo 15 caracteres.</p>
+                                                <p ng-show="userForm.denuncia.$error.maxlength" class="help-block">A denuncia deve ter no máximo 300 caracteres.</p>
+                                            </div>
+
+                                            <button type="button" data-dismiss="modal" data-toggle="modal" ng-disabled="userForm.$invalid" ng-click="RemoverResposta(topico)" class="btn btn-primary">Remover Resposta</button>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
                 <div class="media">
                     <div class="media-body ">
                         <h4 class="media-heading "><a href="../Usuario/PerfilUsuario?usuarioid={{topico.usuario.Id}}" target="_blank">{{topico.usuario.Nome}} </a><small> {{topico.DataCria}}<button class="btn" ng-click="topicodeTexto($index)" ng-show="(topico.Descricao.length>50)">Leia mais...</button></small></h4>
@@ -177,7 +290,7 @@
     <div ng-controller="denunciaController">
         <div class="modal fade" id="ModalDenuncia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <div class="modal-content" ng-submit="#ModalDenunciaConfirma" >
+                <div class="modal-content" ng-submit="#ModalDenunciaConfirma">
                     <div class="modal-body text-center mb-1">
                         <label data-error="wrong" data-success="right" for="form29" class="ml-0">O que esta acontencendo?</label>
                     </div>
@@ -185,17 +298,9 @@
                         <!-- FORM -->
                         <form name="userForm" novalidate>
 
-                            <!-- NAME -->
-                            <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
-                                <label>Titulo</label>
-                                <input type="text" name="titulo" class="form-control" ng-model="titulo" required>
-                                <p ng-show="userForm.titulo.$invalid && !userForm.titulo.$pristine" class="help-block">Seu nome é obrigatório</p>
-                            </div>
-
                             <!-- USERNAME -->
                             <div class="form-group" ng-class="{ 'has-error' : userForm.titulo.$invalid && !userForm.titulo.$pristine }">
-                                <label>Denuncia</label>
-                                <textarea type="text" name="mensagem" class="form-control" ng-model="user.denuncia" ng-minlength="15" ng-maxlength="300"></textarea>
+                                <textarea type="text" name="mensagem" class="form-control" ng-model="denuncia" ng-minlength="15" ng-maxlength="300"></textarea>
                                 <p ng-show="userForm.denuncia.$error.minlength" class="help-block">A denuncia deve ter no mínimo 15 caracteres.</p>
                                 <p ng-show="userForm.denuncia.$error.maxlength" class="help-block">A denuncia deve ter no máximo 300 caracteres.</p>
                             </div>
@@ -207,20 +312,6 @@
                     </div>
                     <div class="modal-footer">
 
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal fade" id="ModalDenunciaConfirma" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-sm">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title" id="myModalLabel">Deseja registrar?</h4>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" data-dismiss="modal" ng-click="DenunciaUsuario(TopicosSelc)" class="btn btn-primary" id="modal-btn-si">Sim</button>
-                            <button type="button" class="btn btn-default" id="modal-btn-no">Não</button>
-                        </div>
                     </div>
                 </div>
             </div>

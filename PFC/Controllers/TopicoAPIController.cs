@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
+using PFC.Business;
 using PFC.Business.Business;
 using PFC.Model;
 
@@ -10,6 +11,7 @@ namespace PFC.Controllers
     [Authorize]
     public class TopicoAPIController : ApiController
     {
+        EmailBLL emailBLL = new EmailBLL();
         // POST: api/TopicoAPI
         [AcceptVerbs("POST")]
         public async Task FechaTopico([FromBody]Topico topico)
@@ -19,7 +21,7 @@ namespace PFC.Controllers
             {
                 if (topicoBll.FechaTopico(topico) == true)
                 {
-                    await topicoBll.EnviarEmail(topico);
+                    await emailBLL.EnviarEmail(null,topico,null);
                     //return (true);
                 };
             }

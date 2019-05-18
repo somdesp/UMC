@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Threading.Tasks;
 
 namespace PFC.DAO
@@ -172,6 +173,7 @@ namespace PFC.DAO
                         temObjeto.Id_Usu_Pen = await usuarioDAO.ConsultaUsuarioInt(temObjeto.Id_Usu_Pen);
                         temObjeto.Descricao =reader["Descricao"].ToString();
                         temObjeto.Resposta = reader["Resposta"].ToString();
+                        temObjeto.DataCria = DateTime.Parse(reader["DataCria"].ToString(), new CultureInfo("pt-BR"));
                         temObjeto.Status =Convert.ToBoolean(reader["Status"].ToString());
                         temObjeto.Topico.Id = Convert.ToInt32(reader["Id_Topico"].ToString());
                         temObjeto.Topico = await topicoDAO.DetalheTopico(temObjeto.Topico);
@@ -180,8 +182,6 @@ namespace PFC.DAO
                     }
                     reader.Close();
                 }
-
-
             }
             return denuncia;
 

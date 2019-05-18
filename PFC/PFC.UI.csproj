@@ -487,6 +487,7 @@
     <Content Include="Content\js\server\php\index.php" />
     <Content Include="Content\js\server\php\UploadHandler.php" />
     <Content Include="Content\js\vendor\jquery.ui.widget.js" />
+    <Content Include="email.html" />
     <Content Include="Hubs\ChatMeHelp.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ChatMeHelp.edmx</DependentUpon>
@@ -728,6 +729,7 @@
     <Content Include="Views\Topico\Ranking.cshtml" />
     <Content Include="Views\Usuario\PerfilUsuario.cshtml" />
     <Content Include="Views\Usuario\NotificacaoUsuario.cshtml" />
+    <Content Include="Views\Home\Denuncia.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -781,8 +783,7 @@
           <IISUrl>http://localhost:52005/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl>https://www.mehelpehml.tk</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

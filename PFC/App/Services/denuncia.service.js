@@ -12,4 +12,16 @@
         return request;
     };
 
+    this.RemoverResposta = function (denuncia) {
+        var request = $http({
+            method: 'post',
+            url: '../api/Denuncia/RemoverResposta',
+            data: denuncia
+        });
+
+        return request;
+    };
+
+    
+
 });

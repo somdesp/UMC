@@ -29,8 +29,8 @@ namespace PFC.Business.Business
             {
                 listTopicos[i].Anexos.id_topico = listTopicos[i].Id;
                 listTopicos[i].Anexos =await arquivoBll.RecuperarArqTopico(listTopicos[i].Anexos);
-                listTopicos[i].usuario =await bllUsuario.ConsultaUsuarioInt(listTopicos[i].usuario);
-                listTopicos[i].Tema =await daoTema.ListarTemaTopico(listTopicos[i].Tema.Id);
+               // listTopicos[i].usuario =await bllUsuario.ConsultaUsuarioInt(listTopicos[i].usuario);
+               // listTopicos[i].Tema =await daoTema.ListarTemaTopico(listTopicos[i].Tema.Id);
                 listTopicos[i].avaliacao.idTopico = listTopicos[i].Id;
                 listTopicos[i].avaliacao =await avaliacaobll.consultaAvaliacao(listTopicos[i].avaliacao, topico.avaliacao.idUsuario);
             }
@@ -76,6 +76,7 @@ namespace PFC.Business.Business
         #region Detalha Topico
         public async Task<Topico> DetalheTopico(Topico topico)
         {
+
             AvaliacaoBLL avaliacaobll = new AvaliacaoBLL();
             int usuarioLogado = topico.avaliacao.idUsuario;
             topico = await daoTopico.DetalheTopico(topico);
@@ -136,7 +137,7 @@ namespace PFC.Business.Business
         #region FechaTopico
         public bool FechaTopico(Topico topico)
         {
-          //  EnviarEmail(topico);
+            //await EnviarEmail(topico);
             return daoTopico.FechaTopico(topico);
         }
         #endregion
@@ -151,23 +152,31 @@ namespace PFC.Business.Business
             {
                 email.Add(topico.Resposta[i].usuario.Email);
             }
+            try
+            {
+                email = email.Distinct().ToList();
 
-            email = email.Distinct().ToList();
+                for (int i = 0; i < email.Count; i++)
+                {
 
-            for (int i = 0; i < email.Count; i++)
+                    using (SmtpClient client = new SmtpClient("smtp.gmail.com", 587)
+                    {
+                        Credentials = new NetworkCredential("pfc8.umc@gmail.com", "UMC@2018"),
+                        EnableSsl = true
+                    })
+
+                    {
+                        client.Send(email[i], email[i], "Forum UMC", "O Topico http://www.mehelpehml.tk/Topico/TopicoSelecionado?topicoId=" + topico.Id + " Foi Fechado");
+                    }
+
+                }
+            }
+            catch (System.Exception)
             {
 
-                using (SmtpClient client = new SmtpClient("smtp.gmail.com", 587)
-                {
-                    Credentials = new NetworkCredential("pfc8.umc@gmail.com", "UMC@2018"),
-                    EnableSsl = true
-                })
-
-                {
-                    client.Send(email[i], email[i], "Forum UMC", "O Topico http://www.mehelpehml.tk/Topico/TopicoSelecionado?topicoId=" + topico.Id + " Foi Fechado");
-                }
-
+                throw;
             }
+
               
            
 

@@ -233,10 +233,49 @@ namespace PFC.DAO
 
         #endregion
 
+        #region Consulta Usuarios ADM ou Masters
+        public async Task<List<Usuario>> ConsultaUsuarioMastersADM()
+        {
+            var usuarios = new List<Usuario>();
+            SqlDataReader reader;
+
+            using (contexto = new Contexto())
+            {
+                string strQuery = string.Format("SELECT * FROM Usuario WHERE Id_Permissoes IN (1,3) ");
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
+
+                while (reader.Read())
+                {
+                    var temObjeto = new Usuario();
+
+                    temObjeto.Email = reader["Email"].ToString();
+                    temObjeto.Login = reader["Login"].ToString();
+                    temObjeto.Nome = reader["Nome"].ToString();
+                    temObjeto.Id = Convert.ToInt16(reader["Id"].ToString());
+                    temObjeto.RGM = reader["RGM"].ToString();
+                    temObjeto.DataCad = Convert.ToDateTime(reader["DataCad"].ToString());
+                    temObjeto.Curso.Id = Convert.ToInt16(reader["Id_Curso"].ToString());
+                    temObjeto.Semestre.Id = Convert.ToInt16(reader["Id_Semestre"].ToString());
+                    temObjeto.DataNasci = Convert.ToDateTime(reader["DataNasci"].ToString());
+                    temObjeto.Sexo.Id = Convert.ToInt16(reader["Id_Genero"].ToString());
+                    temObjeto.UploadArquivo.Id = Convert.ToInt32(reader["Id_Arquivo"].ToString());
+                    temObjeto.Auth.Id = Convert.ToInt32(reader["Id_Permissoes"].ToString());
+
+
+                    usuarios.Add(temObjeto);
+                }
+            }
+            reader.Close();
+            return usuarios;
+        }
+
+
+        #endregion
+
 
 
         #region Lista por pesquisa // Sem uso no momento
-        public  async Task<List<Usuario>> PesquisarUsuario()
+        public async Task<List<Usuario>> PesquisarUsuario()
         {
             var usuarios = new List<Usuario>();
             SqlDataReader reader;
