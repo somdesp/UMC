@@ -5,6 +5,7 @@ using System.Web.Http;
 using Microsoft.Owin;
 using Hangfire;
 using System.Configuration;
+using System.Threading.Tasks;
 
 [assembly: OwinStartup(typeof(PFC.Startup))]
 
@@ -41,18 +42,18 @@ namespace PFC
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
 
-            //ExecutarJobs(app);
+            ExecutarJobs(app);
 
         }
 
         public void ExecutarJobs(IAppBuilder app)
         {
             //Serviço para executar Jobs de forma automatica.
-            Hangfire.GlobalConfiguration.Configuration.UseSqlServerStorage(ConfigurationManager.ConnectionStrings["dbconectionString"].ConnectionString);
+              Hangfire.GlobalConfiguration.Configuration.UseSqlServerStorage(ConfigurationManager.ConnectionStrings["dbconectionString"].ConnectionString);
 
             
-            //app.UseHangfireDashboard();
-            //app.UseHangfireServer();
+             app.UseHangfireDashboard();
+             app.UseHangfireServer();
             
         }
 
