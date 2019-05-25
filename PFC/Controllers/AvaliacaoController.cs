@@ -1,6 +1,6 @@
 ﻿using PFC.Model;
 using System.Web.Mvc;
-using PFC.Business.Business;
+using PFC.Business;
 using System.Threading.Tasks;
 
 namespace PFC.Controllers

@@ -7,7 +7,7 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 
 
-namespace PFC.Business.Business
+namespace PFC.Business
 {
     public class TopicoBLL
     {
@@ -28,7 +28,7 @@ namespace PFC.Business.Business
             for (int i = 0; i < listTopicos.Count(); i++)
             {
                 listTopicos[i].Anexos.id_topico = listTopicos[i].Id;
-                listTopicos[i].Anexos =await arquivoBll.RecuperarArqTopico(listTopicos[i].Anexos);
+               // listTopicos[i].Anexos =await arquivoBll.RecuperarArqTopico(listTopicos[i].Anexos);
                // listTopicos[i].usuario =await bllUsuario.ConsultaUsuarioInt(listTopicos[i].usuario);
                // listTopicos[i].Tema =await daoTema.ListarTemaTopico(listTopicos[i].Tema.Id);
                 listTopicos[i].avaliacao.idTopico = listTopicos[i].Id;
@@ -180,6 +180,15 @@ namespace PFC.Business.Business
               
            
 
+        }
+        #endregion
+
+
+        #region RemoverResposta
+        public bool RemoverResposta(Denuncia topico)
+        {
+            //await EnviarEmail(topico);
+            return daoTopico.RemoverResposta(topico);
         }
         #endregion
 

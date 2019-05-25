@@ -77,7 +77,7 @@
                         </button>*@
                 </div>
                 <div class='post-info'>
-                    <span>{{topico.DataCria}}/ Por <a href='../Usuario/PerfilUsuario?usuarioid={{topico.usuario.Id}}' target='_blank'>{{topico.usuario.Nome}}</a></span>
+                    <span>{{topico.DataCria  | date:'dd/MM/yyyy'}}/ Por <a href='../Usuario/PerfilUsuario?usuarioid={{topico.usuario.Id}}' target='_blank'>{{topico.usuario.Nome}}</a></span>
                 </div>
                 <p>{{topico.Descricao}}</p><input type='hidden' name='id' value="{{topico.Id}}">
                 <br />

@@ -1,4 +1,5 @@
 ﻿MeHelp.controller('denunciaController', function ($scope, denunciaService) {
+    ListaDenuncia();
 
     $scope.DenunciaUsuario = function (topico) {
 
@@ -48,4 +49,24 @@
             }
         });
     };
+
+
+    function ListaDenuncia() {
+
+        var ListaDenuncia = denunciaService.ListaDenuncia();
+
+        ListaDenuncia.then(function (d) {
+
+            if (d.data !== null) {
+                $scope.ListaDenuncia = d.data;
+            } else {
+                $scope.ListaDenuncia = false;
+            }
+        },
+            function () {
+                console.log("Erro ao ListaDenuncia");
+            });
+    };
+
+
 });

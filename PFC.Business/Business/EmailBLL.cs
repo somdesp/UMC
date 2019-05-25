@@ -51,7 +51,7 @@ namespace PFC.Business
 
                 string FilePath =  System.Web.Hosting.HostingEnvironment.MapPath("/")+ arqEmail;
                 StreamReader str = new StreamReader(FilePath);
-                string MailText = str.ReadToEnd();
+                string MailText_St = str.ReadToEnd();
                 str.Close();
 
 
@@ -60,12 +60,12 @@ namespace PFC.Business
 
                 for (int i = 0; i < email.Count; i++)
                 {
-
+                    string MailText = MailText_St;
                     MailText = MailText.Replace("[newusername]", nome[i]);
                     MailText = MailText.Replace("[notificacao]", notificacao);
 
 
-                    string subject = "Forum UMC";
+                    string subject = "MeHelp";
 
                     MailMessage _mailmsg = new MailMessage();
                     _mailmsg.IsBodyHtml = true;
@@ -83,14 +83,14 @@ namespace PFC.Business
                     //Send Method will send your MailMessage create above.  
                     await _smtp.SendMailAsync(_mailmsg);
 
-                    //using (SmtpClient client = new SmtpClient("smtp.gmail.com", 587)
+                    //using (SmtpClient client = new SmtpClient("smtpout.secureserver.net", 80)
                     //{
-                    //    Credentials = new NetworkCredential("pfc8.umc@gmail.com", "UMC@2018"),
-                    //    EnableSsl = true
+                    //    Credentials = new NetworkCredential("suporte@mehelpehml.tk", "Ema#@2018"),
+                    //    EnableSsl = false
                     //})
 
                     //{
-                    //    var message = new MailMessage("pfc8.umc@gmail.com", email[i], "subject", "body");
+                    //    var message = new MailMessage("suporte@mehelpehml.tk", email[i], "subject", "body");
 
                     //    await client.SendMailAsync(email[i], email[i], "Forum UMC", "Existe novas Notificaçoes");
                     //}

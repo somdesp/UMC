@@ -1,9 +1,6 @@
 ﻿using PFC.DAO;
 using PFC.Model;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Mail;
 using System.Threading.Tasks;
 
 namespace PFC.Business
@@ -13,12 +10,14 @@ namespace PFC.Business
         DenunciaDAO denunciaDAO = new DenunciaDAO();
         EmailBLL emailBLL = new EmailBLL();
         UsuarioBLL usuarioBLL = new UsuarioBLL();
+        TopicoBLL topicoBLL = new TopicoBLL();
+
         public async Task<bool> DenunciaUsuario(Denuncia denuncia)
         {
 
             List<Usuario> usuarios = new List<Usuario>();
             usuarios= await usuarioBLL.ConsultaUsuarioMasterADM();
-            await emailBLL.EnviarEmail(usuarios,null,"Existe novas notificaçoes");
+            //await emailBLL.EnviarEmail(usuarios,null,"Existe novas notificaçoes");
             return await denunciaDAO.DenunciaUsuarioAsync(denuncia);
         }
 
@@ -26,12 +25,39 @@ namespace PFC.Business
         {
 
             List<Usuario> usuarios = new List<Usuario>();
-            denuncia.Resposta += " Ação feita por "+denuncia.Id_Usu_Pen.Nome;
-            usuarios.Add(denuncia.Id_Usu_Pen);      
+            try
+            {
+                denuncia.Resposta += " Ação feita por " + denuncia.Id_Usu_Sol.Nome;
+                usuarios.Add(denuncia.Id_Usu_Pen);
+                topicoBLL.RemoverResposta(denuncia);
 
-            await emailBLL.EnviarEmail(usuarios, null, "Sua Pergunta/Reposta foi deletada do topico  O Topico http://www.mehelpehml.tk/Topico/TopicoSelecionado?topicoId=" + denuncia.Topico.Id + " Por denuncias");
-            return await denunciaDAO.RemoverRespostaAsync(denuncia);
+                await emailBLL.EnviarEmail(usuarios, null, "Sua Pergunta/Reposta foi deletada do topico  http://www.mehelpehml.tk/Topico/TopicoSelecionado?topicoId=" + denuncia.Topico.Id + " por desrespeitar as regras do fórum");
+                return await denunciaDAO.RemoverRespostaAsync(denuncia);
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+
         }
+
+        public async Task<List<Denuncia>> ListaDenuncia()
+        {
+
+            try
+            {
+                return await denunciaDAO.ListaDenuncia();
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        
 
 
     }

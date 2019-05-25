@@ -11,7 +11,9 @@ namespace PFC.Model
         public DateTime DataCria { get; set; }
 
         public string Resposta { get; set; }
-        public bool Status { get; set; }
+        public Boolean Status { get; set; }
+
+
         public Topico Topico { get; set; } = new Topico();
 
     }

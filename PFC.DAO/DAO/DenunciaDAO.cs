@@ -1,5 +1,6 @@
 ﻿using PFC.Model;
 using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 
@@ -15,9 +16,9 @@ namespace PFC.DAO
             SqlDataReader reader;
 
             var strQuery = "";
-            strQuery += "INSERT INTO Denuncia (Id_Usu_Sol,Id_Usu_Pen,Descricao,Resposta,Status,Id_Topico,DataCria) ";
-            strQuery += string.Format("VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}');SELECT SCOPE_IDENTITY() AS Id_Denuncia",
-                denuncia.Id_Usu_Sol.Id, denuncia.Id_Usu_Pen.Id, denuncia.Descricao, denuncia.Resposta, 1, denuncia.Topico.Id, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            strQuery += "INSERT INTO Denuncia (Id_Usu_Sol,Id_Usu_Pen,Descricao,Resposta,Status,Id_Topico,DataCria,Id_topicoFilho) ";
+            strQuery += string.Format("VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}');SELECT SCOPE_IDENTITY() AS Id_Denuncia",
+                denuncia.Id_Usu_Sol.Id, denuncia.Id_Usu_Pen.Id, denuncia.Descricao, denuncia.Resposta, 1, denuncia.Topico.IdTopicoPai, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), denuncia.Topico.Id);
 
 
             try
@@ -88,7 +89,7 @@ namespace PFC.DAO
                         }
                         reader.Close();
 
-                        strQuery = string.Format("UPDATE Denuncia SET Resposta={0},Status=0 WHERE Id = {1} ; UPDATE Notificacao SET Status ={1}", denuncia.Resposta, IdDenuncia);
+                        strQuery = string.Format("UPDATE Denuncia SET Resposta={0},Status=0 WHERE Id = {1} ; UPDATE Notificacao SET Status =0 WHERE Id_Denuncia = {1}", denuncia.Resposta, IdDenuncia);
                         contexto.ExecutarInsert(strQuery);
                     }
 
@@ -150,6 +151,63 @@ namespace PFC.DAO
         }
 
         #endregion
+
+        #region ListaDenuncia
+        public async Task<List<Denuncia>> ListaDenuncia()
+        {
+            SqlDataReader reader;
+
+            List<Denuncia> denuncaArray = new List<Denuncia>();
+
+            var strQuery = "";
+            strQuery = string.Format("SELECT usu.Nome,usu.Id AS IdUsuario,de.Id_topicoFilho,de.Id AS IdDenuncia, de.Descricao," +
+                "de.Id_topico,de.DataCria,de.Resposta,de.Status FROM Denuncia de " +
+                    "INNER JOIN Usuario usu ON usu.Id = de.Id_Usu_Sol");
+
+            try
+            {
+
+                using (contexto = new Contexto())
+                {
+                    reader = await contexto.ExecutaComandoComRetorno(strQuery);
+                    strQuery = "";
+                    while (reader.Read())
+                    {
+                        var temObjeto = new Denuncia();
+                        temObjeto.Id_Usu_Sol.Nome = reader["Nome"].ToString();
+                        temObjeto.Id_Usu_Sol.Id = Convert.ToInt16(reader["IdUsuario"].ToString());
+                        temObjeto.Id = Convert.ToInt16(reader["IdDenuncia"].ToString());
+                        temObjeto.Descricao = reader["Descricao"].ToString();
+                        temObjeto.Resposta = reader["Resposta"].ToString();
+                        temObjeto.Topico.IdTopicoPai = Convert.ToInt16(reader["Id_Topico"].ToString());
+                        temObjeto.Topico.Id = (reader["Id_topicoFilho"].ToString() =="" ) ? temObjeto.Topico.IdTopicoPai : Convert.ToInt16(reader["Id_topicoFilho"].ToString());
+
+
+                        temObjeto.Status = Convert.ToBoolean(reader["Status"].ToString());
+                        temObjeto.DataCria = Convert.ToDateTime(reader["DataCria"].ToString()).Date;
+
+                        denuncaArray.Add(temObjeto);
+                    }
+                    reader.Close();
+
+
+
+                }
+                return denuncaArray;
+            }
+            catch (Exception EX)
+            {
+
+                throw;
+            }
+
+
+
+        }
+
+        #endregion
+
+
 
 
     }

@@ -89,6 +89,7 @@ namespace PFC.DAO
                     while (reader.Read())
                     {
                         Topico readerTopico = new Topico();
+                        readerTopico.IdTopicoPai = Convert.ToInt32(reader["IdTopicoPai"].ToString());
                         readerTopico.Id = Convert.ToInt32(reader["IdTopico"].ToString());
                         readerTopico.Titulo = reader["Titulo"].ToString();
                         readerTopico.DataCria = Convert.ToDateTime(reader["DataCriacao"].ToString());
@@ -299,5 +300,21 @@ namespace PFC.DAO
         }
 
         #endregion
+
+
+        #region RemoverResposta
+        public bool RemoverResposta(Denuncia denuncia)
+        {
+            var strQuery = "";
+            strQuery += string.Format("UPDATE Topico SET DataUpdate = GETDATE(),Descricao= 'Resposta removida por não cumprir as regras do forum' WHERE Id={0}", denuncia.Topico.Id);
+            using (contexto = new Contexto())
+            {
+                return contexto.ExecutarInsert(strQuery);
+            }
+        }
+
+        #endregion
+
+
     }
 }

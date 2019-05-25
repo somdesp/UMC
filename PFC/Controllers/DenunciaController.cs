@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNet.Identity;
-using PFC.Business;
+﻿using PFC.Business;
 using PFC.Model;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -9,14 +9,14 @@ namespace PFC.Controllers
     [Authorize]
     public class DenunciaController : ApiController
     {
-        DenunciaBLL topicoBll = new DenunciaBLL();
+        DenunciaBLL denunciaBll = new DenunciaBLL();
 
 
         [AcceptVerbs("POST")]
         public async Task<bool> DenunciaUsuario([FromBody]Denuncia denuncia)
         {
 
-            return await topicoBll.DenunciaUsuario(denuncia);
+            return await denunciaBll.DenunciaUsuario(denuncia);
 
         }
 
@@ -24,11 +24,21 @@ namespace PFC.Controllers
         public async Task<bool> RemoverResposta([FromBody]Denuncia denuncia)
         {
 
-            return await topicoBll.DenunciaUsuario(denuncia);
+            return await denunciaBll.RemoverResposta(denuncia);
 
         }
 
+        [AcceptVerbs("POST")]
+        [Authorize(Roles = "Admin,Master")]
+        public async Task<List<Denuncia>> ListaDenuncia()
+        {
+
+            return await denunciaBll.ListaDenuncia();
+
+        }
 
         
+
+
     }
 }

@@ -1,8 +1,9 @@
-﻿<div class="row" ng-controller="notificationController">
+﻿<div class="row" ng-controller="denunciaController">
+
     <div class="sub-title">
         <div class="panel-heading"><h2>Denuncias</h2></div>
     </div>
-    <div ng-if="notifidenuncia">
+    <div ng-if="ListaDenuncia">
         <table class="table table-bordered">
             <thead style="background-color:#1abc9c;">
                 <tr>
@@ -16,13 +17,19 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="usu in notifidenuncia">
-                    <td><a href="../Usuario/PerfilUsuario?usuarioid={{usu.id_Usu_Sol.id}}">{{usu.id_Usu_Sol.nome}}</a></td>
-                    <td>{{usu.descricao}}</td>
-                    <td><a href="../Topico/TopicoSelecionado?topicoId={{usu.topico.id}}">Ver Topico</a></td>
-                    <td>{{usu.topico.dataCria  | date: 'dd/MM/yyyy' }}</td>
-                    <td>{{usu.topico.dataCria  | date: 'dd/MM/yyyy' }}</td>
-                    <td>{{usu.topico.dataCria  | date: 'dd/MM/yyyy' }}</td>
+                <tr ng-repeat="denuncia in ListaDenuncia">
+                    <td><a href="../Usuario/PerfilUsuario?usuarioid={{denuncia.id_Usu_Sol.id}}">{{denuncia.id_Usu_Sol.nome}}</a></td>
+                    <td>{{denuncia.descricao}}</td>
+                    <td><a href="../Topico/TopicoSelecionado?topicoId={{denuncia.topico.idTopicoPai}}#{{denuncia.topico.id}}">Ver Topico</a></td>
+                    <td>{{denuncia.dataCria  | date: 'dd/MM/yyyy'  }}</td>
+                    <td>{{denuncia.resposta }}</td>
+                    <td ng-if="denuncia.status">
+                        Ativo
+                    </td>
+                    <td ng-if="!denuncia.status">
+                        Resolvido
+                    </td>
+
                 </tr>
             </tbody>
         </table>

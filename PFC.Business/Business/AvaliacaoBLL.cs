@@ -2,7 +2,7 @@
 using PFC.Model;
 using System.Threading.Tasks;
 
-namespace PFC.Business.Business
+namespace PFC.Business
 {
     public class AvaliacaoBLL
     {

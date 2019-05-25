@@ -22,6 +22,15 @@
         return request;
     };
 
+    this.ListaDenuncia = function () {
+        var request = $http({
+            method: 'post',
+            url: '../api/Denuncia/ListaDenuncia'
+        });
+
+        return request;
+    };
+
     
 
 });
