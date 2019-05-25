@@ -61,7 +61,7 @@ namespace PFC.DAO
 
             var strQuery = "";
 
-            strQuery = string.Format("SELECT * FROM Denuncia WHERE Id_topico ={0}", denuncia.Topico.Id);
+            strQuery = string.Format("SELECT * FROM Denuncia WHERE Id_topico ={0} OR Id_topicoFilho = {0}", denuncia.Topico.Id);
 
             try
             {
@@ -77,7 +77,7 @@ namespace PFC.DAO
 
                         strQuery = "INSERT INTO Denuncia (Id_Usu_Sol,Id_Usu_Pen,Descricao,Resposta,Status,Id_Topico,DataCria) ";
                         strQuery += string.Format("VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}')",
-                            denuncia.Id_Usu_Sol.Id, denuncia.Id_Usu_Pen.Id, denuncia.Descricao, denuncia.Resposta, 0, denuncia.Topico.Id, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                            denuncia.Id_Usu_Sol.Id, denuncia.Id_Usu_Pen.Id, "Ação tomada sem denuncias via sistema!", denuncia.Resposta, 0, denuncia.Topico.Id, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                         contexto.ExecutarInsert(strQuery);
 
                     }
@@ -85,11 +85,11 @@ namespace PFC.DAO
                     {
                         while (reader.Read())
                         {
-                            IdDenuncia = Convert.ToInt32(reader["Id_Denuncia"].ToString());
+                            IdDenuncia = Convert.ToInt32(reader["Id"].ToString());
                         }
                         reader.Close();
 
-                        strQuery = string.Format("UPDATE Denuncia SET Resposta={0},Status=0 WHERE Id = {1} ; UPDATE Notificacao SET Status =0 WHERE Id_Denuncia = {1}", denuncia.Resposta, IdDenuncia);
+                        strQuery = string.Format("UPDATE Denuncia SET Resposta='{0}',Status=0 WHERE Id = {1} ; UPDATE Notificacao SET Status =0 WHERE Id_Denuncia = {1}", denuncia.Resposta, IdDenuncia);
                         contexto.ExecutarInsert(strQuery);
                     }
 
@@ -162,7 +162,7 @@ namespace PFC.DAO
             var strQuery = "";
             strQuery = string.Format("SELECT usu.Nome,usu.Id AS IdUsuario,de.Id_topicoFilho,de.Id AS IdDenuncia, de.Descricao," +
                 "de.Id_topico,de.DataCria,de.Resposta,de.Status FROM Denuncia de " +
-                    "INNER JOIN Usuario usu ON usu.Id = de.Id_Usu_Sol");
+                    "INNER JOIN Usuario usu ON usu.Id = de.Id_Usu_Sol ORDER BY DataCria DESC");
 
             try
             {

@@ -13,7 +13,6 @@
             });
     };
 
-
     //Listar Topicos
     function carregarTopicos(topico) {
         var x = carregarIdUsuario();
@@ -192,5 +191,19 @@
     function resetDados() {
         $scope.areaResposta = {};
     }
+
+
+    const fnController = function () {
+        this.data = {};
+        this.data.cartoes = [{}, {}, {}, {}];
+
+        this.marcarSelecionado = function (selecionado) {
+            for (const cartao of this.data.cartoes) {
+                cartao.marcado = false;
+            }
+
+            selecionado.marcado = true;
+        }
+    };
 });
 

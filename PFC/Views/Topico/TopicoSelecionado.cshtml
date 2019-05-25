@@ -1,10 +1,32 @@
 ﻿
 <div class="col-md-12 content-page" ng-controller="topicoSelecionadoCtrl">
     <div class="col-md-12 blog-post">
-        <script>
+        <script type="text/javascript">
+onload=function(){
+document.body.style.visibility="visible"
+}
             var Topico = { Id:@ViewBag.TopicoId}
 
             localStorage.setItem('IdTopico', JSON.stringify(Topico.Id));
+
+            var hash;
+
+            if (window.location.hash) {
+              hash = window.location.hash;
+            };
+            setTimeout(function () {
+
+                    hash = hash.split("#");
+                    var ultimo = hash[hash.length - 1];
+                    document.getElementById(ultimo).focus();
+                window.location.href = "#" + ultimo;
+                    document.getElementById(ultimo).style.background="#B0E0E6";
+
+
+            },
+                3000
+            );
+
 
         </script>
 
@@ -62,16 +84,17 @@
 
         <div ng-repeat="topico in TopicosSelc.Resposta">
 
-            <div class="well well-sm"  id="{{topico.Id}}">
+            <div class="well well-sm" id="{{topico.Id}}">
 
                 <div class="btn-group dropright">
-
-                    <button type="button" class="close" data-toggle="dropdown" aria-label="Close" style="margin-top: -6px;margin-right: 0px;">
-                        <span aria-hidden="true" class="white-text">×</span>
-                    </button>
-
+                    @if (@User.Identity.IsAuthenticated)
+                    {
+                        <button type="button" class="close" data-toggle="dropdown" aria-label="Close" style="margin-top: -6px;margin-right: 0px;">
+                            <span aria-hidden="true" class="white-text">×</span>
+                        </button>
+                    }
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><a href="" data-toggle="modal" data-target="#ModalDenuncia{{topico.usuario.Id}}{{topico.Id}}"">Denunciar</a></li>
+                        <li><a href="" data-toggle="modal" data-target="#ModalDenuncia{{topico.usuario.Id}}{{topico.Id}}" ">Denunciar</a></li>
 
                         @if (@User.IsInRole("Admin") || @User.IsInRole("Master"))
                         {
@@ -82,9 +105,9 @@
 
                     <div ng-controller="denunciaController">
 
-                        <div class="modal fade" id="ModalDenuncia{{topico.usuario.Id}}{{topico.Id}}"" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="ModalDenuncia{{topico.usuario.Id}}{{topico.Id}}" " tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
-                                <div class="modal-content" ng-submit="#ModalDenunciaConfirma">
+                                <div class="modal-content">
                                     <div class="modal-body text-center mb-1">
                                         <label data-error="wrong" data-success="right" for="form29" class="ml-0">O que esta acontencendo?</label>
                                     </div>
@@ -131,7 +154,7 @@
 
                         <div class="modal fade" id="ModalRemove{{topico.usuario.Id}}{{topico.Id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
-                                <div class="modal-content" ng-submit="#ModalDenunciaConfirma">
+                                <div class="modal-content">
                                     <div class="modal-body text-center mb-1">
                                         <label data-error="wrong" data-success="right" for="form29" class="ml-0">Motivo..</label>
                                     </div>
@@ -296,7 +319,7 @@
     <div ng-controller="denunciaController">
         <div class="modal fade" id="ModalDenuncia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <div class="modal-content" ng-submit="#ModalDenunciaConfirma">
+                <div class="modal-content">
                     <div class="modal-body text-center mb-1">
                         <label data-error="wrong" data-success="right" for="form29" class="ml-0">O que esta acontencendo?</label>
                     </div>

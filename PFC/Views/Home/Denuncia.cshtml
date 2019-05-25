@@ -20,7 +20,7 @@
                 <tr ng-repeat="denuncia in ListaDenuncia">
                     <td><a href="../Usuario/PerfilUsuario?usuarioid={{denuncia.id_Usu_Sol.id}}">{{denuncia.id_Usu_Sol.nome}}</a></td>
                     <td>{{denuncia.descricao}}</td>
-                    <td><a href="../Topico/TopicoSelecionado?topicoId={{denuncia.topico.idTopicoPai}}#{{denuncia.topico.id}}">Ver Topico</a></td>
+                    <td><a href="../Topico/TopicoSelecionado?topicoId={{denuncia.topico.idTopicoPai}}#{{denuncia.topico.id}} ">Ver Topico</a></td>
                     <td>{{denuncia.dataCria  | date: 'dd/MM/yyyy'  }}</td>
                     <td>{{denuncia.resposta }}</td>
                     <td ng-if="denuncia.status">

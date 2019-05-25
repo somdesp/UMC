@@ -1,4 +1,4 @@
-﻿MeHelp.controller('denunciaController', function ($scope, denunciaService) {
+﻿MeHelp.controller('denunciaController', function ($window,$scope, denunciaService) {
     ListaDenuncia();
 
     $scope.DenunciaUsuario = function (topico) {
@@ -22,14 +22,6 @@
         });
     };
 
-    $scope.submitForm = function () {
-
-        // verifica se o formulário é válido
-        if ($scope.userForm.$valid) {
-            alert('our form is amazing');
-        }
-
-    };
 
     $scope.RemoverResposta = function (topico) {
 
@@ -44,6 +36,7 @@
         respostaUsuario.then(function (response) {
             if (response.data === true) {
                 alert("Resposta removida!!");
+                location.reload();
             } else {
                 console.log("Erro ao enviar a Denuncia");
             }

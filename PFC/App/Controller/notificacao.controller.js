@@ -45,7 +45,7 @@
 
         Notificacao.then(function (d) {
 
-            if (d.data !== null) {
+            if (d.data !== false) {
                 $self.notifications.push("Voçe tem novas Mensagens");
                 NotificacaoDenuncia(UsuarioSolicitado);
                 $scope.$apply();
