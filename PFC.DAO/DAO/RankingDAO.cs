@@ -180,14 +180,14 @@ namespace PFC.DAO
             SqlCommand comando;
             List<Usuario> listarUsuarios = new List<Usuario>();
             string querySQL = $"select Top 3 ava.id_Usuario_DonoTopico 'Id', u.Nome'Nome',c.Curso'Curso',";
-            querySQL += "CASE WHEN SUM(ava.Pontos) is Null then 0 ";
+            querySQL += "CASE WHEN SUM(ava.Pontos) is Null or SUM(ava.Pontos)<0 then 0 ";
             querySQL += "ELSE SUM(ava.Pontos) ";
             querySQL += "End 'Pontos' ";
             querySQL += "FROM(Avaliacao ava ";
-            querySQL += "Right JOIN Usuario u ON(ava.id_Usuario_DonoTopico = u.Id) ";
+            querySQL += "INNER JOIN Usuario u ON(ava.id_Usuario_DonoTopico = u.Id) ";
             querySQL += "Left JOIN Curso c ON(u.Id_Curso = c.Id)) ";
-            querySQL += "WHERE ava.Data_Avaliacao BETWEEN(select MIN(Data_Avaliacao) from Avaliacao) AND GETDATE() ";
-            querySQL += "GROUP by u.Nome,c.Curso,ava.id_Usuario_DonoTopico";
+            querySQL += "WHERE ava.Data_Avaliacao > CONVERT(date, GETDATE(), 111) ";
+            querySQL += "GROUP by u.Id,u.Nome,c.Curso,ava.id_Usuario_DonoTopico";
             SqlDataReader reader;
             using (contexto = new Contexto())
             {

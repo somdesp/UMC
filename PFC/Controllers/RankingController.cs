@@ -11,6 +11,7 @@ namespace PFC.Controllers
 {
     public class RankingController : Controller
     {
+        
         #region Listar Usuario Rank
         [HttpPost]
         [OutputCache(Duration = 120)]
@@ -59,7 +60,7 @@ namespace PFC.Controllers
 
         }
 
-        [Authorize]
+        
         [HttpPost]
         [OutputCache(Duration = 120)]
         public async Task<JsonResult> ListarRankMensal()
@@ -86,14 +87,15 @@ namespace PFC.Controllers
 
         [AllowAnonymous]
         [HttpPost]
+        [OutputCache(Duration = 180)]
         public async Task<JsonResult> ListarRankInicial()
         {
             RankBLL rank = new RankBLL();
             List<Usuario> resultado = new List<Usuario>();
 
 
-            RecurringJob.AddOrUpdate("RankingInicial", () => rank.ListarUsuariosInicial(), Cron.Minutely);
-            var ListarUsuariosInicial =await rank.ListarUsuariosInicial();
+           // RecurringJob.AddOrUpdate("RankingInicial", () => rank.ListarUsuariosInicial(), Cron.Minutely);
+            var ListarUsuariosInicial = await rank.ListarUsuariosInicial();
             if (ListarUsuariosInicial.Count == 0)
             {
                 resultado = null;

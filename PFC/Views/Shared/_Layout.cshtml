@@ -91,15 +91,16 @@
                                 <div id="menu" class="collapse">
                                     @if (@User.IsInRole("Usuario"))
                                     {
-                                        <ul class="menu-link">
-                                            <li>@Html.ActionLink("Editar Perfil", "EditarUsuario", "Usuario")</li>
-                                            <li><button onclick="" ng-click="logoutUsuario()" id="btnLogOut">LogOut</button></li>
-                                        </ul>
+                                    <ul class="menu-link">
+                                        <li><a href="#" ng-click="pegarIDUsuario()">Editar Perfil</a></li>
+                                        <li>@Html.ActionLink("Rankeamento Usuario", "Ranking", "Topico")</li>
+                                        <li><button onclick="" ng-click="logoutUsuario()" id="btnLogOut">LogOut</button></li>
+                                    </ul>
                                     }
                                     @if (@User.IsInRole("Admin") || @User.IsInRole("Master") )
                                     {
                                         <ul class="menu-link">
-                                            <li>@Html.ActionLink("Editar Perfil", "EditarUsuario", "Usuario")</li>
+                                            <li><a href="#" ng-click="pegarIDUsuario()">Editar Perfil</a></li>
                                             <li>@Html.ActionLink("Gerenciamento de Usuarios", "Index", "Usuario")</li>
                                             <li>@Html.ActionLink("Tema", "Index", "Tema")</li>
                                             <li>@Html.ActionLink("Rankeamento Usuario", "Ranking", "Topico")</li>
@@ -204,7 +205,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="usu in hankeamento">
+                                    <tr ng-repeat="usu in hankeamentoInicial track by usu.Id">
                                         <td><span class="glyphicon glyphicon-king" style="color:#f1c40f"> {{usu.Nome}}</span></td>
                                         <td>{{usu.avaliacao.pontos}}</td>
                                     </tr>

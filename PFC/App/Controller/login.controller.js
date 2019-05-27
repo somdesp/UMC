@@ -1,5 +1,6 @@
 ﻿MeHelp.controller('loginCtrl', function ($scope, loginService) {
 
+    
     //Login Usuario
     $scope.loginUsuario = function () {
 
@@ -20,12 +21,18 @@
             } else if (d.data.success === true) {
 
                 localStorage.setItem('model', JSON.stringify(d.data)),
+                   
                     location.reload();
             }
         },
             function () {
                 $("#resposta").text("Error Critico");
             });
+    };
+
+    $scope.pegarIDUsuario = function () {
+        var objetoUsuario = JSON.parse(localStorage.getItem('model'));
+        window.location.href = "/Usuario/PerfilUsuario?usuarioid=" + objetoUsuario.Id;
     };
 
     //Logout  Usuario
@@ -44,6 +51,8 @@
             });
     };
 });
+
+
 
 $(function () {
     var url_atual = window.location.href;

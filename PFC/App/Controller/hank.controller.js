@@ -2,7 +2,7 @@
 
     carregarHank();
     carregarHankInicial();
-    var localid = JSON.parse(localStorage.getItem('model'));
+  
 
     //$scope.Idusuario = localid.Id;
 
@@ -25,7 +25,7 @@
         $(".loader").show();
         listarUsuarios.then(function (d) {
             $(".loader").hide();
-            $scope.hankeamento = d.data;
+            $scope.hankeamentoInicial = d.data;
 
 
         },
