@@ -62,5 +62,15 @@ namespace PFC.Controllers
             string retorno = "Deslogado Com Sucesso";
             return Json(retorno, JsonRequestBehavior.AllowGet);
         }
+
+        // Recuperação de senha 
+        [HttpPost]
+        public async Task<JsonResult> recuperarSenha(Usuario usuario)
+        {
+
+            LoginBLL recuperarlogin = new LoginBLL();
+             await recuperarlogin.RecuperarLogin(usuario);
+            return Json(null, JsonRequestBehavior.AllowGet);
+        }
     }
 }

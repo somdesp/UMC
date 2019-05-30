@@ -50,6 +50,14 @@
                 $("#resposta").text("Error Critico");
             });
     };
+
+    $scope.recuperarsenha = function () {
+        var usuario = {};
+        usuario.Login = $scope.loginrecuperacao;
+        usuario.Email = $scope.emailrecuperacao;
+        var result = loginService.recuperarSenha(usuario);
+    };
+
 });
 
 

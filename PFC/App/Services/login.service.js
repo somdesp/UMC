@@ -23,6 +23,15 @@ MeHelp.service('loginService', function ($http) {
         return request;
     };
 
+    this.recuperarSenha = function (usuario) {
+        var request = $http({
+            method: 'post',
+            url: '/Login/recuperarSenha',
+            data: usuario
+        });
+        return request;
+    };
+
    
 
 });

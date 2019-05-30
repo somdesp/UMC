@@ -48,5 +48,42 @@ namespace PFC.DAO
         #endregion
 
         /// //////////////////////FIM LOGIN USUARIO//////////////////////////////
+        /// 
+         #region Recuperação de senha
+        public async Task<Usuario> RecuperacaoSenha(Usuario usuario)
+        {
+
+            SqlDataReader reader;
+            try
+            {
+                using (contexto = new Contexto())
+                {
+
+                    SqlCommand objCmd = new SqlCommand("select Id,Nome,Login,Email from Usuario where Email = @email and Login  = @login", contexto.forumConexao);
+                    objCmd.Parameters.AddWithValue("@login", usuario.Login);
+                    objCmd.Parameters.AddWithValue("@email", usuario.Email);
+
+                    reader = await objCmd.ExecuteReaderAsync();
+
+                    while (await reader.ReadAsync())
+                    {
+                        var temObjeto = new Usuario();
+
+                        temObjeto.Id = Convert.ToInt16(reader["Id"].ToString());
+                        temObjeto.Email = reader["Email"].ToString();
+                        temObjeto.Nome = reader["Nome"].ToString();
+
+                        usuario = (temObjeto);
+                    }
+                }
+
+                reader.Close();
+                return usuario;
+            }catch(SqlException ex)
+            {
+                return null;
+            }
+        }
+        #endregion
     }
 }
