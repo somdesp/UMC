@@ -552,6 +552,18 @@
     <Content Include="Scripts\popper.min.js" />
     <Content Include="Scripts\scrollglue.js" />
     <Content Include="Scripts\toaster.js" />
+    <Content Include="Scripts\Toaster\index.js" />
+    <Content Include="Scripts\Toaster\karma.conf.js" />
+    <Content Include="Scripts\Toaster\karma.coverage.js" />
+    <Content Include="Scripts\Toaster\test\directiveTemplateSpec.js" />
+    <Content Include="Scripts\Toaster\test\toasterContainerControllerSpec.js" />
+    <Content Include="Scripts\Toaster\test\toasterContainerSpec.js" />
+    <Content Include="Scripts\Toaster\test\toasterEventRegistrySpec.js" />
+    <Content Include="Scripts\Toaster\test\toasterServiceSpec.js" />
+    <Content Include="Scripts\Toaster\toaster.css" />
+    <Content Include="Scripts\Toaster\toaster.js" />
+    <Content Include="Scripts\Toaster\toaster.min.css" />
+    <Content Include="Scripts\Toaster\toaster.min.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-2.5.0.min.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-3.0.4.min.js" />
@@ -730,6 +742,15 @@
     <Content Include="Views\Usuario\PerfilUsuario.cshtml" />
     <Content Include="Views\Usuario\NotificacaoUsuario.cshtml" />
     <Content Include="Views\Home\Denuncia.cshtml" />
+    <Content Include="Scripts\Toaster\.gitignore" />
+    <Content Include="Scripts\Toaster\.travis.yml" />
+    <Content Include="Scripts\Toaster\bower.json" />
+    <Content Include="Scripts\Toaster\LICENSE" />
+    <Content Include="Scripts\Toaster\package-lock.json" />
+    <Content Include="Scripts\Toaster\package.json" />
+    <Content Include="Scripts\Toaster\README.md" />
+    <Content Include="Scripts\Toaster\toaster.scss" />
+    <Content Include="Views\Home\Chat.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

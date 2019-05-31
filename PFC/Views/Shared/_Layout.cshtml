@@ -11,8 +11,8 @@
 
 <head>
 
-    <title>MeHelp - Solução para sua duvida</title>
 
+    <title>MeHelp - Solução para sua duvida</title>
     <!-- Favicon -->
     <link rel="shortcut icon" href="/Content/images/icons/Icone Me Help.ico">
     <!-- All CSS Plugins -->
@@ -37,6 +37,7 @@
     <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
     <link rel="stylesheet" href="~/Content/css/jquery.fileupload.css">
     <link rel="stylesheet" href="~/Content/css/jquery.fileupload-ui.css">
+    <link href="~/Scripts/Toaster/toaster.min.css" rel="stylesheet" />
     <!-- CSS adjustments for browsers with JavaScript disabled -->
     <noscript><link rel="stylesheet" href="~/Content/css/jquery.fileupload-noscript.css"></noscript>
     <noscript><link rel="stylesheet" href="~/Content/css/jquery.fileupload-ui-noscript.css"></noscript>
@@ -60,7 +61,14 @@
 
 <body ng-app="MeHelp">
 
+    <toaster-container toaster-options="{'close-button':false,
+                       'time-out':{ 
+                       'toast-warning': 2000,
+                       'toast-note': 2000,
+                       'toast-error': 0 
+                       } }">
 
+    </toaster-container>
 
     <!-- Preloader Start -->
     <div class="preloader">
@@ -231,7 +239,7 @@
         </div>
 
         @* Modal cadastro de usuario*@
-        <div class="modal fade AdicionarUsuario" role="dialog" ng-controller="usuarioCtrl">
+        @*<div class="modal fade AdicionarUsuario" role="dialog" ng-controller="usuarioCtrl">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -315,6 +323,98 @@
             </div>
 
 
+        </div>*@
+
+        <div class="modal fade AdicionarUsuario" tabindex="-1" role="dialog" aria-labelledby="AdicionarUsuario" aria-hidden="true" ng-controller="usuarioCtrl">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="text-info">Cadastro de usuarios</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <form name="AdicionarUsuario">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="inputPassword4">Nome</label>
+                                            <input type="text" class="form-control" id="Nome" ng-model="nome" placeholder="Digite seu Nome" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="inputEmail4">Email</label>
+                                            <input type="email" class="form-control" id="Email" ng-model="email" placeholder="Digite seu Email" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="inputAddress">RGM</label>
+                                        <input type="text" class="form-control" id="RGM" ng-model="rgm" placeholder="Digite seu RGM" required>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="inputAddress">Login</label>
+                                        <input class="form-control" type="text" ng-model="login" name="Login" placeholder="Login" required />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="DataNasci">Data de Nascimento</label>
+                                        <input class="form-control" type="date" ng-model="dataNasci" id="DataNasci" name="DataNasci" placeholder="DataNasci" required />
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            <label for="Genero">Genero</label>
+                                            <select class="form-control" ng-model="cmbGenero" id="Genero"
+                                                    ng-options="c.Id as c.Sexo for c in Genero" required>
+                                                <option value="" selected="selected" disabled="disabled"> {{Id || 'Sexo'}} </option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="Curso">Curso</label>
+                                            <select class="form-control" ng-model="cmbCurso" id="Curso"
+                                                    ng-change="carregarSemestre(cmbCurso)"
+                                                    ng-options="c.Id as c['curso' + Lang] for c in Curso" required>
+                                                <option value="" selected="selected" disabled="disabled"> {{Id || 'Curso'}} </option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="Semestre">Semestre</label>
+                                            <select class="form-control" ng-model="cmbSemestre" id="Semestre"
+                                                    ng-options="s.Id as s.semestre for s in Semestre" required>
+
+                                                <option value="" selected="selected" disabled="disabled">{{Id || 'Semestre'}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <label for="Avatar">Avatar</label>
+                                        <div class="col-md-3">
+                                            <input type="file" accept="image/*" class="form-control" id="UploadImg" required />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img id="imgPreview" height="100" width="100" />
+                                        </div>
+
+                                        <div class="form-group col-md-3">
+                                            <label for="Senha">Senha</label>
+                                            <input class="form-control" type="password" ng-model="senha" name="Senha" placeholder="Senha" required />
+                                            <span ng-class="error" ng-show="AdiconarUsuarioForm.Senha.$error.required">Senha é obrigatório</span>
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="Confirmar">Confirmar Senha</label>
+                                            <input class="form-control" type="password" ng-model="confirmSenha" name="Senha" placeholder="Senha" required />
+                                            <span ng-if="(confirmSenha != senha)" class="error"> Campos devem ser iguais!!! </span>
+                                        </div>
+                                    </div>
+
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" ng-disabled="AdicionarUsuario.$invalid"  data-dismiss="modal"  ng-click="cadastrarUsuario()">Cadastrar</button>
+                    </div>
+                </div>
+            </div>
         </div>
         @* Fim Modal cadastro de usuario*@
 
@@ -334,13 +434,13 @@
                                 <div class="col-md-12">
                                     <div class="form-group col-md-12">
                                         <label for="inputAddress">Digite o seu Login:</label>
-                                        <input type="text" class="form-control" id="senha" ng-model="loginrecuperacao"  placeholder="Digite o login que você lembra..."  required>
-                                        
+                                        <input type="text" class="form-control" id="senha" ng-model="loginrecuperacao" placeholder="Digite o login que você lembra..." required>
+
                                     </div>
                                     <div class="form-group col-md-12">
                                         <label for="inputAddress">Digite o Email cadastrado:</label>
-                                        <input type="email" class="form-control"  ng-model="emailrecuperacao" name="emailrecuperacao" placeholder="Digite o email cadastrado" required/>
-                                        
+                                        <input type="email" class="form-control" ng-model="emailrecuperacao" name="emailrecuperacao" placeholder="Digite o email cadastrado" required />
+
                                     </div>
                                 </div>
                             </form>
@@ -435,6 +535,7 @@
 
             <script src="~/Scripts/angular-animate.js"></script>
             <script src="~/Scripts/toastr.js"></script>
+            <script src="~/Scripts/Toaster/toaster.min.js"></script>
             <script src="~/Scripts/scrollglue.js"></script>
             <script src="~/Scripts/angular-flash.js"></script>
             <script src="~/Scripts/angular-mocks.js"></script>

@@ -1,5 +1,5 @@
 ﻿// Controle Usuarios
-MeHelp.controller('usuarioCtrl', function ($scope, usuarioService) {
+MeHelp.controller('usuarioCtrl', function ($scope, usuarioService, toaster) {
 
     carregarUsuarios();
     carregarCursos();
@@ -98,14 +98,28 @@ MeHelp.controller('usuarioCtrl', function ($scope, usuarioService) {
             Semestre: { Id: $scope.cmbSemestre }
         };
 
+        toaster.pop('wait', "", "Cadastrando usuario!!");
 
         var adicionaDadosUsu = usuarioService.adicionarUsuario(usuario);
 
         adicionaDadosUsu.then(function (d) {
             if (d.data.success === true) {
-                alert("Usuario Cadastrado");
+                toaster.clear();
+                toaster.pop('note', "", "Usuario cadastrado", 3000);
+
+                $scope.nome = "";
+                $scope.email = "";
+                $scope.login = "";
+                $scope.senha = "";
+                $scope.dataNasci = "";
+                $scope.cmbGenero = "";
+                $scope.rgm = "";
+                $scope.cmbCurso = "";
+                $scope.cmbSemestre = "";
             } else {
-                alert("Usuario não Cadastrado");
+                toaster.clear();
+                toaster.pop('error', "", "Usuario não cadastrado", 3000);
+           
             };
         },
             function () {

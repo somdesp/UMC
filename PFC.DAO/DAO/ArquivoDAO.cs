@@ -11,16 +11,35 @@ namespace PFC.DAO
 
         public bool AnexoArquivos(Anexos arquivo)
         {
-           
-            var strQuery = "";
-            strQuery += "INSERT INTO Arquivos (Arquivo,ID_Topico) ";
-            strQuery += string.Format("VALUES('{0}','{1}')",
-                arquivo.Caminho,arquivo.id_topico);
 
-            using (contexto = new Contexto())
+            try
             {
-                return  contexto.ExecutarInsert(strQuery);
+                var strQuery = "";
+
+                if (arquivo.id_topico != 0)
+                {
+                    strQuery += "INSERT INTO Arquivos (Arquivo,ID_Topico) ";
+                    strQuery += string.Format("VALUES('{0}','{1}')",
+                        arquivo.Caminho, arquivo.id_topico);
+                }
+                else
+                {
+                    strQuery += "INSERT INTO Arquivos (Arquivo,ID_Topico) ";
+                    strQuery += string.Format("VALUES('{0}',NULL)",
+                        arquivo.Caminho);
+                }
+
+
+                using (contexto = new Contexto())
+                {
+                    return contexto.ExecutarInsert(strQuery);
+                }
             }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
         }
 
         #region Carregar Imagem
@@ -29,25 +48,32 @@ namespace PFC.DAO
 
             SqlDataReader reader;
 
-            using (contexto = new Contexto())
+            try
             {
-
-                string strQuery = string.Format("SELECT * FROM Arquivos WHERE Id = '{0}' ", arquivo.Id);
-                reader = await contexto.ExecutaComandoComRetorno(strQuery);
-
-                while (reader.Read())
+                using (contexto = new Contexto())
                 {
-                    Anexos temObjeto = new Anexos()
-                    {
-                        Caminho = reader["Arquivo"].ToString(),
-                        Id = Convert.ToInt32(reader["Id"].ToString())
-                    };
-                    arquivo = (temObjeto);
-                }
 
+                    string strQuery = string.Format("SELECT * FROM Arquivos WHERE Id = '{0}' ", arquivo.Id);
+                    reader = await contexto.ExecutaComandoComRetorno(strQuery);
+
+                    while (reader.Read())
+                    {
+                        Anexos temObjeto = new Anexos()
+                        {
+                            Caminho = reader["Arquivo"].ToString(),
+                            Id = Convert.ToInt32(reader["Id"].ToString())
+                        };
+                        arquivo = (temObjeto);
+                    }
+
+                }
+                reader.Close();
+                return arquivo;
             }
-            reader.Close();
-            return arquivo;
+            catch (Exception ex)
+            {
+                return null;
+            }
 
         }
         #endregion
@@ -57,26 +83,33 @@ namespace PFC.DAO
         {
 
             SqlDataReader reader;
-
-            using (contexto = new Contexto())
+            try
             {
-
-                string strQuery = string.Format("SELECT * FROM Arquivos WHERE Id_Topico = '{0}' ", arquivo.id_topico);
-                reader = await contexto.ExecutaComandoComRetorno(strQuery);
-
-                while (reader.Read())
+                using (contexto = new Contexto())
                 {
-                    Anexos temObjeto = new Anexos()
-                    {
-                        Caminho = reader["Arquivo"].ToString(),
-                        Id = Convert.ToInt32(reader["Id"].ToString())
-                    };
-                    arquivo = (temObjeto);
-                }
 
+                    string strQuery = string.Format("SELECT * FROM Arquivos WHERE Id_Topico = '{0}' ", arquivo.id_topico);
+                    reader = await contexto.ExecutaComandoComRetorno(strQuery);
+
+                    while (reader.Read())
+                    {
+                        Anexos temObjeto = new Anexos()
+                        {
+                            Caminho = reader["Arquivo"].ToString(),
+                            Id = Convert.ToInt32(reader["Id"].ToString())
+                        };
+                        arquivo = (temObjeto);
+                    }
+
+                }
+                reader.Close();
+                return arquivo;
             }
-            reader.Close();
-            return arquivo;
+            catch (Exception ex)
+            {
+                return null;
+            }
+
 
         }
         #endregion

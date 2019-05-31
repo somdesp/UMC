@@ -1,4 +1,4 @@
-﻿MeHelp.controller('topicoSelecionadoCtrl', function ($scope, topicoService, entityService) {
+﻿MeHelp.controller('topicoSelecionadoCtrl', function ($scope, topicoService, entityService, toaster) {
 
     var topico = localStorage.getItem("topico");
     visualizarTopico(localStorage.getItem('IdTopico'));
@@ -36,15 +36,15 @@
     $scope.topicodeTexto = function (topico) {
         cont++;
         if ($scope.itemSelecionado === topico) {
-          
+
             $scope.itemSelecionado = null;
 
         }
         else {
             $scope.itemSelecionado = topico;
         }
-             
-               
+
+
     };
 
 
@@ -81,9 +81,6 @@
             Anexos: Topico2.Anexos
         };
 
-
-
-
         var adicionaDadosPost = topicoService.novoPost(Topico);
 
         adicionaDadosPost.then(function (d) {
@@ -100,17 +97,34 @@
                             console.log(data);
                         });
                 }
-                resetDados();
-                location.reload();
-                $scope.areaResposta = '';
-                visualizarTopico(localStorage.getItem('IdTopico'));
+
+                toaster.pop('wait', "", "Enviando resposta", 2000);
+
+                setTimeout(function () {
+                    visualizarTopico(localStorage.getItem('IdTopico'));
+                },
+                    1000
+                );
+
+                setTimeout(function () {
+                    toaster.pop('success', "", "Resposta enviada", 3000);
+                    $scope.areaResposta.Descricao = '';
+                    $scope.areaResposta =null;
+
+                    $scope.areaResposta = {};
+                    delete $scope.areaResposta;
+                    resetDados();
+                },
+                    1000
+                );
+              
 
             } else {
-                alert("Resposta nao Enviada");
+                toaster.pop('danger', "", "Resposta não enviada", 3000);
             }
         },
             function () {
-                console.log("Erro na Resposta");
+                console.log("Erro na resposta");
             });
     };
 
@@ -132,7 +146,7 @@
                 $scope.TopicosSelc = d.data;
 
             } else {
-                alert("Pergunta nao Adicionado");
+                alert("Pergunta nao adicionado");
             }
         },
             function () {
@@ -157,7 +171,7 @@
 
     //função para quebrar o texto
     $scope.mudartext = function (text) {
-        if (text===1) {
+        if (text === 1) {
             $scope.text = 2;
         } else {
             $scope.text = 1;

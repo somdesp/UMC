@@ -1,7 +1,8 @@
-﻿MeHelp.controller('denunciaController', function ($window,$scope, denunciaService) {
+﻿MeHelp.controller('denunciaController', function ($window, $scope, denunciaService, topicoService, toaster) {
     ListaDenuncia();
 
     $scope.DenunciaUsuario = function (topico) {
+   
 
         var Denuncia = {
             Id_Usu_Pen: topico.usuario,
@@ -11,12 +12,16 @@
         };
 
 
-
+        toaster.pop('wait', "", "Enviando denuncia");
         var respostaUsuario = denunciaService.DenunciaUsuario(Denuncia);
         respostaUsuario.then(function (response) {
             if (response.data === true) {
-                alert("Denuncia enviada");
+                $scope.denuncia = "";
+                toaster.clear();
+                toaster.pop('success', "", "Denuncia enviada", 3000);
             } else {
+                toaster.clear();
+                toaster.error("", "Erro ao enviar a denuncia", 3000);
                 console.log("Erro ao enviar a Denuncia");
             }
         });
@@ -31,12 +36,20 @@
             Resposta: $scope.respostaRemove,
             Topico: topico
         };
+        toaster.pop('wait', "", "Removendo resposta");
 
         var respostaUsuario = denunciaService.RemoverResposta(Denuncia);
         respostaUsuario.then(function (response) {
-            if (response.data === true) {
-                alert("Resposta removida!!");
+            if (response.data === true) {    
+                $scope.respostaRemove = "";
+                topicoService.visualizarTopico(localStorage.getItem('IdTopico'));
+                toaster.clear();
+                toaster.pop('success', "", "Resposta removida!!", 3000);
+                setTimeout(function () {
                 location.reload();
+                },
+                    3000
+                );
             } else {
                 console.log("Erro ao enviar a Denuncia");
             }

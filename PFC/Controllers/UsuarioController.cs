@@ -35,8 +35,16 @@ namespace PFC.Controllers
         //Get Usuario/GetUsuario
         public async Task<JsonResult> ListarUsuarios()
         {
-            UsuarioDAO db = new UsuarioDAO();
-            return Json(await db.ListarUsuarios(), JsonRequestBehavior.AllowGet);
+            try
+            {
+                UsuarioDAO db = new UsuarioDAO();
+                return Json(await db.ListarUsuarios(), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false });
+            }
+
         }
         #endregion
 
@@ -47,12 +55,20 @@ namespace PFC.Controllers
         public JsonResult AdicionarUsuario(Usuario usuario)
         {
             UsuarioBLL usuarioBll = new UsuarioBLL();
-            usuario.UploadArquivo.Caminho = CaminhoImage;
-            if (usuarioBll.AdicionarUsuario(usuario) == true)
+            try
             {
-                return Json(new { success = true });
+                usuario.UploadArquivo.Caminho = CaminhoImage;
+                if (usuarioBll.AdicionarUsuario(usuario) == true)
+                {
+                    return Json(new { success = true });
+                }
+                return Json(new { success = false });
             }
-            return Json(new { success = false });
+            catch (Exception ex)
+            {
+                return Json(new { success = false });
+            }
+
         }
         #endregion
 
@@ -71,9 +87,17 @@ namespace PFC.Controllers
         [HttpPost]
         public JsonResult AlterarSenha(Usuario usuario)
         {
-            UsuarioBLL usuarioBll = new UsuarioBLL();
-            usuario.Id = User.Identity.GetUserId<int>();
-            return Json(usuarioBll.AtualizarSenha(usuario), JsonRequestBehavior.AllowGet);
+            try
+            {
+                UsuarioBLL usuarioBll = new UsuarioBLL();
+                usuario.Id = User.Identity.GetUserId<int>();
+                return Json(usuarioBll.AtualizarSenha(usuario), JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false });
+            }
         }
 
 
@@ -83,37 +107,45 @@ namespace PFC.Controllers
         [AllowAnonymous]
         public JsonResult UploadImage()
         {
-            string _imgname = string.Empty;
-            if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
+            try
             {
-                var pic = System.Web.HttpContext.Current.Request.Files["MyImages"];
-                if (pic.ContentLength > 0)
+                string _imgname = string.Empty;
+                if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
                 {
-                    var fileName = Path.GetFileName(pic.FileName);
-                    var _ext = Path.GetExtension(pic.FileName);
+                    var pic = System.Web.HttpContext.Current.Request.Files["MyImages"];
+                    if (pic.ContentLength > 0)
+                    {
+                        var fileName = Path.GetFileName(pic.FileName);
+                        var _ext = Path.GetExtension(pic.FileName);
 
-                    _imgname = Guid.NewGuid().ToString();
-                    var _comPath = Server.MapPath("/Upload/FOUMC_") + _imgname + _ext;
-                    _imgname = "FOUMC_" + _imgname + _ext;
+                        _imgname = Guid.NewGuid().ToString();
+                        var _comPath = Server.MapPath("/Upload/FOUMC_") + _imgname + _ext;
+                        _imgname = "FOUMC_" + _imgname + _ext;
 
-                    ViewBag.Msg = _comPath;
-                    var path = _comPath;
+                        ViewBag.Msg = _comPath;
+                        var path = _comPath;
 
-                    // Saving Image in Original Mode
-                    pic.SaveAs(path);
-                    CaminhoImage = _imgname.ToString();
+                        // Saving Image in Original Mode
+                        pic.SaveAs(path);
+                        CaminhoImage = _imgname.ToString();
 
-                    // resizing image
-                    MemoryStream ms = new MemoryStream();
-                    WebImage img = new WebImage(_comPath);
+                        // resizing image
+                        MemoryStream ms = new MemoryStream();
+                        WebImage img = new WebImage(_comPath);
 
-                    if (img.Width > 200)
-                        img.Resize(200, 200);
-                    img.Save(_comPath);
-                    // end resize
+                        if (img.Width > 200)
+                            img.Resize(200, 200);
+                        img.Save(_comPath);
+                        // end resize
+                    }
                 }
+                return Json(Convert.ToString(_imgname), JsonRequestBehavior.AllowGet);
             }
-            return Json(Convert.ToString(_imgname), JsonRequestBehavior.AllowGet);
+            catch (Exception ex)
+            {
+                return Json(new { success = false });
+            }
+
         }
         #endregion
 
@@ -135,18 +167,27 @@ namespace PFC.Controllers
             ViewBag.Usuario = User.Identity.GetUserId<int>();
             Usuario usuario = new Usuario();
             UsuarioBLL usuarioBll = new UsuarioBLL();
-            usuario.Id = Convert.ToInt16(usuarioId);
-            usuario = await usuarioBll.ConsultaUsuarioInt(usuario);
-            if (usuario.Nome != null)
+
+            try
             {
                 usuario.Id = Convert.ToInt16(usuarioId);
-                ViewBag.TopicoId = usuarioId;
-                return View(usuario);
+                usuario = await usuarioBll.ConsultaUsuarioInt(usuario);
+                if (usuario.Nome != null)
+                {
+                    usuario.Id = Convert.ToInt16(usuarioId);
+                    ViewBag.TopicoId = usuarioId;
+                    return View(usuario);
+                }
+                else
+                {
+                    return RedirectToAction("Error", "Home");
+                }
             }
-            else
+            catch (Exception ex)
             {
                 return RedirectToAction("Error", "Home");
             }
+
         }
 
         [HttpPost]
@@ -158,8 +199,6 @@ namespace PFC.Controllers
         }
 
         #endregion
-
-
 
         [AllowAnonymous]
         public async Task<ActionResult> ConsultaUnico(Usuario cad)
@@ -178,9 +217,9 @@ namespace PFC.Controllers
                 }
                 return Json(retorno, JsonRequestBehavior.AllowGet);
             }
-            catch
+            catch (Exception ex)
             {
-                return Json(false, JsonRequestBehavior.AllowGet);
+                return Json(new { success = false });
             }
         }
 
@@ -191,18 +230,26 @@ namespace PFC.Controllers
         {
             UsuarioBLL usuarioBll = new UsuarioBLL();
             Usuario usuario = new Usuario();
-            usuario.Id = User.Identity.GetUserId<int>();
-            usuario = await usuarioBll.ConsultaUsuarioInt(usuario);
-            Usuario resposta;
-            if (usuario.Id == 0)
+            try
             {
-                resposta = null;
+                usuario.Id = User.Identity.GetUserId<int>();
+                usuario = await usuarioBll.ConsultaUsuarioInt(usuario);
+                Usuario resposta;
+                if (usuario.Id == 0)
+                {
+                    resposta = null;
+                }
+                else
+                {
+                    resposta = usuario;
+                }
+                return Json(resposta, JsonRequestBehavior.AllowGet);
             }
-            else
+            catch (Exception ex)
             {
-                resposta = usuario;
+                return Json(new { success = false });
             }
-            return Json(resposta,JsonRequestBehavior.AllowGet);
+
         }
 
 
@@ -227,7 +274,7 @@ namespace PFC.Controllers
 
         }
 
-
+        [Authorize(Roles = "Admin,Usuario,Master")]
         public ActionResult NotificacaoUsuario()
         {           
             return View();
@@ -238,12 +285,20 @@ namespace PFC.Controllers
         [Authorize]
         public async Task<JsonResult> PesquisarUsuario(string pesquisa)
         {
-            UsuarioBLL usuariopesquisa = new UsuarioBLL();
-            List<Usuario> objetoPesquisa = new List<Usuario>();
-            objetoPesquisa = await usuariopesquisa.ConsultaUsuario();
-            var result = objetoPesquisa.Where(p => p.Nome.IndexOf(pesquisa,StringComparison.OrdinalIgnoreCase)!=-1);
+            try
+            {
+                UsuarioBLL usuariopesquisa = new UsuarioBLL();
+                List<Usuario> objetoPesquisa = new List<Usuario>();
+                objetoPesquisa = await usuariopesquisa.ConsultaUsuario();
+                var result = objetoPesquisa.Where(p => p.Nome.IndexOf(pesquisa, StringComparison.OrdinalIgnoreCase) != -1);
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false });
+            }
+
         }
 
 

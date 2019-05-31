@@ -14,11 +14,22 @@ namespace PFC.DAO
         public async Task<bool> DenunciaUsuarioAsync(Denuncia denuncia)
         {
             SqlDataReader reader;
-
             var strQuery = "";
-            strQuery += "INSERT INTO Denuncia (Id_Usu_Sol,Id_Usu_Pen,Descricao,Resposta,Status,Id_Topico,DataCria,Id_topicoFilho) ";
-            strQuery += string.Format("VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}');SELECT SCOPE_IDENTITY() AS Id_Denuncia",
-                denuncia.Id_Usu_Sol.Id, denuncia.Id_Usu_Pen.Id, denuncia.Descricao, denuncia.Resposta, 1, denuncia.Topico.IdTopicoPai, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), denuncia.Topico.Id);
+            if (denuncia.Topico.IdTopicoPai != 0)
+            {
+              
+                strQuery += "INSERT INTO Denuncia (Id_Usu_Sol,Id_Usu_Pen,Descricao,Resposta,Status,Id_Topico,DataCria,Id_topicoFilho) ";
+                strQuery += string.Format("VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}');SELECT SCOPE_IDENTITY() AS Id_Denuncia",
+                    denuncia.Id_Usu_Sol.Id, denuncia.Id_Usu_Pen.Id, denuncia.Descricao, denuncia.Resposta, 1, denuncia.Topico.Id, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), denuncia.Topico.IdTopicoPai);
+            }
+            else
+            {
+                strQuery += "INSERT INTO Denuncia (Id_Usu_Sol,Id_Usu_Pen,Descricao,Resposta,Status,Id_Topico,DataCria,Id_topicoFilho) ";
+                strQuery += string.Format("VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}',NULL);SELECT SCOPE_IDENTITY() AS Id_Denuncia",
+                    denuncia.Id_Usu_Sol.Id, denuncia.Id_Usu_Pen.Id, denuncia.Descricao, denuncia.Resposta, 1, denuncia.Topico.Id, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            }  
+            
+
 
 
             try

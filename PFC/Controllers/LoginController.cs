@@ -53,14 +53,23 @@ namespace PFC.Controllers
 
         public ActionResult LogOut()
         {
-            var ctx = Request.GetOwinContext();
-            var authManager = ctx.Authentication;
-            Session["Imagem"] = null;
-            authManager.SignOut("ApplicationCookie");
-            authManager.SignOut();
-            authManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            string retorno = "Deslogado Com Sucesso";
-            return Json(retorno, JsonRequestBehavior.AllowGet);
+            try
+            {
+                var ctx = Request.GetOwinContext();
+                var authManager = ctx.Authentication;
+                Session["Imagem"] = null;
+                authManager.SignOut("ApplicationCookie");
+                authManager.SignOut();
+                authManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                bool retorno = true;
+                return Json(retorno, JsonRequestBehavior.AllowGet);
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+
         }
 
         // Recuperação de senha 

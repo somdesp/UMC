@@ -158,7 +158,7 @@
                                     <strong>Escolha o tema do seu tópico</strong>
                                 </p>
                                 <div class="form-group">
-                                    <select data-style="btn-info" ng-model="cmbTema" ng-options="c.Id as c.Nome for c in Tema">
+                                    <select data-style="btn-info" ng-model="cmbTema" ng-options="c.Id as c.Nome for c in Tema" required>
                                         <option value="" selected="selected" disabled="disabled"> {{Id || 'Tema'}} </option>
                                     </select>
                                     <span ng-class="error" ng-show="AdiconarTopicoForm.cmbTema.$error.required">Tema é obrigatório</span>
@@ -170,27 +170,29 @@
                                 <strong>Titulo</strong>
                             </p>
                             <div class="form-group">
-                                <input class="form-control" ng-model="titulo" name="Nome" placeholder="Titulo" />
+                                <input class="form-control" ng-model="titulo" name="Nome" placeholder="Titulo" ng-minlength="5" ng-maxlength="100" required />
                             </div>
 
                             <p class="text-center">
                                 <strong>Descrição</strong>
                             </p>
 
-                            <div class="md-form form-group">
-                                <textarea ng-model="descricao" type="text" id="form79textarea" class="md-textarea form-control" rows="3"></textarea>
-                                <label for="form79textarea">Sua menssagem</label>
+                            <div class="form-group">
+                                <textarea class="form-control" ng-model="descricao" name="descricao" type="text" ng-minlength="15" ng-maxlength="300" id="form79textarea" rows="3" required></textarea>
+
+                                @*<label for="form79textarea">Sua menssagem</label>*@
                             </div>
 
                         </div>
                     </form>
-                    <div class="modal-footer justify-content-center">
-                        <a type="button" class="btn btn-primary waves-effect waves-light" ng-click="novoTopico()" data-dismiss="modal">
-                            Criar
-                            <i class="fa fa-paper-plane ml-1"></i>
-                        </a>
-                        <a type="button" class="btn btn-outline-primary waves-effect" data-dismiss="modal">Cancelar</a>
-                    </div>
+                        <div class="modal-footer justify-content-center">
+                            <button type="button"  ng-click="novoTopico()"class="btn btn-primary waves-effect waves-light" data-dismiss="modal" ng-disabled="!AdiconarTopicoForm.$valid">
+                                Criar
+                                <i class="fa fa-paper-plane ml-1"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline-primary waves-effect" data-dismiss="modal">Cancelar</button>
+                        </div>                
+
                 </div>
             </div>
         </div>

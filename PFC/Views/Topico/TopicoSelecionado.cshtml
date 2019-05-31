@@ -86,7 +86,7 @@ document.body.style.visibility="visible"
 
             <div class="well well-sm" id="{{topico.Id}}">
 
-                <div class="btn-group dropright">
+                <div class="btn-group dropright" ng-if="topico.Status.Id!= 4">
                     @if (@User.Identity.IsAuthenticated)
                     {
                         <button type="button" class="close" data-toggle="dropdown" aria-label="Close" style="margin-top: -6px;margin-right: 0px;">
@@ -204,16 +204,25 @@ document.body.style.visibility="visible"
 
                 <div class="media">
                     <div class="media-body ">
-                        <h4 class="media-heading "><a href="../Usuario/PerfilUsuario?usuarioid={{topico.usuario.Id}}" target="_blank">{{topico.usuario.Nome}} </a><small> {{topico.DataCria }}<button class="btn" ng-click="topicodeTexto($index)" ng-show="(topico.Descricao.length>50)">Leia mais...</button></small></h4>
-                        <p ng-class="$index==itemSelecionado ? 'textoaparecer':'text-nowrap bd-highlight'">{{topico.Descricao}}</p>
-                        <a href="~/Upload/{{topico.Anexos.Caminho}}">{{topico.Anexos.Caminho}}</a>
 
+                        <div ng-if="topico.Status.Id == 4">
+                            <h4 class="media-heading "><a href="../Usuario/PerfilUsuario?usuarioid={{topico.usuario.Id}}" target="_blank">{{topico.usuario.Nome}} </a><small> {{topico.DataCria }}<button class="btn" ng-click="topicodeTexto($index)" ng-show="(topico.Descricao.length>50)">Leia mais...</button></small></h4>
+                            <p ng-class="$index==itemSelecionado ? 'textoaparecer':'text-nowrap bd-highlight'">Resposta removida por não cumprir as regras do forum</p>
+                            <a href="~/Upload/{{topico.Anexos.Caminho}}">{{topico.Anexos.Caminho}}</a>
+
+                        </div>
+                        <div ng-if="topico.Status.Id!= 4">
+                            <h4 class="media-heading "><a href="../Usuario/PerfilUsuario?usuarioid={{topico.usuario.Id}}" target="_blank">{{topico.usuario.Nome}} </a><small> {{topico.DataCria }}<button class="btn" ng-click="topicodeTexto($index)" ng-show="(topico.Descricao.length>50)">Leia mais...</button></small></h4>
+                            <p ng-class="$index==itemSelecionado ? 'textoaparecer':'text-nowrap bd-highlight'">{{topico.Descricao}}</p>
+                            <a href="~/Upload/{{topico.Anexos.Caminho}}">{{topico.Anexos.Caminho}}</a>
+                        </div>
+  
                     </div>
 
                     <div class="media-right btn" data-toggle="modal" data-target="#modalLoginAvatar{{topico.usuario.Id}}">
                         <img src="~/Upload/{{topico.usuario.UploadArquivo.Caminho}}" class="media-object" style="width:60px">
                     </div>
-                    <div ng-if="(topico.usuario.Id!== usuario.Id)">
+                    <div ng-if="(topico.usuario.Id!== usuario.Id && topico.Status.Id!= 4 )">
                         <div ng-if="(TopicosSelc.Status.Id !=2)">
                             <div ng-if="(usuID>0)">
 
@@ -304,7 +313,7 @@ document.body.style.visibility="visible"
 
                         <div class="form-group">
 
-                            <textarea class="form-control" ng-model="areaResposta.Descricao" rows="10" cols="60" id="areaResposta" required></textarea>
+                            <textarea class="form-control" ng-model="areaResposta.Descricao" rows="10" cols="60" id="areaResposta.Descricao" required></textarea>
                         </div>
                         <button class="btn btn-primary comentariobotao" type="submit" ng-click="novoPost(areaResposta)" ng-disabled="resposta.$invalid">
                             <i class="fas fa-comment fa-2x"></i>

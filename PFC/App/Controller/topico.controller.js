@@ -1,5 +1,5 @@
 ﻿// Controle Topico
-MeHelp.controller('topicoCtrl', function ($scope, topicoService) {
+MeHelp.controller('topicoCtrl', function ($scope, topicoService, toaster) {
     var vm = this;
     $scope.semdados = false;
     carregarTopicos();
@@ -42,19 +42,19 @@ MeHelp.controller('topicoCtrl', function ($scope, topicoService) {
         
         
         var adicionaDadosTopico = topicoService.novoTopico(topico);
+        toaster.pop('wait', "", "Abrindo novo topico!!");
 
         adicionaDadosTopico.then(function (d) {
             if (d.data === true) {
-               // alert("Pergunta Cadastrado");
-                
-
-                acerto = indexAcerto++;
-                $scope.notifications[acerto] = 'Notificacao';
+                $scope.titulo = "";
+                $scope.descricao = "";
+                $scope.cmbTema = "";
+                toaster.clear();
+                toaster.pop('success', "", "Topico aberto!!", 3000);   
                 carregarTopicos();
             } else {
-                erro = indexErro++;
-                $scope.notificationsErro[erro] = 'notificacaoErro';
-               //alert("Pergunta nao Adicionado");
+                toaster.clear();
+                toaster.pop('error', "", "Erro ao abrir topico!!", 3000);
             }
         },
             function () {

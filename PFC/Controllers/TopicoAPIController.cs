@@ -13,18 +13,18 @@ namespace PFC.Controllers
         EmailBLL emailBLL = new EmailBLL();
         // POST: api/TopicoAPI
         [AcceptVerbs("POST")]
-        public async Task FechaTopico([FromBody]Topico topico)
+        public async Task<bool> FechaTopico([FromBody]Topico topico)
         {
             TopicoBLL topicoBll = new TopicoBLL();
             if (topico.usuario.Id == User.Identity.GetUserId<int>())
             {
                 if (topicoBll.FechaTopico(topico) == true)
                 {
-                    await emailBLL.EnviarEmail(null,topico,null);
-                    //return (true);
+                     await emailBLL.EnviarEmail(null,topico,null);
+                    return true;
                 };
             }
-           // return (false);
+            return false;
         }
 
         // POST: api/TopicoAPI

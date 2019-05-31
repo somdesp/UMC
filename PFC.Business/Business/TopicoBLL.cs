@@ -95,6 +95,7 @@ namespace PFC.Business
         #region Adicona Resposta
         public bool AdicionarPosts(Topico post)
         {
+            post.TopicoFilho.Status.Id = 1;
             daoTopico.UpdateDataTopico(post);
             return daoTopico.AdicionarPosts(post);
         }
@@ -138,6 +139,7 @@ namespace PFC.Business
         public bool FechaTopico(Topico topico)
         {
             //await EnviarEmail(topico);
+            topico.Titulo ="[RESOLVIDO] "+ topico.Titulo;
             return daoTopico.FechaTopico(topico);
         }
         #endregion

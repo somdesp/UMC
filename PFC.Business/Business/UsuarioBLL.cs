@@ -27,7 +27,6 @@ namespace PFC.Business
         {
             arquivoDao.AnexoArquivos(usuario.UploadArquivo);
             return daoUsuario.AdicionarUsuario(usuario);
-
         }
         #endregion
 

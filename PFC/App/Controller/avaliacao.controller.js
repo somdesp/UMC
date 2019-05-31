@@ -1,4 +1,4 @@
-﻿MeHelp.controller('avaliacao.controller', function ($scope, avaliacaoService, topicoService) {
+﻿MeHelp.controller('avaliacao.controller', function ($scope, toaster, avaliacaoService, topicoService) {
     var contadorLike = 0;
     var contadorDesLike = 0;
     var contadorEstrela = 0;
@@ -165,12 +165,22 @@
                             $scope.idAvaliacao = d.data.idAvaliacao;
                             sinalizador = 1;
                         });
+                        toaster.pop('wait', "", "Finalizando topico!!", 2000);
 
                         var FechaTopico = topicoService.FechaTopico(TopicosSelc);
                         //FechaTopico.then(function (d) {
                         //    if (d.data === true) {
-                                alert('Topico Fechado.');
-                                location.reload();
+                        setTimeout(function () {
+                            toaster.pop('success', "", "Topico fechado!!", 3000);
+                        },
+                            1000
+                        );
+                        setTimeout(function () {
+                            location.reload();
+                        },
+                            3000
+                        );
+                     
                         //    };
                         //});
 

@@ -1,6 +1,6 @@
-﻿MeHelp.controller('loginCtrl', function ($scope, loginService) {
+﻿MeHelp.controller('loginCtrl', function ($scope, loginService, toaster, $window) {
 
-    
+    var indexAcerto = 0;
     //Login Usuario
     $scope.loginUsuario = function () {
 
@@ -15,13 +15,13 @@
             $scope.erro = null;
             if (d.data.success === false) {
                 //$("#resposta").text("Usuario ou senha Incorretos");
-                
+
                 $scope.erro = true;
                 $scope.descricaoErro = "Usuario ou senha Incorretos";
             } else if (d.data.success === true) {
 
                 localStorage.setItem('model', JSON.stringify(d.data)),
-                   
+
                     location.reload();
             }
         },
@@ -39,12 +39,24 @@
     $scope.logoutUsuario = function () {
 
         var logoutUsuario = loginService.logoutUsuario();
-
+       
+        toaster.pop('wait', "", "Deslogando usuario",2000);
         logoutUsuario.then(function (d) {
-            localStorage.clear();
-            alert(d.data);
-            location.reload();
             localStorage.removeItem("model");
+            localStorage.clear();
+            setTimeout(function () {
+                toaster.pop('success', "", "Usuario deslogado");
+            },
+                1000
+            );
+         
+            setTimeout(function () {
+                location.reload();
+            },
+                3000
+            );
+           
+          
         },
             function () {
                 $("#resposta").text("Error Critico");
@@ -58,7 +70,11 @@
         var result = loginService.recuperarSenha(usuario);
     };
 
+
+
 });
+
+
 
 
 
