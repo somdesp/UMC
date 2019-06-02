@@ -1,5 +1,5 @@
 ﻿// Controle Tema
-MeHelp.controller('temaCtrl', function ($scope, temaService) {
+MeHelp.controller('temaCtrl', function ($scope, toaster, temaService ) {
 
     carregarTemas();
 
@@ -22,21 +22,24 @@ MeHelp.controller('temaCtrl', function ($scope, temaService) {
 
     //Cadastrar Tema
     $scope.cadastrarTema = function () {
+        toaster.pop('wait', "", "Cadastrando tema!!");
 
         var tema = {
             Nome: $scope.nome
-        }
+        };
 
 
         var adicionaDadosTema = temaService.adicionarTema(tema);
 
         adicionaDadosTema.then(function (d) {
             if (d.data === true) {
-                alert("Tema Cadastrado");
+                toaster.clear();
+                toaster.pop('success', "", "Tema cadastrado!!", 3000);
                 carregarTemas();
             } else {
-                console.log("Tema nao Adicionado");
-            }
+                toaster.clear();
+                toaster.pop('error', "", 'Tema nao cadastrado!!', 3000);
+                        }
         },
             function () {
                 alert("Erro ao cadastrar");
@@ -51,6 +54,8 @@ MeHelp.controller('temaCtrl', function ($scope, temaService) {
 
     //Atualizar tema
     $scope.atualizarTema = function () {
+        toaster.pop('wait', "", "Atualizando tema!!");
+
         var tema = {
             Id: $scope.id,
             Nome: $scope.nome
@@ -60,10 +65,12 @@ MeHelp.controller('temaCtrl', function ($scope, temaService) {
 
         UpdateTema.then(function (d) {
             if (d.data === true) {
-                alert("Tema Atualizado");
+                toaster.clear();
+                toaster.pop('success', "", "Tema atualizado!!",3000);
                 carregarTemas();
             } else {
-                alert("Tema nao Atualizado");
+                toaster.clear();
+                toaster.pop('error', "", 'Tema nao atualizado por estar em uso!!', 3000);
             }
         },
             function () {
@@ -73,18 +80,34 @@ MeHelp.controller('temaCtrl', function ($scope, temaService) {
 
     //Excluir Tema
     $scope.excluirTema = function (tema) {
+        toaster.pop('wait', "", "Excluindo tema!!");
+
         var btnVal = confirm("Deseja Excluir o Tema?");
 
         if (btnVal == true) {
             var excluiDadosTema = temaService.excluirTema(tema);
             excluiDadosTema.then(function (d) {
-                alert(d.data);
-                carregarTemas();
+                if (d.data === true) {
+                    toaster.clear();
+
+                    toaster.pop('success', "", "Tema excluido!!", 3000);
+
+                    carregarTemas();
+                } else {
+                    toaster.clear();
+                    toaster.pop('error', "", 'Tema nao excluido por estar em uso!!', 3000);
+                }
+
+
             },
                 function () {
                     console.log("Erro ao Excluir");
                 });
+
         };
+
+        toaster.clear();
+
     };
 
     $scope.resetDados = function () {
