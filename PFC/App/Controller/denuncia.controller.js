@@ -44,7 +44,7 @@
                 $scope.respostaRemove = "";
                 topicoService.visualizarTopico(localStorage.getItem('IdTopico'));
                 toaster.clear();
-                toaster.pop('success', "", "Resposta removida!!", 3000);
+                toaster.pop('success', "", "Resposta/Pergunta removida!!", 3000);
                 setTimeout(function () {
                 location.reload();
                 },

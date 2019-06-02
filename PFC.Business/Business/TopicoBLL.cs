@@ -194,7 +194,28 @@ namespace PFC.Business
         }
         #endregion
 
+        #region GetTopicosPesquisa
 
+        public async Task<List<Topico>> GetTopicosPesquisa(dynamic topico)
+        {
+            return await daoTopico.GetTopicosPesquisa(topico);
+        }
 
+        #endregion
+
+        #region GetStatusTopico
+
+        public async Task<List<StatusTopico>> GetStatusTopico()
+        {
+            return await daoTopico.GetStatusTopico();
+        }
+        #endregion
+
+        #region AlterarTopico
+        public async Task<bool> AlterarTopico(Topico topico)
+        {
+            return await daoTopico.AlterarTopico(topico);
+        }
+        #endregion
     }
 }

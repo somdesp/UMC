@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "Gerenciamento";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row" ng-controller="managertopicoCtrl">
+
+    <h2>Gerenciamento de Topicos</h2>
+
+    <div class="sub-title">
+        <label for="DataNasci">Data de abertura</label>
+        <form name="topicoForm" novalidate>
+            <div class="form-group col-md-12">
+                <div class="form-group col-md-1">
+                    De
+                </div>
+                <div class="form-group col-md-4">
+                    <input class="form-control" type="date" ng-model="datAbertIni" id="DataNasci" name="DataNasci" placeholder="DataNasci" required />
+                </div>
+                <div class="form-group col-md-1">
+                    Ate
+                </div>
+                <div class="form-group col-md-4">
+                    <input class="form-control" type="date" ng-model="datAbertFim" id="DataNasci" name="DataNasci" placeholder="DataNasci" required />
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="Status">Status</label>
+                    <select class="form-control" ng-model="cmbStatus" id="StatusTopico"
+                            ng-options="c.id as c.status for c in StatusTopico" required>
+                        <option value="" selected="selected" disabled="disabled"> {{Id || 'Status'}} </option>
+                    </select>
+                </div>
+
+            </div>
+        </form>
+        <button class="btn btn-success" ng-disabled="topicoForm.$invalid" ng-click="buscarTopicos()">Buscar</button>
+
+    </div>
+
+
+    <div ng-if="Topico">
+        <div class="sub-title">
+            <div class="panel-heading"><h2>Topicos</h2></div>
+        </div>
+        <table class="table table-bordered">
+            <thead style="background-color:#1abc9c;">
+                <tr>
+                    <th>Usuario</th>
+                    <th>Descrição</th>
+                    <th>Topico</th>
+                    <th>Data Abertura</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="topico in Topico">
+                    <td><a href="../Usuario/PerfilUsuario?usuarioid={{topico.usuario.id}}">{{topico.usuario.nome}}</a></td>
+                    <td>{{topico.descricao}}</td>
+                    <td><a href="../Topico/TopicoSelecionado?topicoId={{topico.id}}">Ver Topico</a></td>
+                    <td>{{topico.dataCria  | date: 'dd/MM/yyyy'  }}</td>
+                    <td>
+                        <select class="form-control" ng-model="topico.status.id" id="StatusTopico"
+                                ng-options="c.id as c.status for c in StatusTopico" required>
+                            <option value="" selected="selected" disabled="disabled"> {{Id || 'Status'}} </option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="btn btn-success" ng-click="alterarTopico(topico)">Alterar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

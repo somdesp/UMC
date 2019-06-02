@@ -37,7 +37,7 @@ namespace PFC.Controllers
             //NotificacaoHub notificacaoHub = new NotificacaoHub();
             //notificacaoHub.EnvioMensSoli(amizade);
 
-            return (await amizadeBll.solicitacaoAmizade(amizade.usuario, amizade.usuarioSolicitado));
+            return (await amizadeBll.SolicitacaoAmizade(amizade.usuario, amizade.usuarioSolicitado));
 
         }
         #endregion

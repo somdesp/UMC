@@ -34,6 +34,13 @@ namespace PFC.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin,Master")]
+        // GET: Temas/Create
+        public ActionResult Gerenciamento()
+        {
+            return View();
+        }
+
         [Authorize(Roles = "Admin,Usuario,Master")]
         // GET: Temas/Create
         public ActionResult Create()
