@@ -12,8 +12,16 @@ MeHelp.controller('managertopicoCtrl', function ($scope, topicoService, toaster)
         };
         var listarTopico = topicoService.getTopicosPesquisa(buscaTopico);
         listarTopico.then(function (d) {
-            toaster.clear();
-            $scope.Topico = d.data;
+            if (d.data.length !== 0) {
+                toaster.clear();
+                $scope.Topico = d.data;
+            } else {
+                toaster.clear();
+                toaster.pop('note', "", "Nenhum topico encontrado!!");
+
+
+            }
+
         },
             function () {
                 console.log("Erro ao Carregar CMBSemestre");
