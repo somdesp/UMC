@@ -13,7 +13,6 @@ namespace PFC.Model
         public int  idUsuario { get; set; }
         public int idTopico { get; set; }
         public float pontos { get; set; }
-        public float mediaPontos { get; set; }
         public int contarLike { get; set; }
         public int contarDeslike { get; set; }
     }
