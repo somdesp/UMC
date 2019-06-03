@@ -5,12 +5,37 @@ MeHelp.service('topicoService', function ($http,$q) {
     this.getTodosTopicos = function () {
         return $http.get("/Topico/ListarTopico");
     };
-
+    //getStatusTopico
+    this.getStatusTopico = function () {
+        return $http.post("../api/TopicoAPI/GetStatusTopico");
+    };
     //Servico por Novo Topico
     this.novoTopico = function (topico) {
         var request = $http({
             method: 'post',
             url: '/Topico/AdicionarTopico',
+            data: topico
+        });
+
+        return request;
+    };
+
+    //alterarTopico
+    this.alterarTopico = function (topico) {
+        var request = $http({
+            method: 'post',
+            url: '../api/TopicoAPI/AlterarTopico',
+            data: topico
+        });
+
+        return request;
+    };
+
+    //Servico Pesquisa no gerenciamento
+    this.getTopicosPesquisa = function (topico) {
+        var request = $http({
+            method: 'post',
+            url: '../api/TopicoAPI/GetTopicosPesquisa',
             data: topico
         });
 

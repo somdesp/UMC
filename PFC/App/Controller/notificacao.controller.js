@@ -1,4 +1,4 @@
-﻿MeHelp.controller('notificationController', function ($scope, notificacaoService, amizadeService) {
+﻿MeHelp.controller('notificationController', function ($scope, notificacaoService, amizadeService, toaster) {
     var $self = this;
     var ModelUsuario = JSON.parse(localStorage.getItem('model'));
     visualizarNotificacaoAmizade(ModelUsuario);
@@ -99,10 +99,12 @@
 
         aceitarAmizade.then(function (d) {
             if (d.data === true) {
-                alert("Solicitação Aceita");
+                toaster.pop('success', "", "Solicitação aceita!!", 2000);          
+                NotificacaoAmizade(ModelUsuario);
 
             } else {
-                alert("Solicitação Nao enviada");
+                toaster.pop('warn', "", "Solicitação não aceita!!", 2000);        
+
             }
         },
             function () {
@@ -118,7 +120,8 @@
 
         aceitarAmizade.then(function (d) {
             if (d.data === true) {
-                alert("Solicitação Recusada");
+                toaster.pop('warn', "", "Solicitação não aceita!!", 2000);      
+
                 NotificacaoAmizade(ModelUsuario);
 
             } else {

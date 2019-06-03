@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using PFC.DAO;
 using PFC.Model;
@@ -12,14 +10,19 @@ namespace PFC.Business
     {
         SolicitacaoDAO amizadeDao = new SolicitacaoDAO();
         NotificacaoBLL notificacaoBLL = new NotificacaoBLL();
+        EmailBLL emailBLL = new EmailBLL();
 
-        public async Task<bool> solicitacaoAmizade(Usuario usuario, Usuario usuarioSolicitado)
+
+        public async Task<bool> SolicitacaoAmizade(Usuario usuario, Usuario usuarioSolicitado)
         {
             try
             {
-                int id_amizade = await amizadeDao.solicitacaoAmizade(usuario, usuarioSolicitado);
+                int id_amizade = await amizadeDao.SolicitacaoAmizade(usuario, usuarioSolicitado);
                 if (id_amizade > 0)
                 {
+                    List<Usuario> listUsuario = new List<Usuario>();
+                    listUsuario.Add(usuarioSolicitado);
+                    await emailBLL.EnviarEmail(listUsuario, null,"Você tem uma nova solicitação de amizade!!");
                     await notificacaoBLL.AdicionaNotificação(id_amizade);
                     return true;
                 }

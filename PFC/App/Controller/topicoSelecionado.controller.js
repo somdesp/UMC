@@ -109,7 +109,7 @@
                 setTimeout(function () {
                     toaster.pop('success', "", "Resposta enviada", 3000);
                     $scope.areaResposta.Descricao = '';
-                    $scope.areaResposta =null;
+                    $scope.areaResposta = null;
 
                     $scope.areaResposta = {};
                     delete $scope.areaResposta;
@@ -117,7 +117,7 @@
                 },
                     1000
                 );
-              
+
 
             } else {
                 toaster.pop('danger', "", "Resposta não enviada", 3000);
@@ -137,87 +137,104 @@
         localStorage.setItem("topico", JSON.stringify(Topico));
 
         DadosTopico.then(function (d) {
-            if (d.data !== null) {
-                d.data.DataCria = converteDataHora(d.data.DataCria);
-                var i;
-                for (i = 0; i < d.data.Resposta.length; i++) {
-                    d.data.Resposta[i].DataCria = converteDataHora(d.data.Resposta[i].DataCria);
-                }
-                $scope.TopicosSelc = d.data;
 
+            //VALIDA SE TOPICO ESTA BLOQUEADO OU EXCLUIDO
+            if (d.data.Status.Id === 4 || d.data.Status.Id === 3) {
+                toaster.pop('error', "", "Topico inacessível no momento", 3000);
+
+                setTimeout(function () {
+
+                    window.location.href = "../Home/Index";
+                },
+                    1000
+                );
             } else {
-                alert("Pergunta nao adicionado");
+                if (d.data !== null) {
+
+                    d.data.DataCria = converteDataHora(d.data.DataCria);
+                    var i;
+                    for (i = 0; i < d.data.Resposta.length; i++) {
+                        d.data.Resposta[i].DataCria = converteDataHora(d.data.Resposta[i].DataCria);
+                    }
+                    $scope.TopicosSelc = d.data;
+
+                } else {
+                    alert("Pergunta nao adicionado");
+                }
             }
-        },
+        }),
             function () {
                 console.log("Erro ao cadastrar");
-            });
+            }
+        
         return DadosTopico;
     };
 
 
-    //Listar Temas
-    function carregarTemas() {
-        var listarTemas = topicoService.getTodosTemas();
-        listarTemas.then(function (d) {
-            $scope.Tema = d.data;
-        },
-            function () {
-                console.log("Erro ao carregar a lista de temas");
-            });
+
+
+//Listar Temas
+function carregarTemas() {
+    var listarTemas = topicoService.getTodosTemas();
+    listarTemas.then(function (d) {
+        $scope.Tema = d.data;
+    },
+        function () {
+            console.log("Erro ao carregar a lista de temas");
+        });
+}
+
+
+
+//função para quebrar o texto
+$scope.mudartext = function (text) {
+    if (text === 1) {
+        $scope.text = 2;
+    } else {
+        $scope.text = 1;
     }
+};
+
+//correção datas
+function converteDataHora(data) {
+    var arrayMes = new Array(12);
+    arrayMes[0] = "Jan";
+    arrayMes[1] = "Fev";
+    arrayMes[2] = "Mar";
+    arrayMes[3] = "Abri";
+    arrayMes[4] = "Mai";
+    arrayMes[5] = "Jun";
+    arrayMes[6] = "Jul";
+    arrayMes[7] = "Ago";
+    arrayMes[8] = "Set";
+    arrayMes[9] = "Out";
+    arrayMes[10] = "Nov";
+    arrayMes[11] = "Dez";
 
 
 
-    //função para quebrar o texto
-    $scope.mudartext = function (text) {
-        if (text === 1) {
-            $scope.text = 2;
-        } else {
-            $scope.text = 1;
+    var dataReplace = data.toString().replace(/\/Date\((-?\d+)\)\//, '$1');
+    var conversao = new Date(parseInt(dataReplace));
+    return conversao.getDate() + " de " + arrayMes[conversao.getUTCMonth()] + " de " + conversao.getFullYear();
+};
+
+
+function resetDados() {
+    $scope.areaResposta = {};
+}
+
+
+const fnController = function () {
+    this.data = {};
+    this.data.cartoes = [{}, {}, {}, {}];
+
+    this.marcarSelecionado = function (selecionado) {
+        for (const cartao of this.data.cartoes) {
+            cartao.marcado = false;
         }
-    };
 
-    //correção datas
-    function converteDataHora(data) {
-        var arrayMes = new Array(12);
-        arrayMes[0] = "Jan";
-        arrayMes[1] = "Fev";
-        arrayMes[2] = "Mar";
-        arrayMes[3] = "Abri";
-        arrayMes[4] = "Mai";
-        arrayMes[5] = "Jun";
-        arrayMes[6] = "Jul";
-        arrayMes[7] = "Ago";
-        arrayMes[8] = "Set";
-        arrayMes[9] = "Out";
-        arrayMes[10] = "Nov";
-        arrayMes[11] = "Dez";
-
-
-
-        var dataReplace = data.toString().replace(/\/Date\((-?\d+)\)\//, '$1');
-        var conversao = new Date(parseInt(dataReplace));
-        return conversao.getDate() + " de " + arrayMes[conversao.getUTCMonth()] + " de " + conversao.getFullYear();
-    };
-
-
-    function resetDados() {
-        $scope.areaResposta = {};
+        selecionado.marcado = true;
     }
-
-
-    const fnController = function () {
-        this.data = {};
-        this.data.cartoes = [{}, {}, {}, {}];
-
-        this.marcarSelecionado = function (selecionado) {
-            for (const cartao of this.data.cartoes) {
-                cartao.marcado = false;
-            }
-
-            selecionado.marcado = true;
-        }
     };
 });
 

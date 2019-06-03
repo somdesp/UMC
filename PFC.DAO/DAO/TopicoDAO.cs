@@ -39,7 +39,7 @@ namespace PFC.DAO
                 var strQuery = " SELECT toc.Id ,toc.Titulo,toc.Id_Tema,toc.Id_Usuario,toc.IdTopicoPai,"
                     + "toc.Id_Status,toc.Descricao,toc.DataCriacao,usu.Id AS IdUsuario,usu.Nome,usu.Login,usu.Email, usu.Senha, usu.RGM, "
                     + "usu.DataNasci, usu.DataCad, usu.Id_Curso ,usu.Id_Semestre,usu.Id_Genero,  usu.Id_Arquivo,usu.Id_Permissoes AS IdTopico FROM Topico toc "
-                    + "INNER JOIN Usuario usu ON usu.Id = toc.Id_Usuario WHERE IdTopicoPai IS NULL ORDER BY DataUpdate DESC ";
+                    + "INNER JOIN Usuario usu ON usu.Id = toc.Id_Usuario WHERE toc.Id_Status <> 4 AND IdTopicoPai IS NULL ORDER BY DataUpdate DESC";
                 reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                 while (reader.Read())
@@ -318,6 +318,116 @@ namespace PFC.DAO
 
         #endregion
 
+        #region GetTopicosPesquisa
+        public async Task<List<Topico>> GetTopicosPesquisa(dynamic topicoPesquisa)
+        {
+            var topico = new List<Topico>();
+            SqlDataReader reader;
+            try
+            {
+                using (contexto = new Contexto())
+                {
+                    var strQuery = string.Format(" SELECT toc.Id ,toc.Titulo,toc.Id_Tema,toc.Id_Usuario,toc.IdTopicoPai,"
+                        + "toc.Id_Status,toc.Descricao,toc.DataCriacao,usu.Id AS IdUsuario,usu.Nome,usu.Login,usu.Email, usu.Senha, usu.RGM, "
+                        + "usu.DataNasci, usu.DataCad, usu.Id_Curso ,usu.Id_Semestre,usu.Id_Genero,  usu.Id_Arquivo,usu.Id_Permissoes AS IdTopico FROM Topico toc "
+                        + "INNER JOIN Usuario usu ON usu.Id = toc.Id_Usuario  WHERE toc.DataCriacao >='{0}' AND toc.DataCriacao <='{1}' AND  toc.Id_Status = {2} AND toc.IdTopicoPai IS NULL ORDER BY DataUpdate DESC", topicoPesquisa.datAbertIni.ToString("yyyy-MM-dd"), topicoPesquisa.datAbertFim.ToString("yyyy-MM-dd"), topicoPesquisa.status);
 
+                    reader = await contexto.ExecutaComandoComRetorno(strQuery);
+
+                    while (reader.Read())
+                    {
+                        Topico readerTopico = new Topico();
+                        readerTopico.Id = Convert.ToInt32(reader["Id"].ToString());
+                        readerTopico.Titulo = reader["Titulo"].ToString();
+                        readerTopico.DataCria = Convert.ToDateTime(reader["DataCriacao"].ToString());
+                        readerTopico.Descricao = reader["Descricao"].ToString();
+                        readerTopico.Tema.Id = Convert.ToInt32(reader["Id_Tema"].ToString());
+                        readerTopico.Status.Id = Convert.ToInt32(reader["Id_Status"].ToString());
+                        
+                        //usuario
+                        readerTopico.usuario.Id = Convert.ToInt32(reader["IdUsuario"].ToString());
+                        readerTopico.usuario.Nome = reader["Nome"].ToString();
+                        readerTopico.usuario.Login = reader["Login"].ToString();
+                        readerTopico.usuario.Email = reader["Email"].ToString();
+                        readerTopico.usuario.RGM = reader["RGM"].ToString();
+                        readerTopico.usuario.DataNasci = Convert.ToDateTime(reader["DataNasci"].ToString());
+                        readerTopico.usuario.DataNasci = Convert.ToDateTime(reader["DataCad"].ToString());
+                        readerTopico.usuario.Curso.Id = Convert.ToInt32(reader["Id_Curso"].ToString());
+                        readerTopico.usuario.Semestre.Id = Convert.ToInt32(reader["Id_Semestre"].ToString());
+                        readerTopico.usuario.Sexo.Id = Convert.ToInt32(reader["Id_Genero"].ToString());
+                        readerTopico.usuario.UploadArquivo.Id = Convert.ToInt32(reader["Id_Arquivo"].ToString());
+
+                        topico.Add(readerTopico);
+                    }
+                }
+                reader.Close();
+                return topico;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+        }
+        #endregion
+
+        #region GetStatusTopico
+        public async Task<List<StatusTopico>> GetStatusTopico()
+        {
+            var statustopico = new List<StatusTopico>();
+            SqlDataReader reader;
+            try
+            {
+                using (contexto = new Contexto())
+                {
+                    var strQuery = string.Format(" SELECT * FROM StatusTopicos");
+
+                    reader = await contexto.ExecutaComandoComRetorno(strQuery);
+
+                    while (reader.Read())
+                    {
+                        StatusTopico readerTopico = new StatusTopico();
+                        readerTopico.Id = Convert.ToInt32(reader["Id"].ToString());
+                        readerTopico.Status = reader["Status"].ToString();
+
+                        statustopico.Add(readerTopico);
+                    }
+                }
+                reader.Close();
+                return statustopico;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+        }
+        #endregion
+
+        #region AlterarTopico
+        public async Task<bool> AlterarTopico(Topico topico)
+        {
+
+            try
+            {
+                var strQuery = "";
+                strQuery = string.Format(" UPDATE Topico SET Id_Status ={0},DataUpdate = '{1}' WHERE ID = {2} ",
+                    topico.Status.Id, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), topico.Id);
+
+                using (contexto = new Contexto())
+                {
+                    return contexto.ExecutarInsert(strQuery);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+
+        }
+        #endregion
     }
 }

@@ -12,8 +12,7 @@
         'growlNotifications',
         'SignalR',
         'toaster',
-        'zxcvbn',
-        'toaster'
+        'zxcvbn'
     ]);
 
     MeHelp.directive('compareTo', function () {

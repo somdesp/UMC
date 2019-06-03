@@ -203,11 +203,10 @@ namespace PFC.DAO
         }
 
 
-        public async Task<string> ExcluirTema(Tema tema)
+        public async Task<bool> ExcluirTema(Tema tema)
         {
 
             SqlDataReader reader;
-            string retorno;
             var validaExclusao = "SELECT Id_Tema FROM Topico ";
             validaExclusao += string.Format(" WHERE Id_Tema = {0};", tema.Id);
             int retorno2 = 0;
@@ -224,7 +223,7 @@ namespace PFC.DAO
             //Valida se tema esta em uso
             if (tema.Id == retorno2)
             {
-                retorno = "Nao e possivel Excluir o Tema Utilizado";
+                return false;
             }
             else
             {
@@ -237,10 +236,10 @@ namespace PFC.DAO
                     contexto.ExecutarInsert(strQuery);
                 }
 
-                retorno = "Tema excluido com sucesso";
+                return true;
             }
 
-            return retorno;
+           
         }
 
 

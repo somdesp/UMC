@@ -22,6 +22,7 @@ namespace PFC.Business
 
             if (topico == null)
             {
+ 
                 for (int i = 0; i < usuarios.Count; i++)
                 {
                     email.Add(usuarios[i].Email);

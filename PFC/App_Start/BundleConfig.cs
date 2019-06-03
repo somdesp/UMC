@@ -58,7 +58,8 @@ namespace PFC
                "~/App/Controller/hank.controller.js",
                 "~/App/Controller/solicitacao.controller.js",
                 "~/App/Controller/notificacao.controller.js",
-                "~/App/Controller/denuncia.controller.js",                
+                "~/App/Controller/denuncia.controller.js",
+                "~/App/Controller/managerTopicos.controller.js",
 
                "~/App/Factories.js"));
 

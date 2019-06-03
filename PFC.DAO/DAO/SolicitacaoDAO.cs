@@ -12,7 +12,7 @@ namespace PFC.DAO
         private UsuarioDAO usuarioDAO = new UsuarioDAO();
 
         #region SolicitaAMizade
-        public async Task<int> solicitacaoAmizade(Usuario usuario, Usuario usuarioSolicitado)
+        public async Task<int> SolicitacaoAmizade(Usuario usuario, Usuario usuarioSolicitado)
         {
             int Id_Amizade = 0;
             SqlDataReader reader;

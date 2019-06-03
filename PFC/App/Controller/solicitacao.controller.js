@@ -1,5 +1,5 @@
 ﻿// Controle Usuarios
-MeHelp.controller('amizadeCtrl', function ($scope, amizadeService, usuarioService) {
+MeHelp.controller('amizadeCtrl', function ($scope, toaster, amizadeService, usuarioService) {
     //---------------Visualização de perfil de outros usuarios---------------------------------//
     var UsuarioSolicitado = JSON.parse(localStorage.getItem("PerfilUsuario"));
     var UsuarioLogado = JSON.parse(localStorage.getItem('model'));
@@ -211,6 +211,8 @@ MeHelp.controller('amizadeCtrl', function ($scope, amizadeService, usuarioServic
     //Solicitação Amizade
     $scope.conviteAmizade = function (Usu_Sol) {
 
+        toaster.pop('wait', "", "Enviando solicitação!!");
+
         $scope.habilitaBotao = false;
         $scope.desabilitaBotao = true;
 
@@ -224,11 +226,13 @@ MeHelp.controller('amizadeCtrl', function ($scope, amizadeService, usuarioServic
 
         amizadeSolicitada.then(function (d) {
             if (d.data === true) {
-                alert("Solicitação enviada");
+                toaster.clear();
+                toaster.pop('success', "", "Solicitação enviada!!", 3000);             
                 $scope.valAmi = true;
 
             } else {
-                alert("Solicitação Nao enviada");
+                toaster.clear();
+                toaster.pop('error', "", "Erro ao enviar a solicitação!!", 3000);
             }
         },
             function () {
@@ -260,6 +264,7 @@ MeHelp.controller('amizadeCtrl', function ($scope, amizadeService, usuarioServic
 
     //Cancela Amizade
     $scope.cancelaAmizade = function (usuarios) {
+        toaster.pop('wait', "", "Cancelando amizade!!",1000);
 
         $scope.habilitaBotao = true;
         $scope.desabilitaBotao = false;
@@ -275,7 +280,8 @@ MeHelp.controller('amizadeCtrl', function ($scope, amizadeService, usuarioServic
 
         cancelaAmizade.then(function (d) {
             if (d.data === true) {
-                alert("Amizade Cancelada");
+                toaster.pop('success', "", "Amizade cancelada!!", 3000);
+                $scope.valAmi = true;              
                 ValidaAmizade(UsuarioLogado, UsuarioSolicitado);
 
             } else {

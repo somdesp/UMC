@@ -47,14 +47,14 @@ namespace PFC.Controllers
 
         #region Atualizar tema
         [Authorize(Roles = "Admin")]
-        public ActionResult AtualizarTema(Tema tema)
+        public async Task<ActionResult> AtualizarTema(Tema tema)
         {
 
             TemaDAO temaDAO = new TemaDAO();
 
             try
             {
-                return Json(temaDAO.AtualizarTema(tema));
+                return Json(await temaDAO.AtualizarTema(tema));
             }
             catch
             {
@@ -66,10 +66,10 @@ namespace PFC.Controllers
         #region Excluir tema        
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public ActionResult ExcluirTema(Tema tema, FormCollection collection)
+        public async Task<ActionResult> ExcluirTema(Tema tema, FormCollection collection)
         {
             TemaDAO temaDAO = new TemaDAO();
-            return Json(temaDAO.ExcluirTema(tema));
+            return Json(await temaDAO.ExcluirTema(tema));
         }
         #endregion
 
