@@ -78,8 +78,8 @@ namespace PFC.Controllers
         {
 
             LoginBLL recuperarlogin = new LoginBLL();
-             await recuperarlogin.RecuperarLogin(usuario);
-            return Json(null, JsonRequestBehavior.AllowGet);
+            bool retorno =  await recuperarlogin.RecuperarLogin(usuario);
+            return Json(retorno, JsonRequestBehavior.AllowGet);
         }
     }
 }

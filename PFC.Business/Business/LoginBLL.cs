@@ -1,6 +1,7 @@
 ﻿using PFC.DAO;
 using PFC.Model;
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,23 +33,38 @@ namespace PFC.Business
 
         }
 
-        public async Task<Usuario> RecuperarLogin(Usuario usuarioRecuperar)
+        public async Task<bool> RecuperarLogin(Usuario usuarioRecuperar)
         {
             //Primeira coisa verificar se esse usuario existe
             EmailBLL email = new EmailBLL();
 
-            Usuario usuario = await loginDao.RecuperacaoSenha(usuarioRecuperar);
+            List<Usuario> listausuario = new List<Usuario>();
+             listausuario.Add(await loginDao.RecuperacaoSenha(usuarioRecuperar));
             
             
 
-            if (usuario.Id != 0)
+            if (listausuario[0].Id != 0)
             {
-                string senhanova = RandomString(5, false);
-                usuario.Senha = senhanova;
-                await email.EnviarEmail(usuario, null, "Caro usuario a senha nova para acesso é essa:" + senhanova + "");
+
+                string senhanova = RandomString(10, false);
+                bool resultado = await loginDao.AlteracaoSenha(senhanova,listausuario[0].Id);
+                if (resultado)
+                {
+                    await email.EnviarEmail(listausuario, null, "Caro usuario a senha nova para acesso é essa: " + senhanova + "");
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+                
+            }
+            else
+            {
+                return false;
             }
 
-            return usuario;
+            
 
         }
 

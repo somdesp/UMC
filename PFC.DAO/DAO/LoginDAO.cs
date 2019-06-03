@@ -79,11 +79,42 @@ namespace PFC.DAO
 
                 reader.Close();
                 return usuario;
-            }catch(SqlException ex)
+            }
+            catch (SqlException ex)
             {
                 return null;
             }
         }
         #endregion
+
+
+        #region
+        public async Task<bool> AlteracaoSenha(string senha, int idusuario)
+        {
+            using (contexto = new Contexto())
+            {
+                SqlCommand objCmd = new SqlCommand("update Usuario set Senha = PWDENCRYPT(@senha) where Id = @idusuario ", contexto.forumConexao);
+                objCmd.Parameters.AddWithValue("@senha", senha);
+                objCmd.Parameters.AddWithValue("@idusuario", idusuario);
+                int numerolinha = await objCmd.ExecuteNonQueryAsync();
+                if (numerolinha > 0)
+                {
+                    return true;
+
+
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+
+        }
+
+
+
     }
+    #endregion
 }
+

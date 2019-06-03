@@ -89,7 +89,10 @@ namespace PFC.DAO
         {
             SqlCommand comando;
             List<Usuario> listarUsuarios = new List<Usuario>();
-            string querySQL = $"select Id,Nome,Curso,Pontos from TempRankingDiario";
+            string querySQL = $"select usu.Id'Id',usu.Nome'Nome',curso.Curso'Curso',diario.Pontos'Pontos' from  TempRankingDiario diario (NOLOCK)";
+            querySQL += " INNER JOIN Usuario usu(NOLOCK) ON diario.idUsuario = usu.Id";
+            querySQL += " INNER JOIN Curso curso(NOLOCK) ON diario.IdCurso = curso.Id";
+            querySQL += " ORDER by diario.Pontos desc";
             SqlDataReader reader;
             using (contexto = new Contexto())
             {
@@ -119,7 +122,10 @@ namespace PFC.DAO
         {
             SqlCommand comando;
             List<Usuario> listarUsuarios = new List<Usuario>();
-            string querySQL = $"select Id,Nome,Curso,Pontos from TempRankingSemanal Order by Pontos desc";
+            string querySQL = $"select usu.Id,usu.Nome'Nome',curso.Curso,semanal.Pontos from  TempRankingSemanal semanal (NOLOCK)";
+            querySQL += " INNER JOIN Usuario usu(NOLOCK) ON semanal.idUsuario = usu.Id";
+            querySQL += " INNER JOIN Curso curso(NOLOCK) ON semanal.IdCurso = curso.Id";
+            querySQL += " ORDER by semanal.Pontos desc";
             SqlDataReader reader;
             using (contexto = new Contexto())
             {
@@ -149,7 +155,10 @@ namespace PFC.DAO
         {
             SqlCommand comando;
             List<Usuario> listarUsuarios = new List<Usuario>();
-            string querySQL = $"select Id,Nome,Curso,Pontos from TempRankingMensal Order by Pontos desc";
+            string querySQL = $"select usu.Id'Id',usu.Nome'Nome',curso.Curso'Curso',mensal.Pontos'Pontos' from  TempRankingMensal mensal (NOLOCK)";
+            querySQL += " INNER JOIN Usuario usu(NOLOCK) ON mensal.idUsuario = usu.Id";
+            querySQL += " INNER JOIN Curso curso(NOLOCK) ON mensal.IdCurso = curso.Id";
+            querySQL += " ORDER by mensal.Pontos desc";
             SqlDataReader reader;
             using (contexto = new Contexto())
             {
@@ -229,7 +238,7 @@ namespace PFC.DAO
         public void ExecutarRankingDiario()
         {
             SqlCommand comando;
-            string executarSQL = $"Exec RankingDiario";
+            string executarSQL = $"INSERT INTO TempRankingDiario EXEC RankingDiario";
             using (contexto = new Contexto())
             {
                 comando = new SqlCommand(executarSQL, contexto.forumConexao);
@@ -243,7 +252,7 @@ namespace PFC.DAO
         public void ExecutarRankingSemanal()
         {
             SqlCommand comando;
-            string executarSQL = $"Exec RankingSemanal";
+            string executarSQL = $"INSERT INTO TempRankingSemanal Exec RankingSemanal";
             using (contexto = new Contexto())
             {
                 comando = new SqlCommand(executarSQL, contexto.forumConexao);
@@ -258,7 +267,7 @@ namespace PFC.DAO
         public void ExecutarRankingMensal()
         {
             SqlCommand comando;
-            string executarSQL = $"EXEC RankingMensal";
+            string executarSQL = $"INSERT INTO TempRankingMensal EXEC RankingMensal";
             using (contexto = new Contexto())
             {
                 comando = new SqlCommand(executarSQL, contexto.forumConexao);

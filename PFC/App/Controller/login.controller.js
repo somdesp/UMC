@@ -65,9 +65,30 @@
 
     $scope.recuperarsenha = function () {
         var usuario = {};
+        $scope.resultado = false;
+        $scope.negativo = false;
+        //$scope.negativo = false;
         usuario.Login = $scope.loginrecuperacao;
         usuario.Email = $scope.emailrecuperacao;
         var result = loginService.recuperarSenha(usuario);
+        toaster.pop('wait', "", "Espera! estamos verificando essas informações", 2000);
+        result.then(function (d) {
+            if (d.data === true) {
+                toaster.pop('success', "", "Funcionou verifique seu email", 2500);
+                
+                $scope.loginrecuperacao = "";
+                $scope.emailrecuperacao = "";
+                $scope.resultado = d.data;
+                $scope.FormRecuperacao.$setPristine();
+
+            } else {
+                $scope.negativo = true;
+                setTimeout(function () {
+                    toaster.pop('error', "", "Não reconhecemos essas informaçoes, tente novamente", 2000);
+                },1500);
+               
+            }
+        });
     };
 
 

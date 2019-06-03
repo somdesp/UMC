@@ -434,14 +434,21 @@
                                 <div class="col-md-12">
                                     <div class="form-group col-md-12">
                                         <label for="inputAddress">Digite o seu Login:</label>
-                                        <input type="text" class="form-control" id="senha" ng-model="loginrecuperacao" placeholder="Digite o login que você lembra..." required>
+                                        <input type="text" class="form-control" id="senha" ng-model="loginrecuperacao" placeholder="Digite o login que você lembra..." ng-required />
 
                                     </div>
                                     <div class="form-group col-md-12">
                                         <label for="inputAddress">Digite o Email cadastrado:</label>
-                                        <input type="email" class="form-control" ng-model="emailrecuperacao" name="emailrecuperacao" placeholder="Digite o email cadastrado" required />
+                                        <input type="email" class="form-control" ng-model="emailrecuperacao" name="emailrecuperacao" placeholder="Digite o email cadastrado" ng-required />
 
                                     </div>
+                                    <div class="alert alert-success animate-show-hide" ng-hide="(!resultado)">
+                                        <span class="txt1">Email enviado com sucesso! Verifique a caixa de entrada pode ser que o email enviado esteja no spam <i class="far fa-paper-plane fa-2x"></i></span>
+                                    </div>
+                                    <div class="alert alert-danger animate-show-hide" ng-show="(negativo)">
+                                        <span>Não reconhecemos essas informações verifique se você digitou corretamente <i class="fas fa-times fa-1x"></i></span>
+                                    </div>
+
                                 </div>
                             </form>
                         </div>

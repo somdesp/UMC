@@ -78,7 +78,7 @@
                         <ul>
                             <li>Genero: {{PerfilUsuario.Sexo.Sexo}}</li>
                             <li>RGM:{{PerfilUsuario.RGM}}</li>
-                            <li>Email: {{PerfilUsuario.Email}}</li>
+                            @*<li>Email: {{PerfilUsuario.Email}}</li>*@
                             <li>Curso: {{PerfilUsuario.Curso.curso}}</li>
                             <li>Semestre: {{PerfilUsuario.Semestre.semestre}}</li>
                         </ul>
@@ -98,13 +98,8 @@
                     </div>
                     <div class="list list-style-2 margin-top-30">
                         <ul>
-                            <li>Website Design</li>
-                            <li>Website Development</li>
-                            <li>Wordpress Theme Development</li>
-                            <li>Mobile Apps UI/UX Design</li>
-                            <li>Online Software Development</li>
-                            <li>E-commerce Development</li>
-                            <li>UI/UX Consulting</li>
+                            <li>Ranking Mensal</li>
+                            
                         </ul>
                     </div>
                     <!-- My Service End -->
@@ -176,12 +171,16 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="inputEmail4">Email</label>
-                                        <input type="email" class="form-control" id="Email" ng-model="usuario.Email" placeholder="Digite seu Email" required>
+                                        <input type="email" class="form-control" id="Email" ng-model="usuario.Email" placeholder="Digite seu Email" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="inputAddress">RGM</label>
                                     <input type="text" class="form-control" id="RGM" ng-model="usuario.RGM" placeholder="Digite seu RGM" required>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="inputAddress">Login</label>
+                                    <input type="text" class="form-control" id="RGM" ng-model="usuario.Login" placeholder="Digite seu Login" readonly>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="DataNasci">Data de Nascimento</label>

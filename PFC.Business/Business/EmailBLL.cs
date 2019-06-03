@@ -13,6 +13,7 @@ namespace PFC.Business
     public class EmailBLL
     {
         #region Email
+
         public async Task EnviarEmail(dynamic usuarios,dynamic topico,string mensagem)
         {
             List<string> email = new List<string>();
