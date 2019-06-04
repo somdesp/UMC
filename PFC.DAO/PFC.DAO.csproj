@@ -109,7 +109,7 @@
   <ItemGroup>
     <Compile Include="DAO\DenunciaDAO.cs" />
     <Compile Include="DAO\NotificacaoDAO.cs" />
-    <Compile Include="DAO\SolicitacaoDAO.cs" />
+    <Compile Include="DAO\AmizadeDAO.cs" />
     <Compile Include="DAO\AvaliacaoDAO.cs" />
     <Compile Include="Contexto\Contexto.cs" />
     <Compile Include="DAO\ArquivoDAO.cs" />

@@ -33,7 +33,6 @@ namespace PFC.DAO
                     while (reader.Read())
                     {
                         avaliar.pontos = float.Parse(reader["Pontos"].ToString());
-                        avaliar.mediaPontos = float.Parse(reader["media"].ToString());
                     }
 
                 }
@@ -140,38 +139,38 @@ namespace PFC.DAO
         #endregion
 
         #region Consulta Média por tópico
-        public async Task<float> consultaMediaAvaliacao(Avaliacao avaliar)
-        {
+        //public async Task<float> consultaMediaAvaliacao(Avaliacao avaliar)
+        //{
 
-            SqlCommand comando;
+        //    SqlCommand comando;
 
-            string querSQL = String.Format("select avg(pontos) as media from Avaliacao where Id_Topico = {0}", avaliar.idTopico);
+        //    string querSQL = String.Format("select avg(pontos) as media from Avaliacao where Id_Topico = {0}", avaliar.idTopico);
 
-            SqlDataReader reader;
-            using (contexto = new Contexto())
-            {
-                comando = new SqlCommand(querSQL, contexto.forumConexao);
+        //    SqlDataReader reader;
+        //    using (contexto = new Contexto())
+        //    {
+        //        comando = new SqlCommand(querSQL, contexto.forumConexao);
 
-                reader = await contexto.ExecutaComandoComRetorno(querSQL);
+        //        reader = await contexto.ExecutaComandoComRetorno(querSQL);
 
-                while (reader.Read())
-                {
-                    string media = reader["media"].ToString();
-                    if (media == string.Empty)
-                    {
+        //        while (reader.Read())
+        //        {
+        //            string media = reader["media"].ToString();
+        //            if (media == string.Empty)
+        //            {
 
-                    }
-                    else
-                    {
-                        avaliar.mediaPontos = float.Parse(reader["media"].ToString());
-                    }
+        //            }
+        //            else
+        //            {
+        //                avaliar.mediaPontos = float.Parse(reader["media"].ToString());
+        //            }
 
 
-                }
+        //        }
 
-            }
-            return avaliar.mediaPontos;
-        }
+        //    }
+        //    return avaliar.mediaPontos;
+        //}
 
 
         #endregion
@@ -200,7 +199,6 @@ namespace PFC.DAO
                     while (reader.Read())
                     {
                         avaliar.pontos = float.Parse(reader["pontos"].ToString());
-                        avaliar.mediaPontos = float.Parse(reader["media"].ToString());
                     }
 
                 }

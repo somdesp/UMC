@@ -25,7 +25,7 @@ namespace PFC.Business
             return await notificacaoDao.VerificaNotificacaoDenunciaAsync(notificacao);
         }
 
-        public async Task<List<Solicitacao>> NotificacaoAmizade(Usuario usuario)
+        public async Task<List<Amizade>> NotificacaoAmizade(Usuario usuario)
         {
 
             return await notificacaoDao.NotificacaoAmizade(usuario);

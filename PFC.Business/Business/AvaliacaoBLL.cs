@@ -83,7 +83,7 @@ namespace PFC.Business
         {
             AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO();
             avalicao.pontos = converterPontosEstrelas(await avaliacaoDAO.consultaAvaliarpontos(avalicao, idUsuario));
-            avalicao.mediaPontos = converterPontosEstrelas(await avaliacaoDAO.consultaMediaAvaliacao(avalicao));
+            //avalicao.mediaPontos = converterPontosEstrelas(await avaliacaoDAO.consultaMediaAvaliacao(avalicao));
             return avalicao;
         }
         #endregion

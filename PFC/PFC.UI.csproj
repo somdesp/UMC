@@ -684,7 +684,7 @@
     <Compile Include="Controllers\NotificacaoController.cs" />
     <Compile Include="Controllers\RankingController.cs" />
     <Compile Include="Controllers\SemestreController.cs" />
-    <Compile Include="Controllers\SolicitacaoController.cs" />
+    <Compile Include="Controllers\AmizadeController.cs" />
     <Compile Include="Controllers\TemaApiController.cs" />
     <Compile Include="Controllers\TemaController.cs" />
     <Compile Include="Controllers\TopicoAPIController.cs" />

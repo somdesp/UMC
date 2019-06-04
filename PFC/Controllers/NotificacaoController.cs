@@ -13,7 +13,7 @@ namespace PFC.Controllers
 
         #region AmizadeSOlicitada
         [AcceptVerbs("POST")]
-        public async Task<List<Solicitacao>> NotificacaoAmizade([FromBody]Usuario usuario)
+        public async Task<List<Amizade>> NotificacaoAmizade([FromBody]Usuario usuario)
         {
            var notif = await notificacaoBLL.NotificacaoAmizade(usuario);
 

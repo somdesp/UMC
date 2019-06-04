@@ -6,9 +6,9 @@ using PFC.Model;
 
 namespace PFC.Business
 {
-    public class SolicitacaoBLL
+    public class AmizadeBLL
     {
-        SolicitacaoDAO amizadeDao = new SolicitacaoDAO();
+        AmizadeDAO amizadeDao = new AmizadeDAO();
         NotificacaoBLL notificacaoBLL = new NotificacaoBLL();
         EmailBLL emailBLL = new EmailBLL();
 

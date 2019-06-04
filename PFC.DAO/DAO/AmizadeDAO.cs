@@ -6,7 +6,7 @@ using PFC.Model;
 
 namespace PFC.DAO
 {
-    public class SolicitacaoDAO
+    public class AmizadeDAO
     {
         private Contexto contexto;
         private UsuarioDAO usuarioDAO = new UsuarioDAO();

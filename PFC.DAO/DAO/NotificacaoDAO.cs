@@ -13,7 +13,7 @@ namespace PFC.DAO
         private Contexto contexto;
         private UsuarioDAO usuarioDAO = new UsuarioDAO();
         private TopicoDAO topicoDAO = new TopicoDAO();
-        private SolicitacaoDAO solicitacaoDAO = new SolicitacaoDAO();
+        private AmizadeDAO solicitacaoDAO = new AmizadeDAO();
         #endregion
 
         #region Notificação Amizade
@@ -107,10 +107,10 @@ namespace PFC.DAO
         #endregion
 
         #region NotificaçãoAMizade
-        public async Task<List<Solicitacao>> NotificacaoAmizade(Usuario usuario)
+        public async Task<List<Amizade>> NotificacaoAmizade(Usuario usuario)
         {
             SqlDataReader reader;
-            List<Solicitacao> solicitacao = new List<Solicitacao>();
+            List<Amizade> solicitacao = new List<Amizade>();
             using (contexto = new Contexto())
             {
 
@@ -127,7 +127,7 @@ namespace PFC.DAO
                 {
                     while (reader.Read())
                     {
-                        Solicitacao temObjeto = new Solicitacao();
+                        Amizade temObjeto = new Amizade();
                         temObjeto.usuarioSolicitado.Id = Convert.ToInt32(reader["Id_Usu_Sol"].ToString());
                         temObjeto.usuarioSolicitado = await usuarioDAO.ConsultaUsuarioInt(temObjeto.usuarioSolicitado);
                         temObjeto.usuario.Id = Convert.ToInt32(reader["Id_Usu_Pen"].ToString());

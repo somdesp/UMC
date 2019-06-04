@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PFC.Model
+﻿namespace PFC.Model
 {
-   public  class Solicitacao
+    public  class Amizade
     {
         public string ConnectionId { get; set; }
         public Usuario usuario { get; set; } = new Usuario();

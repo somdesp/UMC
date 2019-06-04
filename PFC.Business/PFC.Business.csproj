@@ -96,7 +96,7 @@
     <Compile Include="Business\DenunciaBLL.cs" />
     <Compile Include="Business\EmailBLL.cs" />
     <Compile Include="Business\NotificacaoBLL.cs" />
-    <Compile Include="Business\SolicitacaoBLL.cs" />
+    <Compile Include="Business\AmizadeBLL.cs" />
     <Compile Include="Business\ArquivoBLL.cs" />
     <Compile Include="Business\AvaliacaoBLL.cs" />
     <Compile Include="Business\RankBLL.cs" />

@@ -9,7 +9,7 @@ namespace PFC.Hubs
     [HubName("notification")]
     public class NotificacaoHub : Hub
     {
-        public void EnvioMensSoli(Solicitacao solicitacao)
+        public void EnvioMensSoli(Amizade solicitacao)
         {
             var msg = String.Format("Nova Solicitação Amizade: {0}", solicitacao.usuario.Nome);
 

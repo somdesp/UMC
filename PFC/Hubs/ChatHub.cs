@@ -12,7 +12,7 @@ namespace PFC.Hubs
     {
         public static string emailIDLoaded = "";
 
-        public static void EnvioMensSoli(Solicitacao solicitacao)
+        public static void EnvioMensSoli(Amizade solicitacao)
         {
             var msg = String.Format("Nova Solicitação Amizade: {0} <{1}>", solicitacao.usuario.Nome, solicitacao.usuario.Email);
 
@@ -70,7 +70,7 @@ namespace PFC.Hubs
                     dc.SaveChanges();
                     Users = dc.ChatUsuDetal.ToList();
                     // send to caller
-                    SolicitacaoBLL solicitacaoBLL = new SolicitacaoBLL();
+                    AmizadeBLL solicitacaoBLL = new AmizadeBLL();
                     var userss =await solicitacaoBLL.ListaAmizade(login.Id);
                     List<ChatUsuDetal> list = new List<ChatUsuDetal>();
 

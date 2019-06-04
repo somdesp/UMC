@@ -6,7 +6,7 @@ using PFC.Model;
 namespace PFC.Controllers
 {
     [Authorize]
-    public class SolicitacaoController : ApiController
+    public class AmizadeController : ApiController
     {
         #region UsuarioEscolhido
         //public JsonResult VisualizarPerfil(Usuario usuario)
@@ -31,9 +31,9 @@ namespace PFC.Controllers
 
         #region AmizadeSOlicitada
         [AcceptVerbs("POST")]
-        public async Task<bool> AmizadeSolicitada([FromBody]Solicitacao amizade)
+        public async Task<bool> AmizadeSolicitada([FromBody]Amizade amizade)
         {
-            SolicitacaoBLL amizadeBll = new SolicitacaoBLL();
+            AmizadeBLL amizadeBll = new AmizadeBLL();
             //NotificacaoHub notificacaoHub = new NotificacaoHub();
             //notificacaoHub.EnvioMensSoli(amizade);
 
@@ -44,9 +44,9 @@ namespace PFC.Controllers
 
         #region ValidaAmizade
         [AcceptVerbs("POST")]
-        public async Task<bool> ValidaAmizade([FromBody]Solicitacao amizade)
+        public async Task<bool> ValidaAmizade([FromBody]Amizade amizade)
         {
-            SolicitacaoBLL amizadeBll = new SolicitacaoBLL();
+            AmizadeBLL amizadeBll = new AmizadeBLL();
             return (await amizadeBll.ValidaAmizade(amizade.usuario, amizade.usuarioSolicitado));
 
         }
@@ -54,9 +54,9 @@ namespace PFC.Controllers
 
         #region AceitaAmizade
         [AcceptVerbs("POST")]
-        public async Task<bool> AceitaAmizade([FromBody]Solicitacao amizade)
+        public async Task<bool> AceitaAmizade([FromBody]Amizade amizade)
         {
-            SolicitacaoBLL amizadeBll = new SolicitacaoBLL();
+            AmizadeBLL amizadeBll = new AmizadeBLL();
             return (await amizadeBll.AceitaAmizade(amizade.usuario, amizade.usuarioSolicitado));
 
         }
@@ -64,9 +64,9 @@ namespace PFC.Controllers
 
         #region CancelaAmizade
         [AcceptVerbs("POST")]
-        public async Task<bool> CancelaAmizade([FromBody]Solicitacao amizade)
+        public async Task<bool> CancelaAmizade([FromBody]Amizade amizade)
         {
-            SolicitacaoBLL amizadeBll = new SolicitacaoBLL();
+            AmizadeBLL amizadeBll = new AmizadeBLL();
             return (await amizadeBll.CancelaAmizade(amizade.usuario, amizade.usuarioSolicitado));
 
         }
