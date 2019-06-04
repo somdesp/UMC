@@ -15,7 +15,7 @@ MeHelp.service('amizadeService', function ($http) {
     this.amizadeSolicitada = function (Solicitacao) {
         var request = $http({
             method: 'post',
-            url: '../api/Solicitacao/AmizadeSolicitada',
+			url: '../api/Amizade/AmizadeSolicitada',
             data: Solicitacao
         });
 
@@ -26,7 +26,7 @@ MeHelp.service('amizadeService', function ($http) {
     this.ValidaAmizade = function (amizade) {
         var request = $http({
             method: 'post',
-            url:'../api/Solicitacao/ValidaAmizade',
+			url:'../api/Amizade/ValidaAmizade',
             data: amizade 
         });
 
@@ -37,7 +37,7 @@ MeHelp.service('amizadeService', function ($http) {
     this.AceitaAmizade = function (amizade) {
         var request = $http({
             method: 'post',
-            url: '../api/Solicitacao/AceitaAmizade',
+			url: '../api/Amizade/AceitaAmizade',
             data: amizade
         });
 
@@ -48,7 +48,7 @@ MeHelp.service('amizadeService', function ($http) {
     this.CancelaAmizade = function (amizade) {
         var request = $http({
             method: 'post',
-            url: '../api/Solicitacao/CancelaAmizade',
+			url: '../api/Amizade/CancelaAmizade',
             data: amizade
         });
 
