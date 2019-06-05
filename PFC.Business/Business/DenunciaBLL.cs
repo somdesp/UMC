@@ -16,9 +16,24 @@ namespace PFC.Business
         {
 
             List<Usuario> usuarios = new List<Usuario>();
-            usuarios= await usuarioBLL.ConsultaUsuarioMasterADM();
-            await emailBLL.EnviarEmail(usuarios,null,"Existe novas notificaçoes");
-            return await denunciaDAO.DenunciaUsuarioAsync(denuncia);
+            List<Denuncia> denunciasArray = await denunciaDAO.VerificaDenuncias(denuncia);
+            if (denunciasArray.Count >= 10)
+            {
+                topicoBLL.RemoverResposta(denuncia);
+                usuarioBLL.InativarUsuario(denuncia.Id_Usu_Pen);
+                denunciaDAO.AtualizaDenuncias(denunciasArray);
+                usuarios.Add(denuncia.Id_Usu_Pen);
+                await emailBLL.EnviarEmail(usuarios, null,
+                    "Sua pergunta '" + denuncia.Topico.Descricao + " foi excluida por excesso de denuncias!!<br>E sua conta foi inativada!!'");
+                return true;
+
+            }
+            else
+            {                
+                usuarios = await usuarioBLL.ConsultaUsuarioMasterADM();
+                //await emailBLL.EnviarEmail(usuarios, null, "Existe novas notificaçoes");
+                return await denunciaDAO.DenunciaUsuarioAsync(denuncia);
+            }
         }
 
         public async Task<bool> RemoverResposta(Denuncia denuncia)
@@ -44,20 +59,17 @@ namespace PFC.Business
 
         public async Task<List<Denuncia>> ListaDenuncia()
         {
-
             try
             {
                 return await denunciaDAO.ListaDenuncia();
             }
             catch (System.Exception)
             {
-
                 throw;
             }
-
         }
 
-        
+
 
 
     }

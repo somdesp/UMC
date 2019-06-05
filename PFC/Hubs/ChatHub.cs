@@ -87,12 +87,13 @@ namespace PFC.Hubs
                     var connectedUsers = list.ToList();
                     var CurrentMessage = dc.ChatMensDetal.ToList();
                     Clients.Caller.onConnected(id, login.Nome, connectedUsers, CurrentMessage);
-                    Clients.AllExcept(id).onNewUserConnected(id, login.Nome, login.Email);
+                    
 
                 }
 
 
                 // send to all except caller client
+                Clients.AllExcept(id).onNewUserConnected(id, login.Nome, login.Email);
             }
         }
         #endregion

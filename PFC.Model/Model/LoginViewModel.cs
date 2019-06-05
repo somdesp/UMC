@@ -12,7 +12,6 @@ namespace PFC.Model
         public int Id { get; set; }
 
         public string ConnectionId { get; set; }
-        public List<LoginViewModel> friendsList { get; set; }
         public string fontColor { get; set; }
         public string sex { get; set; }
         public int age { get; set; }

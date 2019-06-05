@@ -17,7 +17,7 @@ namespace PFC.DAO
             var strQuery = "";
             if (denuncia.Topico.IdTopicoPai != 0)
             {
-              
+
                 strQuery += "INSERT INTO Denuncia (Id_Usu_Sol,Id_Usu_Pen,Descricao,Resposta,Status,Id_Topico,DataCria,Id_topicoFilho) ";
                 strQuery += string.Format("VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}');SELECT SCOPE_IDENTITY() AS Id_Denuncia",
                     denuncia.Id_Usu_Sol.Id, denuncia.Id_Usu_Pen.Id, denuncia.Descricao, denuncia.Resposta, 1, denuncia.Topico.Id, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), denuncia.Topico.IdTopicoPai);
@@ -27,8 +27,8 @@ namespace PFC.DAO
                 strQuery += "INSERT INTO Denuncia (Id_Usu_Sol,Id_Usu_Pen,Descricao,Resposta,Status,Id_Topico,DataCria,Id_topicoFilho) ";
                 strQuery += string.Format("VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}',NULL);SELECT SCOPE_IDENTITY() AS Id_Denuncia",
                     denuncia.Id_Usu_Sol.Id, denuncia.Id_Usu_Pen.Id, denuncia.Descricao, denuncia.Resposta, 1, denuncia.Topico.Id, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-            }  
-            
+            }
+
 
 
 
@@ -119,7 +119,7 @@ namespace PFC.DAO
 
         #endregion
 
-        #region RemoverRespostaAsync
+        #region ValidaDenunciaAs
         public async Task<bool> ValidaDenunciaAs(Denuncia denuncia)
         {
             SqlDataReader reader;
@@ -191,7 +191,7 @@ namespace PFC.DAO
                         temObjeto.Descricao = reader["Descricao"].ToString();
                         temObjeto.Resposta = reader["Resposta"].ToString();
                         temObjeto.Topico.IdTopicoPai = Convert.ToInt16(reader["Id_Topico"].ToString());
-                        temObjeto.Topico.Id = (reader["Id_topicoFilho"].ToString() =="" ) ? temObjeto.Topico.IdTopicoPai : Convert.ToInt16(reader["Id_topicoFilho"].ToString());
+                        temObjeto.Topico.Id = (reader["Id_topicoFilho"].ToString() == "") ? temObjeto.Topico.IdTopicoPai : Convert.ToInt16(reader["Id_topicoFilho"].ToString());
 
 
                         temObjeto.Status = Convert.ToBoolean(reader["Status"].ToString());
@@ -216,6 +216,68 @@ namespace PFC.DAO
 
         }
 
+        #endregion
+
+        #region VerificaDenuncias
+        public async Task<List<Denuncia>> VerificaDenuncias(Denuncia denuncia)
+        {
+            SqlDataReader reader;
+
+            string strQuery;
+
+            strQuery = string.Format("SELECT * FROM Denuncia WHERE Id_Usu_Pen = {1} AND ( Id_topico ={0} OR Id_topicoFilho = {0}) AND Status = 1", denuncia.Topico.Id,denuncia.Id_Usu_Pen.Id);
+
+            try
+            {
+                List<Denuncia> denunciasArray = new List<Denuncia>();
+                using (contexto = new Contexto())
+                {
+                    reader = await contexto.ExecutaComandoComRetorno(strQuery);
+
+                    if (reader.HasRows.Equals(true))
+                    {
+                        while (reader.Read())
+                        {
+                            Denuncia obj = new Denuncia();
+                            obj.Id = Convert.ToInt32(reader["Id"].ToString());
+                            denunciasArray.Add(obj);
+                        }
+
+                    }
+
+                }
+                return denunciasArray;
+            }
+            catch (Exception EX)
+            {
+                throw;
+            }
+
+
+
+        }
+        #endregion
+
+        #region AtualizaDenuncia
+        public async Task<bool> AtualizaDenuncias(List<Denuncia> denunciasArray)
+        {
+            string strQuery ="";
+            try
+            {
+                using (contexto = new Contexto())
+                {
+                    for (int i = 0;i< denunciasArray.Count - 1; i++)
+                    {
+                        strQuery += string.Format(" UPDATE Denuncia SET Status=0,Resposta = 'Ação automatica por excesso de denuncias!!' WHERE Id = {0} ;  ", denunciasArray[i].Id);
+                    }
+                    return contexto.ExecutarInsert(strQuery);                  
+                }
+            }
+            catch (Exception EX)
+            {
+                throw;
+            }
+        }
         #endregion
 
 
