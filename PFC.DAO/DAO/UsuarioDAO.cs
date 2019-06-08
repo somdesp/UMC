@@ -9,10 +9,8 @@ namespace PFC.DAO
     public class UsuarioDAO
     {
         private Contexto contexto;
-        CursoDAO cursoDao = new CursoDAO();
-        SemestreDAO semestreDao = new SemestreDAO();
-        GeneroDAO generoDao = new GeneroDAO();
-        ArquivoDAO arquivoDAO = new ArquivoDAO();
+        AutorizacoesDAO authDao = new AutorizacoesDAO();
+
 
         #region Adicionar Usuario
         public bool AdicionarUsuario(Usuario usuario)
@@ -104,9 +102,11 @@ namespace PFC.DAO
             strQuery += string.Format(" RGM = '{0}', ", usuario.RGM);
             strQuery += string.Format(" Email = '{0}', ", usuario.Email);
             strQuery += string.Format(" DataNasci = '{0}', ",usuario.DataNasci.ToString("yyyy-MM-dd"));
-            strQuery += string.Format(" Id_Curso = '{0}', ", usuario.Curso.Id);
-            strQuery += string.Format(" Id_Semestre = '{0}', ", usuario.Semestre.Id);
-            strQuery += string.Format(" Id_Genero = '{0}' ", usuario.Sexo.Id);
+            strQuery += string.Format(" Id_Curso = {0}, ", usuario.Curso.Id);
+            strQuery += string.Format(" Id_Semestre = {0}, ", usuario.Semestre.Id);
+            strQuery += string.Format(" Id_Genero = {0} , ", usuario.Sexo.Id);
+            strQuery += string.Format(" Id_Permissoes = {0} ", usuario.Auth.Id);
+
             //strQuery += string.Format(" DataCad = '{0}' ", DateTime.Now.ToString());
             strQuery += string.Format(" WHERE Id = {0}; ", usuario.Id);
 
@@ -141,7 +141,7 @@ namespace PFC.DAO
 
             using (contexto = new Contexto())
             {
-                var strQuery = "SELECT * FROM Usuario WHERE Id_Permissoes <> 4";
+                var strQuery = "SELECT * FROM Usuario";
                 reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                 while (reader.Read())
@@ -157,6 +157,8 @@ namespace PFC.DAO
                     temObjeto.Sexo.Id =(Convert.ToInt32(reader["Id_Genero"].ToString()));
                     temObjeto.Semestre.Id = (Convert.ToInt32(reader["Id_Semestre"].ToString()));
                     temObjeto.Curso.Id = (Convert.ToInt32(reader["Id_Curso"].ToString()));
+                    temObjeto.Auth.Id = (Convert.ToInt32(reader["Id_Permissoes"].ToString()));
+                    temObjeto.Auth = await authDao.ReturnAutPorID(temObjeto.Auth);
 
                     usuarios.Add(temObjeto);
                 }
@@ -213,7 +215,7 @@ namespace PFC.DAO
             {
                 using (contexto = new Contexto())
                 {
-                    string strQuery = string.Format("UPDATE Usuario SET Id_Permissoes = 4 WHERE Id = '{0}' ", usuario.Id);
+                    string strQuery = string.Format("UPDATE Usuario SET Id_Permissoes = 5 WHERE Id = '{0}' ", usuario.Id);
                     contexto.ExecutaComandoComRetorno(strQuery);
                 }
 

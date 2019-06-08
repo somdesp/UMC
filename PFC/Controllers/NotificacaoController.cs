@@ -37,7 +37,7 @@ namespace PFC.Controllers
 
         #region VerificaNotificacaoAmizade
         [AcceptVerbs("POST")]
-        [Authorize(Roles = "Master,Master")]
+        [Authorize(Roles = "Master,Moderador")]
         public async Task<bool> VerificaNotificacaoDenunciaAsync([FromBody]Usuario usuario)
         {
             return await notificacaoBLL.VerificaNotificacaoDenunciaAsync(usuario);

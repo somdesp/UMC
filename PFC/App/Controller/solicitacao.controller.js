@@ -33,6 +33,51 @@ MeHelp.controller('amizadeCtrl', function ($scope, toaster, amizadeService, usua
         return Perfil;
     };
 
+    //Aceitar Amizade
+    $scope.aceitarAmizade = function (usuario) {
+
+        var Solicitacao = {
+            usuario: UsuarioLogado ,
+            usuarioSolicitado: usuario
+        };
+        var aceitarAmizade = amizadeService.AceitaAmizade(Solicitacao);
+
+        aceitarAmizade.then(function (d) {
+            if (d.data === true) {
+                toaster.pop('success', "", "Solicitação aceita!!", 2000);
+                ValidaAmizade(UsuarioLogado, usuario);
+
+            } else {
+                toaster.pop('warn', "", "Solicitação não aceita!!", 2000);
+
+            }
+        },
+            function () {
+                $("#resposta").text("Error Critico");
+            });
+    };
+
+
+    //Recusa Amizade
+    $scope.recusarAmizade = function (usuarios) {
+
+        var aceitarAmizade = amizadeService.CancelaAmizade(usuarios);
+
+        aceitarAmizade.then(function (d) {
+            if (d.data === true) {
+                toaster.pop('warn', "", "Solicitação não aceita!!", 2000);
+
+                NotificacaoAmizade(ModelUsuario);
+
+            } else {
+                alert("Solicitação Nao enviada");
+            }
+        },
+            function () {
+                $("#resposta").text("Error Critico");
+            });
+    };
+
 
 
     function carregarCamposEditar(PerfilUsuario) {
@@ -113,7 +158,6 @@ MeHelp.controller('amizadeCtrl', function ($scope, toaster, amizadeService, usua
 
     }
 
-
     // Carregar Semestre
     $scope.carregarSemestre = function (curso) {
          var listarSemestre = usuarioService.getSemestre(curso);
@@ -139,8 +183,6 @@ MeHelp.controller('amizadeCtrl', function ($scope, toaster, amizadeService, usua
             });
 
     };
-
-
 
     function converteDataHora(data) {
         var arrayMes = new Array(12);
@@ -202,12 +244,6 @@ MeHelp.controller('amizadeCtrl', function ($scope, toaster, amizadeService, usua
         });
     };
 
-
-
-
-
-
-
     //Solicitação Amizade
     $scope.conviteAmizade = function (Usu_Sol) {
 
@@ -242,25 +278,25 @@ MeHelp.controller('amizadeCtrl', function ($scope, toaster, amizadeService, usua
 
 
 
-    //Aceitar Amizade
-    $scope.aceitarAmizade = function (usuarios) {
+    ////Aceitar Amizade
+    //$scope.aceitarAmizade = function (usuarios) {
 
-        var aceitarAmizade = amizadeService.AceitaAmizade(usuarios);
+    //    var aceitarAmizade = amizadeService.AceitaAmizade(usuarios);
 
-        aceitarAmizade.then(function (d) {
-            if (d.data === true) {
-                alert("Solicitação Aceita");
-                ValidaAmizade(UsuarioLogado, UsuarioSolicitado);
+    //    aceitarAmizade.then(function (d) {
+    //        if (d.data === true) {
+    //            alert("Solicitação Aceita");
+    //            ValidaAmizade(UsuarioLogado, UsuarioSolicitado);
 
 
-            } else {
-                alert("Solicitação Nao enviada");
-            }
-        },
-            function () {
-                $("#resposta").text("Error Critico");
-            });
-    };
+    //        } else {
+    //            alert("Solicitação não aceita!!");
+    //        }
+    //    },
+    //        function () {
+    //            $("#resposta").text("Error Critico");
+    //        });
+    //};
 
     //Cancela Amizade
     $scope.cancelaAmizade = function (usuarios) {

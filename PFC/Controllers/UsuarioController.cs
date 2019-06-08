@@ -10,6 +10,7 @@ using PFC.Business;
 using PFC.Hubs;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Web;
 
 namespace PFC.Controllers
 {
@@ -24,7 +25,7 @@ namespace PFC.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Master,Usuario,Master")]
+        [Authorize(Roles = "Master,Usuario,Moderador")]
         public ActionResult EditarUsuario()
         {
             ViewBag.IdUsuario = User.Identity.GetUserId<int>();
@@ -74,7 +75,7 @@ namespace PFC.Controllers
 
         #region Metodo Editar Usuario Update   
         //Usuario/Editar
-        [Authorize(Roles = "Master,Usuario,Master")]
+        [Authorize(Roles = "Master,Usuario,Moderador")]
         [HttpPost]
         public ActionResult AtualizarUsuario(Usuario usuario)
         {
@@ -83,7 +84,7 @@ namespace PFC.Controllers
         }
         #endregion
 
-        [Authorize(Roles = "Master,Usuario,Master")]
+        [Authorize(Roles = "Master,Usuario,Moderador")]
         [HttpPost]
         public JsonResult AlterarSenha(Usuario usuario)
         {
@@ -160,7 +161,7 @@ namespace PFC.Controllers
 
         #region UsuarioEscolhido
 
-        [Authorize(Roles = "Master,Usuario,Master")]
+        [Authorize(Roles = "Master,Usuario,Moderador")]
         public async Task<ActionResult> PerfilUsuario(string usuarioId)
         {
             ViewBag.UsuarioId = usuarioId;
@@ -225,7 +226,7 @@ namespace PFC.Controllers
 
         //Método chamado para carregar Usuario  no Post vem todas as informações
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<ActionResult> ConsultarUsuario()
         {
             UsuarioBLL usuarioBll = new UsuarioBLL();
@@ -235,8 +236,25 @@ namespace PFC.Controllers
                 usuario.Id = User.Identity.GetUserId<int>();
                 usuario = await usuarioBll.ConsultaUsuarioInt(usuario);
                 Usuario resposta;
-                if (usuario.Id == 0)
+                if (usuario.Id == 0 || usuario.Auth.Id == 5)
                 {
+                    try
+                    {
+                        var ctx = Request.GetOwinContext();
+                        var authManager = ctx.Authentication;
+                        Session["Imagem"] = null;
+                        authManager.SignOut("ApplicationCookie");
+                        authManager.SignOut();
+                        authManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                        bool retorno = true;
+                        return Json(retorno, JsonRequestBehavior.AllowGet);
+                    }
+                    catch (System.Exception)
+                    {
+
+                        throw;
+                    }
+
                     resposta = null;
                 }
                 else
@@ -274,7 +292,7 @@ namespace PFC.Controllers
 
         }
 
-        [Authorize(Roles = "Master,Usuario,Master")]
+        [Authorize(Roles = "Master,Usuario,Moderador")]
         public ActionResult NotificacaoUsuario()
         {           
             return View();

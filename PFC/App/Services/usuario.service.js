@@ -30,6 +30,10 @@ MeHelp.service('usuarioService', function ($http) {
         return $http.get("/Listas/GetGenero");
     };
 
+    this.getPermissoes = function () {
+        return $http.get("/Listas/GetAutorizacao");
+    };
+
     this.AlterarSenha = function (usuario) {
         var request = $http({
             method: 'POST',

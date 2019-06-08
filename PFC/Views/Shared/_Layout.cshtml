@@ -103,11 +103,23 @@
                                             <li><button onclick="" ng-click="logoutUsuario()" id="btnLogOut">LogOut</button></li>
                                         </ul>
                                     }
-                                    @if (@User.IsInRole("Master") || @User.IsInRole("Master"))
+                                    @if (@User.IsInRole("Master") )
                                     {
                                         <ul class="menu-link">
                                             <li><a href="#" ng-click="pegarIDUsuario()">Editar Perfil</a></li>
                                             <li>@Html.ActionLink("Gerenciamento de Usuarios", "Index", "Usuario")</li>
+                                            <li>@Html.ActionLink("Tema", "Index", "Tema")</li>
+                                            <li>@Html.ActionLink("Rankeamento Usuario", "Ranking", "Topico")</li>
+                                            <li>@Html.ActionLink("Denuncias", "Denuncia", "Home")</li>
+                                            <li>@Html.ActionLink("Topicos", "Gerenciamento", "Topico")</li>
+
+                                            <li><button onclick="" ng-click="logoutUsuario()" id="btnLogOut">LogOut</button></li>
+                                        </ul>
+                                    }
+                                    @if (@User.IsInRole("Moderador"))
+                                    {
+                                        <ul class="menu-link">
+                                            <li><a href="#" ng-click="pegarIDUsuario()">Editar Perfil</a></li>
                                             <li>@Html.ActionLink("Tema", "Index", "Tema")</li>
                                             <li>@Html.ActionLink("Rankeamento Usuario", "Ranking", "Topico")</li>
                                             <li>@Html.ActionLink("Denuncias", "Denuncia", "Home")</li>

@@ -18,7 +18,7 @@ namespace PFC.Business
             
             model = loginDao.Login(model);
 
-            if ((model.Auth.Id == 4) || (model.Nome == null))
+            if ((model.Auth.Id == 5) || (model.Nome == null))
             {
                 model.success = false;
             }

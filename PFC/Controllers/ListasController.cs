@@ -1,4 +1,5 @@
-﻿using PFC.DAO;
+﻿using PFC.Business;
+using PFC.DAO;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -26,9 +27,11 @@ namespace PFC.Controllers
 
 
         [HttpGet]
-        public ActionResult GetAutorização()
+        public async Task<JsonResult> GetAutorizacao()
         {
-            return View();
+            AutorizacoesBLL auth = new AutorizacoesBLL();
+            return Json(await auth.ListarAutorizacoes(), JsonRequestBehavior.AllowGet);
+
         }
         //////////////////////////////////FIM///////////////////////////////////////////////////////
     }

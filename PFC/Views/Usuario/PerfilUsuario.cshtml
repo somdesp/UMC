@@ -104,15 +104,24 @@
                     </div>
                     <!-- My Service End -->
                     @*Verifica se usuario nao é ele mesmo*@
-                    <div ng-if="(ModelUsuario.Id != PerfilUsuario.Id)">
-                        <div ng-if="(valAmi)">
-                            <button ng-click="cancelaAmizade(PerfilUsuario)"  ng-disabled="habilitaBotao" class="btn btn-lg btn-danger">Cancelar amizade</button>
-
-                        </div>
-                        <div ng-if="(!valAmi)">
-                            <button ng-click="conviteAmizade(PerfilUsuario)" ng-disabled="desabilitaBotao" class="btn btn-lg btn-primary">Adicionar Usuario</button>
-                        </div>
+                <div ng-if="(ModelUsuario.Id != PerfilUsuario.Id)">
+                    <div ng-if="(valAmi == 4)">
+                        <button ng-click="cancelaAmizade(PerfilUsuario)" ng-disabled="habilitaBotao" class="btn btn-lg btn-danger">Cancelar amizade!!</button>
                     </div>
+                    <div ng-if="(valAmi == 4+5)">
+                        <button ng-click="cancelaAmizade(PerfilUsuario)" ng-disabled="habilitaBotao" class="btn btn-lg btn-danger">Cancelar amizade!!</button>
+                    </div>
+                    <div ng-if="(valAmi == 0)">
+                        <button ng-click="conviteAmizade(PerfilUsuario)" ng-disabled="desabilitaBotao" class="btn btn-lg btn-primary">Adicionar usuario!!</button>
+                    </div>
+                    <div ng-if="(valAmi == 1+5)">
+                        <button type="button" class="btn btn-info" ng-click="aceitarAmizade(PerfilUsuario)">Aceitar!!</button>
+                        <button type="button" class="btn btn-danger" ng-click="cancelaAmizade(PerfilUsuario)">Recusar!!</button>
+                    </div>
+                    <div ng-if="(valAmi == 1)">
+                        <button ng-click="cancelaAmizade(PerfilUsuario)" ng-disabled="habilitaBotao" class="btn btn-lg btn-danger">Cancelar solicitação enviada!!</button>
+                    </div>
+                </div>
 
 
                 </div>

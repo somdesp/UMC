@@ -24,7 +24,7 @@ namespace PFC.Business
                 denunciaDAO.AtualizaDenuncias(denunciasArray);
                 usuarios.Add(denuncia.Id_Usu_Pen);
                 await emailBLL.EnviarEmail(usuarios, null,
-                    "Sua pergunta '" + denuncia.Topico.Descricao + " foi excluida por excesso de denuncias!!<br>E sua conta foi inativada!!'");
+                    "<b>Sua pergunta/resposta</b> '<i>" + denuncia.Topico.Descricao + "'</i><b> foi excluida por excesso de denuncias!!<br><h1>E sua conta foi inativada!!</h1>");
                 return true;
 
             }

@@ -39,33 +39,41 @@ namespace PFC.DAO
         #endregion
 
         #region ValidaAmizade
-        public async Task<bool> ValidaAmizade(Usuario usuario, Usuario usuarioSolicitado)
+        public async Task<int> ValidaAmizade(Usuario usuario, Usuario usuarioSolicitado)
         {
             SqlDataReader reader;
+            int Id_Status = 0;
 
             using (contexto = new Contexto())
             {
 
-                string strQuery = string.Format("select * from Amizade WHERE (Id_Usu_Sol = '{0}' AND Id_Usu_Pen='{1}') OR (Id_Usu_Sol = '{1}' AND Id_Usu_Pen='{0}')   ",
+                string strQuery = string.Format("SELECT * FROM Amizade WHERE Id_Usu_Sol = {0} AND Id_Usu_Pen={1}",
                     usuario.Id, usuarioSolicitado.Id);
                 reader = await contexto.ExecutaComandoComRetorno(strQuery);
-
-                if (reader.HasRows.Equals(false))
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        Id_Status = int.Parse(reader["Id_Status"].ToString());
+                    }
+                }
+                else
                 {
                     reader.Close();
-                    return false;
+                    strQuery = string.Format("SELECT * FROM Amizade WHERE Id_Usu_Sol = {1} AND Id_Usu_Pen={0}   ",
+                        usuario.Id, usuarioSolicitado.Id);
+                    reader = await contexto.ExecutaComandoComRetorno(strQuery);
+
+                    while (reader.Read())
+                    {
+                        Id_Status = int.Parse(reader["Id_Status"].ToString()) + 5;
+                    }
                 }
-
-
             }
             reader.Close();
-            return true;
-
+            return Id_Status;
         }
-
         #endregion
-
-
 
         #region AceitaAmizade
         public async Task<bool> AceitaAmizadeAsync(Usuario usuario, Usuario usuarioSolicitado)
@@ -111,7 +119,6 @@ namespace PFC.DAO
 
         #endregion
 
-
         #region CancelaAmizade
         public async Task<bool> CancelaAmizade(Usuario usuario, Usuario usuarioSolicitado)
         {
@@ -123,11 +130,11 @@ namespace PFC.DAO
                     string strQuery = string.Format("SELECT * FROM Amizade WHERE (Id_Usu_Pen = {0} AND Id_Usu_Sol={1}) OR (Id_Usu_Pen = {1} AND Id_Usu_Sol={0}) ",
                     usuario.Id, usuarioSolicitado.Id);
 
-                    reader= await contexto.ExecutaComandoComRetorno(strQuery);
+                    reader = await contexto.ExecutaComandoComRetorno(strQuery);
                     int idNot = 0;
                     while (reader.Read())
                     {
-                        idNot = int.Parse(reader["Id"].ToString());         
+                        idNot = int.Parse(reader["Id"].ToString());
                     }
                     reader.Close();
                     strQuery = string.Format("DELETE FROM Notificacao WHERE Id_Amizade ={0};", idNot);

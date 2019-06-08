@@ -39,7 +39,7 @@ namespace PFC.Business
 
         }
 
-        public async Task<bool> ValidaAmizade(Usuario usuario, Usuario usuarioSolicitado)
+        public async Task<int> ValidaAmizade(Usuario usuario, Usuario usuarioSolicitado)
         {
             return await amizadeDao.ValidaAmizade(usuario, usuarioSolicitado);
         }

@@ -4,6 +4,7 @@ MeHelp.controller('usuarioCtrl', function ($scope, usuarioService, toaster) {
     carregarUsuarios();
     carregarCursos();
     carregarGenero();
+    carregarPermissoes();
     carregarUsuarioID(JSON.parse(localStorage.getItem('model')));
 
     var ModelUsuario = JSON.parse(localStorage.getItem('model'));
@@ -81,6 +82,18 @@ MeHelp.controller('usuarioCtrl', function ($scope, usuarioService, toaster) {
 
     };
 
+    // Carregar Permissoes 
+    function carregarPermissoes() {
+        var listarPermissoes = usuarioService.getPermissoes();
+        listarPermissoes.then(function (d) {
+            $scope.Permissoes = d.data;
+        },
+            function () {
+                console.log("Erro ao carregar Permissoes");
+            });
+
+    };
+
 
 
     //Cadastrar Usuario
@@ -105,7 +118,7 @@ MeHelp.controller('usuarioCtrl', function ($scope, usuarioService, toaster) {
         adicionaDadosUsu.then(function (d) {
             if (d.data.success === true) {
                 toaster.clear();
-                toaster.pop('note', "", "Usuario cadastrado", 3000);
+                toaster.pop('success', "", "Usuario cadastrado", 3000);
 
                 $scope.nome = "";
                 $scope.email = "";
@@ -141,6 +154,8 @@ MeHelp.controller('usuarioCtrl', function ($scope, usuarioService, toaster) {
         $scope.cmbGenero = usuario.Sexo.Id;
         $scope.cmbCurso = usuario.Curso.Id;
         $scope.cmbSemestre = usuario.Semestre.Id;
+        $scope.cmbPermissoes = usuario.Auth.Id;
+
     };
 
     //Função chamada quando carrega a modal do editar.
@@ -199,7 +214,9 @@ MeHelp.controller('usuarioCtrl', function ($scope, usuarioService, toaster) {
             Sexo: { Id: $scope.cmbGenero },
             RGM: $scope.rgm,
             Curso: { Id: $scope.cmbCurso },
-            Semestre: { Id: $scope.cmbSemestre }
+            Semestre: { Id: $scope.cmbSemestre },
+            Auth: { Id: $scope.cmbPermissoes }
+
         };
 
         var UpdateUser = usuarioService.atualizarUsuario(usuario);

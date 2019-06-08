@@ -44,7 +44,7 @@ namespace PFC.Controllers
 
         #region ValidaAmizade
         [AcceptVerbs("POST")]
-        public async Task<bool> ValidaAmizade([FromBody]Amizade amizade)
+        public async Task<int> ValidaAmizade([FromBody]Amizade amizade)
         {
             AmizadeBLL amizadeBll = new AmizadeBLL();
             return (await amizadeBll.ValidaAmizade(amizade.usuario, amizade.usuarioSolicitado));
