@@ -34,14 +34,14 @@ namespace PFC.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Admin,Master")]
+        [Authorize(Roles = "Master,Master")]
         // GET: Temas/Create
         public ActionResult Gerenciamento()
         {
             return View();
         }
 
-        [Authorize(Roles = "Admin,Usuario,Master")]
+        [Authorize(Roles = "Master,Usuario,Master")]
         // GET: Temas/Create
         public ActionResult Create()
         {
@@ -51,7 +51,7 @@ namespace PFC.Controllers
 
         #region Resposta Topico
         [HttpPost]
-        [Authorize(Roles = "Admin,Usuario,Master")]
+        [Authorize(Roles = "Master,Usuario,Master")]
         public ActionResult RespostaTopico(Topico topico)
         {
 
@@ -61,7 +61,7 @@ namespace PFC.Controllers
 
         #region Criação de topicos
         [HttpPost]
-        [Authorize(Roles = "Admin,Usuario,Master")]
+        [Authorize(Roles = "Master,Usuario,Master")]
         public async Task<ActionResult> AdicionarTopico(Topico topico)
         {
             Boolean retorno = false;
@@ -121,7 +121,7 @@ namespace PFC.Controllers
 
         #region Adicionar Posts (Repostas Topico)
         [HttpPost]
-        [Authorize(Roles = "Admin,Usuario,Master")]
+        [Authorize(Roles = "Master,Usuario,Master")]
         public ActionResult AdicionarResposta(Topico post)
         {
             TopicoBLL topicoBll = new TopicoBLL();

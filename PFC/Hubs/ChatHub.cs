@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 using PFC.Business;
+using PFC.DAO;
 using PFC.Model;
 
 namespace PFC.Hubs
@@ -12,39 +12,11 @@ namespace PFC.Hubs
     {
         public static string emailIDLoaded = "";
 
-        public static void EnvioMensSoli(Amizade solicitacao)
-        {
-            var msg = String.Format("Nova Solicitação Amizade: {0} <{1}>", solicitacao.usuario.Nome, solicitacao.usuario.Email);
-
-            var hubContext = GlobalHost.ConnectionManager.GetHubContext<NotificacaoHub>();
-
-
-            //string fromUserId = Context.ConnectionId;
-            using (MeHelpChat dc = new MeHelpChat())
-            {
-                var toUser = dc.ChatUsuDetal.FirstOrDefault(x => x.EmailID == solicitacao.usuarioSolicitado.Email);
-                var fromUser = dc.ChatUsuDetal.FirstOrDefault(x => x.EmailID == solicitacao.usuario.Email);
-
-                hubContext.Clients.Client(toUser.ConnectionId).newContact(msg);
-
-                if (toUser != null && fromUser != null)
-                {
-                    //    // send to 
-                    //    Clients.Client(toUserId).sendPrivateMessage(fromUserId, fromUser.UserName, message, fromUser.EmailID, toUser.EmailID, status, fromUserId);
-
-                    //    // send to caller user
-                    //    Clients.Caller.sendPrivateMessage(toUserId, fromUser.UserName, message, fromUser.EmailID, toUser.EmailID, status, fromUserId);
-
-                }
-            }
-
-        }
-
         #region Connect
         public async Task Connect(LoginViewModel login)
         {
             emailIDLoaded = login.Email;
-            string id = Context.ConnectionId;
+            var id = Context.ConnectionId;
             using (MeHelpChat dc = new MeHelpChat())
             {
                 var item = dc.ChatUsuDetal.FirstOrDefault(x => x.EmailID == login.Email);
@@ -68,10 +40,10 @@ namespace PFC.Hubs
                     };
                     dc.ChatUsuDetal.Add(userdetails);
                     dc.SaveChanges();
-                    Users = dc.ChatUsuDetal.ToList();
-                    // send to caller
+
                     AmizadeBLL solicitacaoBLL = new AmizadeBLL();
-                    var userss =await solicitacaoBLL.ListaAmizade(login.Id);
+                    List<Usuario> userss = new List<Usuario>();
+                    userss = await solicitacaoBLL.ListaAmizade(login.Id);
                     List<ChatUsuDetal> list = new List<ChatUsuDetal>();
 
                     //valida se achou amigos 
@@ -81,19 +53,28 @@ namespace PFC.Hubs
                         {
                             list.Add(Users.Find(x => x.EmailID == userss[i].Email));
                         }
+                        // send to caller
+                        var connectedUsers = dc.ChatUsuDetal.ToList();
+                        var CurrentMessage = dc.ChatMensDetal.ToList();
+                        Clients.Caller.onConnected(id, login.Nome, list, CurrentMessage);
+                        await Groups.Add(Context.ConnectionId, login.Nome);
+                        Clients.AllExcept(id).onNewUserConnected(id, login.Nome, login.Email);
+
                     }
+                    else
+                    {
+                        dc.ChatUsuDetal.Remove(item);
+                        dc.SaveChanges();
 
-
-                    var connectedUsers = list.ToList();
-                    var CurrentMessage = dc.ChatMensDetal.ToList();
-                    Clients.Caller.onConnected(id, login.Nome, connectedUsers, CurrentMessage);
-                    
+                        // Disconnect
+                        Clients.All.onUserDisconnectedExisting(item.ConnectionId, item.UserName);
+                    }
 
                 }
 
 
+
                 // send to all except caller client
-                Clients.AllExcept(id).onNewUserConnected(id, login.Nome, login.Email);
             }
         }
         #endregion
@@ -109,8 +90,8 @@ namespace PFC.Hubs
                     dc.ChatUsuDetal.Remove(item);
                     dc.SaveChanges();
 
-                    
-                    Clients.All.onUserDisconnected(Context.ConnectionId, item.UserName);
+                    var id = Context.ConnectionId;
+                    Clients.All.onUserDisconnected(id, item.UserName);
                 }
             }
             return base.OnDisconnected(stopCalled);

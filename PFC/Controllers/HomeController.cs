@@ -51,7 +51,7 @@ namespace PFC.Controllers
             return returnUrl;
         }
 
-        [Authorize(Roles = "Admin,Master")]
+        [Authorize(Roles = "Master,Master")]
         public ActionResult Denuncia()
         {
             return View();

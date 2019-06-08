@@ -30,14 +30,13 @@
     @* <link rel="stylesheet" type="text/css" href="~/Content/css/util.css">*@
     <link rel="stylesheet" type="text/css" href="~/Content/css/main.css">
     <link href="~/Content/css/spinner.css" rel="stylesheet" />
-    <link href="~/Content/css/spinner.css" rel="stylesheet" />
     <link href="~/Content/css/jk-rating-stars.css" rel="stylesheet" />
     <!-- blueimp Gallery styles -->
     <link rel="stylesheet" href="https://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
     <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
     <link rel="stylesheet" href="~/Content/css/jquery.fileupload.css">
     <link rel="stylesheet" href="~/Content/css/jquery.fileupload-ui.css">
-    <link href="~/Scripts/Toaster/toaster.min.css" rel="stylesheet" />
+    @*<link href="~/Scripts/Toaster/toaster.min.css" rel="stylesheet" />*@
     <!-- CSS adjustments for browsers with JavaScript disabled -->
     <noscript><link rel="stylesheet" href="~/Content/css/jquery.fileupload-noscript.css"></noscript>
     <noscript><link rel="stylesheet" href="~/Content/css/jquery.fileupload-ui-noscript.css"></noscript>
@@ -56,16 +55,15 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-
 </head>
 
 <body ng-app="MeHelp">
 
     <toaster-container toaster-options="{'close-button':false,
-                       'time-out':{ 
+                       'time-out':{
                        'toast-warning': 2000,
                        'toast-note': 2000,
-                       'toast-error': 0 
+                       'toast-error': 0
                        } }">
 
     </toaster-container>
@@ -105,18 +103,18 @@
                                             <li><button onclick="" ng-click="logoutUsuario()" id="btnLogOut">LogOut</button></li>
                                         </ul>
                                     }
-                                    @if (@User.IsInRole("Admin") || @User.IsInRole("Master"))
+                                    @if (@User.IsInRole("Master") || @User.IsInRole("Master"))
                                     {
-                                <ul class="menu-link">
-                                    <li><a href="#" ng-click="pegarIDUsuario()">Editar Perfil</a></li>
-                                    <li>@Html.ActionLink("Gerenciamento de Usuarios", "Index", "Usuario")</li>
-                                    <li>@Html.ActionLink("Tema", "Index", "Tema")</li>
-                                    <li>@Html.ActionLink("Rankeamento Usuario", "Ranking", "Topico")</li>
-                                    <li>@Html.ActionLink("Denuncias", "Denuncia", "Home")</li>
-                                    <li>@Html.ActionLink("Topicos", "Gerenciamento", "Topico")</li>
+                                        <ul class="menu-link">
+                                            <li><a href="#" ng-click="pegarIDUsuario()">Editar Perfil</a></li>
+                                            <li>@Html.ActionLink("Gerenciamento de Usuarios", "Index", "Usuario")</li>
+                                            <li>@Html.ActionLink("Tema", "Index", "Tema")</li>
+                                            <li>@Html.ActionLink("Rankeamento Usuario", "Ranking", "Topico")</li>
+                                            <li>@Html.ActionLink("Denuncias", "Denuncia", "Home")</li>
+                                            <li>@Html.ActionLink("Topicos", "Gerenciamento", "Topico")</li>
 
-                                    <li><button onclick="" ng-click="logoutUsuario()" id="btnLogOut">LogOut</button></li>
-                                </ul>
+                                            <li><button onclick="" ng-click="logoutUsuario()" id="btnLogOut">LogOut</button></li>
+                                        </ul>
                                     }
                                 </div>
 
@@ -241,92 +239,6 @@
         </div>
 
         @* Modal cadastro de usuario*@
-        @*<div class="modal fade AdicionarUsuario" role="dialog" ng-controller="usuarioCtrl">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="text-info">Registro Usuario</h3>
-                    </div>
-                    <div class="modal-body">
-                        <form class="form-horizontal" name="AdiconarUsuarioForm">
-                            <div>
-                                <input class="form-control" readonly="readonly" name="Id" type="hidden" />
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" type="text" ng-model="nome" name="Nome" placeholder="Nome" required />
-                                <span ng-class="error" ng-show="AdiconarUsuarioForm.Nome.$error.required">Nome é obrigatório</span>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" type="email" ng-model="email" name="Email" placeholder="Email" required />
-                                <span ng-class="error" ng-show="AdiconarUsuarioForm.Email.$error.required">Email é obrigatório</span>
-                                <span ng-class="error" ng-show="AdiconarUsuarioForm.Email.$error.email"> Formato do e-mail é inválido</span>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" type="text" ng-model="login" name="Login" placeholder="Login" required />
-                                <span ng-class="error" ng-show="AdiconarUsuarioForm.Login.$error.required">Login é obrigatório</span>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" type="password" ng-model="senha" name="Senha" placeholder="Senha" required />
-                                <span ng-class="error" ng-show="AdiconarUsuarioForm.Senha.$error.required">Senha é obrigatório</span>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" type="date" ng-model="dataNasci" name="DataNasci" placeholder="DataNasci" required />
-                                <span ng-class="error" ng-show="AdiconarUsuarioForm.DataNasci.$error.required">DataNasci é obrigatório</span>
-                            </div>
-                            <div class="form-group">
-                                <select ng-model="cmbGenero"
-                                        ng-options="c.Id as c.Sexo for c in Genero">
-                                    <option value="" selected="selected" disabled="disabled"> {{Id || 'Sexo'}} </option>
-                                </select>
-                                <span ng-class="error" ng-show="AdiconarUsuarioForm.cmbGenero.$error.required">Genero é obrigatório</span>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-2">
-                                    Arquivo
-                                </label>
-                                <div class="col-md-6">
-                                    <input type="file" accept="image/*" class="form-control" id="UploadImg" />
-                                </div>
-                                <div class="col-md-4">
-                                    <img id="imgPreview" height="100" width="100" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" type="text" ng-model="rgm" name="RGM" placeholder="RGM" />
-                                <span ng-class="error" ng-show="AdiconarUsuarioForm.RGM.$error.required">RGM é obrigatório</span>
-                            </div>
-
-                            <div class="form-group">
-                                <select ng-model="cmbCurso"
-                                        ng-change="carregarSemestre(cmbCurso)"
-                                        ng-options="c.Id as c['curso' + Lang] for c in Curso">
-                                    <option value="" selected="selected" disabled="disabled"> {{Id || 'Curso'}} </option>
-                                </select>
-                                <span ng-class="error" ng-show="AdiconarUsuarioForm.cmbCurso.$error.required">Curso é obrigatório</span>
-                            </div>
-
-                            <div class="form-group">
-                                <select ng-model="cmbSemestre"
-                                        ng-options="s.Id as s.semestre for s in Semestre">
-                                    >
-                                    <option value="" selected="selected" disabled="disabled">{{Id || 'Semestre'}}</option>
-                                </select>
-                                <span ng-class="error" ng-show="AdiconarUsuarioForm.cmbSemestre.$error.required">Semestre é obrigatório</span>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="btnSalvar"
-                                data-dismiss="modal" ng-click="cadastrarUsuario()">
-                            Resgistrar
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-
-        </div>*@
-
         <div class="modal fade AdicionarUsuario" tabindex="-1" role="dialog" aria-labelledby="AdicionarUsuario" aria-hidden="true" ng-controller="usuarioCtrl">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
@@ -413,7 +325,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" ng-disabled="AdicionarUsuario.$invalid"  data-dismiss="modal"  ng-click="cadastrarUsuario()">Cadastrar</button>
+                        <button type="button" class="btn btn-primary" ng-disabled="AdicionarUsuario.$invalid" data-dismiss="modal" ng-click="cadastrarUsuario()">Cadastrar</button>
                     </div>
                 </div>
             </div>
@@ -461,119 +373,106 @@
                     </div>
                 </div>
             </div>
+        </div>
+        @*Fim de Modal recuperação de senha*@
 
-            @*Fim de Modal recuperação de senha*@
+        @*Chat*@
+        @if (@User.Identity.IsAuthenticated)
+        {
+            <style>
+                .reveal .fa {
+                    font-family: 'FontAwesome';
+                    font-style: normal;
+                }
 
+                ul {
+                    list-style: none;
+                    padding-left: 1px;
+                }
 
+                #PrivateChatArea {
+                    z-index: 44;
+                    max-height: 300px;
+                    min-height: 300px;
+                    width: 278px;
+                    bottom: -2%;
+                    position: fixed;
+                    right: 170px;
+                    opacity: 1;
+                }
 
+                #OnlineUsers {
+                    z-index: 88;
+                    height: auto;
+                    width: 181px;
+                    bottom: -3%;
+                    position: fixed;
+                    right: 0%;
+                    opacity: 1;
+                }
 
+                .alertBox {
+                    bottom: 0px;
+                    right: 0px;
+                    position: fixed;
+                    z-index: 111;
+                }
 
+                h3.media-heading {
+                    font-size: 11px;
+                    font-family: 'Comic Sans MS';
+                    float: left;
+                }
+            </style>
+            <link type="text/css" rel="stylesheet" href="~/Content/Css/ChatStyle.css" />
+            <link rel="stylesheet" href="~/Content/Css/JQueryUI/themes/base/jquery.ui.all.css">
 
-
-
-            @*Chat*@
-            @if (@User.Identity.IsAuthenticated)
-            {
-                <style>
-                    .reveal .fa {
-                        font-family: 'FontAwesome';
-                        font-style: normal;
-                    }
-
-                    ul {
-                        list-style: none;
-                        padding-left: 1px;
-                    }
-
-                    #PrivateChatArea {
-                        z-index: 44;
-                        max-height: 300px;
-                        min-height: 300px;
-                        width: 278px;
-                        bottom: -2%;
-                        position: fixed;
-                        right: 170px;
-                        opacity: 1;
-                    }
-
-                    #OnlineUsers {
-                        z-index: 88;
-                        height: auto;
-                        width: 181px;
-                        bottom: -3%;
-                        position: fixed;
-                        right: 0%;
-                        opacity: 1;
-                    }
-
-                    .alertBox {
-                        bottom: 0px;
-                        right: 0px;
-                        position: fixed;
-                        z-index: 111;
-                    }
-
-                    h3.media-heading {
-                        font-size: 11px;
-                        font-family: 'Comic Sans MS';
-                        float: left;
-                    }
-                </style>
-                <link type="text/css" rel="stylesheet" href="~/Content/Css/ChatStyle.css" />
-                <link rel="stylesheet" href="~/Content/Css/JQueryUI/themes/base/jquery.ui.all.css">
-
-                <div id="OnlineUsers">
-                    <div id="divContainer">
-                        <div id="divChat" class="chatRoom">
-                            <div class="content">
-                                <div id="divusers" class="users">
-                                </div>
+            <div id="OnlineUsers">
+                <div id="divContainer">
+                    <div id="divChat" class="chatRoom">
+                        <div class="content">
+                            <div id="divusers" class="users">
                             </div>
                         </div>
-
-                        <input id="hdId" type="hidden" />
-                        <input id="hdUserName" type="hidden" />
-                        <input id="hdEmailID" type="hidden" />
                     </div>
+
+                    <input id="hdId" type="hidden" />
+                    <input id="hdUserName" type="hidden" />
+                    <input id="hdEmailID" type="hidden" />
                 </div>
+            </div>
 
-            }
+        }
 
-            <script src="~/Scripts/angular.min.js"></script>
-            @Scripts.Render("~/bundles/angular")
+        <script src="~/Scripts/angular.min.js"></script>
+        @Scripts.Render("~/bundles/angular")
 
-            <script src="~/Scripts/angular-animate.js"></script>
-            <script src="~/Scripts/toastr.js"></script>
-            <script src="~/Scripts/Toaster/toaster.min.js"></script>
-            <script src="~/Scripts/scrollglue.js"></script>
-            <script src="~/Scripts/angular-flash.js"></script>
-            <script src="~/Scripts/angular-mocks.js"></script>
-            <script src="~/Scripts/angular-router.js"></script>
-            <script src="~/App/fileUploader.js"></script>
-            <script src="~/Scripts/angular-growl-notifications.js"></script>
-            <!-- Back to Top Start -->
-            <a href="#" class="scroll-to-top"><i class="glyphicon glyphicon-upload"></i></a>
-            <!-- Back to Top End -->
-            <!-- All Javascript Plugins  -->
-            @Scripts.Render("~/bundles/js")
-            <script src="~/App/Services/entity.js"></script>
-            @RenderSection("scripts", required: false)
+        <script src="~/Scripts/scrollglue.js"></script>
+        <script src="~/Scripts/angular-flash.js"></script>
+        <script src="~/Scripts/angular-mocks.js"></script>
+        <script src="~/Scripts/angular-router.js"></script>
+        <script src="~/App/fileUploader.js"></script>
+        <script src="~/Scripts/angular-growl-notifications.js"></script>
+        <!-- Back to Top Start -->
+        <a href="#" class="scroll-to-top"><i class="glyphicon glyphicon-upload"></i></a>
+        <!-- Back to Top End -->
+        <!-- All Javascript Plugins  -->
+        @Scripts.Render("~/bundles/js")
+        <script src="~/App/Services/entity.js"></script>
+        @RenderSection("scripts", required: false)
 
+        <!--Script references. -->
+        <!--Reference the jQuery library. -->
+        <script src="~/Scripts/ui/jquery.ui.core.js"></script>
+        <script src="~/Scripts/ui/jquery.ui.widget.js"></script>
+        <script src="~/Scripts/ui/jquery.ui.mouse.js"></script>
+        <script src="~/Scripts/ui/jquery.ui.draggable.js"></script>
+        <script src="~/Scripts/ui/jquery.ui.resizable.js"></script>
+        <script src="~/Scripts/Upload/uploadImgUsu.js"></script>
 
-
-
-            <!--Script references. -->
-            <!--Reference the jQuery library. -->
-            <script src="~/Scripts/ui/jquery.ui.core.js"></script>
-            <script src="~/Scripts/ui/jquery.ui.widget.js"></script>
-            <script src="~/Scripts/ui/jquery.ui.mouse.js"></script>
-            <script src="~/Scripts/ui/jquery.ui.draggable.js"></script>
-            <script src="~/Scripts/ui/jquery.ui.resizable.js"></script>
-            <script src="~/Scripts/Upload/uploadImgUsu.js"></script>
-
-            <!--Reference the autogenerated SignalR hub script. -->
-            <script src="~/signalr/hubs"></script>
-        </div>
+        <!--Reference the autogenerated SignalR hub script. -->
+        <script src="~/signalr/hubs"></script>
+    </div>
 
 </body>
 </html>

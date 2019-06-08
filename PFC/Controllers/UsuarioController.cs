@@ -18,13 +18,13 @@ namespace PFC.Controllers
     {
         private static string CaminhoImage;
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Master")]
         public ActionResult Index()
         {
             return View();
         }
 
-        [Authorize(Roles = "Admin,Usuario,Master")]
+        [Authorize(Roles = "Master,Usuario,Master")]
         public ActionResult EditarUsuario()
         {
             ViewBag.IdUsuario = User.Identity.GetUserId<int>();
@@ -74,7 +74,7 @@ namespace PFC.Controllers
 
         #region Metodo Editar Usuario Update   
         //Usuario/Editar
-        [Authorize(Roles = "Admin,Usuario,Master")]
+        [Authorize(Roles = "Master,Usuario,Master")]
         [HttpPost]
         public ActionResult AtualizarUsuario(Usuario usuario)
         {
@@ -83,7 +83,7 @@ namespace PFC.Controllers
         }
         #endregion
 
-        [Authorize(Roles = "Admin,Usuario,Master")]
+        [Authorize(Roles = "Master,Usuario,Master")]
         [HttpPost]
         public JsonResult AlterarSenha(Usuario usuario)
         {
@@ -160,7 +160,7 @@ namespace PFC.Controllers
 
         #region UsuarioEscolhido
 
-        [Authorize(Roles = "Admin,Usuario,Master")]
+        [Authorize(Roles = "Master,Usuario,Master")]
         public async Task<ActionResult> PerfilUsuario(string usuarioId)
         {
             ViewBag.UsuarioId = usuarioId;
@@ -274,7 +274,7 @@ namespace PFC.Controllers
 
         }
 
-        [Authorize(Roles = "Admin,Usuario,Master")]
+        [Authorize(Roles = "Master,Usuario,Master")]
         public ActionResult NotificacaoUsuario()
         {           
             return View();

@@ -21,7 +21,7 @@ namespace PFC.Controllers
         }
 
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Master")]
         // GET: Temas/Create
         public ActionResult Create()
         {
@@ -46,7 +46,7 @@ namespace PFC.Controllers
         #endregion
 
         #region Atualizar tema
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Master")]
         public async Task<ActionResult> AtualizarTema(Tema tema)
         {
 
@@ -65,7 +65,7 @@ namespace PFC.Controllers
 
         #region Excluir tema        
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Master")]
         public async Task<ActionResult> ExcluirTema(Tema tema, FormCollection collection)
         {
             TemaDAO temaDAO = new TemaDAO();
@@ -107,7 +107,7 @@ namespace PFC.Controllers
         }
 
         // GET: Temas/Delete/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Master")]
         public ActionResult Delete(int id)
         {
             return View();

@@ -8,8 +8,7 @@
                 <tr>
                     <th>Usuario</th>
                     <th>Email</th>
-                    <th>Curso</th>
-                    <th>Semestre</th>
+                    <th>Permissões</th>
                     <th>Ação</th>
                 </tr>
             </thead>
@@ -18,7 +17,6 @@
                     <td ><a href="../Usuario/PerfilUsuario?usuarioid={{usu.Id}}">{{usu.Nome}}</a></td>
                     <td>{{usu.Email}}</td>
                     <td>{{usu.Curso.curso}}</td>
-                    <td>{{usu.Semestre.semestre}}</td>
                     <td style="width: 200px">
                         <button type="button" data-target="#AtualizarUsuario" class="btn btn-info" data-toggle="modal" ng-click="atualizarUsuarioID(usu)">Editar</button>
                         <button type="button" class="btn btn-danger" ng-click="inativarUsuario(usu)">Inativar</button>

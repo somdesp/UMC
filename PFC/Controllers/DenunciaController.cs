@@ -29,7 +29,7 @@ namespace PFC.Controllers
         }
 
         [AcceptVerbs("POST")]
-        [Authorize(Roles = "Admin,Master")]
+        [Authorize(Roles = "Master,Master")]
         public async Task<List<Denuncia>> ListaDenuncia()
         {
 

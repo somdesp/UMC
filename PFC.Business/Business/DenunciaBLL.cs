@@ -31,7 +31,7 @@ namespace PFC.Business
             else
             {                
                 usuarios = await usuarioBLL.ConsultaUsuarioMasterADM();
-                //await emailBLL.EnviarEmail(usuarios, null, "Existe novas notificaçoes");
+               await emailBLL.EnviarEmail(usuarios, null, "Existe novas notificaçoes");
                 return await denunciaDAO.DenunciaUsuarioAsync(denuncia);
             }
         }

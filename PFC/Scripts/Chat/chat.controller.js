@@ -21,7 +21,7 @@
 
 function noti(notHub) {
 
-    notHub.client.newContact = function(msg) {
+    notHub.client.newContact = function (msg) {
         $("#notificationTab").empty();
         $("#cntNotifications").text(msg);
 
@@ -115,7 +115,7 @@ function registerClientMethods(chatHub) {
         var ctrId = 'private_' + id;
         $('#' + ctrId).remove();
 
-        var disc = $('<div class="disconnect">"' + userName + '" logged off.</div>');
+       // var disc = $('<div class="disconnect">"' + userName + '" logged off.</div>');
 
         $(disc).hide();
         $('#divusers').prepend(disc);

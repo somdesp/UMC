@@ -175,8 +175,10 @@ namespace PFC.DAO
                         temObjeto.Resposta = reader["Resposta"].ToString();
                         temObjeto.DataCria = DateTime.Parse(reader["DataCria"].ToString(), new CultureInfo("pt-BR"));
                         temObjeto.Status =Convert.ToBoolean(reader["Status"].ToString());
-                        temObjeto.Topico.Id = Convert.ToInt32(reader["Id_Topico"].ToString());
-                        temObjeto.Topico = await topicoDAO.DetalheTopico(temObjeto.Topico);
+                        temObjeto.Topico.IdTopicoPai = Convert.ToInt16(reader["Id_Topico"].ToString());
+                        temObjeto.Topico.Id = (reader["Id_topicoFilho"].ToString() == "") ? temObjeto.Topico.IdTopicoPai : Convert.ToInt16(reader["Id_topicoFilho"].ToString());
+
+
 
                         denuncia.Add(temObjeto);
                     }

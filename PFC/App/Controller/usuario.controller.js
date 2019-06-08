@@ -123,7 +123,8 @@ MeHelp.controller('usuarioCtrl', function ($scope, usuarioService, toaster) {
             };
         },
             function () {
-                alert("Erro ao cadastrar");
+                toaster.clear();
+                toaster.pop('error', "", "Usuario não cadastrado", 3000);     
             });
     };
 
@@ -186,6 +187,8 @@ MeHelp.controller('usuarioCtrl', function ($scope, usuarioService, toaster) {
 
     //Atualizar Usuario
     $scope.atualizarUsuario = function () {
+        toaster.pop('wait', "", "Atualizando usuario!!");
+
         var usuario = {
             Id: $scope.id,
             Nome: $scope.nome,
@@ -202,11 +205,13 @@ MeHelp.controller('usuarioCtrl', function ($scope, usuarioService, toaster) {
         var UpdateUser = usuarioService.atualizarUsuario(usuario);
 
         UpdateUser.then(function (d) {
-            if (d.data === true) {
-                alert("Usuario Atualizado");
+            if (d.data === true) {           
+                toaster.clear();
+                toaster.pop('success', "", "Usuario atualizado!!",3000);
                 carregarUsuarios();
             } else {
-                alert("Usuario nao Atualizado");
+                toaster.clear();
+                toaster.pop('error', "", "Usuario não atualizado!!", 3000);
             }
         },
             function () {
@@ -216,19 +221,23 @@ MeHelp.controller('usuarioCtrl', function ($scope, usuarioService, toaster) {
 
     //Inativar Usuario
     $scope.inativarUsuario = function (usuario) {
+        toaster.pop('wait', "", "Inativando usuario!!");
+
         var btnVal = confirm("Deseja Inativar o Usuario?");
 
         if (btnVal === true) {
             var inativarDadosUsuario = usuarioService.inativarUsuario(usuario);
             inativarDadosUsuario.then(function (d) {
                 if (d.data === true) {
-                    alert("Usuario Inativado");
+                    toaster.clear();
+                    toaster.pop('success', "", "Usuario inativado!!", 3000);
                     carregarUsuarios();
                 }
 
             },
                 function () {
-                    alert("Erro ao Inativar");
+                    toaster.clear();
+                    toaster.pop('error', "", "Erro ao inativar!!", 3000);
                 });
         };
     };

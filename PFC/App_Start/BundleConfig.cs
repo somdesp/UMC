@@ -15,7 +15,8 @@ namespace PFC
             bundles.Add(new StyleBundle("~/bundles/css")
                 .Include(
                     "~/Content/css/plugin.css",
-                    "~/Content/css/style.css"
+                    "~/Content/css/style.css",
+                    "~/Scripts/Toaster/toaster.min.css"
 
                 ));
 
