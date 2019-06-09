@@ -68,6 +68,16 @@ MeHelp.service('topicoService', function ($http,$q) {
         return request;
     };
 
+    //ExcluirTopicoUsuario
+    this.ExcluirTopicoUsuario = function (topico) {
+        var request = $http({
+            method: 'post',
+            url: '../api/TopicoAPI/ExcluirTopicoUsuario',
+            data: topico
+        });
+        return request;
+    };
+
     // descobrir o id do Usuario
     this.idUsuarioatual = function () {
         var request = $http({

@@ -266,8 +266,18 @@ namespace PFC.DAO
                 return contexto.ExecutarInsert(strQuery);
             }
         }
+        #endregion
 
-
+        #region ExcluirTopicoUsuario
+        public bool ExcluirTopicoUsuario(Topico post)
+        {
+            var strQuery = "";
+            strQuery += string.Format("UPDATE Topico SET Id_Status= 4,  DataUpdate = '{1}' WHERE Id='{0}'", post.Id, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            using (contexto = new Contexto())
+            {
+                return contexto.ExecutarInsert(strQuery);
+            }
+        }
         #endregion
 
         #region Listar Topicos Pai conforme a pesquisa do usuario

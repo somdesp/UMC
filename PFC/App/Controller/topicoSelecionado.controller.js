@@ -47,6 +47,29 @@
 
     };
 
+    //ExcluirTopicoUsuario
+    $scope.ExcluirTopicoUsuario = function (topico) {
+        toaster.pop('wait', "", "Excluindo topico!!");
+
+        var ExcluirTopicoUsuario = topicoService.ExcluirTopicoUsuario(topico);
+
+        ExcluirTopicoUsuario.then(function (d) {
+
+            if (d.data === true) {
+                toaster.clear();
+                toaster.pop('success', "", "Topico excluido!!", 3000);
+
+                setTimeout(function () {
+                    window.location.href = "../Home/Index";
+                },
+                    2000
+                );
+            }
+        });
+
+
+    };
+
 
     function carregarIdUsuario() {
 
