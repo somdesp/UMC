@@ -196,7 +196,8 @@ namespace PFC.DAO
             querySQL += "INNER JOIN Usuario u ON(ava.id_Usuario_DonoTopico = u.Id) ";
             querySQL += "Left JOIN Curso c ON(u.Id_Curso = c.Id)) ";
             querySQL += "WHERE ava.Data_Avaliacao > CONVERT(date, GETDATE(), 111) ";
-            querySQL += "GROUP by u.Id,u.Nome,c.Curso,ava.id_Usuario_DonoTopico";
+            querySQL += "GROUP by u.Id,u.Nome,c.Curso,ava.id_Usuario_DonoTopico ";
+            querySQL += "ORDER BY Pontos desc";
             SqlDataReader reader;
             using (contexto = new Contexto())
             {

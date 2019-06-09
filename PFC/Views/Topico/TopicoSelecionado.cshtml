@@ -156,9 +156,9 @@ document.body.style.visibility="visible"
                     <img src="~/Upload/{{TopicosSelc.usuario.UploadArquivo.Caminho}}" class="media-object" style="width: 60px">
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading"><a href="../Usuario/PerfilUsuario?usuarioid={{TopicosSelc.usuario.Id}}" target="_blank"> {{TopicosSelc.usuario.Nome}} </a><small>{{TopicosSelc.DataCria}}</small></h4>
-
-                    <p>{{TopicosSelc.Descricao}}</p>
+                    <h4 class="media-heading"><a href="../Usuario/PerfilUsuario?usuarioid={{TopicosSelc.usuario.Id}}" target="_blank"> {{TopicosSelc.usuario.Nome}} </a><small>{{TopicosSelc.DataCria}}</small><small><button class="btn" ng-click="topicodeTexto(TopicosSelc.Id)" ng-show="(TopicosSelc.Descricao.length>50)">Leia mais...</button></small></h4>
+                                                         
+                    <p ng-class="TopicosSelc.Id==itemSelecionado ? 'textoaparecer':'text-nowrap bd-highlight'">{{TopicosSelc.Descricao}}</p>
                     <div ng-if="(TopicosSelc.usuario.Id!==usuario.Id)">
                         <div ng-if="(usuID>0)">
 
