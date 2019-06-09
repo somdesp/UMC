@@ -284,7 +284,7 @@ namespace PFC.DAO
 
             using (contexto = new Contexto())
             {
-                string strQuery = string.Format("select u.Id'ID',u.Nome'Nome',u.Id,arqu.Arquivo'Anexo'  from Usuario u INNER JOIN Arquivos arqu ON u.Id = arqu.Id");
+                string strQuery = string.Format("select u.Id'ID',u.Nome'Nome',u.Id,arqu.Arquivo'Anexo'  from Usuario u INNER JOIN Arquivos arqu ON u.Id_Arquivo = arqu.Id");
                 reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                 if (reader.HasRows)

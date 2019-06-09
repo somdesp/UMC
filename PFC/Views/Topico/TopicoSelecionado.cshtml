@@ -275,7 +275,7 @@ document.body.style.visibility="visible"
 
                                             <!-- USERNAME -->
                                             <div class="form-group" ng-class="{ 'has-error' : userForm.titulo.$invalid && !userForm.titulo.$pristine }">
-                                                <textarea type="text" name="mensagem" class="form-control" ng-model="denuncia" ng-minlength="15" ng-maxlength="300"></textarea>
+                                                <textarea type="text" name="mensagem" class="form-control areaResposta" ng-model="denuncia" ng-minlength="15" ng-maxlength="300"></textarea>
                                                 <p ng-show="userForm.denuncia.$error.minlength" class="help-block">A denuncia deve ter no mínimo 15 caracteres.</p>
                                                 <p ng-show="userForm.denuncia.$error.maxlength" class="help-block">A denuncia deve ter no máximo 300 caracteres.</p>
                                             </div>
@@ -453,7 +453,7 @@ document.body.style.visibility="visible"
 
                         <div class="form-group">
 
-                            <textarea class="form-control" ng-model="areaResposta.Descricao" rows="10" cols="60" id="areaResposta" required></textarea>
+                            <textarea class="form-control areaResposta" ng-model="areaResposta.Descricao" rows="10" cols="60"  required></textarea>
                         </div>
                         <button class="btn btn-primary comentariobotao" type="submit" ng-click="novoPost(areaResposta)" ng-disabled="resposta.$invalid">
                             <i class="fas fa-comment fa-2x"></i>
@@ -478,7 +478,7 @@ document.body.style.visibility="visible"
 
                             <!-- USERNAME -->
                             <div class="form-group" ng-class="{ 'has-error' : userForm.titulo.$invalid && !userForm.titulo.$pristine }">
-                                <textarea type="text" name="mensagem" class="form-control" ng-model="denuncia" ng-minlength="15" ng-maxlength="300"></textarea>
+                                <textarea type="text" name="mensagem" class="form-control areaResposta"  ng-model="denuncia" ng-minlength="15" ng-maxlength="300"></textarea>
                                 <p ng-show="userForm.denuncia.$error.minlength" class="help-block">A denuncia deve ter no mínimo 15 caracteres.</p>
                                 <p ng-show="userForm.denuncia.$error.maxlength" class="help-block">A denuncia deve ter no máximo 300 caracteres.</p>
                             </div>

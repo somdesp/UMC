@@ -16,7 +16,7 @@
         <div class="float-pesquisa">
 
             <ul class="list-group classePesquisa" ng-model="pesquisaUsu" ng-show="(pesquisar.length>0)">
-                
+
                 <li class="list-group-item" ng-repeat="p in pesquisaUsu|limitTo:5"><a class="classePesquisa" href="/Usuario/PerfilUsuario?usuarioid={{p.Id}}"><img class="img-thumbnail pesquisa" src="../Upload/{{p.UploadArquivo.Caminho}}" alt="">{{p.Nome}}</a></li>
             </ul>
         </div>
@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12" ng-if="(ModelUsuario.Id === PerfilUsuario.Id)" >
+                <div class="col-md-12" ng-if="(ModelUsuario.Id === PerfilUsuario.Id)">
                     <br />
                     <button type="button" class="btn btn-primary editarbotao" data-toggle="modal" data-target="#loginSenha">
                         <i class="fas fa-key fa-2x"></i>
@@ -93,35 +93,38 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="post-title">
-                        <h1>Status <span class="main-color">Amizade</span></h1>
-                    </div>
-                    <div class="list list-style-2 margin-top-30">
-                        <ul>
-                            <li>Solicitação Amizade:</li>
-                            
-                        </ul>
-                    </div>
+
+
                     <!-- My Service End -->
                     @*Verifica se usuario nao é ele mesmo*@
-                <div ng-if="(ModelUsuario.Id != PerfilUsuario.Id)">
-                    <div ng-if="(valAmi == 4)">
-                        <button ng-click="cancelaAmizade(PerfilUsuario)" ng-disabled="habilitaBotao" class="btn btn-lg btn-danger">Cancelar amizade!!</button>
+                    <div ng-if="(ModelUsuario.Id != PerfilUsuario.Id)">
+                        <div class="post-title">
+                            <h1>Status <span class="main-color">Amizade</span></h1>
+                        </div>
+                        <div class="list list-style-2 margin-top-30">
+                            <ul>
+                                <li>Solicitação Amizade:</li>
+
+                            </ul>
+                        </div>
+                        <div ng-if="(valAmi == 4)">
+
+                            <button ng-click="cancelaAmizade(PerfilUsuario)" ng-disabled="habilitaBotao" class="btn btn-lg btn-danger">Cancelar amizade!!</button>
+                        </div>
+                        <div ng-if="(valAmi == 4+5)">
+                            <button ng-click="cancelaAmizade(PerfilUsuario)" ng-disabled="habilitaBotao" class="btn btn-lg btn-danger">Cancelar amizade!!</button>
+                        </div>
+                        <div ng-if="(valAmi == 0)">
+                            <button ng-click="conviteAmizade(PerfilUsuario)" ng-disabled="desabilitaBotao" class="btn btn-lg btn-primary">Adicionar usuario!!</button>
+                        </div>
+                        <div ng-if="(valAmi == 1+5)">
+                            <button type="button" class="btn btn-info" ng-click="aceitarAmizade(PerfilUsuario)">Aceitar!!</button>
+                            <button type="button" class="btn btn-danger" ng-click="cancelaAmizade(PerfilUsuario)">Recusar!!</button>
+                        </div>
+                        <div ng-if="(valAmi == 1)">
+                            <button ng-click="cancelaAmizade(PerfilUsuario)" ng-disabled="habilitaBotao" class="btn btn-lg btn-danger">Cancelar solicitação enviada!!</button>
+                        </div>
                     </div>
-                    <div ng-if="(valAmi == 4+5)">
-                        <button ng-click="cancelaAmizade(PerfilUsuario)" ng-disabled="habilitaBotao" class="btn btn-lg btn-danger">Cancelar amizade!!</button>
-                    </div>
-                    <div ng-if="(valAmi == 0)">
-                        <button ng-click="conviteAmizade(PerfilUsuario)" ng-disabled="desabilitaBotao" class="btn btn-lg btn-primary">Adicionar usuario!!</button>
-                    </div>
-                    <div ng-if="(valAmi == 1+5)">
-                        <button type="button" class="btn btn-info" ng-click="aceitarAmizade(PerfilUsuario)">Aceitar!!</button>
-                        <button type="button" class="btn btn-danger" ng-click="cancelaAmizade(PerfilUsuario)">Recusar!!</button>
-                    </div>
-                    <div ng-if="(valAmi == 1)">
-                        <button ng-click="cancelaAmizade(PerfilUsuario)" ng-disabled="habilitaBotao" class="btn btn-lg btn-danger">Cancelar solicitação enviada!!</button>
-                    </div>
-                </div>
 
 
                 </div>

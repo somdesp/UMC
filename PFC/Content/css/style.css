@@ -859,7 +859,7 @@ div.blog-post {
 }
 
 .blog-post p {
-    width: 550px;
+    width: 500px;
     font-size: 16px;
     line-height: 30px;
     color: #696868;
@@ -2068,7 +2068,8 @@ button.btn.btn-primary.comentariobotao {
     border-radius: 30px;
 }
 
-textarea#areaResposta.form-control {
+
+textarea.areaResposta.form-control {
     border-radius: 9px;
     border-color: #ccd0ce;
     box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
@@ -2077,7 +2078,7 @@ textarea#areaResposta.form-control {
     resize: vertical;
 }
 
-    textarea#areaResposta.form-control:focus {
+    textarea.areaResposta.form-control:focus {
         border-color: #1abc9c;
         opacity: 0.9;
         resize: none;
