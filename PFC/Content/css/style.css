@@ -2133,7 +2133,7 @@ ul, li.classePesquisa {
  }
 
 tr.classeUsuario {
-    background: #1abc9c;
+    background: #87E4AE;
 }
 
 growl-notifications {
@@ -2187,7 +2187,10 @@ growl-notification.fading.ng-leave {
  growl-notification.fading.ng-leave.ng-leave-active {
     opacity: 0;
  }
-
+div.notificacao{
+    margin-top: 15px;
+    margin-right:20px;
+}
 span.tituloNotificacao{
     padding-left:10px;
 }

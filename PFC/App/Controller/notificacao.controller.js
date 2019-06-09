@@ -26,7 +26,7 @@
         Notificacao.then(function (d) {
 
             if (d.data !== false) {
-                $self.notifications.push("Voçe tem novas Mensagens");
+                $self.notifications.push("Voce tem novas Mensagens");
                 NotificacaoAmizade(UsuarioSolicitado);
                 $scope.$apply();
             }

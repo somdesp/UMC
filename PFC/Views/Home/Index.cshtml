@@ -23,46 +23,54 @@
 }
 
 <div class="row" ng-controller="topicoCtrl as travel">
+    <div class="row">
+        <div class="col-md-10">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:5px 0;">
+                <a class="navbar-brand ">Topicos Abertos</a>
+                <div class="navbar-collapse collapse" id="navb" style="">
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:5px 0;">
-        <a class="navbar-brand ">Topicos Abertos</a>
-        <div class="navbar-collapse collapse" id="navb" style="">
+
+                    <form name="FormPesquisa " class="form-inline my-2 my-lg-0">
+                        <div class="input-group-prepend">
+                            <select class="form-control" ng-options="t.Nome for t in Tema track by t.Id" ng-change="pesquisaTema(temaSelecionado)" ng-model="temaSelecionado">
+                                <option value="" class="ng-binding">Nenhum tema</option>
+                            </select>
+                            <input type="text" class="form-control text-sm-center classePesquisa" ng-model="pesquisa" placeholder="Pesquisar..." ng-model-options="{debounce: 200}" ng-change="pesquisar(pesquisa)" />
+                        </div>
+
+                        <div class="float-pesquisa">
+                            <ul class="list-group classePesquisa" ng-model="Topico" ng-show="(pesquisa.length>0)">
+                                <li class="list-group-item classePesquisa" ng-repeat="topico in Topico|limitTo:5"><a class="classePesquisa" href="/Topico/TopicoSelecionado?topicoId={{topico.Id}}">{{topico.Titulo}}></a></li>
+                            </ul>
+                        </div>
+                    </form>
+
+
+
+
+                </div>
+            </nav>
+        </div>
+        <div class="col-md-2">
             @if (@User.Identity.IsAuthenticated)
             {
-                <div ng-controller="notificationController as n">
-                    <ul class="navbar-nav mr-auto" role="menu">
-                        <li class="nav-item" role="presentation" ng-repeat="msg in n.notifications">
-                            <a href="../Usuario/NotificacaoUsuario" role="menuitem" tabindex="-1" ng-click="n.read($index)">{{msg}}</a>
-                            <hr />
+                if (User.IsInRole("Master")||User.IsInRole("Moderador"))
+                {
+                    <div ng-controller="notificationController as n">
+                        <div class="notificacao">
+                            <a href="../Usuario/NotificacaoUsuario" role="menuitem" tabindex="-1" ng-click="n.read($index)">
+                                <i class="fa-bell fa-2x color-4" ng-class="n.count()>0 ? 'fas':'far'" uib-tooltip="Você tem novas notificações" tooltip-placement="right" tooltip-enable="n.count()>0"></i>
+                            </a>
+                        </div>
 
-                        </li>
-                        <li class="nav-item">
-                        </li>
+                    </div>
+                }
+                
 
-                    </ul>
-                </div>
             }
 
-            <form name="FormPesquisa " class="form-inline my-2 my-lg-0">
-                <div class="input-group-prepend">
-                    <select class="form-control" ng-options="t.Nome for t in Tema track by t.Id" ng-change="pesquisaTema(temaSelecionado)" ng-model="temaSelecionado">
-                        <option value="" class="ng-binding">Nenhum tema</option>
-                    </select>
-                    <input type="text" class="form-control text-sm-center classePesquisa" ng-model="pesquisa" placeholder="Pesquisar..." ng-model-options="{debounce: 200}" ng-change="pesquisar(pesquisa)" />
-                </div>
-
-                <div class="float-pesquisa">
-                    <ul class="list-group classePesquisa" ng-model="Topico" ng-show="(pesquisa.length>0)">
-                        <li class="list-group-item classePesquisa" ng-repeat="topico in Topico|limitTo:5"><a class="classePesquisa" href="/Topico/TopicoSelecionado?topicoId={{topico.Id}}">{{topico.Titulo}}></a></li>
-                    </ul>
-                </div>
-            </form>
-
-
-
-
         </div>
-    </nav>
+    </div>
 
 
     <div class="row">
@@ -185,13 +193,13 @@
 
                         </div>
                     </form>
-                        <div class="modal-footer justify-content-center">
-                            <button type="button"  ng-click="novoTopico()"class="btn btn-primary waves-effect waves-light" data-dismiss="modal" ng-disabled="!AdiconarTopicoForm.$valid">
-                                Criar
-                                <i class="fa fa-paper-plane ml-1"></i>
-                            </button>
-                            <button type="button" class="btn btn-outline-primary waves-effect" data-dismiss="modal">Cancelar</button>
-                        </div>                
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" ng-click="novoTopico()" class="btn btn-primary waves-effect waves-light" data-dismiss="modal" ng-disabled="!AdiconarTopicoForm.$valid">
+                            Criar
+                            <i class="fa fa-paper-plane ml-1"></i>
+                        </button>
+                        <button type="button" class="btn btn-outline-primary waves-effect" data-dismiss="modal">Cancelar</button>
+                    </div>
 
                 </div>
             </div>

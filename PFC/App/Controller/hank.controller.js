@@ -2,9 +2,20 @@
 
     carregarHank();
     carregarHankInicial();
-  
+    usuarioconectado();
+   
 
-    //$scope.Idusuario = localid.Id;
+    function usuarioconectado() {
+        var localid = JSON.parse(localStorage.getItem('model'));
+        if (localid === null) {
+
+        }
+        else {
+            $scope.Idusuario = localid.Id;
+        }
+        
+    };
+
 
     function carregarHank() {
         var listarUsuarios = hankService.rankUsuario();
