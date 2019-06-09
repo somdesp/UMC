@@ -53,7 +53,21 @@ namespace PFC.Controllers
 
         }
 
+        #region ExcluirTopicoUsuario
+        [AcceptVerbs("POST")]
+        public bool ExcluirTopicoUsuario([FromBody]Topico topico)
+        {
+            try
+            {
+                return topicoBll.ExcluirTopicoUsuario(topico);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
 
+        }
+        #endregion
 
         [AcceptVerbs("POST")]
         [Authorize(Roles = "Master,Master")]

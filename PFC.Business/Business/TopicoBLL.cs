@@ -217,5 +217,13 @@ namespace PFC.Business
             return await daoTopico.AlterarTopico(topico);
         }
         #endregion
+
+        #region ExcluirTopicoUsuario
+        public bool ExcluirTopicoUsuario(Topico topico)
+        {
+            return daoTopico.ExcluirTopicoUsuario(topico);
+        }
+
+        #endregion
     }
 }
