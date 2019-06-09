@@ -93,7 +93,7 @@ namespace PFC.Business
         #endregion
 
         #region Adicona Resposta
-        public bool AdicionarPosts(Topico post)
+        public Task<int> AdicionarPosts(Topico post)
         {
             post.TopicoFilho.Status.Id = 1;
             daoTopico.UpdateDataTopico(post);

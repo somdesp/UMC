@@ -82,8 +82,8 @@ namespace PFC.DAO
                 {
                     var strQuery = string.Format(" SELECT toc.Id  As IdTopico,toc.Titulo,toc.Id_Tema,toc.Id_Usuario As IdUsuario,toc.IdTopicoPai," +
                         "toc.Id_Status,toc.Id_Status, toc.Descricao, toc.DataCriacao, usu.Id AS IdUsuario, usu.Nome, usu.Login, usu.Email, usu.Senha, usu.RGM," +
-                        "usu.DataNasci, usu.DataCad, usu.Id_Curso, usu.Id_Semestre, usu.Id_Genero, usu.Id_Arquivo, usu.Id_Permissoes AS IdTopico ,arq.Arquivo FROM Topico toc" +
-                       " INNER JOIN Usuario usu ON usu.Id = toc.Id_Usuario INNER JOIN Arquivos arq ON arq.Id = usu.Id_Arquivo WHERE toc.IdTopicoPai = {0} ", idTopico);
+                        "usu.DataNasci, usu.DataCad, usu.Id_Curso, usu.Id_Semestre, usu.Id_Genero, usu.Id_Arquivo, usu.Id_Permissoes AS IdTopico ,arq.Arquivo,arqtop.Arquivo AS ArquivoTopico  FROM Topico toc" +
+                       " INNER JOIN Usuario usu ON usu.Id = toc.Id_Usuario INNER JOIN Arquivos arq ON arq.Id = usu.Id_Arquivo LEFT JOIN Arquivos arqtop ON arqtop.Id_Topico = toc.Id WHERE toc.IdTopicoPai = {0} ", idTopico);
                     reader = await contexto.ExecutaComandoComRetorno(strQuery);
 
                     while (reader.Read())
@@ -106,6 +106,8 @@ namespace PFC.DAO
                         readerTopico.usuario.Sexo.Id = Convert.ToInt32(reader["Id_Genero"].ToString());
                         readerTopico.Tema.Id = Convert.ToInt32(reader["Id_Tema"].ToString());
                         readerTopico.Status.Id = Convert.ToInt32(reader["Id_Status"].ToString());
+                        readerTopico.Anexos.Caminho = reader["ArquivoTopico"].ToString();
+                        
 
                         topico.Add(readerTopico);
                     }
@@ -170,22 +172,28 @@ namespace PFC.DAO
         #endregion
 
         #region Adicionar Posts (Respostas)
-        public bool AdicionarPosts(Topico post)
+        public async Task<int> AdicionarPosts(Topico post)
         {
-            bool retorno = false;
+            SqlDataReader reader;
+            int idTopico = 0;
             var strQuery = "";
             strQuery += "INSERT INTO Topico(Titulo,Descricao,Id_Tema,Id_Usuario ,IdTopicoPai,DataCriacao,Id_Status) ";
-            strQuery += string.Format("VALUES('{0}','{1}','{2}','{3}','{4}','{5}',{6});",
+            strQuery += string.Format("VALUES('{0}','{1}','{2}','{3}','{4}','{5}',{6}); SELECT SCOPE_IDENTITY() As IdTopico",
                 post.Titulo, post.TopicoFilho.Descricao, post.Tema.Id, post.TopicoFilho.usuario.Id,
                 post.Id, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), post.TopicoFilho.Status.Id);
 
             using (contexto = new Contexto())
             {
-                retorno = contexto.ExecutarInsert(strQuery);
+                reader = await contexto.ExecutaComandoComRetorno(strQuery);
+
+                while (reader.Read())
+                {
+                    idTopico = Convert.ToInt32(reader["IdTopico"].ToString());
+                }
+
 
             }
-
-            return retorno;
+            return idTopico;
         }
         #endregion
 

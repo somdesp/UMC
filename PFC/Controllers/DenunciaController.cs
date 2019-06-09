@@ -32,13 +32,7 @@ namespace PFC.Controllers
         [Authorize(Roles = "Master,Moderador")]
         public async Task<List<Denuncia>> ListaDenuncia()
         {
-
             return await denunciaBll.ListaDenuncia();
-
         }
-
-        
-
-
     }
 }

@@ -54,19 +54,14 @@
         <div class="col-md-2">
             @if (@User.Identity.IsAuthenticated)
             {
-                if (User.IsInRole("Master")||User.IsInRole("Moderador"))
-                {
-                    <div ng-controller="notificationController as n">
-                        <div class="notificacao">
-                            <a href="../Usuario/NotificacaoUsuario" role="menuitem" tabindex="-1" ng-click="n.read($index)">
-                                <i class="fa-bell fa-2x color-4" ng-class="n.count()>0 ? 'fas':'far'" uib-tooltip="Você tem novas notificações" tooltip-placement="right" tooltip-enable="n.count()>0"></i>
-                            </a>
-                        </div>
-
+                <div ng-controller="notificationController as n">
+                    <div class="notificacao">
+                        <a href="../Usuario/NotificacaoUsuario" role="menuitem" tabindex="-1" ng-click="n.read($index)">
+                            <i class="fa-bell fa-2x color-4" ng-class="n.count()>0 ? 'fas':'far'" uib-tooltip="Você tem novas notificações" tooltip-placement="right" tooltip-enable="n.count()>0"></i>
+                        </a>
                     </div>
-                }
-                
 
+                </div>
             }
 
         </div>

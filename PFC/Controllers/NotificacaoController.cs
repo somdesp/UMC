@@ -35,7 +35,7 @@ namespace PFC.Controllers
         }
         #endregion        
 
-        #region VerificaNotificacaoAmizade
+        #region VerificaNotificacaoDenunciaAsync
         [AcceptVerbs("POST")]
         [Authorize(Roles = "Master,Moderador")]
         public async Task<bool> VerificaNotificacaoDenunciaAsync([FromBody]Usuario usuario)

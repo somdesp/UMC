@@ -33,7 +33,7 @@ document.body.style.visibility="visible"
 
 
         <div class="well well-sm" style="background-color: #d7ffef">
-            <div class="btn-group dropright" ng-if="TopicosSelc.Status.Id!= 4">
+            <div class="btn-group dropright" ng-if="TopicosSelc.Status.Id != 4">
                 @if (@User.Identity.IsAuthenticated)
                 {
                     <button type="button" class="close" data-toggle="dropdown" aria-label="Close" style="margin-top: -6px;margin-right: 0px;">
@@ -43,7 +43,7 @@ document.body.style.visibility="visible"
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     <li><a href="" data-toggle="modal" data-target="#ModalDenuncia{{TopicosSelc.usuario.Id}}{{TopicosSelc.Id}}">Denunciar</a></li>
 
-                    @if (@User.IsInRole("Admin") || @User.IsInRole("Master"))
+                    @if (@User.IsInRole("Moderador") || @User.IsInRole("Master"))
                     {
                         <li role="separator" class="divider"></li>
                         <li><a href="" data-toggle="modal" data-target="#ModalRemove{{TopicosSelc.usuario.Id}}{{TopicosSelc.Id}}">Remover topico</a></li>

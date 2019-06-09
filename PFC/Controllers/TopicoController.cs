@@ -122,7 +122,7 @@ namespace PFC.Controllers
         #region Adicionar Posts (Repostas Topico)
         [HttpPost]
         [Authorize(Roles = "Master,Usuario,Moderador")]
-        public ActionResult AdicionarResposta(Topico post)
+        public async Task<ActionResult> AdicionarResposta(Topico post)
         {
             TopicoBLL topicoBll = new TopicoBLL();
 
@@ -137,7 +137,7 @@ namespace PFC.Controllers
 
             post.TopicoFilho.usuario.Id = User.Identity.GetUserId<int>();
 
-            bool retorno = topicoBll.AdicionarPosts(post);
+            int retorno =await topicoBll.AdicionarPosts(post);
 
             return Json(retorno);
         }

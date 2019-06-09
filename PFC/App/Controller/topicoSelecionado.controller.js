@@ -108,7 +108,7 @@
 
                 setTimeout(function () {
                     toaster.pop('success', "", "Resposta enviada", 3000);
-                    $scope.areaResposta.Descricao = '';
+                    $scope.areaResposta="";
                     $scope.areaResposta = null;
 
                     $scope.areaResposta = {};
