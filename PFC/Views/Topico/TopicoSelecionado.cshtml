@@ -41,7 +41,7 @@ document.body.style.visibility="visible"
                     </button>
                 }
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="" data-toggle="modal" data-target="#ModalDenuncia{{TopicosSelc.usuario.Id}}{{TopicosSelc.Id}}">Denunciar</a></li>
+                    <li ng-if="TopicosSelc.usuario.Id != usuario.Id"><a href="" data-toggle="modal" data-target="#ModalDenuncia{{TopicosSelc.usuario.Id}}{{TopicosSelc.Id}}">Denunciar</a></li>
                     <li ng-if="TopicosSelc.usuario.Id == usuario.Id"><a href="" data-toggle="modal" data-target="#InativarTopicoUsuario{{topico.usuario.Id}}{{topico.Id}}">Excluir</a></li>
 
 
@@ -228,12 +228,12 @@ document.body.style.visibility="visible"
                 <div class="btn-group dropright" ng-if="topico.Status.Id!= 4">
                     @if (@User.Identity.IsAuthenticated)
                     {
-                        <button type="button" class="close" data-toggle="dropdown" aria-label="Close" style="margin-top: -6px;margin-right: 0px;">
+                        <button ng-if="topico.usuario.Id != usuario.Id" type="button" class="close" data-toggle="dropdown" aria-label="Close" style="margin-top: -6px;margin-right: 0px;">
                             <span aria-hidden="true" class="white-text">×</span>
                         </button>
                     }
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><a href="" data-toggle="modal" data-target="#ModalDenuncia{{topico.usuario.Id}}{{topico.Id}}">Denunciar</a></li>
+                        <li ><a href="" data-toggle="modal" data-target="#ModalDenuncia{{topico.usuario.Id}}{{topico.Id}}">Denunciar</a></li>
 
 
                         @if (@User.IsInRole("Moderador") || @User.IsInRole("Master"))
@@ -411,7 +411,7 @@ document.body.style.visibility="visible"
                             <img src="~/Upload/{{topico.usuario.UploadArquivo.Caminho}}" class="media-object" style="width:150px" alt="avatar">
                         </div>
                         <!--Body-->
-                        <div class="modal-body text-center mb-1">
+                        <div class="modal-body text-center mb-1" ng-controller="amizadeCtrl">
 
                             <h5 class="mt-1 mb-2"><a href="../Usuario/PerfilUsuario?usuarioid={{topico.usuario.Id}}" target="_blank">{{topico.usuario.Nome}} </a></h5>
 
@@ -420,7 +420,7 @@ document.body.style.visibility="visible"
                             </div>
                             <br />
                             <div class="text-center mt-4">
-                                <a type="button" class="btn btn-primary waves-effect waves-light" data-dismiss="modal">
+                                <a type="button" ng-click="conviteAmizade(topico.usuario)" class="btn btn-primary waves-effect waves-light" data-dismiss="modal">
                                     Enviar Solicitação
                                     <i class="fa fa-paper-plane ml-1"></i>
                                 </a>

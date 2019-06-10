@@ -192,11 +192,11 @@ namespace PFC.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> VisualizarPerfil(Usuario usuario)
+        public async Task<JsonResult> VisualizarPerfil(Usuario usuario)
         {
             UsuarioBLL usuarioBll = new UsuarioBLL();
             usuario = await usuarioBll.ConsultaUsuarioInt(usuario);
-            return Json(usuario, JsonRequestBehavior.AllowGet);
+            return Json(usuario);
         }
 
         #endregion

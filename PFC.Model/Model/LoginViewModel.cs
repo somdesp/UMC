@@ -11,14 +11,6 @@ namespace PFC.Model
     {
         public int Id { get; set; }
 
-        public string ConnectionId { get; set; }
-        public string fontColor { get; set; }
-        public string sex { get; set; }
-        public int age { get; set; }
-        public string status { get; set; }
-        public string memberType { get; set; }
-        public string avator { get; set; }
-
         [Required]
         public string Login { get; set; }
 
@@ -37,13 +29,5 @@ namespace PFC.Model
 
         public Autorizacoes Auth { get; set; } = new Autorizacoes();
         public Anexos UploadArquivo { get; set; } = new Anexos();
-    }
-
-    public enum Status
-    {
-        Online,
-        Away,
-        Busy,
-        Offline
     }
 }
