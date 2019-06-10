@@ -327,7 +327,7 @@ namespace PFC.DAO
         public bool RemoverResposta(Denuncia denuncia)
         {
             var strQuery = "";
-            strQuery += string.Format("UPDATE Topico SET DataUpdate = GETDATE(),Id_Status= 4 WHERE Id={0}", denuncia.Topico.Id);
+            strQuery += string.Format("UPDATE Topico SET DataUpdate = GETDATE(),Id_Status= 3 WHERE Id={0}", denuncia.Topico.Id);
             using (contexto = new Contexto())
             {
                 return contexto.ExecutarInsert(strQuery);
