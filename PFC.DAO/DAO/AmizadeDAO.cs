@@ -143,7 +143,7 @@ namespace PFC.DAO
 
 
                     strQuery = string.Format(" DELETE Amizade WHERE (Id_Usu_Pen = {0} AND Id_Usu_Sol={1}) OR (Id_Usu_Pen = {1} AND Id_Usu_Sol={0}) ",
-    usuario.Id, usuarioSolicitado.Id);
+                        usuario.Id, usuarioSolicitado.Id);
 
                     contexto.ExecutarInsert(strQuery);
                     return true;

@@ -6,7 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="f3f8b526da404931a506ed0eff1f4fb8" Name="Diagram1">
         <EntityTypeShape EntityType="MeHelpChatModel.ChatMensDetal" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MeHelpChatModel.ChatPrivMensDetal" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MeHelpChatModel.ChatPrivMensDetal" Width="1.5" PointX="3.375" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MeHelpChatModel.ChatPrivMensMaster" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MeHelpChatModel.ChatUsuDetal" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
       </Diagram>

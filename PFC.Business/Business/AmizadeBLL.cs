@@ -22,8 +22,9 @@ namespace PFC.Business
                 {
                     List<Usuario> listUsuario = new List<Usuario>();
                     listUsuario.Add(usuarioSolicitado);
-                    await emailBLL.EnviarEmail(listUsuario, null,"Você tem uma nova solicitação de amizade!!");
                     await notificacaoBLL.AdicionaNotificação(id_amizade);
+                    await emailBLL.EnviarEmail(listUsuario, null, "Você tem uma nova solicitação de amizade!!");
+
                     return true;
                 }
                 return false;

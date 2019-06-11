@@ -46,7 +46,8 @@ namespace PFC.Business
                 usuarios.Add(denuncia.Id_Usu_Pen);
                 topicoBLL.RemoverResposta(denuncia);
 
-                await emailBLL.EnviarEmail(usuarios, null, "Sua Pergunta/Reposta foi deletada do topico  http://www.mehelpehml.tk/Topico/TopicoSelecionado?topicoId=" + denuncia.Topico.Id + " por desrespeitar as regras do fórum");
+                await emailBLL.EnviarEmail(usuarios, null, "Sua Pergunta/Reposta foi deletada do topico"+
+             "http://www.mehelpehml.tk/Topico/TopicoSelecionado?topicoId=" + denuncia.Topico.Id + " por desrespeitar as regras do fórum");
                 return await denunciaDAO.RemoverRespostaAsync(denuncia);
             }
             catch (System.Exception)

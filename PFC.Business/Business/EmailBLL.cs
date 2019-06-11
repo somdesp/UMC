@@ -50,6 +50,8 @@ namespace PFC.Business
                 string emailSenderHost = ConfigurationManager.AppSettings["smtp"].ToString();
                 int emailSenderPort = Convert.ToInt16(ConfigurationManager.AppSettings["portnumber"]);
                 string arqEmail = ConfigurationManager.AppSettings["FilePath"].ToString();
+                bool IsSSL =Convert.ToBoolean( ConfigurationManager.AppSettings["IsSSL"].ToString());
+
 
                 string FilePath =  System.Web.Hosting.HostingEnvironment.MapPath("/")+ arqEmail;
                 StreamReader str = new StreamReader(FilePath);
@@ -78,7 +80,7 @@ namespace PFC.Business
                     SmtpClient _smtp = new SmtpClient();
                     _smtp.Host = emailSenderHost;
                     _smtp.Port = emailSenderPort;
-                    _smtp.EnableSsl = true;
+                    _smtp.EnableSsl = IsSSL;
                     NetworkCredential _network = new NetworkCredential(emailSender, emailSenderPassword);
                     _smtp.Credentials = _network;
 
