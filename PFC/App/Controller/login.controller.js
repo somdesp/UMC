@@ -101,9 +101,14 @@
 
 $(function () {
     var url_atual = window.location.href;
-
-    var ModelUsuario = JSON.parse(localStorage.getItem('model'));
-    if (ModelUsuario !== null) {
-        $("#imgUser").attr("src", "/Upload/" + ModelUsuario.UploadArquivo.Caminho);
+    try {
+        var ModelUsuario = JSON.parse(localStorage.getItem('model'),(key,value));
+        if (ModelUsuario !== null) {
+            $("#imgUser").attr("src", "/Upload/" + ModelUsuario.UploadArquivo.Caminho);
+        }
     }
+    catch (ex) {
+
+    }
+    
 });

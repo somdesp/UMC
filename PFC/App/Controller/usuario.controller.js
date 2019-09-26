@@ -6,11 +6,15 @@ MeHelp.controller('usuarioCtrl', function ($scope, usuarioService, toaster) {
     carregarGenero();
     carregarPermissoes();
     carregarUsuarioID(JSON.parse(localStorage.getItem('model')));
+    try {
+        var ModelUsuario = JSON.parse(localStorage.getItem('model'), (key, value));
+    } catch (ex) {
 
-    var ModelUsuario = JSON.parse(localStorage.getItem('model'));
+    }
+   
 
     //Valida se tem dados na localStorage  
-    if (ModelUsuario === null) {
+    if (ModelUsuario === null || ModelUsuario === undefined) {
         //
 
     } else {
